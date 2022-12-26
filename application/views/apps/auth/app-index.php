@@ -1,5 +1,5 @@
 <div class="apps-topbar fixed-top">
-    <div class="apps-login mx-auto">
+    <div class="apps-auth mx-auto">
         <div class="d-flex flex-row">
             <a href="" class="me-auto">
                 <img src="<?= base_url() ?>assets/img/icon-home.png" alt="Home">
@@ -11,8 +11,8 @@
     </div>
 </div>
 
-<div class="apps-body">
-    <div class="apps-login m-auto">
+<div class="apps-body min-100vh">
+    <div class="apps-auth m-auto">
         <div class="logo">
             <img src="<?= base_url() ?>assets/img/ciak-logo.png" alt="Ciak.Live">
         </div>

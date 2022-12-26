@@ -1,5 +1,5 @@
 *:focus {
-    outline: none;
+    outline: none !important;
 }
 
 .apps-container {
@@ -8,8 +8,6 @@
     height: 100%;
     min-height: 100vh;
 }
-
-.apps-container.dark {}
 
 .apps-container.auth {
     background: linear-gradient(90deg, #EFF5FF 0%, #D9F3FF 100%);
@@ -31,35 +29,35 @@
     height: 100%;
 }
 
-.apps-login {
+.apps-auth {
     max-width: 768px;
     margin: 0 auto;
 }
 
-.apps-topbar .apps-login {
+.apps-topbar .apps-auth {
     margin: auto;
     padding: 1rem;
 }
 
-.apps-topbar .apps-login a img {
+.apps-topbar .apps-auth a img {
     height: 50px;
 }
 
-.apps-topbar .apps-login .link-back a img {
+.apps-topbar .apps-auth .link-back a img {
     height: 35px;
 }
 
-.apps-topbar .apps-login .logo-top {
+.apps-topbar .apps-auth .logo-top {
     padding: 1rem;
     display: flex;
     flex-direction: column;
 }
 
-.apps-topbar .apps-login .logo-top img {
+.apps-topbar .apps-auth .logo-top img {
     height: 100px;
 }
 
-.apps-topbar .apps-login .logo-top span.title {
+.apps-topbar .apps-auth .logo-top span.title {
     font-weight: 500;
     font-size: 24px;
     line-height: 28px;
@@ -67,7 +65,7 @@
     color: #000000;
 }
 
-.apps-topbar .apps-login .logo-top span.title.dark {
+.apps-topbar .apps-auth .logo-top span.title.dark {
     color: #FFF;
 }
 
@@ -89,7 +87,7 @@
     background-position: bottom center;
 }
 
-.apps-topbar .apps-login .mode-apps input {
+.apps-topbar .apps-auth .mode-apps input {
     width: 125px;
     height: 50px;
     border-radius: 100px;
@@ -104,22 +102,26 @@
     background-position: left center;
 }
 
-.apps-topbar .apps-login .mode-apps input:checked {
+.apps-topbar .apps-auth .mode-apps input:checked {
     background: url(../img/sun.png);
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-position: right center;
 }
 
-.apps-body {
+.apps-container.auth .apps-body {
     height: 100%;
-    min-height: 100vh;
     width: 100%;
     display: flex;
     position: relative;
 }
 
-.apps-body .bg-cricle-top {
+
+.apps-container.auth .apps-body.min-100vh {
+    min-height: 100vh;
+}
+
+.apps-container.auth .apps-body .bg-cricle-top {
     position: absolute;
     top: 0;
     left: 0;
@@ -128,7 +130,7 @@
     z-index: 1;
 }
 
-.apps-body .bg-cricle-bot {
+.apps-container.auth .apps-body .bg-cricle-bot {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -137,49 +139,45 @@
     z-index: 1;
 }
 
-.apps-body .apps-login {
+.apps-container.auth .apps-body .apps-auth {
     z-index: 2;
 }
 
-.apps-body .apps-login .logo {
+.apps-container.auth .apps-body .apps-auth .logo {
     text-align: center;
 }
 
-.apps-body .apps-login .logo img {
+.apps-container.auth .apps-body .apps-auth .logo img {
     height: 150px;
 }
 
-.apps-body .apps-login .notif-success {
+.apps-container.auth .apps-body .apps-auth .notif-success {
     padding: 2rem 0;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.apps-body .apps-login .notif-success {
+.apps-container.auth .apps-body .apps-auth .notif-success {
     border-top: 1px solid #FFDDBD;
     border-bottom: 1px solid #FFDDBD;
 }
 
-.apps-body .apps-login .notif-success img {
+.apps-container.auth .apps-body .apps-auth .notif-success img {
     position: relative;
     height: 150px;
     z-index: 1;
 }
 
-.apps-body .apps-login .notif-success .img-notif {
+.apps-container.auth .apps-body .apps-auth .notif-success .img-notif {
     position: relative;
     height: auto;
 }
 
-.apps-body .apps-login .notif-success span.title {
+.apps-container.auth .apps-body .apps-auth .notif-success span.title {
     font-weight: 600;
     font-size: 20px;
     line-height: 16px;
     padding: 1rem;
-    /* identical to box height, or 80% */
-
-
-    /* ORANGE */
 
     background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
     -webkit-background-clip: text;
@@ -188,7 +186,7 @@
     text-fill-color: transparent;
 }
 
-.apps-body .apps-login .notif-success .img-notif .blur {
+.apps-container.auth .apps-body .apps-auth .notif-success .img-notif .blur {
     position: absolute;
     height: 250px;
     width: 100%;
@@ -197,7 +195,7 @@
     border-radius: 231.5px;
 }
 
-.apps-body .apps-login .notif-success .message {
+.apps-container.auth .apps-body .apps-auth .notif-success .message {
     font-weight: 400;
     font-size: 18px;
     line-height: 16px;
@@ -208,21 +206,21 @@
     padding: 1rem 2rem;
 }
 
-.apps-body .apps-login .notif-success .message.bg-message {
+.apps-container.auth .apps-body .apps-auth .notif-success .message.bg-message {
     background: rgba(247, 94, 46, 0.17);
     border-radius: 15px;
 }
 
-.apps-body .apps-login .notif-success .message p {
+.apps-container.auth .apps-body .apps-auth .notif-success .message p {
     color: #000000;
     margin: 0;
 }
 
-.apps-body .apps-login .notif-success .message.dark p {
+.apps-container.auth .apps-body .apps-auth .notif-success .message.dark p {
     color: #FFF;
 }
 
-.apps-body .apps-login .logo p.info {
+.apps-container.auth .apps-body .apps-auth .logo p.info {
     font-weight: 600;
     font-size: 12px;
     line-height: 18px;
@@ -231,12 +229,12 @@
     color: #000000;
 }
 
-.apps-body .apps-login .logo p.info.dark {
+.apps-container.auth .apps-body .apps-auth .logo p.info.dark {
     color: #FFFFFF;
 }
 
-.apps-body .apps-login .apps-list-btn a,
-.apps-body .apps-login .apps-list-btn button {
+.apps-container.auth .apps-body .apps-auth .apps-list-btn a,
+.apps-container.auth .apps-body .apps-auth .apps-list-btn button {
     margin: .5rem 0;
     padding: .65rem 3rem;
     text-decoration: none;
@@ -252,21 +250,21 @@
     color: #F83B00;
 }
 
-.apps-body .apps-login .apps-list-btn a.btn-ciak-o,
-.apps-body .apps-login .apps-list-btn button.btn-ciak-o {
+.apps-container.auth .apps-body .apps-auth .apps-list-btn a.btn-ciak-o,
+.apps-container.auth .apps-body .apps-auth .apps-list-btn button.btn-ciak-o {
     color: #FFF;
     border: 2px solid #F83B00;
     background: #F83B00;
 }
 
-.apps-body .apps-login .apps-list-btn a.btn-ciak-o.bg-gardien,
-.apps-body .apps-login .apps-list-btn button.btn-ciak-o.bg-gardien {
+.apps-container.auth .apps-body .apps-auth .apps-list-btn a.btn-ciak-o.bg-gardien,
+.apps-container.auth .apps-body .apps-auth .apps-list-btn button.btn-ciak-o.bg-gardien {
     color: #000;
     border: none;
     background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
 }
 
-.apps-body .apps-login .form-login label {
+.apps-container.auth .apps-body .apps-auth .form-login label {
     font-weight: 700;
     font-size: 14px;
     line-height: 16px;
@@ -274,13 +272,13 @@
     color: #000000;
 }
 
-.apps-body .apps-login .form-login label.dark {
+.apps-container.auth .apps-body .apps-auth .form-login label.dark {
     color: #FFF;
 }
 
-.apps-body .apps-login .form-login input,
-.apps-body .apps-login .form-login input:focus,
-.apps-body .apps-login .form-login input::placeholder {
+.apps-container.auth .apps-body .apps-auth .form-login input,
+.apps-container.auth .apps-body .apps-auth .form-login input:focus,
+.apps-container.auth .apps-body .apps-auth .form-login input::placeholder {
     font-weight: 300;
     font-size: 14px;
     line-height: 16px;
@@ -289,17 +287,17 @@
     color: #595959;
 }
 
-.apps-body .apps-login .form-login input.dark,
-.apps-body .apps-login .form-login input.dark:focus {
+.apps-container.auth .apps-body .apps-auth .form-login input.dark,
+.apps-container.auth .apps-body .apps-auth .form-login input.dark:focus {
     color: #FFF;
     background: rgba(255, 255, 255, 0.56);
 }
 
-.apps-body .apps-login .form-login input.dark::placeholder {
+.apps-container.auth .apps-body .apps-auth .form-login input.dark::placeholder {
     color: #FFF;
 }
 
-.apps-body .apps-login .form-login .foget-pass a {
+.apps-container.auth .apps-body .apps-auth .form-login .foget-pass a {
     text-decoration: none;
     font-weight: 300;
     font-size: 10px;
@@ -307,22 +305,22 @@
     color: #000000;
 }
 
-.apps-body .apps-login .form-login .foget-pass a.dark {
+.apps-container.auth .apps-body .apps-auth .form-login .foget-pass a.dark {
     color: #FFF;
 }
 
-.apps-body .apps-login .form-login .noted-info span {
+.apps-container.auth .apps-body .apps-auth .form-login .noted-info span {
     font-weight: 300;
     font-size: 12px;
     line-height: 14px;
     color: #000000;
 }
 
-.apps-body .apps-login .form-login .noted-info span.dark {
+.apps-container.auth .apps-body .apps-auth .form-login .noted-info span.dark {
     color: #FFF;
 }
 
-.apps-body .apps-login .form-login .noted-info span a {
+.apps-container.auth .apps-body .apps-auth .form-login .noted-info span a {
     text-decoration: none;
     font-weight: 400;
     font-size: 12px;
@@ -330,52 +328,52 @@
     color: #F83B00;
 }
 
-.apps-body .apps-login .formbox-grey {
+.apps-container.auth .apps-body .apps-auth .formbox-grey {
     background: linear-gradient(116.41deg, rgba(171, 171, 171, 0.44) -0.2%, rgba(108, 108, 108, 0) 122.69%);
     backdrop-filter: blur(2px);
     border-radius: 12px;
 }
 
-.apps-body .apps-login .formbox-grey.dark {
+.apps-container.auth .apps-body .apps-auth .formbox-grey.dark {
     background: linear-gradient(116.41deg, rgba(255, 255, 255, 0.44) -0.2%, rgba(255, 255, 255, 0) 122.69%);
     backdrop-filter: blur(2px);
     border-radius: 12px;
 }
 
 
-.apps-body .apps-login .formbox-grey label.dark {
+.apps-container.auth .apps-body .apps-auth .formbox-grey label.dark {
     color: #000;
 }
 
-.apps-body .apps-login .form-icon-left {
+.apps-container.auth .apps-body .apps-auth .form-icon-left {
     padding: .5rem .5rem;
     background: rgba(255, 255, 255, 0.6);
 }
 
-.apps-body .apps-login .form-icon-left.dark {
+.apps-container.auth .apps-body .apps-auth .form-icon-left.dark {
     background: #000000;
 }
 
-.apps-body .apps-login .form-icon-left span,
-.apps-body .apps-login .form-icon-left input {
+.apps-container.auth .apps-body .apps-auth .form-icon-left span,
+.apps-container.auth .apps-body .apps-auth .form-icon-left input {
     background-color: transparent !important;
     border: none;
     color: #BABABA;
 }
 
-.apps-body .apps-login .form-icon-left span svg {
+.apps-container.auth .apps-body .apps-auth .form-icon-left span svg {
     height: 20px;
     fill: #BABABA;
 }
 
-.apps-body .apps-login .copyright-form {
+.apps-container.auth .apps-body .apps-auth .copyright-form {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     justify-content: center;
 }
 
-.apps-body .apps-login .copyright-form span.powered {
+.apps-container.auth .apps-body .apps-auth .copyright-form span.powered {
     font-weight: 500;
     font-size: 10px;
     line-height: 16px;
@@ -383,15 +381,15 @@
     color: #000000;
 }
 
-.apps-body .apps-login .copyright-form span.powered.dark {
+.apps-container.auth .apps-body .apps-auth .copyright-form span.powered.dark {
     color: #FFFFFF;
 }
 
-.apps-body .apps-login .copyright-form img.mif {
+.apps-container.auth .apps-body .apps-auth .copyright-form img.mif {
     height: 35px;
 }
 
-.apps-body .apps-login .copyright-form span.mif {
+.apps-container.auth .apps-body .apps-auth .copyright-form span.mif {
     font-weight: 600;
     font-size: 13px;
     line-height: 16px;
@@ -399,7 +397,7 @@
     color: #FDC80B;
 }
 
-.apps-body .apps-login .form-login .agree label {
+.apps-container.auth .apps-body .apps-auth .form-login .agree label {
     font-weight: 300;
     font-size: 12px;
     line-height: 12px;
@@ -407,11 +405,11 @@
     color: #000000;
 }
 
-.apps-body .apps-login .form-login .agree label.dark {
+.apps-container.auth .apps-body .apps-auth .form-login .agree label.dark {
     color: #FFFFFF;
 }
 
-.apps-body .apps-login .form-login .agree input {
+.apps-container.auth .apps-body .apps-auth .form-login .agree input {
     background-color: #000000;
     /* background: url(../img/moon.png); */
     background-repeat: no-repeat;
@@ -419,12 +417,12 @@
     background-position: left center;
 }
 
-.apps-body .apps-login .form-login .agree input.dark {
+.apps-container.auth .apps-body .apps-auth .form-login .agree input.dark {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
 
-.apps-body .apps-login .form-login .agree input:checked {
+.apps-container.auth .apps-body .apps-auth .form-login .agree input:checked {
     background-color: #F83B00;
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>");
     background-repeat: no-repeat;
@@ -432,22 +430,187 @@
     background-position: right center;
 }
 
+/* Member */
+
+.apps-container.member .apps-body {
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.apps-container.h100vh {
+    min-height: 100vh;
+}
+
+.apps-container.h900vh {
+    min-height: 100vh;
+}
+
+.apps-member {
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+.apps-topbar .apps-member {
+    margin: auto;
+    padding: 1rem;
+}
+
+.apps-topbar .apps-member {
+    margin: auto;
+    padding: 1rem;
+}
+
+.apps-topbar .apps-member .search {
+    background: #ECEBED;
+    border-radius: 32px;
+    padding: .15rem 1rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.apps-topbar .apps-member .search input,
+.apps-topbar .apps-member .search span {
+    color: #727477;
+    background-color: transparent;
+    border: none;
+    margin: 0 .25rem;
+}
+
+.apps-topbar .apps-member .tools-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.apps-topbar .apps-member .tools-bar a {
+    width: 35px;
+    height: 35px;
+
+    margin: auto .25rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    text-decoration: none;
+
+    color: #181A1C;
+}
+
+.apps-topbar .apps-member .tools-bar a.add-border {
+    border: 1px solid #727477;
+}
+
+.apps-topbar .apps-member .tools-bar a i {
+    position: relative;
+}
+
+.apps-topbar .apps-member .tools-bar a i .buble-red {
+    position: absolute;
+    top: 1px;
+    right: -1px;
+
+    width: 5px;
+    height: 5px;
+
+    background: #F72E8E;
+    border: 1.2px solid #181A1C;
+}
+
+.apps-container.member .apps-body .apps-adive {
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+    overflow-y: hidden;
+
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 0;
+}
+
+.apps-container.member .apps-body .apps-adive::-webkit-scrollbar {
+    display: none;
+}
+
+.apps-container.member .apps-body .apps-adive .somebody {
+    position: relative;
+    height: 140px;
+    min-width: 100px;
+    width: 100px;
+    margin-right: 1rem;
+
+    display: grid;
+    align-items: flex-end;
+
+
+    background: linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    padding: 3px;
+    border-radius: 16px;
+
+}
+
+.apps-container.member .apps-body .apps-adive .somebody img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    margin-right: 1rem;
+    border-radius: 16px;
+}
+
+.apps-container.member .apps-body .apps-adive .somebody img.border-status {
+    padding: 3px;
+}
+
+.apps-container.member .apps-body .apps-adive .somebody .action {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 0 .5rem;
+}
+
+.apps-container.member .apps-body .apps-adive .somebody .action .action-btn {
+    display: block;
+    padding: .25rem .75rem;
+    margin: .5rem auto;
+    text-align: center;
+
+    background: linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    border-radius: 5px;
+
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 16px;
+
+    color: #FFFFFF;
+}
+
 @media (max-width: 320px) {
-    .apps-body .apps-login .copyright-form {
+    .apps-container.auth .apps-body .apps-auth .copyright-form {
         flex-wrap: wrap;
     }
 }
 
 @media (max-width: 575px) {
-    .apps-topbar .apps-login a img {
+    .apps-topbar .apps-auth a img {
         height: 35px;
     }
 
-    .apps-topbar .apps-login .logo-top img {
+    .apps-topbar .apps-auth .logo-top img {
         height: 75px;
     }
 
-    .apps-topbar .apps-login .logo-top span.title {
+    .apps-topbar .apps-auth .logo-top span.title {
         font-size: 18px;
     }
 
@@ -455,39 +618,39 @@
         height: 35px;
     }
 
-    .apps-topbar .apps-login .mode-apps input {
+    .apps-topbar .apps-auth .mode-apps input {
         width: 75px;
         height: 25px;
     }
 
-    .apps-body .apps-login .logo img {
+    .apps-container.auth .apps-body .apps-auth .logo img {
         height: 150px;
     }
 
-    .apps-body .apps-login .apps-list-btn a,
-    .apps-body .apps-login .apps-list-btn button {
+    .apps-container.auth .apps-body .apps-auth .apps-list-btn a,
+    .apps-container.auth .apps-body .apps-auth .apps-list-btn button {
         padding: .5rem 2rem;
     }
 
-    .apps-body .apps-login .form-login label {
+    .apps-container.auth .apps-body .apps-auth .form-login label {
         font-size: 14px;
     }
 
-    .apps-body .apps-login .form-login input,
-    .apps-body .apps-login .form-login input:focus,
-    .apps-body .apps-login .form-login input::placeholder {
+    .apps-container.auth .apps-body .apps-auth .form-login input,
+    .apps-container.auth .apps-body .apps-auth .form-login input:focus,
+    .apps-container.auth .apps-body .apps-auth .form-login input::placeholder {
         font-size: 14px;
     }
 
-    .apps-body .apps-login .form-login .foget-pass a {
+    .apps-container.auth .apps-body .apps-auth .form-login .foget-pass a {
         font-size: 14px;
     }
 
-    .apps-body .apps-login .form-login .noted-info span {
+    .apps-container.auth .apps-body .apps-auth .form-login .noted-info span {
         font-size: 14px;
     }
 
-    .apps-body .apps-login .form-login .noted-info span a {
+    .apps-container.auth .apps-body .apps-auth .form-login .noted-info span a {
         font-size: 14px;
     }
 }

@@ -1,5 +1,5 @@
 <div class="apps-topbar fixed-top">
-    <div class="apps-login mx-auto">
+    <div class="apps-auth mx-auto">
         <div class="d-flex flex-row">
             <div class="link-back">
                 <a href="<?= base_url() ?>auth/form_login">
@@ -10,8 +10,8 @@
     </div>
 </div>
 
-<div class="apps-body">
-    <div class="apps-login w-100 d-flex flex-column">
+<div class="apps-body min-100vh">
+    <div class="apps-auth w-100 d-flex flex-column">
         <div class="logo mt-auto">
             <img src="<?= base_url() ?>assets/img/ciak-logo.png" alt="Ciak.Live">
             <div class="col-10 col-sm-8 mx-auto my-4">

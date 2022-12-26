@@ -1,5 +1,5 @@
-<div class="apps-topbar fixed-top">
-    <div class="apps-login mx-auto">
+<div class="apps-topbar">
+    <div class="apps-auth mx-auto">
         <div class="d-flex flex-row">
             <div class="logo-top justify-content-start align-items-start">
                 <div class="">
@@ -15,8 +15,8 @@
 </div>
 
 <div class="apps-body">
-    <div class="apps-login w-100 d-flex flex-column">
-        <div class="col-10 m-auto">
+    <div class="apps-auth w-100 d-flex flex-column">
+        <div class="col-10 mx-auto mt-5">
             <form class="form-login">
                 <div class="mb-3">
                     <label for="email" class="form-label light fw-bold">Email</label>

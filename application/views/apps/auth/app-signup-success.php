@@ -1,5 +1,5 @@
 <div class="apps-topbar fixed-top">
-    <div class="apps-login mx-auto">
+    <div class="apps-auth mx-auto">
         <div class="d-flex flex-row">
             <div class="link-back">
                 <a href="<?= base_url() ?>auth/form_login">
@@ -11,7 +11,7 @@
 </div>
 
 <div class="apps-body">
-    <div class="apps-login m-auto">
+    <div class="apps-auth m-auto">
         <div class="notif-success d-flex flex-column justify-content-center align-items-center">
             <div class="img-notif">
                 <div class="blur"></div>
