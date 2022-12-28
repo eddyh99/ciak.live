@@ -973,6 +973,44 @@
     font-weight: 900 !important;
 }
 
+.popup-bottom {
+    height: auto !important;
+    width: 100%;
+    /* max-width: 768px; */
+    margin: auto;
+}
+
+.popup-bottom .bg-input {
+    background: linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    padding: 2px;
+    display: inline-block;
+}
+
+.popup-bottom .bg-input input {
+    background: #FFF;
+    border: none;
+    padding: .25rem .5rem;
+}
+
+.popup-bottom .setting-menus a {
+    display: block;
+    padding: .5rem 0;
+    margin: .5rem 0;
+
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+}
+
+.popup-bottom .sosmed-menus a {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    font-size: 24px;
+    margin: .5rem;
+}
 
 @media (max-width: 320px) {
     .apps-container.auth .apps-body .apps-auth .copyright-form {

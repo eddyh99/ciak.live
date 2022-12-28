@@ -9,4 +9,7 @@ if (isset($content)) {
 if (isset($botbar)) {
 	$this->load->view($botbar);
 }
+if (isset($popup)) {
+	$this->load->view($popup);
+}
 require_once('footer-member.php');
