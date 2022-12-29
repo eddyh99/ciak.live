@@ -1,6 +1,4 @@
 </div>
-</div>
-
 
 <div id="loading">
     <div class="spinner-border text-light" role="status">
@@ -21,6 +19,7 @@ if (isset($extra)) {
     $this->load->view($extra);
 }
 ?>
+
 <script>
 function onReady(callback) {
     var intervalId = window.setInterval(function() {
@@ -36,7 +35,7 @@ function setVisible(selector, visible) {
 }
 
 onReady(function() {
-    setVisible('.apps-container', true);
+    setVisible('.container-fluid', true);
     setVisible('#loading', false);
 });
 </script>
