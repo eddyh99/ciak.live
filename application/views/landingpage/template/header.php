@@ -21,5 +21,5 @@
     <link href="<?= base_url(); ?>assets/css/style.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="ciak">
     <div class="container-fluid">

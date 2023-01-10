@@ -11,30 +11,375 @@
     background-color: rgba(24, 26, 28, 1);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
 
 .ciak-navbar {
     background: #000000;
-    box-shadow: 0px 1px 15px #FFFFFF;
+    box-shadow: 0px 1px 15px #ffffff;
 }
 
 .ciak-navbar .brand img {
-    height: 50px;
+    height: 75px;
     width: auto;
 }
 
 .ciak-navbar .brand span.title {
-    font-family: 'Shrikhand', sans-serif;
+    font-family: "Shrikhand", sans-serif;
     font-style: italic;
     font-weight: 400;
     font-size: 35px;
     line-height: 16px;
     text-transform: uppercase;
 
-    background: linear-gradient(90deg, #F80000 0%, #F87700 22.5%, #4FF301 44.46%, #2D8BF8 69.63%, #F86AAE 96.41%);
+    background: linear-gradient(90deg,
+            #f80000 0%,
+            #f87700 22.5%,
+            #4ff301 44.46%,
+            #2d8bf8 69.63%,
+            #f86aae 96.41%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
+}
+
+.ciak-navbar .menus a.link {
+    text-decoration: none;
+    margin: 0 1rem;
+    padding: 0.2rem 1rem;
+
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 16px;
+
+    color: #ffffff;
+}
+
+.ciak-navbar .menus a.link.button-login {
+    background: linear-gradient(180deg, #edc538 0%, #ed3838 100%);
+    border-radius: 10px;
+    display: inline-flex;
+    padding: 1px;
+}
+
+.ciak-navbar .menus a.link.button-login .black {
+    display: inline-block;
+    background: #000000;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+}
+
+.ciak-navbar .menus a.link.button-login .text {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 16px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(180deg, #edc538 0%, #ed3838 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.ciak {
+    background-color: #000000;
+    min-height: 100vh;
+}
+
+.left-border {
+    background-image: url(../img/film-1.png);
+    background-size: 100% auto;
+
+    height: 100%;
+    width: 70px;
+    min-height: 100vh;
+
+    position: absolute;
+    left: 0;
+    top: 7rem;
+}
+
+.right-border {
+    background-image: url(../img/film-1.png);
+    background-size: 100% auto;
+
+    height: 100%;
+    width: 70px;
+    min-height: 100vh;
+
+    position: absolute;
+    right: 0;
+    top: 7rem;
+}
+
+.header {
+    padding: 7rem 0;
+}
+
+.header .title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 65px;
+    line-height: 110%;
+
+    background: linear-gradient(90deg,
+            #f80000 0%,
+            #f87700 22.5%,
+            #4ff301 44.46%,
+            #2d8bf8 69.63%,
+            #f86aae 96.41%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    text-shadow: 3px 3px 8px rgba(129, 88, 82, 0.25);
+}
+
+.header .title>span {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100% !important;
+}
+
+.header .title>span>span {
+    margin-right: 5rem;
+}
+
+.header .title .img-title {
+    height: 50px;
+    margin-right: 1rem;
+}
+
+.header p {
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 35px;
+    margin: 2rem 0;
+
+    color: #ffffff;
+}
+
+.header .list-header {
+    padding: 0;
+}
+
+.header .list-header li {
+    display: inline-block;
+    background-image: url(../img/list-rock.png);
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    padding-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+
+    color: #ffffff;
+}
+
+.btn-register {
+    text-decoration: none;
+
+    padding: 1rem 3rem;
+    background: linear-gradient(144.06deg, #40454a 16.19%, #202329 82.15%);
+
+    box-shadow: -4px -4px 12px rgba(122, 134, 151, 0.201623),
+        4px 4px 12px rgba(0, 0, 0, 0.301983);
+    border-radius: 20px;
+}
+
+.btn-register .text-rainbow {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    /* identical to box height */
+
+    /* Linear */
+
+    background: linear-gradient(90deg,
+            #f80000 0%,
+            #f87700 22.5%,
+            #4ff301 44.46%,
+            #2d8bf8 69.63%,
+            #f86aae 96.41%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.content .ciak-silver {
+    background: #292929;
+    box-shadow: 16px 4px 20px rgba(0, 0, 0, 0.25);
+    padding: 2rem;
+}
+
+.content .ciak-silver h2.rainbow {
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 122%;
+    text-align: center;
+
+    background: linear-gradient(90deg,
+            #f80000 0%,
+            #f87700 22.5%,
+            #4ff301 44.46%,
+            #2d8bf8 69.63%,
+            #f86aae 96.41%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    text-shadow: 3px 3px 8px rgba(129, 88, 82, 0.25);
+}
+
+.content .ciak-silver span.text-pink,
+.content .ciak-silver p.text-ciak-silver {
+    margin: 2rem 0;
+    display: block;
+    text-align: center;
+}
+
+.content .ciak-silver p.text-ciak-silver {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}
+
+.content .ciak-silver span.text-pink {
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+
+    color: #FF97FB;
+}
+
+.content .ciak-silver .list {
+    padding: .5rem;
+}
+
+.content .ciak-silver .rainbow-border {
+    background: linear-gradient(90deg, #F80000 0%, #F87700 22.5%, #4FF301 44.46%, #2D8BF8 69.63%, #F86AAE 96.41%);
+    padding: 3px;
+    border-radius: 35px;
+    min-height: 350px;
+}
+
+.content .ciak-silver .rainbow-border .bg-white {
+    background: linear-gradient(148.17deg, #FFFFFF 1.58%, rgba(255, 255, 255, 0.85) 101.16%);
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 35px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
+}
+
+.content .ciak-silver .rainbow-border p,
+.content .ciak-silver .rainbow-border span.title {
+    display: block;
+    text-align: center;
+}
+
+.content .ciak-silver .rainbow-border span.title {
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 30px;
+
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
+.content .ciak-silver .rainbow-border p {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #000000;
+}
+
+.content h2.rainbow {
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 122%;
+    text-align: center;
+    display: inline-block;
+
+
+    background: linear-gradient(90deg, #F80000 1.27%, #F87700 18.41%, #4FF301 35.14%, #2D8BF8 54.32%, #F86AAE 74.72%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    text-shadow: 3px 3px 8px rgba(129, 88, 82, 0.25);
+}
+
+.content h2,
+.content .btn-learn,
+.content p {
+    margin: 1rem 0;
+    display: inline-block;
+}
+
+.content h2 {
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 110%;
+    color: #FFFFFF;
+    text-shadow: 3px 3px 8px rgba(129, 88, 82, 0.25);
+}
+
+.content h2.green,
+.content .btn-learn.green {
+    color: #00F80A;
+}
+
+.content h2.blue,
+.content .btn-learn.blue {
+    color: #00F8E9;
+}
+
+.content h2.pink,
+.content .btn-learn.pink {
+    color: #FF068D;
+}
+
+.content p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}
+
+.content .btn-learn {
+    background: linear-gradient(144.06deg, #40454A 16.19%, #202329 82.15%);
+    /* Drop Shadow */
+
+    box-shadow: -4px -4px 12px rgba(122, 134, 151, 0.201623), 4px 4px 12px rgba(0, 0, 0, 0.301983);
+    border-radius: 20px;
+    padding: 1rem 2rem;
+
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    text-decoration: none;
+    color: #fff;
 }
