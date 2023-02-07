@@ -22,4 +22,4 @@
 </head>
 
 <body class="ciak">
-    <div class="container-fluid">
+    <div class="container-fluid px-0">

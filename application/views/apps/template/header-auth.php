@@ -18,7 +18,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Ciak CSS -->
-    <link href="<?= base_url(); ?>assets/css/style.css" rel="stylesheet" />
+    <link href="<?= base_url(); ?>assets/css/app-style.css" rel="stylesheet" />
 </head>
 
 <body>
