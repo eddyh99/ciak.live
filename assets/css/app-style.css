@@ -26,6 +26,7 @@
 }
 
 .apps {
+    min-height: 100vh;
     height: 100%;
 }
 
@@ -110,6 +111,7 @@
 }
 
 .apps-container.auth .apps-body {
+    min-height: 100vh;
     height: 100%;
     width: 100%;
     display: flex;
@@ -141,6 +143,7 @@
 
 .apps-container.auth .apps-body .apps-auth {
     z-index: 2;
+    margin-bottom: 5rem;
 }
 
 .apps-container.auth .apps-body .apps-auth .logo {
@@ -523,7 +526,7 @@
 }
 
 .apps-botbar .apps-member .icon-svg.plus {
-    background: linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
 }
 
 .apps-botbar .apps-member .icon-svg.plus.stroke svg {
@@ -556,8 +559,6 @@
     justify-content: center;
     align-items: center;
 }
-
-
 
 .apps-topbar .apps-member .search.dark {
     background: #323436;
@@ -613,8 +614,8 @@
     top: 1px;
     right: -1px;
 
-    width: 5px;
-    height: 5px;
+    width: 7.5px;
+    height: 7.5px;
 
     background: #F72E8E;
     border: 1.2px solid #181A1C;
@@ -681,16 +682,15 @@
 
 .apps-container.member .apps-body .apps-adive .somebody {
     position: relative;
-    height: 140px;
-    min-width: 100px;
-    width: 100px;
+    height: 111px;
+    min-width: 95px;
+    width: 95px;
     margin-right: 1rem;
 
     display: grid;
     align-items: flex-end;
 
-
-    background: linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    background: #F83B00;
     padding: 3px;
     border-radius: 16px;
 
@@ -706,7 +706,7 @@
 }
 
 .apps-container.member .apps-body .apps-adive .somebody img.border-status {
-    padding: 3px;
+    padding: 1px;
 }
 
 .apps-container.member .apps-body .apps-adive .somebody .action {
@@ -722,13 +722,22 @@
     margin: .5rem auto;
     text-align: center;
 
-    background: linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
     border-radius: 5px;
 
     text-decoration: none;
     font-weight: 400;
     font-size: 10px;
     line-height: 16px;
+
+    color: #FFFFFF;
+}
+
+.apps-container.member .apps-body .btn-hide {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    margin: .5rem 0;
 
     color: #FFFFFF;
 }
@@ -786,7 +795,7 @@
 }
 
 .apps-member .posts-member .post-member .post-header .action a.color-bp {
-    background: -webkit-linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -794,12 +803,12 @@
 .apps-member .posts-member .post-member .post-header .action a.color-bp.dollar {
     width: 25px;
     height: 25px;
-    background: linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
     font-size: 14px;
 }
 
 .apps-member .posts-member .post-member .post-header .action a.color-bp.dollar i {
-    background: -webkit-linear-gradient(90deg, #0085FF 8.46%, #FF00F5 97.98%);
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -1233,24 +1242,12 @@
         padding: .5rem 2rem;
     }
 
-    .apps-container.auth .apps-body .apps-auth .form-login label {
-        font-size: 14px;
-    }
-
+    .apps-container.auth .apps-body .apps-auth .form-login label,
     .apps-container.auth .apps-body .apps-auth .form-login input,
     .apps-container.auth .apps-body .apps-auth .form-login input:focus,
-    .apps-container.auth .apps-body .apps-auth .form-login input::placeholder {
-        font-size: 14px;
-    }
-
-    .apps-container.auth .apps-body .apps-auth .form-login .foget-pass a {
-        font-size: 14px;
-    }
-
-    .apps-container.auth .apps-body .apps-auth .form-login .noted-info span {
-        font-size: 14px;
-    }
-
+    .apps-container.auth .apps-body .apps-auth .form-login input::placeholder,
+    .apps-container.auth .apps-body .apps-auth .form-login .foget-pass a,
+    .apps-container.auth .apps-body .apps-auth .form-login .noted-info span,
     .apps-container.auth .apps-body .apps-auth .form-login .noted-info span a {
         font-size: 14px;
     }
@@ -1262,7 +1259,36 @@
 
 @media (min-width: 992px) {}
 
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+    .apps-topbar .apps-auth .mode-apps input {
+        width: 100px;
+        height: 35px;
+    }
+
+    .mode-apps {
+        height: 45px;
+    }
+
+    .apps-container.auth .apps-body .apps-auth .form-login label,
+    .apps-container.auth .apps-body .apps-auth .form-login .foget-pass a,
+    .apps-container.auth .apps-body .apps-auth .form-login .noted-info span,
+    .apps-container.auth .apps-body .apps-auth .form-login .noted-info span a,
+    .apps-container.auth .apps-body .apps-auth .apps-list-btn a,
+    .apps-container.auth .apps-body .apps-auth .apps-list-btn button,
+    .apps-container.auth .apps-body .apps-auth .form-login input,
+    .apps-container.auth .apps-body .apps-auth .form-login input:focus,
+    .apps-container.auth .apps-body .apps-auth .form-login input::placeholder,
+    .apps-container.auth .apps-body .apps-auth .logo p.info,
+    .apps-container.auth .apps-body .apps-auth .copyright-form span.powered,
+    .apps-container.auth .apps-body .apps-auth .copyright-form span.mif,
+    .apps-container.auth .apps-body .apps-auth .form-login .agree label {
+        font-size: 18px;
+    }
+
+    .apps-container.auth .apps-body .apps-auth .copyright-form img.mif {
+        height: 50px;
+    }
+}
 
 @media (min-width: 1400px) {}
 

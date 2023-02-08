@@ -13,6 +13,7 @@ class Homepage extends CI_Controller
             'popup' => 'apps/member/app-popup',
             'post' => 'apps/member/app-posts',
             'mn_home' => 'active',
+            'extra' => 'apps/js/js-index',
         ];
         $this->load->view('apps/template/wrapper-member', $data);
     }

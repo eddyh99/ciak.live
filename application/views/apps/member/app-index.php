@@ -63,6 +63,9 @@
             </div>
         </div>
     </div>
+    <div class="apps-member w-100">
+        <button class="btn btn-hide" id="hideadive">Hide <i id="iconhide" class="fa fa-eye"></i></button>
+    </div>
     <div class="apps-member light w-100">
         <?php if (isset($post)) {
             $this->load->view($post);

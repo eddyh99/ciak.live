@@ -1,22 +1,27 @@
 <div class="navbar navbar-expand-lg fixed-top ciak-navbar py-3">
-    <div class="container d-flex flex-row justify-content-between align-items-center">
+    <div id="fluidt" class="container d-flex flex-row justify-content-between align-items-center">
         <div class="brand me-auto">
             <img src="<?= base_url() ?>assets/img/logo-text.png" alt="">
         </div>
+
         <div class="menus">
+            <button id="close-menus" class="btn-close"><i class="fa fa-close"></i></button>
             <a href="" class="link">Post</a>
             <a href="" class="link">Live</a>
             <a href="" class="link">Wallet</a>
-            <a href="" class="link button-login">
+            <a href="" class="link">Guide</a>
+            <a href="<?= base_url() ?>auth/" class="link button-login">
                 <div class="black">
                     <span class="text">Login</span>
                 </div>
             </a>
         </div>
+
+        <button id="open-menus" class="btn-menus"><i class="fa fa-bars"></i></button>
     </div>
 </div>
 
-<div class="container pt-5" style="position: relative">
+<div id="fluidc" class="container pt-5" style="position: relative">
     <div class="left-border"></div>
     <div class="right-border"></div>
     <div class="header">
@@ -36,8 +41,10 @@
                         contents!
                     </p>
                     <div class="d-inline-block">
-                        <a href="" class="btn-register me-3"><span class="text-rainbow">Register</span></a>
-                        <a href="" class="btn-register me-3"><span class="text-rainbow">For Agencies</span></a>
+                        <a href="" class="btn-register d-grid d-sm-inline me-3"><span
+                                class="text-rainbow">Register</span></a>
+                        <a href="" class="btn-register d-grid d-sm-inline me-3"><span class="text-rainbow">For
+                                Agencies</span></a>
                     </div>
                 </div>
                 <div class="col-5 d-none d-lg-grid my-auto">
@@ -46,43 +53,43 @@
             </div>
         </div>
     </div>
-    <div class="content py-5">
+    <div class="content py-3 py-sm-5">
         <div class="col-10 mx-auto">
             <div class="title text-center pb-5">
                 <h2 class="rainbow">What makes our social different:</h2>
             </div>
             <div class="row pb-5">
-                <div class="col-6">
+                <div class="col-12 col-sm-6">
                     <a href="" class="btn-list">
                         <span class="names">Decentralized & Distributed</span>
                         <span class="more">(Read more)</span>
                     </a>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-sm-6">
                     <a href="" class="btn-list">
                         <span class="names">Without censorship</span>
                         <span class="more">(Read more)</span>
                     </a>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-sm-6">
                     <a href="" class="btn-list">
                         <span class="names">Built on web 3</span>
                         <span class="more">(Read more)</span>
                     </a>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-sm-6">
                     <a href="" class="btn-list">
                         <span class="names">Without haters</span>
                         <span class="more">(Read more)</span>
                     </a>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-sm-6">
                     <a href="" class="btn-list">
                         <span class="names">Integrated wallet</span>
                         <span class="more">(Read more)</span>
                     </a>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-sm-6">
                     <a href="" class="btn-list">
                         <span class="names">Without algorithm</span>
                         <span class="more">(Read more)</span>
@@ -91,7 +98,7 @@
             </div>
         </div>
     </div>
-    <div class="content py-5">
+    <div class="content py-3 py-sm-5">
         <div class="col-10 mx-auto ciak-silver" style="z-index: 1;position: relative;">
             <div class="title text-center pb-3">
                 <h2 class="my-3">Fast and Easy Registration</h2>
@@ -123,14 +130,14 @@
             </div>
         </div>
     </div>
-    <div class="content py-5">
+    <div class="content py-3 py-sm-5">
         <div class="col-10 mx-auto">
             <div class="title text-center pb-5">
                 <h2 class="rainbow">Go Live with Ciak</h2>
             </div>
             <div class="row pb-5">
                 <div class="col-12 col-lg-5 m-auto">
-                    <h2 class="green">Live Meeting</h2>
+                    <h3 class="green">Live Meeting</h3>
                     <p>With this function people can generate a meeting room with a maximum of four people
                         that can use the camera and all other users can watch and interact with the integrated live
                         chat.</p>
@@ -150,7 +157,7 @@
                     <img src="<?=base_url()?>assets/img/img-3-2.png" alt="" class="img-fluid">
                 </div>
                 <div class="col-12 col-lg-5 m-auto">
-                    <h2 class="blue">Cam to Cam</h2>
+                    <h3 class="blue">Cam to Cam</h3>
                     <p>With this function you can have a private individual meeting with one of your followers or your
                         subscribers.
                     </p>
@@ -162,7 +169,7 @@
             </div>
             <div class="row pb-5">
                 <div class="col-12 col-lg-5 m-auto">
-                    <h2 class="pink">Live Show</h2>
+                    <h3 class="pink">Live Show</h3>
                     <p>With this function you can create your own show,
                         allowing your followers and subscribers to watch you, and interact just through live chat.
                     </p>
@@ -176,7 +183,7 @@
             </div>
         </div>
     </div>
-    <div class="content py-5">
+    <div class="content py-3 py-sm-5">
         <div class="col-10 mx-auto">
             <div class="title text-center pb-5">
                 <h2 class="rainbow">Many ways to post your creations</h2>
@@ -205,7 +212,7 @@
             </div>
         </div>
     </div>
-    <div class="content py-5">
+    <div class="content py-3 py-sm-5">
         <div class="col-10 mx-auto">
             <div class="row pb-5">
                 <div class="col-12 col-lg-6 my-auto">
@@ -226,7 +233,7 @@
             </div>
         </div>
     </div>
-    <div class="content py-5">
+    <div class="content py-3 py-sm-5">
         <div class="col-10 mx-auto ciak-silver text-center">
             <h2 class="my-3">Designed for Influencer, Perfect for<br> Creators and Great for Users</h2>
             <p class="text-ciak-silver">
@@ -237,8 +244,8 @@
         </div>
     </div>
 
-    <div class="content py-5">
-        <div class="col-lg-10 col-xl-8 mx-auto ciak-rainbow text-center">
+    <div class="content py-3 py-sm-5">
+        <div class="col-10 col-md-8 mx-auto ciak-rainbow text-center">
             <h2 class="my-3">Get Reward<br> with our Affiliate Campaign</h2>
             <p>
                 Ciak.Live assigns a personal referral link to every account; you just need to share it and let your
@@ -256,9 +263,9 @@
 </div>
 
 <div id="footer" class="footer">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-6 my-auto">
+            <div class="col-12 col-lg-6 my-auto">
                 <div class="col-12 empowered">
                     <span class="text-uppercase mb-3">EMPowered by</span>
                     <a href="">
@@ -266,7 +273,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-6 my-auto">
+            <div class="col-12 col-lg-6 my-auto">
                 <div class="col-12">
                     <div class="icon-sosmed text-center">
                         <a href=""><i class="fab fa-facebook-f"></i></a>

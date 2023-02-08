@@ -7,11 +7,13 @@
     <div class="apps-topbar alert fixed-top light">
         <div class="apps-member mx-auto">
             <div class="alert-notif d-flex flex-row">
-                <div class="title light me-auto">
-                    <span>Alerts</span>
+                <div class="action-icon me-auto">
+                    <a href="">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
                 </div>
                 <div class="action">
-                    <a href="">Delete all</a>
+                    <a href="">Mark all as read</a>
                 </div>
             </div>
         </div>

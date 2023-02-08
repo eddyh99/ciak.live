@@ -8,6 +8,7 @@ class Link extends CI_Controller
         $data = [
             'title' => NAMETITLE,
             'content' => 'landingpage/index',
+            'extra' => 'landingpage/js/js_index',
         ];
         $this->load->view('landingpage/template/wrapper', $data);
     }

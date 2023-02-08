@@ -22,5 +22,11 @@
 </head>
 
 <body>
+    <div id="loading">
+        <div class="spinner-border text-light" role="status">
+            <img src="" alt="">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <div class="apps-container auth container-fluid light">
         <div class="apps">
