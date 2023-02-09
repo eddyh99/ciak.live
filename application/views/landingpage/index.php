@@ -6,9 +6,9 @@
 
         <div class="menus">
             <button id="close-menus" class="btn-close"><i class="fa fa-close"></i></button>
-            <a href="" class="link">Post</a>
-            <a href="" class="link">Live</a>
-            <a href="" class="link">Wallet</a>
+            <a href="#live" class="link">Live</a>
+            <a href="#post" class="link">Post</a>
+            <a href="<?= base_url() ?>link/wallet" class="link">Wallet</a>
             <a href="" class="link">Guide</a>
             <a href="<?= base_url() ?>auth/" class="link button-login">
                 <div class="black">
@@ -130,7 +130,7 @@
             </div>
         </div>
     </div>
-    <div class="content py-3 py-sm-5">
+    <div id="live" class="content py-3 py-sm-5">
         <div class="col-10 mx-auto">
             <div class="title text-center pb-5">
                 <h2 class="rainbow">Go Live with Ciak</h2>
@@ -183,7 +183,7 @@
             </div>
         </div>
     </div>
-    <div class="content py-3 py-sm-5">
+    <div id="post" class="content py-3 py-sm-5">
         <div class="col-10 mx-auto">
             <div class="title text-center pb-5">
                 <h2 class="rainbow">Many ways to post your creations</h2>

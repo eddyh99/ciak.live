@@ -12,4 +12,13 @@ class Link extends CI_Controller
         ];
         $this->load->view('landingpage/template/wrapper', $data);
     }
+    public function wallet()
+    {
+        $data = [
+            'title' => NAMETITLE,
+            'content' => 'landingpage/wallet',
+            'extra' => 'landingpage/js/js_index',
+        ];
+        $this->load->view('landingpage/template/wrapper', $data);
+    }
 }

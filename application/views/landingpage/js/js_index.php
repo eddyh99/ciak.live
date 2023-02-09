@@ -39,4 +39,54 @@ $('#open-menus').on("click", function() {
 $('#close-menus').on("click", function() {
     $('.mobile-menus').css('display', 'none');
 })
+
+$('.link').on("click", function() {
+    $('.mobile-menus').css('display', 'none');
+})
+
+$('#flush-headingOne').on("click", function() {
+    var button = $('#btn-One').hasClass('accordion-button collapsed');
+    if (button == false) {
+        $('#accordionItemOne').css('background', '#000');
+        $('#accordionItemTwo').css('background', '');
+        $('#accordionItemThree').css('background', '');
+        $('#accordionItemFour').css('background', '');
+    } else {
+        $('#accordionItemOne').css('background', '');
+    }
+})
+$('#flush-headingTwo').on("click", function() {
+    var button = $('#btn-Two').hasClass('accordion-button collapsed');
+    if (button == false) {
+        $('#accordionItemTwo').css('background', '#000');
+        $('#accordionItemOne').css('background', '');
+        $('#accordionItemThree').css('background', '');
+        $('#accordionItemFour').css('background', '');
+    } else {
+        $('#accordionItemTwo').css('background', '');
+    }
+})
+$('#flush-headingThree').on("click", function() {
+    var button = $('#btn-Three').hasClass('accordion-button collapsed');
+    if (button == false) {
+        $('#accordionItemThree').css('background', '#000');
+        $('#accordionItemOne').css('background', '');
+        $('#accordionItemTwo').css('background', '');
+        $('#accordionItemFour').css('background', '');
+    } else {
+        $('#accordionItemThree').css('background', '');
+    }
+})
+$('#flush-headingFour').on("click", function() {
+    var button = $('#btn-Four').hasClass('accordion-button collapsed');
+    if (button == false) {
+        $('#accordionItemFour').css('background', '#000');
+        $('#accordionItemOne').css('background', '');
+        $('#accordionItemTwo').css('background', '');
+        $('#accordionItemThree').css('background', '');
+
+    } else {
+        $('#accordionItemFour').css('background', '');
+    }
+})
 </script>
