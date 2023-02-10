@@ -12,6 +12,32 @@ class Link extends CI_Controller
         ];
         $this->load->view('landingpage/template/wrapper', $data);
     }
+
+    public function guide()
+    {
+        $data = [
+            'title' => NAMETITLE,
+            'content' => 'landingpage/guide',
+            'extra' => 'landingpage/js/js_index',
+        ];
+        $this->load->view('landingpage/template/wrapper', $data);
+    }
+
+    public function guides($menus, $titles)
+    {
+        $menu = base64_decode($menus);
+        $title = base64_decode($titles);
+        
+        $data = [
+            'title' => NAMETITLE,
+            'content' => 'landingpage/guides',
+            'menu' => $menu,
+            'title' => $title,
+            'extra' => 'landingpage/js/js_index',
+        ];
+        $this->load->view('landingpage/template/wrapper', $data);
+    }
+
     public function wallet()
     {
         $data = [

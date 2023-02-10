@@ -9,7 +9,7 @@
             <a href="#live" class="link">Live</a>
             <a href="#post" class="link">Post</a>
             <a href="<?= base_url() ?>link/wallet" class="link">Wallet</a>
-            <a href="" class="link">Guide</a>
+            <a href="<?= base_url() ?>link/guide" class="link">Guide</a>
             <a href="<?= base_url() ?>auth/" class="link button-login">
                 <div class="black">
                     <span class="text">Login</span>

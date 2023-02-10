@@ -752,9 +752,11 @@ sans-serif; */
     border-radius: 20px;
 
     text-align: center;
+    padding: .75rem;
 }
 
-.content .box-title h2 {
+.content .box-title h2,
+.content .link-title h2 {
     font-family: 'DM Serif Display', serif;
     font-weight: 400;
     font-size: 35px;
@@ -797,10 +799,45 @@ sans-serif; */
     padding: 1rem;
 }
 
+.content .content-wallet .step-payment .box-rainbow {
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+
+    background: linear-gradient(144.06deg, #40454A 16.19%, #202329 82.15%);
+    box-shadow: -4px -4px 12px rgba(122, 134, 151, 0.201623), 4px 4px 12px rgba(0, 0, 0, 0.301983);
+    border-radius: 20px;
+    flex: 1 1 auto;
+    padding: 1rem;
+
+    position: relative;
+}
+
+.content .content-wallet .step-payment .box-rainbow::after {
+    position: absolute;
+    content: '';
+    top: -1px;
+    bottom: -1px;
+    left: -1px;
+    right: -1px;
+    z-index: -1;
+
+    background: linear-gradient(90deg, #F80000 0%, #F87700 22.5%, #4FF301 44.46%, #2D8BF8 69.63%, #F86AAE 96.41%);
+    border-radius: 20px;
+}
+
 .content .content-wallet .step-payment .box-payment p {
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
+
+    color: #FFFFFF;
+}
+
+.content .content-wallet .step-payment .box-rainbow p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
 
     color: #FFFFFF;
 }
@@ -894,6 +931,105 @@ sans-serif; */
     font-size: 22px;
 }
 
+.content .content-wallet .box-guide-list {
+    background: linear-gradient(144.06deg, #40454A 16.19%, #202329 82.15%);
+    box-shadow: -4px -4px 12px rgba(122, 134, 151, 0.201623), 4px 4px 12px rgba(22, 22, 22, 0.55);
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 2rem 5rem;
+
+    text-decoration: none;
+}
+
+.content .content-wallet .box-guide-list h3 {
+    margin-bottom: 0;
+
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    font-size: 35px;
+    text-align: start;
+}
+
+.content .content-wallet .box-guide-list i {
+    color: #F83B00;
+    font-size: 35px;
+    margin-left: .5rem;
+}
+
+.content .content-wallet h3.rainbow {
+    background: linear-gradient(90deg, #F80000 1.27%, #F87700 18.41%, #4FF301 35.14%, #2D8BF8 54.32%, #F86AAE 74.72%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    display: inline-block;
+
+    font-weight: 700;
+    font-size: 35px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.content .content-wallet .guides p span {
+    font-family: 'Roboto', sans-serif;
+
+    font-size: 29px;
+    line-height: 27px;
+
+    display: block;
+    margin-bottom: 2rem;
+}
+
+.content .content-wallet .guides.post p span {
+    font-family: 'Roboto', sans-serif;
+
+    font-size: 30px;
+    line-height: 27px;
+
+    color: #00D1FF;
+    display: inline-block;
+
+    margin-bottom: 2rem;
+}
+
+.content .content-wallet .guides p {
+    font-family: 'Poppins', sans-serif;
+
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 34px;
+
+    color: #FFFFFF;
+}
+
+.content .content-wallet .guides ol li,
+.content .content-wallet .guides ul li {
+    font-family: 'Poppins', sans-serif;
+
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 34px;
+    margin-bottom: 2rem;
+
+    color: #FFFFFF;
+}
+
+.content .content-wallet .guides ol li {
+    margin-bottom: 1rem;
+}
+
+.content .content-wallet .guides p spani.gold {
+    color: #FDC80B;
+}
+
+.content .content-wallet .guides.box-important {
+    border: 5px solid #F80000;
+    padding: 2rem;
+}
 
 .text-red {
     color: #F80606 !important;
@@ -903,12 +1039,25 @@ sans-serif; */
     color: #F86AAE !important;
 }
 
+.text-purple-dark {
+    color: #FF00F5 !important;
+}
+
 .text-green {
     color: #0BE2A3 !important;
 }
 
 @media (max-width: 1399px) {
-    .content .box-title h2 {
+
+    .content .content-wallet .guides.post p span,
+    .content .content-wallet .guides p span {
+        font-size: 24px;
+    }
+
+    .content .content-wallet h3.rainbow,
+    .content .content-wallet .box-guide-list h3,
+    .content .box-title h2,
+    .content .link-title h2 {
         font-size: 32px;
     }
 
@@ -920,11 +1069,15 @@ sans-serif; */
     .content .content-wallet .accordion .accordion-item .accordion-body ol li,
     .content .content-wallet .accordion .accordion-item .accordion-body ul li,
     .content .content-wallet .accordion .accordion-item .accordion-body p,
+    .content .content-wallet .guides p,
+    .content .content-wallet .guides ol li,
+    .content .content-wallet .guides ul li,
     .content .content-wallet .step-payment span,
     .content .content-wallet .step-payment .box-payment p {
         font-size: 18px;
     }
 
+    .content .content-wallet .step-payment .box-rainbow p,
     .content .content-wallet .accordion .accordion-item .accordion-body .step-payment .box-payment p {
         font-size: 16px;
     }
@@ -932,7 +1085,11 @@ sans-serif; */
 }
 
 @media (max-width: 991px) {
+    .content .content-wallet .box-guide-list {
+        padding: 2rem 3rem;
+    }
 
+    .content .content-wallet h3.rainbow,
     .content .content-wallet .accordion .accordion-item .accordion-header h4,
     .content .content-wallet h3 {
         font-size: 24px;
@@ -1065,7 +1222,11 @@ sans-serif; */
 }
 
 @media (max-width: 575px) {
-    .content .box-title h2 {
+
+    .content .content-wallet h3.rainbow,
+    .content .content-wallet .box-guide-list h3,
+    .content .box-title h2,
+    .content .link-title h2 {
         font-size: 28px;
     }
 
@@ -1132,6 +1293,10 @@ sans-serif; */
 }
 
 @media (max-width: 500px) {
+
+    .content .content-wallet .box-guide-list {
+        padding: 2rem;
+    }
 
     .right-border,
     .left-border {
