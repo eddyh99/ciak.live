@@ -118,6 +118,10 @@
     position: relative;
 }
 
+.apps-container.auth .apps-body.mh-null {
+    min-height: auto;
+}
+
 
 .apps-container.auth .apps-body.min-100vh {
     min-height: 100vh;
@@ -160,11 +164,6 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.apps-container.auth .apps-body .apps-auth .notif-success {
-    border-top: 1px solid #FFDDBD;
-    border-bottom: 1px solid #FFDDBD;
-}
-
 .apps-container.auth .apps-body .apps-auth .notif-success img {
     position: relative;
     height: 150px;
@@ -187,6 +186,8 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
+
+    border-bottom: 1px solid #FFDDBD;
 }
 
 .apps-container.auth .apps-body .apps-auth .notif-success .img-notif .blur {
@@ -210,17 +211,13 @@
 }
 
 .apps-container.auth .apps-body .apps-auth .notif-success .message.bg-message {
-    background: rgba(247, 94, 46, 0.17);
+    background: #F65E2E;
     border-radius: 15px;
 }
 
 .apps-container.auth .apps-body .apps-auth .notif-success .message p {
     color: #000000;
     margin: 0;
-}
-
-.apps-container.auth .apps-body .apps-auth .notif-success .message.dark p {
-    color: #FFF;
 }
 
 .apps-container.auth .apps-body .apps-auth .logo p.info {
@@ -1203,6 +1200,244 @@
     line-height: 20px;
 
     color: #727477;
+}
+
+/* Profile setting */
+.apps-member .banner-profile {
+    height: 160px;
+    background-color: rgba(173, 173, 173, 0.3);
+
+    position: relative;
+}
+
+.apps-member .banner-profile .changes {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.apps-member .banner-profile .changes label {
+    cursor: pointer;
+}
+
+
+.apps-member .profile .img-profile {
+    position: absolute;
+    width: 100%;
+    height: 125px;
+    top: -150%;
+    display: flex;
+    justify-content: center;
+}
+
+.apps-member .profile .img-profile .img {
+    position: absolute;
+
+    width: 125px;
+    height: 125px;
+    top: 0;
+
+    background: #181A1C;
+
+    z-index: 2;
+}
+
+.apps-member .profile .img-profile .img::after {
+    position: absolute;
+    content: '';
+    top: -2px;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
+    border-radius: 100px;
+    z-index: 1;
+}
+
+.apps-member .profile .img-profile .img img {
+    width: 125px;
+    height: 125px;
+
+    position: absolute;
+    top: 0;
+
+    z-index: 4;
+}
+
+.apps-member .profile .img-profile form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+
+    background: #181A1C;
+    border-radius: 100px;
+
+    z-index: 3;
+}
+
+.apps-member .profile .img-profile form label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    margin-left: 5px;
+    margin-top: -15px;
+}
+
+.apps-member .profile .img-profile label.change-profile {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: center;
+
+    font-weight: 400;
+    font-size: 12px;
+
+    color: #FFF;
+    margin-top: .5rem;
+}
+
+.apps-member .profile a.cancel {
+    font-weight: 700;
+    font-size: 14px;
+
+    text-decoration: none;
+    text-align: right;
+
+    margin-top: 1.25rem;
+    padding: .5rem 1rem;
+
+    color: #2E8AF7;
+}
+
+.apps-member .profile a.btn-orange {
+    font-weight: 600;
+    font-size: 12px;
+
+    text-decoration: none;
+    text-align: right;
+
+    margin-top: 1.25rem;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+
+    background: #F83B00;
+    color: #FFFFFF;
+
+}
+
+.apps-member .biodata span.max {
+    position: absolute;
+    bottom: 0px;
+    right: 7.5px;
+
+    font-weight: 500;
+    font-size: 7px;
+    line-height: 24px;
+
+    color: #FFFFFF;
+}
+
+.apps-member .biodata .ciak-data-input {
+    position: relative;
+}
+
+.apps-member .biodata .ciak-data-input label {
+    font-weight: 500;
+    font-size: 14px;
+
+    background: linear-gradient(148.17deg, #FFFFFF 1.58%, rgba(255, 255, 255, 0.85) 101.16%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    margin-bottom: 0;
+}
+
+.apps-member .biodata .ciak-data-input input,
+.apps-member .biodata .ciak-data-input input::placeholder,
+.apps-member .biodata .ciak-data-input input:focus {
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+
+    font-weight: 400;
+    font-size: 12px;
+
+    background: transparent;
+    color: #FFFFFF;
+    padding: .75rem 1rem;
+}
+
+.apps-member .biodata .ciak-check span {
+    font-weight: 500;
+    font-size: 14px;
+
+    background: linear-gradient(148.17deg, #FFFFFF 1.58%, rgba(255, 255, 255, 0.85) 101.16%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.apps-member .biodata .ciak-check p {
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 12px;
+
+    color: #FFFFFF;
+}
+
+.apps-member .biodata .ciak-check .form-switch .form-check-input,
+.apps-member .biodata .ciak-check .form-check-input:checked,
+.apps-member .biodata .ciak-check .form-check-input:focus {
+    font-size: 24px;
+    margin: 0;
+    background-image: url("../img/checkbox-ball.png");
+    background-size: auto 20px;
+}
+
+.apps-member .biodata .ciak-check .form-check-input:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.apps-member .biodata .ciak-check .form-check-input:checked {
+    background-color: #00DD9C;
+    border-color: #00DD9C;
+    background-position-x: 90%;
+}
+
+.apps-member .biodata .ciak-check .form-check-input {
+    background-color: #f1f1f1;
+    border-color: #f1f1f1;
+    background-position-x: 5%;
+}
+
+.apps-member .biodata .ciak-data-input .btn-orange {
+    background: #F83B00;
+    border-radius: 10px;
+
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+
+    color: #FFFFFF;
+
+    border: none;
+    padding: 0.75rem;
+
+    text-align: center;
+    text-decoration: none;
 }
 
 @media (max-width: 320px) {

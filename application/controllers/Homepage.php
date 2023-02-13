@@ -18,6 +18,39 @@ class Homepage extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
+    public function setting_profile()
+    {
+        $data = [
+            'title' => NAMETITLE . ' - Setting Profile',
+            'content' => 'apps/member/app-setting-profile',
+            'popup' => 'apps/member/app-popup',
+            'extra' => 'apps/js/js-index',
+        ];
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function setting_price()
+    {
+        $data = [
+            'title' => NAMETITLE . ' - Setting Subscription',
+            'content' => 'apps/member/app-setting-price',
+            'popup' => 'apps/member/app-popup',
+            'extra' => 'apps/js/js-index',
+        ];
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function set_profile()
+    {
+        $data = [
+            'title' => NAMETITLE . ' - Start creating profile',
+            'content' => 'apps/member/app-setting-profile',
+            'popup' => 'apps/member/app-popup',
+            'extra' => 'apps/js/js-index',
+        ];
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
     public function search()
     {
         $data = [

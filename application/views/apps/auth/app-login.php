@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="apps-body">
+<div class="apps-body mh-null">
     <div class="apps-auth w-100 d-flex flex-column">
         <div class="col-10 col-lg-6 mx-auto mt-5">
             <form class="form-login">
