@@ -1,3 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+/* font-family: 'DM Serif Display', serif; */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+/* font-family: 'Roboto', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+/* font-family: 'Poppins', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
+/* font-family: 'Koulen', cursive; */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+/* font-family: 'Inter', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap');
+/* font-family: 'Hanken Grotesk', sans-serif; */
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
 *:focus {
     outline: none !important;
 }
@@ -533,11 +550,11 @@
 
 /* Top Bar */
 
-.apps-topbar.alert {
+.apps-topbar.alerts {
     background: #FFFFFF;
 }
 
-.apps-topbar.alert.dark {
+.apps-topbar.alerts.dark {
     background: #181A1C;
 }
 
@@ -644,6 +661,18 @@
     color: #F72E8E;
 }
 
+.apps-topbar .apps-member .alert-notif {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.apps-topbar .apps-member .action-icon {
+    position: absolute;
+    left: 1.5rem;
+}
+
 .apps-topbar .apps-member .action-icon a {
     height: 35px;
     width: 35px;
@@ -653,12 +682,18 @@
     line-height: 24px;
     text-decoration: none;
 
-    color: #33363F;
+    color: #FFFFFF;
 }
 
 .apps-topbar .apps-member .action-icon.fa a {
-
     border: 1px solid #323436;
+    border-radius: 30px;
+
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .apps-container.member .apps-body .apps-adive {
@@ -1220,12 +1255,18 @@
     cursor: pointer;
 }
 
+.apps-member .title-apps h4 {
+    font-weight: 700;
+    font-size: 15px;
+
+    color: #FFFFFF;
+}
 
 .apps-member .profile .img-profile {
     position: absolute;
     width: 100%;
     height: 125px;
-    top: -150%;
+    top: -75px;
     display: flex;
     justify-content: center;
 }
@@ -1306,6 +1347,7 @@
 }
 
 .apps-member .profile a.cancel {
+    font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 700;
     font-size: 14px;
 
@@ -1316,6 +1358,8 @@
     padding: .5rem 1rem;
 
     color: #2E8AF7;
+
+    z-index: 9;
 }
 
 .apps-member .profile a.btn-orange {
@@ -1331,6 +1375,8 @@
 
     background: #F83B00;
     color: #FFFFFF;
+
+    z-index: 9;
 
 }
 
@@ -1405,6 +1451,7 @@
     background-size: auto 20px;
 }
 
+.apps-member .select-type-price .radio-btn-type .form-check-input:focus,
 .apps-member .biodata .ciak-check .form-check-input:focus {
     outline: none;
     -webkit-box-shadow: none;
@@ -1439,6 +1486,85 @@
     text-align: center;
     text-decoration: none;
 }
+
+.apps-member .biodata .ciak-data-input .btn-border-orange {
+    position: relative;
+    background: #181A1C;
+    border-radius: 8px;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+
+    color: #FFFFFF;
+
+    z-index: 3;
+    text-align: center;
+    text-decoration: none;
+
+    padding: .5rem;
+}
+
+.apps-member .biodata .ciak-data-input .btn-border-orange::before {
+    position: absolute;
+    content: '';
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+
+    z-index: -1;
+
+    background: #F83B00;
+    border-radius: 8px;
+}
+
+.apps-member .biodata .ciak-data-input .btn-border-orange::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    z-index: -1;
+
+    background: #181A1C;
+    border-radius: 8px;
+}
+
+.apps-member .select-type-price {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.apps-member .select-type-price .radio-btn-type label {
+    font-weight: 500;
+    font-size: 14px;
+
+    color: #FFFFFF;
+}
+
+.apps-member .select-type-price .radio-btn-type .form-check-input:checked[type="radio"] {
+    background-image: none;
+}
+
+.apps-member .select-type-price .radio-btn-type .form-check-input {
+    background-color: #181A1C;
+    border-color: #F83B00;
+}
+
+.apps-member .select-type-price .radio-btn-type .form-check-input:checked {
+    background-color: #F83B00;
+    border-color: #F83B00;
+}
+
+.apps-member .search .serach-friend .form-control {}
+
+
 
 @media (max-width: 320px) {
     .apps-container.auth .apps-body .apps-auth .copyright-form {

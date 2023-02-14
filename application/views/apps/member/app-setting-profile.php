@@ -49,7 +49,7 @@
                 <a href="" class="cancel me-auto ms-3">Discard</a>
                 <div class="img-profile">
                     <div class="img rounded-circle">
-                        <img src="<?= base_url(); ?>assets/img/profile.jpg" alt="" class="rounded-circle">
+                        <!-- <img src="<?= base_url(); ?>assets/img/profile.jpg" alt="" class="rounded-circle"> -->
                         <form action="<?= base_url('homepage/set_profile') ?>" method="post" autocomplete="off" id=""
                             enctype="multipart/form-data">
                             <label for="img_profile">

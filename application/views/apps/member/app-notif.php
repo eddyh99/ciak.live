@@ -4,7 +4,7 @@
         $this->load->view($botbar);
     }
     ?>
-    <div class="apps-topbar alert fixed-top light">
+    <div class="apps-topbar alerts fixed-top light">
         <div class="apps-member mx-auto">
             <div class="alert-notif d-flex flex-row">
                 <div class="action-icon me-auto">

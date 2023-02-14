@@ -22,8 +22,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | If you need to allow multiple domains, remember that this file is still
 | a PHP script and you can easily do that on your own.
 |
-*/
-$config['base_url'] = 'http://localhost/ciak.live/';
+*/if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $addurl = '/'.'ciak.live/'; 
+}else{
+    $addurl = '/'; 
+}
+$config['base_url'] = (@$_SERVER['HTTPS'] == 'on') ? 'https://'.$_SERVER['HTTP_HOST'].'/' : 'http://'.$_SERVER['HTTP_HOST'].$addurl;
+date_default_timezone_set('Asia/Singapore');
 
 /*
 |--------------------------------------------------------------------------

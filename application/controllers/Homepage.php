@@ -40,11 +40,25 @@ class Homepage extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
-    public function set_profile()
+    public function setting_promotion()
+    {
+        $tes = $this->security->xss_clean($this->input->post("type"));
+
+        $data = [
+            'title' => NAMETITLE . ' - Setting Promote',
+            'content' => 'apps/member/app-setting-promotion',
+            'popup' => 'apps/member/app-popup',
+            'extra' => 'apps/js/js-index',
+            'tes' => $tes
+        ];
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function recomend_friends()
     {
         $data = [
-            'title' => NAMETITLE . ' - Start creating profile',
-            'content' => 'apps/member/app-setting-profile',
+            'title' => NAMETITLE . ' - Search Friend',
+            'content' => 'apps/member/app-recomend-friends',
             'popup' => 'apps/member/app-popup',
             'extra' => 'apps/js/js-index',
         ];

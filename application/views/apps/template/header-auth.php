@@ -9,6 +9,10 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
+    <!-- Favicons -->
+    <link href="<?= base_url() ?>assets/img/ciak-logo.png" rel="icon">
+    <link href="<?= base_url() ?>assets/img/ciak-logo.png" rel="apple-touch-icon">
+
     <!-- Bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
