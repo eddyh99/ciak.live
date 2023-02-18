@@ -16,6 +16,8 @@
 }
 
 *:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
     outline: none !important;
 }
 
@@ -1451,6 +1453,7 @@
     background-size: auto 20px;
 }
 
+.apps-member .search .search-friend .form-control:focus,
 .apps-member .select-type-price .radio-btn-type .form-check-input:focus,
 .apps-member .biodata .ciak-check .form-check-input:focus {
     outline: none;
@@ -1562,7 +1565,18 @@
     border-color: #F83B00;
 }
 
-.apps-member .search .serach-friend .form-control {}
+.apps-member .search .search-friend {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.apps-member .search .search-friend .form-control {
+    background: #323436;
+    border-radius: 32px;
+    border: 0;
+    padding: .5rem 1rem;
+    color: #FFF;
+}
 
 
 

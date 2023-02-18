@@ -16,7 +16,7 @@
     <div class="apps-member mx-auto w-100 mt-5">
         <div class="search mt-5">
             <div class="search-friend">
-                <input class="form-control" type="text" name="search_friend" id="search_friend">
+                <input class="form-control" type="text" name="search_friend" id="search_friend" place>
             </div>
         </div>
 
