@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <?php
-$this->load->view('apps/js/js-darkmode');
+// $this->load->view('apps/js/js-darkmode');
 if (isset($extra)) {
     $this->load->view($extra);
 }

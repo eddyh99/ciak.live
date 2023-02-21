@@ -1,5 +1,5 @@
 <div class="apps-body ptop pbot">
-    <div class="apps-topbar alert fixed-top light">
+    <div class="apps-topbar alerts fixed-top light">
         <div class="apps-member mx-auto">
             <div class="alert-notif d-flex flex-row">
                 <div class="action-icon fa">
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div class="apps-member light w-100">
+    <div class="apps-member light w-100 mt-5">
         <div class="app-notif">
             <div class="list-notif">
                 <span class="title-date">Today</span>

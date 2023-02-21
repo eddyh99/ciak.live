@@ -16,7 +16,7 @@
                 <a href="" class="icon color-bp dollar rounded-circle" data-bs-toggle="offcanvas"
                     data-bs-target="#sendTip" aria-controls="offcanvasBottom">
                     <div class="bg-white-dollar rounded-circle"></div>
-                    <i class="fa-solid fa-dollar-sign"></i>
+                    <i class="fa-solid fa-euro-sign"></i>
                 </a>
                 <a href="" class="icon ellipsis rounded-circle" data-bs-toggle="offcanvas"
                     data-bs-target="#settingMenus" aria-controls="offcanvasBottom"><i
@@ -93,7 +93,7 @@
                 <a href="" class="icon color-bp dollar rounded-circle" data-bs-toggle="offcanvas"
                     data-bs-target="#sendTip" aria-controls="offcanvasBottom">
                     <div class="bg-white-dollar rounded-circle"></div>
-                    <i class="fa-solid fa-dollar-sign"></i>
+                    <i class="fa-solid fa-euro-sign"></i>
                 </a>
                 <a href="" class="icon ellipsis rounded-circle" data-bs-toggle="offcanvas"
                     data-bs-target="#settingMenus" aria-controls="offcanvasBottom"><i
@@ -167,7 +167,7 @@
                 <a href="" class="icon color-bp dollar rounded-circle" data-bs-toggle="offcanvas"
                     data-bs-target="#sendTip" aria-controls="offcanvasBottom">
                     <div class="bg-white-dollar rounded-circle"></div>
-                    <i class="fa-solid fa-dollar-sign"></i>
+                    <i class="fa-solid fa-euro-sign"></i>
                 </a>
                 <a href="" class="icon ellipsis rounded-circle" data-bs-toggle="offcanvas"
                     data-bs-target="#settingMenus" aria-controls="offcanvasBottom"><i

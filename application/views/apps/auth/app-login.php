@@ -14,9 +14,9 @@
     </div>
 </div>
 
-<div class="apps-body">
+<div class="apps-body mh-null">
     <div class="apps-auth w-100 d-flex flex-column">
-        <div class="col-10 mx-auto mt-5">
+        <div class="col-10 col-lg-6 mx-auto mt-5">
             <form class="form-login">
                 <div class="mb-3">
                     <label for="email" class="form-label light fw-bold">Email</label>

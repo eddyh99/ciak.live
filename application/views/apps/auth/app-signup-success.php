@@ -18,11 +18,11 @@
                 <img src="<?= base_url() ?>assets/img/notif-success.png" alt="Success">
             </div>
             <span class="title my-2">Succesfully registered</span>
-            <div class="message light bg-message">
-                <p>Now activate your account by clicking on the link received in your email.</p>
-            </div>
-            <div class="message light">
-                <p>ATTENTION: if you do not see the email, check into the spam folder.</p>
+            <div class="message bg-message">
+                <p class="mb-3 fw-bold">ATTENTION</p>
+                <p class="mb-5 fw-bold">To activate your account click the link received into your registration email.
+                </p>
+                <p class="mb-3">If you do not see the email, check into the spam folder.</p>
             </div>
         </div>
     </div>

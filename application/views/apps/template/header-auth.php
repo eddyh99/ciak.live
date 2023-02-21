@@ -9,6 +9,10 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
+    <!-- Favicons -->
+    <link href="<?= base_url() ?>assets/img/ciak-logo.png" rel="icon">
+    <link href="<?= base_url() ?>assets/img/ciak-logo.png" rel="apple-touch-icon">
+
     <!-- Bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -18,9 +22,15 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Ciak CSS -->
-    <link href="<?= base_url(); ?>assets/css/style.css" rel="stylesheet" />
+    <link href="<?= base_url(); ?>assets/css/app-style.css" rel="stylesheet" />
 </head>
 
 <body>
+    <div id="loading">
+        <div class="spinner-border text-light" role="status">
+            <img src="" alt="">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <div class="apps-container auth container-fluid light">
         <div class="apps">

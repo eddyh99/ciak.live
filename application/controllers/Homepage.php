@@ -13,6 +13,54 @@ class Homepage extends CI_Controller
             'popup' => 'apps/member/app-popup',
             'post' => 'apps/member/app-posts',
             'mn_home' => 'active',
+            'extra' => 'apps/js/js-index',
+        ];
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function setting_profile()
+    {
+        $data = [
+            'title' => NAMETITLE . ' - Setting Profile',
+            'content' => 'apps/member/app-setting-profile',
+            'popup' => 'apps/member/app-popup',
+            'extra' => 'apps/js/js-index',
+        ];
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function setting_price()
+    {
+        $data = [
+            'title' => NAMETITLE . ' - Setting Subscription',
+            'content' => 'apps/member/app-setting-price',
+            'popup' => 'apps/member/app-popup',
+            'extra' => 'apps/js/js-index',
+        ];
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function setting_promotion()
+    {
+        $tes = $this->security->xss_clean($this->input->post("type"));
+
+        $data = [
+            'title' => NAMETITLE . ' - Setting Promote',
+            'content' => 'apps/member/app-setting-promotion',
+            'popup' => 'apps/member/app-popup',
+            'extra' => 'apps/js/js-index',
+            'tes' => $tes
+        ];
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function recomend_friends()
+    {
+        $data = [
+            'title' => NAMETITLE . ' - Search Friend',
+            'content' => 'apps/member/app-recomend-friends',
+            'popup' => 'apps/member/app-popup',
+            'extra' => 'apps/js/js-index',
         ];
         $this->load->view('apps/template/wrapper-member', $data);
     }
