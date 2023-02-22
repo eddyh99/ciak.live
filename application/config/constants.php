@@ -89,3 +89,12 @@ defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest auto
 
 // Name TITLE
 define('NAMETITLE', "Ciak.Live");
+
+// API
+if (stripos($_SERVER['HTTP_HOST'], 'sandbox') === 0) {
+    define('URLAPI', "https://api.sandbox.ciak.live");
+} elseif (stripos($_SERVER['HTTP_HOST'], 'local') > 0) {
+    define('URLAPI', "https://api.sandbox.ciak.live");
+} else {
+    define('URLAPI', "https://api.sandbox.ciak.live");
+}

@@ -4,7 +4,7 @@
         $this->load->view($popup);
     }
     ?>
-    <div class="apps-topbar alerts fixed-top light">
+    <div class="apps-topbar alerts fixed-top">
         <div class="apps-member mx-auto position-relative">
             <div class="alert-notif">
                 <div class="action-icon fa">
@@ -12,7 +12,7 @@
                         <i class="fa-solid fa-arrow-left"></i>
                     </a>
                 </div>
-                <div class="title light mx-auto">
+                <div class="title mx-auto">
                     <span class="text-capitalize">Promotion</span>
                 </div>
             </div>

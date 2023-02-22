@@ -11,9 +11,8 @@
         <div class="apps-member mx-auto">
             <div class="d-flex flex-row">
                 <form class="w-100">
-                    <div class="search light">
-                        <input type="text" name="" id="" class="form-control"
-                            placeholder="Search for people, posts,....">
+                    <div class="search">
+                        <input type="text" name="" id="" class="form-control" placeholder="Search for people, posts,....">
                         <button><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
@@ -42,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="apps-member light w-100">
+    <div class="apps-member w-100">
         <?php if (isset($post)) {
             $this->load->view($post);
         } ?>

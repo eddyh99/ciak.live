@@ -24,6 +24,9 @@
                 </p>
                 <p class="mb-3">If you do not see the email, check into the spam folder.</p>
             </div>
+            <div class="apps-list-btn text-center">
+                <a href="<?= base_url() ?>auth/signup_activate/<?= $_SESSION['token']; ?>" class="rounded-pill d-inline-block fw-bold btn-ciak">Manual Activate</a>
+            </div>
         </div>
     </div>
 </div>

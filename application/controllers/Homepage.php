@@ -6,6 +6,10 @@ class Homepage extends CI_Controller
 
     public function index()
     {
+        if (!$this->session->userdata('user_id')) {
+            redirect('auth/form_login');
+        }
+
         $data = [
             'title' => NAMETITLE . ' - Homepage',
             'content' => 'apps/member/app-index',
