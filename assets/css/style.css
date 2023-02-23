@@ -11,9 +11,12 @@
     background-color: rgba(24, 26, 28, 1);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+/* Font Error / Harus di Header HTML */
+/* @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap'); */
 /* font-family: 'DM Serif Display', serif; */
+/* Font Error */
+
+@import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
 /* font-family: 'Roboto', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
@@ -132,14 +135,21 @@ sans-serif; */
     padding: 7rem 0;
 }
 
+/* p {
+    animation: color-change 1s infinite;
+} */
+
+
+
 .header .title {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     justify-content: center;
     font-weight: 400;
     font-size: 70px;
     font-family: 'DM Serif Display', serif;
     line-height: 110%;
+    text-transform: uppercase;
 
     background: linear-gradient(90deg,
             #f80000 0%,
@@ -152,7 +162,49 @@ sans-serif; */
     background-clip: text;
     text-fill-color: transparent;
 
+    /* animation: color-change 10s infinite; */
     text-shadow: 3px 3px 8px rgba(129, 88, 82, 0.25);
+}
+
+@keyframes color-change {
+    0% {
+        background: linear-gradient(90deg,
+                #f80000 0%,
+                #f87700 22.5%,
+                #4ff301 44.46%,
+                #2d8bf8 69.63%,
+                #f86aae 96.41%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+
+    50% {
+        background: linear-gradient(90deg,
+                #f80000 22.5%,
+                #f87700 44.46%,
+                #4ff301 69.63%,
+                #2d8bf8 96.41%,
+                #f86aae 0%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+
+    100% {
+        background: linear-gradient(90deg,
+                #f80000 44.46%,
+                #f87700 69.63%,
+                #4ff301 96.41%,
+                #2d8bf8 0%,
+                #f86aae 22.5%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
 }
 
 .header .title>.ciakname {
@@ -176,13 +228,8 @@ sans-serif; */
     text-fill-color: transparent;
 }
 
-.header .title>.ciakname>span {
-    margin-right: 5rem;
-}
-
 .header .title .img-title {
-    height: 50px;
-    margin-right: 1rem;
+    height: 65px;
 }
 
 .header p {
@@ -1309,10 +1356,6 @@ sans-serif; */
 
     .header .title .img-title {
         height: 35px;
-    }
-
-    .header .title>.ciakname>span {
-        margin-right: 3rem;
     }
 
     .btn-register {

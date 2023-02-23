@@ -13,6 +13,11 @@
                     <?= $_SESSION["failed"]; ?>
                 </span>
             <?php } ?>
+            <?php if (@isset($_SESSION["success"])) { ?>
+                <span class="text-center">
+                    <?= $_SESSION["success"]; ?>
+                </span>
+            <?php } ?>
         </div>
         <div class="col-10 col-lg-6 mx-auto mt-5 mb-auto">
             <form class="form-login" method="POST" action="<?= base_url(); ?>auth/form_login">

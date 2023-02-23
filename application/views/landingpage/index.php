@@ -15,6 +15,11 @@
                     <span class="text">Login</span>
                 </div>
             </a>
+            <a href="<?= base_url() ?>auth/" class="link button-login">
+                <div class="black">
+                    <span class="text">Ciak Agency</span>
+                </div>
+            </a>
         </div>
 
         <button id="open-menus" class="btn-menus"><i class="fa fa-bars"></i></button>
@@ -28,23 +33,18 @@
         <div class="col-10 mx-auto">
             <div class="row">
                 <div class="col-12 col-lg-7">
-                    <h1 class="title text-center text-lg-start">
+                    <h1 class="title text-center">
                         <div class="ciakname">
                             <img class="img-title" src="<?= base_url() ?>assets/img/logo.png" alt="" />
-                            <span> CIAK </span>
+                            <span> IAK </span>
                         </div>
                         Your Life on Live
                     </h1>
                     <p>
-                        New social without censorship that provides to users a meeting point for chatting, sharing
-                        photos & videos, audio contents, E-book, online courses, news and much more. Discover exclusive
-                        contents!
+                        New social without censorship that provides users a meeting point for chatting, sharing photos & videos, selling contents, audio, E-book, online courses, news and much more. Discover exclusive contents !
                     </p>
                     <div class="d-inline-block">
-                        <a href="" class="btn-register d-grid d-sm-inline me-3"><span
-                                class="text-rainbow">Register</span></a>
-                        <a href="" class="btn-register d-grid d-sm-inline me-3"><span class="text-rainbow">For
-                                Agencies</span></a>
+                        <a href="" class="btn-register d-grid d-sm-inline me-3"><span class="text-rainbow">Register</span></a>
                     </div>
                 </div>
                 <div class="col-5 d-none d-lg-grid my-auto">
@@ -149,12 +149,12 @@
                     </p>
                 </div>
                 <div class="col-5 d-none d-lg-grid m-auto">
-                    <img src="<?=base_url()?>assets/img/img-3-1.png" alt="" class="img-fluid">
+                    <img src="<?= base_url() ?>assets/img/img-3-1.png" alt="" class="img-fluid">
                 </div>
             </div>
             <div class="row pb-5">
                 <div class="col-5 d-none d-lg-grid m-auto">
-                    <img src="<?=base_url()?>assets/img/img-3-2.png" alt="" class="img-fluid">
+                    <img src="<?= base_url() ?>assets/img/img-3-2.png" alt="" class="img-fluid">
                 </div>
                 <div class="col-12 col-lg-5 m-auto">
                     <h3 class="blue">Cam to Cam</h3>
@@ -178,7 +178,7 @@
                         or with a cost per minute. </p>
                 </div>
                 <div class="col-5 d-none d-lg-grid m-auto">
-                    <img src="<?=base_url()?>assets/img/img-3-3.png" alt="" class="img-fluid">
+                    <img src="<?= base_url() ?>assets/img/img-3-3.png" alt="" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -228,7 +228,7 @@
                     </div>
                 </div>
                 <div class="col-5 d-none d-lg-grid m-auto">
-                    <img src="<?=base_url()?>assets/img/img-4-1.png" alt="" class="img-fluid">
+                    <img src="<?= base_url() ?>assets/img/img-4-1.png" alt="" class="img-fluid">
                 </div>
             </div>
         </div>

@@ -21,6 +21,16 @@
     outline: none !important;
 }
 
+.mt-auth-auto {
+    margin-top: auto;
+}
+
+@media (max-height: 720px) {
+    .mt-auth-auto {
+        margin-top: 5rem;
+    }
+}
+
 .btn-orange {
     text-decoration: none;
     text-align: center;

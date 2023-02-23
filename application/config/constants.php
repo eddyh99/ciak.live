@@ -98,3 +98,9 @@ if (stripos($_SERVER['HTTP_HOST'], 'sandbox') === 0) {
 } else {
     define('URLAPI', "https://api.sandbox.ciak.live");
 }
+
+
+/*email config*/
+define('HOST_EMAIL', "mail.tracklessbank.com");
+define('USERNAME_EMAIL', "no-reply@tracklessbank.com");
+define('PASS_EMAIL', 'DLgV4o?L1B]m');

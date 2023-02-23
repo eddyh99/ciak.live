@@ -15,7 +15,7 @@ if (set_value('agree')) {
 
 <div class="apps-body">
     <div class="apps-auth w-100 d-flex flex-column">
-        <div class="col-12 logo mt-auto text-center">
+        <div class="col-12 logo mt-auth-auto text-center">
             <h3 class="text-center">
                 Sign up
             </h3>
