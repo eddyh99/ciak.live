@@ -1153,6 +1153,13 @@
     position: relative;
 }
 
+.apps-member .banner-profile img.banner-images {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 0 0%;
+}
+
 .apps-member .banner-profile .changes {
     position: absolute;
     bottom: 1rem;
@@ -1214,6 +1221,46 @@
     z-index: 4;
 }
 
+.apps-member .info-profile .name h3 {
+    font-weight: 500;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+.apps-member .info-profile .name span.location {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #727477;
+}
+
+.apps-member .info-profile .name p {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #ECEBED;
+}
+
+.apps-member .info-profile .rate-star {
+    color: #FFFFFF;
+}
+
+.apps-member .info-profile .rate-star i.gold {
+    color: #FDC80B;
+}
+
+.apps-member .profile.user .img-profile {
+    height: 150px;
+}
+
+.apps-member .profile .img-profile .img,
+.apps-member .profile.user .img-profile .img img {
+    width: 150px;
+    height: 150px;
+}
+
 .apps-member .profile .img-profile form {
     display: flex;
     justify-content: center;
@@ -1268,6 +1315,41 @@
     color: #2E8AF7;
 
     z-index: 9;
+}
+
+.apps-member .profile a.icon-profile {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+
+    text-decoration: none;
+    text-align: right;
+
+    margin-top: .75rem;
+    padding: .5rem 0.6rem;
+
+    color: #FFFFFF;
+
+    z-index: 1;
+}
+
+.apps-member .profile a.icon-profile.logout {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+
+    text-decoration: none;
+    text-align: right;
+
+    margin-top: .75rem;
+
+    color: #FFFFFF;
+
+    background: #000000;
+    border: 1px solid #727477;
+    border-radius: 32px;
+
+    z-index: 1;
 }
 
 .apps-member .profile a.btn-orange {
@@ -1329,6 +1411,11 @@
     background: transparent;
     color: #FFFFFF;
     padding: .75rem 1rem;
+}
+
+.apps-member .biodata .ciak-data-input input.disabled {
+    background: rgba(196, 196, 196, 0.45);
+    border: 1px solid rgba(196, 196, 196, 0.45);
 }
 
 .apps-member .biodata .ciak-check span {
@@ -1551,6 +1638,7 @@
 .apps-member .list-people .people .btn-orange.active {
     background: #323436;
 }
+
 
 
 

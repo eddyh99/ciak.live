@@ -161,50 +161,7 @@ sans-serif; */
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
-
-    /* animation: color-change 10s infinite; */
     text-shadow: 3px 3px 8px rgba(129, 88, 82, 0.25);
-}
-
-@keyframes color-change {
-    0% {
-        background: linear-gradient(90deg,
-                #f80000 0%,
-                #f87700 22.5%,
-                #4ff301 44.46%,
-                #2d8bf8 69.63%,
-                #f86aae 96.41%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-    }
-
-    50% {
-        background: linear-gradient(90deg,
-                #f80000 22.5%,
-                #f87700 44.46%,
-                #4ff301 69.63%,
-                #2d8bf8 96.41%,
-                #f86aae 0%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-    }
-
-    100% {
-        background: linear-gradient(90deg,
-                #f80000 44.46%,
-                #f87700 69.63%,
-                #4ff301 96.41%,
-                #2d8bf8 0%,
-                #f86aae 22.5%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-    }
 }
 
 .header .title>.ciakname {
@@ -229,7 +186,7 @@ sans-serif; */
 }
 
 .header .title .img-title {
-    height: 65px;
+    height: 70px;
 }
 
 .header p {
@@ -1095,6 +1052,13 @@ sans-serif; */
 }
 
 @media (max-width: 1399px) {
+    .header .title {
+        font-size: 60px;
+    }
+
+    .header .title .img-title {
+        height: 60px;
+    }
 
     .content .content-wallet .guides.post p span,
     .content .content-wallet .guides p span {
