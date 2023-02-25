@@ -63,6 +63,11 @@ class Auth extends CI_Controller
 				return;
 			}
 
+			$userCode = base_url() . 'qrcode/users/' . $result->message->ucode . '.png';
+			if (@getimagesize($userCode) == FALSE) {
+				generateQRCode($result->message->ucode, 'users', $result->message->ucode);
+			}
+
 			$session_data = array(
 				'user_id'   => $result->message->id,
 				'ucode'     => $result->message->ucode,
@@ -160,7 +165,7 @@ class Auth extends CI_Controller
 				$message = registerHTML($username, $result->message->token);
 				$subject = 'Ciak Registration';
 
-				sendmail($email, $subject, $message, $this->phpmailer_lib->load());
+				sendmail($email, $subject, $message);
 				redirect('auth/signup_success');
 			} else {
 				$this->session->set_flashdata('failed', $result->message);
@@ -212,7 +217,7 @@ class Auth extends CI_Controller
 				$message = resetpassHTML($email, $result->message->token);
 				$subject = 'Reset Password for Ciak Account';
 
-				sendmail($email, $subject, $message, $this->phpmailer_lib->load());
+				sendmail($email, $subject, $message);
 				redirect('auth/forgetpass_success');
 			} else {
 				$this->session->set_flashdata('failed', $result->message);

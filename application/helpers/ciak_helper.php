@@ -20,10 +20,12 @@ function apiciaklive($url, $postData = NULL)
 }
 
 
-function sendmail($email, $subject, $message, $phpmailer)
+function sendmail($email, $subject, $message)
 {
-    // $mail = $this->phpmailer_lib->load();
-    $mail = $phpmailer;
+    $ci = get_instance();
+    $ci->load->library('phpmailer_lib');
+    $mail = $ci->phpmailer_lib->load();
+    // $mail = $phpmailer;
 
     $mail->isSMTP();
     $mail->Host         = HOST_EMAIL;
@@ -60,6 +62,29 @@ function sendmail($email, $subject, $message, $phpmailer)
     $mail->send();
 }
 
+function generateQRCode($name, $dir, $value)
+{
+    $ci = get_instance();
+    $ci->load->library('ciqrcode');
+
+    $config['cacheable']    = true;
+    $config['cachedir']     = './qrcode/';
+    $config['errorlog']     = './qrcode/';
+    $config['imagedir']     = './qrcode/' . $dir . '/';
+    $config['quality']      = true;
+    $config['size']         = '1024';
+    $config['black']        = array(224, 255, 255);
+    $config['white']        = array(70, 130, 180);
+    $ci->ciqrcode->initialize($config);
+
+    $image_name = $name . '.png';
+
+    $params['data'] = $value;
+    $params['level'] = 'H';
+    $params['size'] = 10;
+    $params['savename'] = FCPATH . $config['imagedir'] . $image_name;
+    return  $ci->ciqrcode->generate($params);
+}
 
 function registerHTML($username, $token)
 {

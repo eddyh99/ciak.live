@@ -30,7 +30,7 @@
                     </svg>
                 </a>
 
-                <a href="" class="icon-profile logout me-3">
+                <a href="<?= base_url() ?>auth/logout" class="icon-profile logout me-3">
                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.6667 15.7083L19.875 10.5M19.875 10.5L14.6667 5.29166M19.875 10.5H7.375M10.5 15.7083C10.5 16.0162 10.5 16.1702 10.4886 16.3035C10.3696 17.6895 9.34881 18.83 7.98441 19.1013C7.85315 19.1274 7.70002 19.1444 7.39412 19.1784L6.33015 19.2966C4.73175 19.4742 3.93251 19.563 3.29757 19.3599C2.45097 19.0889 1.75981 18.4703 1.39706 17.6588C1.125 17.0502 1.125 16.2461 1.125 14.6378V6.36218C1.125 4.75391 1.125 3.94978 1.39706 3.34116C1.75981 2.52966 2.45097 1.91104 3.29757 1.64013C3.93251 1.43694 4.73172 1.52574 6.33015 1.70334L7.39411 1.82156C7.70013 1.85556 7.85313 1.87256 7.98441 1.89867C9.34881 2.16995 10.3696 3.31045 10.4886 4.69646C10.5 4.82982 10.5 4.98377 10.5 5.29166" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
@@ -50,6 +50,16 @@
                 <span class="location mb-2">Brooklyn, NY</span>
                 <p>Writer by Profession. Artist by Passion!</p>
             </div>
+        </div>
+        <div class="action-profile text-center mx-5">
+            <a href="">Edit Subscription</a>
+            <a href="<?= base_url() ?>profile/setting_profile">Edit Profile</a>
+        </div>
+        <div class="selection-menus-profile text-center m-3">
+            <button class="rounded-start-5px"><span class="active">Public</span></button>
+            <button><span>Media</span></button>
+            <button><span>Live</span></button>
+            <button class="rounded-end-5px"><span>Versus</span></button>
         </div>
     </div>
 </div>

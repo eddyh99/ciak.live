@@ -1251,6 +1251,72 @@
     color: #FDC80B;
 }
 
+.apps-member .action-profile {
+    display: flex;
+    flex-direction: row;
+}
+
+.apps-member .selection-menus-profile {
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
+    border-radius: 5px;
+}
+
+.apps-member .action-profile a {
+    flex: 1;
+    text-decoration: none;
+    padding: .5rem 0;
+    background: #181A1C;
+
+    border: 1px solid #727477;
+    border-radius: 30px;
+
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.apps-member .selection-menus-profile button {
+    flex: 1 1;
+    background: #181A1C;
+    padding: .5rem;
+    text-align: center;
+    border: none;
+    margin: 1px .5px;
+}
+
+.apps-member .selection-menus-profile button span {
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFF;
+    text-align: center;
+}
+
+.apps-member .selection-menus-profile button span.active {
+    font-size: 13px;
+
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.apps-member .selection-menus-profile button.rounded-start-5px {
+    border-radius: 5px 0 0 5px;
+    margin-left: 1px;
+}
+
+.apps-member .selection-menus-profile button.rounded-end-5px {
+    border-radius: 0 5px 5px 0;
+    margin-right: 1px;
+}
+
 .apps-member .profile.user .img-profile {
     height: 150px;
 }
