@@ -1,0 +1,8 @@
+@font-face {
+    font-family: corporative;
+    src: url(../font/CorporativeRegular.woff);
+}
+
+* {
+    font-family: corporative, 'sans-serif';
+}
