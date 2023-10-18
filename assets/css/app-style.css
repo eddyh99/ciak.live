@@ -2902,8 +2902,7 @@ label#label-forsubs {
     background-color: var(--publish-btn) !important;
 }
 
-.apps-member .search-input-guest .search_data_invt,
-.apps-member .search-input-guest .search_data_invt_meeting {
+.apps-member .search-input-guest .search_data_invt {
     background: var(--input-search-homepage);
     border-radius: 10px;
     padding: 0.5rem 1rem;

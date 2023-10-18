@@ -38,8 +38,8 @@
 <div class="modal" id="otherperformer" style="z-index:999">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-body text-white d-flex justify-content-center gap-2">
-            <div class="row col-10">
+      <div class="modal-body">
+            <div class="row">
                 <div class="apps-member col-12 mx-auto ">
                     <div class="d-flex justify-content-center mt-4 search-input-guest">
                         <input type="text" name="search_data" id="search_data" class="form-control search_data_invt" placeholder="Who do you want to chat with?">

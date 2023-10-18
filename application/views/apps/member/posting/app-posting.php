@@ -416,9 +416,9 @@
             <div class="row col-10">
                 <div class="apps-member col-12 mx-auto">
                     <div class="d-flex justify-content-center mt-4 search-input-guest">
-                        <input type="text" name="search_data_invt_meeting" id="search_data_invt_meeting" class="form-control search_data_invt_meeting" placeholder="Who do you want to chat with?">
+                        <input type="text" name="search_data_invt" id="search_data_invt" class="form-control search_data_invt" placeholder="Who do you want to chat with?">
                     </div>
-                    <div id="suggestionslistmeeting"></div>  
+                    <div id="suggestionslist"></div>  
                     <div class="list-people mt-5 mb-on-botbar">
                         <?php 
                             $i=1;

@@ -21,16 +21,6 @@ class Homepage extends CI_Controller
         // echo "<pre>".print_r($post,true)."</pre>";
         // die;
 
-        // $source      = FCPATH.'assets/img/ip.mp4';
-	    // $destination = FCPATH.'assets/css/ip.mpeg';
-
-        // $cmd='ffmpeg -i '. $source . $destination;
-        // shell_exec('');
-        // echo shell_exec('ffmpeg -re -i http://localhost/ciak.live/assets/img/ip.mp4 -vcodec mjpeg -vframes 1 -an -f rawvideo -s 320x240 http://localhost/ciak.live/assets/img/ip.jpg');
-
-        // echo $output;
-        // die;
-
         $data = array(
             'title'         => NAMETITLE . ' - Homepage',
             'content'       => 'apps/member/app-index',
@@ -45,7 +35,6 @@ class Homepage extends CI_Controller
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }
-
 
     public function recomend_friends()
     {

@@ -560,8 +560,6 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 13.  Searching Invite Guest Start 
 ------------------------------------------------------------*/   
-
-    // CAM2CAM SEARCHING
     $('#suggestionslist').hide();
     //setup before functions
     var typingTimer;             
@@ -596,49 +594,6 @@ $(document).ready(function(){
                     if (data.length > 0) {
                         $('#suggestionslist').html(data);
                         $('#suggestionslist').show();
-                    }
-                }
-            });
-
-        }  
-    }
-
-
-    // MEETING LIVE SEARCHING
-    $('#suggestionslistmeeting').hide();
-    //setup before functions
-    var typingTimerMeeting;             
-    var doneTypingIntervalMeeting = 5000;  
-    var $inputMeeting = $('#search_data_invt_meeting');
-
-    //on keyup, start the countdown
-    $inputMeeting.on('keyup', function () {
-        clearTimeout(typingTimerMeeting);
-        typingTimerMeeting = setTimeout(doneTypingMeeting(), doneTypingIntervalMeeting);
-    });
-
-    //on keydown, clear the countdown 
-    $inputMeeting.on('keydown', function () {
-        clearTimeout(typingTimerMeeting);
-    });
-
-    //user is "finished typing," do something
-    function doneTypingMeeting () {
-        var inputMeeting=$('#search_data_invt_meeting').val();
-        if (inputMeeting.length < 3) {
-            $('#suggestionslistmeeting').hide();
-        } else {
-            console.log("200 search");
-            $.ajax({
-                url: "<?=base_url()?>post/invite_search?term="+inputMeeting,
-                success: function(data, response) {
-                    $('.spinner-search').hide();
-                    $('.fa-magnifying-glass').show();
-                    console.log(response);
-                    // return success
-                    if (data.length > 0) {
-                        $('#suggestionslistmeeting').html(data);
-                        $('#suggestionslistmeeting').show();
                     }
                 }
             });
