@@ -5,7 +5,7 @@
                 <div class="list-notif">
                     <form class="mx-auto w-100">
                         <div class="search">
-                            <input type="text" id="search_data" class="form-control" placeholder="Search for people, posts,....">
+                            <input type="text" id="search_data" class="form-control" placeholder="Search minimun 3 character...">
                             <a href="<?= base_url() ?>searching" class="pe-none searching-icon" id="searching-icon">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
@@ -23,6 +23,18 @@
                             <li class="filter float-start">
                                 <input type="checkbox" id="check_2" name="check_2" value="check_2">
                                 <label class="span-text-toogle-explicit" for="check_2">Posts</label>
+                            </li>
+                            <li class="filter float-start">
+                                <input type="checkbox" id="check_3" name="check_3" value="check_3">
+                                <label class="span-text-toogle-explicit" for="check_3">Email</label>
+                            </li>
+                            <li class="filter float-start">
+                                <input type="checkbox" id="check_4" name="check_4" value="check_4">
+                                <label class="span-text-toogle-explicit" for="check_4">Contact</label>
+                            </li>
+                            <li class="filter float-start">
+                                <input type="checkbox" id="check_5" name="check_5" value="check_5">
+                                <label class="span-text-toogle-explicit" for="check_5">Name/Surename</label>
                             </li>
                         </ul>
                     </div>

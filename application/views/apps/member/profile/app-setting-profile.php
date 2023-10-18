@@ -108,6 +108,16 @@
                             <label for="username" class="form-label d-flex align-items-center"><span class="require-red fs-4 me-1">*</span>Username</label>
                             <input type="text" class="form-control" id="username" name="username" value="<?=$_SESSION["username"]?>" required>
                         </div>
+                        <div class="mb-3 ciak-data-input d-flex justify-content-between">
+                            <div class="w-100">
+                                <label for="firstname" class="form-label d-flex align-items-center">Firstname</label>
+                                <input type="text" class="form-control" id="firstname" name="firstname" value="<?=@$profile->firstname?>">
+                            </div>
+                            <div class="w-100 ms-4">
+                                <label for="surename" class="form-label d-flex align-items-center">Surename</label>
+                                <input type="text" class="form-control" id="surename" name="surename" value="<?=@$profile->surename?>">
+                            </div>
+                        </div>
                         <div class="mb-3 ciak-data-input">
                             <label for="bio" class="form-label">Bio</label>
                             <textarea name="bio" id="bio" class="form-control" cols="30" rows="10"><?=@$profile->bio?></textarea>

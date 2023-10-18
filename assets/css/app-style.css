@@ -2975,6 +2975,15 @@ label#label-forsubs {
     padding: .25rem .5rem;
     color: #ffffff;
 }
+
+.posts-member .post-member .wrapper-filter .filter {
+    padding: 0px !important;
+    padding-left: 15px !important;
+}
+
+.posts-member .post-member .wrapper-filter .filter input[type="checkbox"] + label {
+    margin-bottom: 0px !important
+}
  /*----------------------------------------------------------
 2. Member End
 ------------------------------------------------------------*/ 

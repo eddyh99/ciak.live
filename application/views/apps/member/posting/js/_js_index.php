@@ -295,7 +295,7 @@ $(document).ready(function(){
         var jenis=$("#jenis").val();
         var tipepost=$("#tipepost").val();
         var is_video= localStorage.getItem("is_video");
-        var vs_data = $('#vs-preview').html();
+        // var vs_data = $('#vs-preview').html();
         
         $('#load-edit-profile').show();
         if (jenis=="Post"){
@@ -339,7 +339,7 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
-                        console.log("316 - " + data);
+                        console.log("316 - " + response);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
                             localStorage.removeItem('is_video');

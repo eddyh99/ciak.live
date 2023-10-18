@@ -33,9 +33,9 @@ class Profile extends CI_Controller
     	$url = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
 		$result = apiciaklive($url)->message;
 		$post = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=1")->message;
-        // echo "<pre>".print_r($post,true)."</pre>";
-        // print_r(json_encode($post));
+        // echo "<pre>".print_r($result,true)."</pre>";
 		// die;
+        // print_r(json_encode($post));
         
         $data = array(
             'title'         => NAMETITLE . ' - Profile',
@@ -208,13 +208,13 @@ class Profile extends CI_Controller
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
-            print_r("DISINI ");
-            die;
 			redirect("profle/setting_profile");
 			return;
 		} else {
             $input          = $this->input;
             $username       = $this->security->xss_clean($this->input->post("username"));
+            $firstname      = $this->security->xss_clean($this->input->post("firstname"));
+            $surename       = $this->security->xss_clean($this->input->post("surename"));
             $bio            = $this->security->xss_clean($this->input->post("bio"));
             $web            = $this->security->xss_clean($this->input->post("web"));
             $email          = $this->security->xss_clean($this->input->post("email"));
@@ -231,6 +231,8 @@ class Profile extends CI_Controller
         $mdata=array(
                 "userid"    => $_SESSION["user_id"],
                 "username"  => $username,
+                "firstname" => $firstname,
+                "surename"  => $surename,
                 "bio"       => $bio,
                 "web"       => $web,
                 "email"     => $email,
@@ -242,9 +244,11 @@ class Profile extends CI_Controller
                 "profile"   => $imgpp,
                 "header"    => $imgbanner
             );
+            
         
     	$url = URLAPI . "/v1/member/profile/setProfile";
 		$result = apiciaklive($url,json_encode($mdata));
+
         
 		if ($result->code!=200){
             header("HTTP/1.0 406 Not Acceptable");
@@ -254,7 +258,6 @@ class Profile extends CI_Controller
     	        );
 
     	    echo json_encode($message);
-    	    die;
         }
         $_SESSION["username"]=$username;
 

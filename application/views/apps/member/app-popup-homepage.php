@@ -128,7 +128,7 @@
             <a id="fbshare" target="_blank"><i class="fa-brands fa-facebook"></i></a>
             <a id="twittershare" target="_blank"><img src="<?= base_url()?>assets/img/new-ciak/x-share.png" alt="x"></a>
             <a id="teleshare" target="_blank"><i class="fa-brands fa-telegram"></i></a>
-            <a id="linkedshare"><i class="fa-brands fa-linkedin"></i></a>
+            <a id="linkedshare" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
             <a id="washare" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
     </div>
