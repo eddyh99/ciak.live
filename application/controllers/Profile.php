@@ -595,4 +595,66 @@ class Profile extends CI_Controller
             redirect("profile");
         }
     }
+    
+    public function youtube_link(){
+        $client = new Google\Client();
+        $client->setAuthConfig(FCPATH.'assets/service/youtube.json');
+        $client->addScope(Google_Service_YouTube::YOUTUBE_FORCE_SSL);
+        $client->setRedirectUri(base_url()."profile/youtube_callback");
+
+        $client->setAccessType('offline');
+        $client->setPrompt('consent');
+        $client->setIncludeGrantedScopes(true);     
+        
+        //redirect to youtube
+        $auth_url = $client->createAuthUrl();
+        redirect ($auth_url);
+    }
+    
+    public function youtube_callback(){
+
+        $client = new Google\Client();
+        $client->setAuthConfig(FCPATH.'assets/service/youtube.json');
+        $client->addScope(Google_Service_YouTube::YOUTUBE_FORCE_SSL);
+        $client->setRedirectUri(base_url()."profile/youtube_callback");
+        $client->authenticate($_GET['code']);
+        $access_token = $client->getAccessToken();
+
+        // Check to ensure that the access token was successfully acquired.
+        if ($client->getAccessToken()) {
+          try {
+            $youtube = new Google_Service_YouTube($client);
+
+            $streamSnippet = new Google_Service_YouTube_LiveStreamSnippet();
+            $streamSnippet->setTitle("Ciak Live Streaming");
+
+            $cdn = new Google_Service_YouTube_CdnSettings();
+            $cdn->setResolution("1080p");
+            $cdn->setFrameRate("30fps");
+            $cdn->setIngestionType('rtmp');
+
+            $streamInsert = new Google_Service_YouTube_LiveStream();
+            $streamInsert->setSnippet($streamSnippet);
+            $streamInsert->setCdn($cdn);
+            $streamInsert->setKind('youtube#liveStream');
+
+            $liveStream = $youtube->liveStreams->insert('snippet,cdn',$streamInsert, array());
+
+            $rtmp_address   = $liveStream->cdn->ingestionInfo->ingestionAddress."/";
+            $streamkey      = $liveStream->cdn->ingestionInfo->streamName;
+            
+            $rtmp_address   .=$streamkey;
+            $mdata=array(
+                    "address_rtmp"   => $rtmp_address
+                );
+    
+            $url        = URLAPI . "/v1/perform/set_streamingrtmp?rtmp=youtube";
+    	    $result     = apiciaklive($url,json_encode($mdata))->message;
+          }catch(Exception $e) {
+                $this->session->set_flashdata("error","Your account not ready for live stream");
+                redirect("profile/setting_profile");
+            }
+            
+        }
+    }
 }
