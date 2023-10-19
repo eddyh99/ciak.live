@@ -1,5 +1,11 @@
 
-
+<div id="load-edit-profile">
+    <div class="img-load d-flex flex-column justify-content-center align-items-center">
+        <div class="spinner-border fs-3" role="status">
+            <span class="visually-hidden fs-3">Loading...</span>
+        </div>
+    </div>
+</div>
 <div class="position-relative top-0 vh-100">
     <div class="row">
         <div class="col-12 col-lg-8">

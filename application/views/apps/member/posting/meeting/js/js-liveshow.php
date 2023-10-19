@@ -116,6 +116,7 @@ $.ajax({
         console.log(data);
         connection.extra.userFullName = data.username;
         if (data.performer===true){
+            $('#load-edit-profile').hide()
             if((data.meeting_type == "free") && (data.purpose == "public")){
                 $("#connectlive").show()
             }else{
@@ -127,6 +128,7 @@ $.ajax({
             performer=true;
             connection.extra.roomOwner = true;
         }else if (data.performer===false){
+            $('#load-edit-profile').hide()
             $('.please-click-join-live').text('Please click join button');
             $("#btnopen").html("Join");
             $("#connectlive").hide()

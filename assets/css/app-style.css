@@ -2836,8 +2836,6 @@ input[type=number] {
     width: 100%;
     height: 100%;
     position: fixed;
-    /* text-indent: 100%; */
-    /* background: #ffffff url(../img/load.gif); */
     background: #000000;
     background-repeat: no-repeat;
     background-position: center;
