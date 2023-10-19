@@ -666,4 +666,50 @@ class Profile extends CI_Controller
             
         }
     }
+    
+    public function facebook_link(){
+        $fb = new Facebook\Facebook([
+            'app_id' => '1000656337656715',
+            'app_secret' => 'f116694de32707cbae9c56dc08496057',
+            'default_graph_version' => 'v5.0',
+        ]);
+        
+        $permissions = [
+                'publish_video',
+        ];        
+        $helper = $fb->getRedirectLoginHelper();
+        $loginUrl = $helper->getLoginUrl(base_url()."profile/facebook_callback",$permissions);
+        redirect ($loginUrl);
+    }
+    
+    public function facebook_callback(){
+        $fb = new Facebook\Facebook([
+            'app_id' => '1000656337656715',
+            'app_secret' => 'f116694de32707cbae9c56dc08496057',
+            'default_graph_version' => 'v5.0',
+        ]);
+        
+        $helper = $fb->getRedirectLoginHelper();
+        $accessToken = $helper->getAccessToken();
+        
+        if (isset($accessToken)) {
+                $token = (string) $accessToken;
+        		$oAuth2Client = $fb->getOAuth2Client();
+        		$longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($token);
+        		$newtoken= (string) $longLivedAccessToken;
+        		$fb->setDefaultAccessToken($newtoken);
+
+                $createLiveVideo = $fb->post('/me/live_videos', ['title' => 'new video', 'description' => 'descrip of the video']);
+            	$createLiveVideo = $createLiveVideo->getGraphNode()->asArray();
+                $mdata=array(
+                        "address_rtmp"   => $createLiveVideo["stream_url"]
+                    );
+        
+                $url        = URLAPI . "/v1/member/perform/set_streamingrtmp?rtmp=facebook";
+        	    $result     = apiciaklive($url,json_encode($mdata));
+    
+                $this->session->set_flashdata('success', "Your account success connected to Facebook");
+                redirect("profile/setting_profile");
+        }
+    }    
 }

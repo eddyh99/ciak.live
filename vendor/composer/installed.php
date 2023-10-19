@@ -19,6 +19,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'facebook/graph-sdk' => array(
+            'pretty_version' => '5.7.0',
+            'version' => '5.7.0.0',
+            'reference' => '2d8250638b33d73e7a87add65f47fabf91f8ad9b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../facebook/graph-sdk',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'firebase/php-jwt' => array(
             'pretty_version' => 'v6.9.0',
             'version' => '6.9.0.0',
