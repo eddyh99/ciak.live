@@ -52,7 +52,7 @@
                 </div>
                 <div class="name">
                     <h3 class="mt-2 mb-1">@<?= ucfirst($profile->username)?></h3>
-                    <h3 class="mt-2 mb-1"><?= ucfirst($profile->firstname)?> <?= ucfirst($profile->surename)?></h3>
+                    <!-- <h3 class="mt-2 mb-1"><?= @ucfirst($profile->firstname)?> <?= @ucfirst($profile->surename)?></h3> -->
                     <?php if (@$profile->is_kontakshare=='yes'){?>
                         <span class="location mb-2"><?=$profile->contact?></span>
                     <?php } ?>

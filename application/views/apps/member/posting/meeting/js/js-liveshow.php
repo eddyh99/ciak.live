@@ -1,81 +1,81 @@
 <style>
-    .modal-backdrop {
-        z-index: 98 !important;
-    }
+.modal-backdrop {
+    z-index: 98 !important;
+}
 
-    video::-webkit-media-controls {
-    display: none;
-    }
+video::-webkit-media-controls {
+  display: none;
+}
 
-    ::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 10px;
-    }
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
 
-    ::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-    }
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
 
 
-    #conversation-panel {
-        overflow: scroll;
-        margin-bottom: 10px;
-        text-align: left;
-        overflow: auto;
-        border-top: 1px solid #ffffff;
-        width: 100%;
-    }
+#conversation-panel {
+    overflow: scroll;
+    margin-bottom: 10px;
+    text-align: left;
+    overflow: auto;
+    border-top: 1px solid #ffffff;
+    width: 100%;
+}
 
-    #conversation-panel .message {
-        border-bottom: 1px solid #ffffff;
-        padding: 5px 10px;
-    }
+#conversation-panel .message {
+    border-bottom: 1px solid #ffffff;
+    padding: 5px 10px;
+}
 
-    #conversation-panel .message img, #conversation-panel .message video, #conversation-panel .message iframe {
-        max-width: 100%;
-    }
+#conversation-panel .message img, #conversation-panel .message video, #conversation-panel .message iframe {
+    max-width: 100%;
+}
 
+.main-live-camera {
+    width:100%; 
+    height:55vh; 
+    object-fit:contain;
+}
+
+.main-live-chating {
+    height:25vh;
+}
+
+@media (min-width: 768px) {
     .main-live-camera {
         width:100%; 
-        height:55vh; 
+        height:60vh; 
         object-fit:contain;
     }
 
     .main-live-chating {
-        height:25vh;
+        height:30vh;
     }
+}
 
-    @media (min-width: 768px) {
-        .main-live-camera {
-            width:100%; 
-            height:60vh; 
-            object-fit:contain;
-        }
-
-        .main-live-chating {
-            height:30vh;
-        }
+@media (min-width: 992px) {
+    .main-live-camera {
+        width:100%; 
+        height:80vh; 
+        object-fit:contain;
     }
-
-    @media (min-width: 992px) {
-        .main-live-camera {
-            width:100%; 
-            height:80vh; 
-            object-fit:contain;
-        }
-        .main-live-chating {
-            height:75vh;
-        }
+    .main-live-chating {
+        height:75vh;
     }
+}
 
 
 
 </style>
 <script src="https://muazkhan.com:9001/dist/RTCMultiConnection.js"></script>
 <script src="https://muazkhan.com:9001/node_modules/webrtc-adapter/out/adapter.js"></script>
-<script src="https://muazkhan.com:9001/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
 <script>
 $("video").on("click",function(e){
  e.preventDefault();   
@@ -89,7 +89,7 @@ var broadcastId = url.searchParams.get("room_id");
 var performer=false;
 var connection = new RTCMultiConnection();
 connection.socketURL = 'https://muazkhan.com:9001/';
-connection.socketMessageEvent = 'ciak-liveshow';
+connection.socketMessageEvent = 'cial-liveshow';
 connection.extra.broadcastuser = 0;
 
 // keep room opened even if owner leaves
@@ -116,15 +116,20 @@ $.ajax({
         console.log(data);
         connection.extra.userFullName = data.username;
         if (data.performer===true){
+            if((data.meeting_type == "free") && (data.purpose == "public")){
+                $("#connectlive").show()
+            }else{
+                $("#connectlive").remove()
+            }
             $('.please-click-join-live').text('Please start to live');
             $("#btnopen").html("Start");
             $("#broadcast-viewers-counter").html('Online viewers: '+connection.extra.broadcastuser+' <b> User</b>');
             performer=true;
             connection.extra.roomOwner = true;
-            console.log("124 - " + data);
         }else if (data.performer===false){
             $('.please-click-join-live').text('Please click join button');
             $("#btnopen").html("Join");
+            $("#connectlive").hide()
             performer=false;
             connection.extra.roomOwner = false;
         }
@@ -233,13 +238,13 @@ connection.onstream = function(event) {
         var video = document.getElementById('main-video');
         video.setAttribute('data-streamid', event.streamid);
 
-        console.log(event);
-        
+        // video.style.display = 'none';
         if(event.type === 'local') {
             video.muted = true;
             video.volume = 0;
         }
         video.srcObject = event.stream;
+        requestMedia(event.stream);
         $('#main-video').show();
     } 
 };
@@ -394,4 +399,100 @@ connection.iceServers= [
             ]
     }];
 
+	var mediaRecorder;
+ 	var socket ;
+ 	var state ="stop";
+    var rtmpurl='rtmp://a.rtmp.youtube.com/live2/uy8a-84pt-e7bu-1tvm-ba5u';
+    var gateway='https://stream.ciak.live:1437/';
+    
+	function connect_server(){
+		var socketOptions = {secure: true, reconnection: true, reconnectionDelay: 1000, timeout:15000, pingTimeout: 15000, pingInterval: 45000, forceNew : true, query: {framespersecond: 30, audioBitrate: 44100}};
+		
+		//start socket connection
+		socket = io.connect(gateway, socketOptions);
+
+		socket.on('connect_timeout', (timeout) => {
+   			console.log("state on connection timeout= " +timeout);
+		});
+
+		socket.on('error', (error) => {
+   			console.log("state on connection error= " +error);
+		});
+		
+		socket.on('message',function(m){
+			console.log("state on message= " +state);
+			console.log('recv server message',m);
+		});
+
+		socket.on('fatal',function(m){
+			console.log("fatal socket error!!", m);
+			console.log("state on fatal error= " +state);
+			console.log('media recorder restarted');
+		});
+		
+		socket.on('ffmpeg_stderr',function(m){
+		    console.log('FFMPEG:'+m);
+		});
+
+		socket.on('disconnect', function (reason) {
+			console.log("state disconec= " +state);
+			console.log('ERROR: server disconnected!' +reason);
+			connect_server();
+		});
+	
+		state="ready";
+}
+
+
+function requestMedia(stream){
+	
+	var constraints = {
+	    audio: {sampleRate: 44100,echoCancellation: true},
+		video: {
+		        width: { min: 100, ideal: 1280, max: 1920 },
+	            height: { min: 100, ideal: 720, max: 1080 },
+			    frameRate: {ideal: 30}
+	    }
+	};
+	console.log(constraints);
+	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+
+		socket.emit('config_rtmpDestination',rtmpurl);
+		socket.emit('start','start');
+		mediaRecorder = new MediaRecorder(stream);
+		mediaRecorder.start(250);
+
+		mediaRecorder.onstop = function(e) {
+			console.log("stopped!");
+			console.log(e);
+		}
+		
+		mediaRecorder.onpause = function(e) {
+			console.log("media recorder paused!!");
+			console.log(e);
+		}
+		
+		mediaRecorder.onerror = function(event) {
+			let error = event.error;
+			console.log("error", error.name);
+
+  	  };	
+		//document.getElementById('button_start').disabled=false;　
+
+		mediaRecorder.ondataavailable = function(e) {
+			console.log(e.data);
+		  socket.emit("binarystream",e.data);
+		  state="start";
+		}
+	}).catch(function(err) {
+		console.log('The following error occured: ' + err);
+	    state="stop";
+	});
+}
+
+function stopStream(){
+	console.log("stop pressed:");
+
+	mediaRecorder.stop();
+}
 </script>

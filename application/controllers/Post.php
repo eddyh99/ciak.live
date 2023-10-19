@@ -290,34 +290,24 @@ class Post extends CI_Controller
         $guestinvite    = $this->security->xss_clean($this->input->post("guestinvite"));
         $meetingtype    = $this->security->xss_clean($this->input->post("meetingtype"));
 
-
         $post_time=date("Y-m-d H:i");
         
         if ($guestinvite=='invite'){
             $message="You Are Invited to join meeting";
             $message.="<br>Description : ".$deskripsi;
         }
-        
-        if($guestinvite=='alone'){
-            $message="You Are Invited to join meeting";
-            $message.="<br>Description : ".$deskripsi;
-        }
-
 
         $mdata=array(
                 "start_time"    => $post_time,
                 "content_type"  => $_SESSION["content_type"],
                 "article"       => $message,
-                "guestcam"      => @$guestcam,
+                "guestcam"      => $guestcam,
                 "meeting_type"  => $meetingtype
             );
-        
-            
-       
+
         $url = URLAPI . "/v1/member/post/performmeeting";
 		$result = apiciaklive($url,json_encode($mdata));
-        // echo "<pre>".print_r($mdata,true)."</pre>";
-        // die;
+        
 		if (@$result->code!=200){
 		    //set flash data error
 	        return;

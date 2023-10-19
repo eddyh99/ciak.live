@@ -150,6 +150,10 @@
     outline: none !important;
 }
 
+.dropdown-item:active {
+    background-color: #03B115 !important;
+}
+
 .mt-auth-auto {
     margin-top: auto;
 }
@@ -2125,7 +2129,6 @@ input[type=number] {
 .apps-member .biodata .ciak-check span {
     font-weight: 500;
     font-size: 14px;
-
     background: linear-gradient(148.17deg, var(--text-white-color) 1.58%, var(--text-white-color) 101.16%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -2141,6 +2144,14 @@ input[type=number] {
     color: var(--text-white-color);
 }
 
+.apps-member .biodata .ciak-connect .wrapper-border {
+    border: 1px solid #03B115;
+    padding: 15px 0px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-white-color);
+}
+
 .apps-member .biodata .ciak-check .form-switch .form-check-input,
 .apps-member .biodata .ciak-check .form-check-input:checked,
 .apps-member .biodata .ciak-check .form-check-input:focus {
@@ -2151,24 +2162,39 @@ input[type=number] {
     filter: drop-shadow(-2px 1px 6px rgba(0, 0, 0, 0.25));
 }
 
+.connect-live .form-switch .form-check-input,
+.connect-live .form-check-input:checked,
+.connect-live .form-check-input:focus {
+    font-size: 24px;
+    margin: 0;
+    background-image: url("../img/checkbox-ball-shadow.png");
+    background-size: auto 20px;
+    cursor: pointer;
+}
+
+
 .apps-member .biodata .ciak-data-input input:focus,
 .apps-member .search .search-friend .form-control:focus,
 .apps-member .select-type-price .radio-btn-type .form-check-input:focus,
-.apps-member .biodata .ciak-check .form-check-input:focus {
+.apps-member .biodata .ciak-check .form-check-input:focus,
+.connect-live .form-check-input:focus {
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.apps-member .biodata .ciak-check .form-check-input:checked {
+.apps-member .biodata .ciak-check .form-check-input:checked,
+.connect-live .form-check-input:checked
+ {
     background-color: #00DD9C;
     border-color: #00DD9C;
     background-position-x: 90%;
 }
 
-.apps-member .biodata .ciak-check .form-check-input {
-    background-color: #f1f1f1;
-    border-color: #f1f1f1;
+.apps-member .biodata .ciak-check .form-check-input,
+.connect-live .form-check-input {
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
     background-position-x: 5%;
 }
 

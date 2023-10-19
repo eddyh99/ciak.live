@@ -559,9 +559,9 @@ $(document).ready(function(){
 
 /*----------------------------------------------------------
 13.  Searching Invite Guest Start 
-------------------------------------------------------------*/   
+------------------------------------------------------------*/ 
 
-    // CAM2CAM SEARCHING
+    // CAM2CAM
     $('#suggestionslist').hide();
     //setup before functions
     var typingTimer;             
@@ -603,8 +603,7 @@ $(document).ready(function(){
         }  
     }
 
-
-    // MEETING LIVE SEARCHING
+    // MEETINGROOM SEARCHING
     $('#suggestionslistmeeting').hide();
     //setup before functions
     var typingTimerMeeting;             

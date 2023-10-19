@@ -134,7 +134,7 @@ function doneTyping () {
     console.log("100 finish");
   //do something
     var input=$('#search_data').val();
-    if (input.length < 3) {
+    if (input.length < 4) {
         $('#suggestionslist').hide();
     } else {
         console.log("200 search");

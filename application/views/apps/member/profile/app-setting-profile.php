@@ -174,6 +174,76 @@
                             </div>
                         </div>
         
+                        <div class="mb-3 ciak-connect d-flex flex-row justify-content-center align-items-center">
+                            <h4 class="text-center">Connect your social platform to start share live real time</h4>
+                        </div>
+                        <div class="mb-3 ciak-connect d-flex flex-row justify-content-between">
+                            <div class="w-100">
+                                <a href="" class="wrapper-border d-flex justify-content-around">
+                                    <div>
+                                        <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.7008 15.1553L14.4559 10.3616H9.80422V7.24576C9.80422 5.93499 10.4536 4.65418 12.5303 4.65418H14.6749V0.572075C13.426 0.373093 12.164 0.265445 10.8992 0.25C7.07059 0.25 4.57106 2.54946 4.57106 6.70647V10.3616H0.327148V15.1553H4.57106V26.75H9.80422V15.1553H13.7008Z" fill="#337FFF"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        +
+                                        <span>
+                                            CONNECT YOUR ACCOUNT
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="w-100 ms-4">
+                                <a href="" class="wrapper-border d-flex justify-content-around">
+                                    <div>
+                                        <svg width="31" height="23" viewBox="0 0 31 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M30.2406 4.21048C29.8946 2.90957 28.8709 1.8833 27.5685 1.53157C25.2136 0.900391 15.7652 0.900391 15.7652 0.900391C15.7652 0.900391 6.32153 0.900391 3.96182 1.53157C2.66422 1.87848 1.64056 2.90475 1.28973 4.21048C0.660156 6.57139 0.660156 11.5004 0.660156 11.5004C0.660156 11.5004 0.660156 16.4294 1.28973 18.7903C1.63576 20.0912 2.65942 21.1175 3.96182 21.4692C6.32153 22.1004 15.7652 22.1004 15.7652 22.1004C15.7652 22.1004 25.2136 22.1004 27.5685 21.4692C28.8661 21.1223 29.8897 20.096 30.2406 18.7903C30.8702 16.4294 30.8702 11.5004 30.8702 11.5004C30.8702 11.5004 30.8702 6.57139 30.2406 4.21048Z" fill="#FF3000"/>
+                                            <path d="M12.747 16.0439L20.5951 11.5004L12.747 6.95685V16.0439Z" fill="white"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        +
+                                        <span>
+                                            CONNECT YOUR ACCOUNT
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mb-3 ciak-connect d-flex flex-row justify-content-between">
+                            <div class="w-100">
+                                <a href="" class="wrapper-border d-flex justify-content-around">
+                                    <div>
+                                        <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.7008 15.1553L14.4559 10.3616H9.80422V7.24576C9.80422 5.93499 10.4536 4.65418 12.5303 4.65418H14.6749V0.572075C13.426 0.373093 12.164 0.265445 10.8992 0.25C7.07059 0.25 4.57106 2.54946 4.57106 6.70647V10.3616H0.327148V15.1553H4.57106V26.75H9.80422V15.1553H13.7008Z" fill="#337FFF"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        +
+                                        <span>
+                                            CONNECT YOUR ACCOUNT
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="w-100 ms-4">
+                                <a href="" class="wrapper-border d-flex justify-content-around">
+                                    <div>
+                                        <svg width="31" height="23" viewBox="0 0 31 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M30.2406 4.21048C29.8946 2.90957 28.8709 1.8833 27.5685 1.53157C25.2136 0.900391 15.7652 0.900391 15.7652 0.900391C15.7652 0.900391 6.32153 0.900391 3.96182 1.53157C2.66422 1.87848 1.64056 2.90475 1.28973 4.21048C0.660156 6.57139 0.660156 11.5004 0.660156 11.5004C0.660156 11.5004 0.660156 16.4294 1.28973 18.7903C1.63576 20.0912 2.65942 21.1175 3.96182 21.4692C6.32153 22.1004 15.7652 22.1004 15.7652 22.1004C15.7652 22.1004 25.2136 22.1004 27.5685 21.4692C28.8661 21.1223 29.8897 20.096 30.2406 18.7903C30.8702 16.4294 30.8702 11.5004 30.8702 11.5004C30.8702 11.5004 30.8702 6.57139 30.2406 4.21048Z" fill="#FF3000"/>
+                                            <path d="M12.747 16.0439L20.5951 11.5004L12.747 6.95685V16.0439Z" fill="white"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        +
+                                        <span>
+                                            CONNECT YOUR ACCOUNT
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+        
                         <div class="mb-3 ciak-data-input d-grid gap-2">
                             <!-- <button class="btn-orange">Confirm</button> -->
                             <button id="confirmupdate" class="btn-green confirm-update">Confirm</button>
