@@ -181,8 +181,8 @@ class Profile extends CI_Controller
     	$url = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
 		$result = apiciaklive($url);
 
-        // echo '<pre>' . print_r( $result, true ) . '</pre>';
-        // die;
+        echo $this->session->flashdata('response');
+        // die; 
         
         $data = array(
             'title'         => NAMETITLE . ' - Setting Profile',
@@ -615,13 +615,15 @@ class Profile extends CI_Controller
     }
     
     public function youtube_callback(){
-
+    
         $client = new Google\Client();
         $client->setAuthConfig(FCPATH.'assets/service/youtube.json');
         $client->addScope(Google_Service_YouTube::YOUTUBE_FORCE_SSL);
         $client->setRedirectUri(base_url()."profile/youtube_callback");
         $client->authenticate($_GET['code']);
         $access_token = $client->getAccessToken();
+        // echo "<pre>".print_r($client,true)."</pre>";
+		// die;
 
         // Check to ensure that the access token was successfully acquired.
         if ($client->getAccessToken()) {
@@ -651,10 +653,14 @@ class Profile extends CI_Controller
                     "address_rtmp"   => $rtmp_address
                 );
     
-            $url        = URLAPI . "/v1/perform/set_streamingrtmp?rtmp=youtube";
-    	    $result     = apiciaklive($url,json_encode($mdata))->message;
+            $url        = URLAPI . "/v1/member/perform/set_streamingrtmp?rtmp=youtube";
+    	    $result     = apiciaklive($url,json_encode($mdata));
+
+            $this->session->set_flashdata('success', "Your account success connected to YouTube");
+            redirect("profile/setting_profile");
+
           }catch(Exception $e) {
-                $this->session->set_flashdata("error","Your account not ready for live stream");
+                $this->session->set_flashdata("failed","Your account not ready for live stream");
                 redirect("profile/setting_profile");
             }
             
