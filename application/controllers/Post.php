@@ -38,15 +38,18 @@ class Post extends CI_Controller
         $url = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
 		$result = apiciaklive($url)->message;
         $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
+        $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
+
         // $vsdata = $this->session->flashdata('vs_data');
 
-        // echo "<pre>".print_r($vsdata,true)."</pre>";
+        // echo "<pre>".print_r($follower,true)."</pre>";
         // die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Post',
             'profile'       => $result,
-            'following'     => $following,
+            'following'     => @$following,
+            'follower'      => @$follower,
             // 'stitch'        => $vsdata,                 
             'content'       => 'apps/member/posting/app-posting',
             'cssextra'      => 'apps/member/posting/css/_css_index',
@@ -163,6 +166,10 @@ class Post extends CI_Controller
 
     	$url = URLAPI . "/v1/member/post/add";
 		$result = apiciaklive($url,json_encode($mdata));
+
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+        // die;
+
 		if (@$result->code!=200){
 		    $message=array(
 	            "success"   => false,

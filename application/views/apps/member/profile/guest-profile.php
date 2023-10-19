@@ -67,7 +67,8 @@
                         <div class="my-rating" data-rating="<?=round($profile["avgrate"],2)?>"></div>
                     </div>
                         <div class="name">
-                            <h3 class="mt-2 mb-1"><?=ucfirst($profile["username"])?></h3>
+                            <h3 class="mt-2 mb-1">@<?=ucfirst($profile["username"])?></h3>
+                            <!-- <h3 class="mt-2 mb-1"><?= @ucfirst($profile->firstname)?> <?= @ucfirst($profile->surename)?></h3> -->
                             <?php if (!$profile["is_block"] && !$profile["is_blocked"]){
                                     if (@$profile["is_kontakshare"]=='yes'){
                             ?>
@@ -124,7 +125,7 @@
                         </div>
                     <?php }?>
                     <div class="tabs-profiles text-center m-3">
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs d-flex justify-content-between">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#public" id="login-tab" data-bs-toggle="tab">Public</a>
                             </li>

@@ -386,13 +386,13 @@
             <div class="row col-10">
                 <div class="apps-member col-12 mx-auto ">
                     <div class="d-flex justify-content-center mt-4 search-input-guest">
-                        <input type="text" name="search_data_invt" id="search_data_invt" class="form-control search_data_invt" placeholder="Who do you want to chat with?">
+                        <input type="text" name="search_data_invt" id="search_data_invt" class="form-control search_data_invt" placeholder="Search minimun 3 character...">
                     </div>
                     <div id="suggestionslist"></div>
                     <div class="list-people mt-5 mb-on-botbar">
                         <?php 
                             $i=1;
-                            foreach ($following as $dt){?>
+                            foreach ($follower as $dt){?>
                                 <div class="people px-4">
                                     <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="$('#guestcam').val('<?=$dt->id?>')" data-bs-dismiss="modal">
                                         <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
@@ -416,13 +416,13 @@
             <div class="row col-10">
                 <div class="apps-member col-12 mx-auto">
                     <div class="d-flex justify-content-center mt-4 search-input-guest">
-                        <input type="text" name="search_data_invt" id="search_data_invt" class="form-control search_data_invt" placeholder="Who do you want to chat with?">
+                        <input type="text" name="search_data_invt_meeting" id="search_data_invt_meeting" class="form-control search_data_invt_meeting" placeholder="Search minimun 3 character...">
                     </div>
-                    <div id="suggestionslist"></div>  
+                    <div id="suggestionslistmeeting"></div>  
                     <div class="list-people mt-5 mb-on-botbar">
                         <?php 
                             $i=1;
-                            foreach ($following as $dt){?>
+                            foreach ($follower as $dt){?>
                                 
                                 <div class="people px-4">
                                     <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="$('#meetingcam').val('<?=$dt->id?>');$('#invite1').attr('checked','checked')" data-bs-dismiss="modal">

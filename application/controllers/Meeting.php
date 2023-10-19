@@ -24,7 +24,10 @@ class Meeting extends CI_Controller
 
 
     public function showlive(){
-       $data = array(
+
+        // echo "<pre>".print_r($detail,true)."</pre>";
+        // die;
+        $data = array(
             'title'         => NAMETITLE . ' - Meeting',
             'content'       => 'apps/member/posting/meeting/app-live-show',
             'extra'         => 'apps/member/posting/meeting/js/js-liveshow',
@@ -35,6 +38,9 @@ class Meeting extends CI_Controller
     public function cekroom(){
         $room_id   = $this->security->xss_clean($this->input->post("room"));
         $detail = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+        // print_r(json_encode($detail));
+        // die;
+        
         
         $datetime   = new DateTime($detail->start_date);
         $la_time    = new DateTimeZone($_SESSION["time_location"]);
@@ -45,21 +51,23 @@ class Meeting extends CI_Controller
         $from_time  = strtotime($airtime);
         $selisih    = round(($to_time - $from_time) / 60);
         
-        if ($_SESSION["user_id"]==$detail->id_member){
-            if ($selisih<-15){
-                header("HTTP/1.0 403 Forbidden");
-                echo "You can't open chat room yet, please start 15 minutes before";
-                return;
-            }elseif ($selisih>15){
-                header("HTTP/1.0 403 Forbidden");
-                echo "Room link has been expired, please create another";
-                return;
-            }
-        }
+        // if ($_SESSION["user_id"]==$detail->id_member){
+        //     if ($selisih<-15){
+        //         header("HTTP/1.0 403 Forbidden");
+        //         echo "You can't open chat room yet, please start 15 minutes before";
+        //         return;
+        //     }elseif ($selisih>15){
+        //         header("HTTP/1.0 403 Forbidden");
+        //         echo "Room link has been expired, please create another";
+        //         return;
+        //     }
+        // }
         
         $data=array(
-                "performer" => ($detail->id_member==$_SESSION["user_id"]) ? true : false,
-                "username"  => ($detail->id_member==$_SESSION["user_id"]) ? $detail->username : $_SESSION["username"]
+                "performer"     => ($detail->id_member==$_SESSION["user_id"]) ? true : false,
+                "username"      => ($detail->id_member==$_SESSION["user_id"]) ? $detail->username : $_SESSION["username"],
+                "meeting_type"  => $detail->meeting_type,
+                "purpose"       => $detail->purpose
             );
         echo json_encode($data);
     }

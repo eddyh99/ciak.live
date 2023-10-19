@@ -21,9 +21,40 @@
     </div>
     <div class="col-12 mt-3">
         <div class="row">
-            <div class="col-12 ms-4 mb-5">
+            <div class="col-12 ms-4 mb-5 d-flex">
                 <a href="<?=base_url()?>homepage" class="btn btn-leave-live">Leave</a>
-                <button id="btnopen" class="btn btn-main-green">Start</button>
+                <button id="btnopen" class="btn btn-main-green mx-2">Start</button>
+                <div class="dropdown" id="connectlive">
+                    <button class="btn btn-main-green dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Connect Live
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item connect-live">
+                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
+                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
+                                <span>
+                                    Facebook
+                                </span>
+                            </div>
+                        </li>
+                        <li class="dropdown-item connect-live">
+                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
+                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
+                                <span>
+                                    Instagram
+                                </span>
+                            </div>
+                        </li>
+                        <li class="dropdown-item connect-live">
+                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
+                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
+                                <span>
+                                    Youtube
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

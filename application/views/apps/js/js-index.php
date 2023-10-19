@@ -346,7 +346,7 @@ $input.on('keydown', function (e) {
 function doneTyping () {
   //do something
     var input=$('#search_data').val();
-    if (input.length < 4) {
+    if (input.length < 3) {
         $('#suggestionslist').hide();
     } else {
         $.ajax({

@@ -208,6 +208,7 @@ $('#pp-crop-cancel-banner').click(function(){
 $("#confirmupdate").on("click",function(e){
     e.preventDefault();
     $('#load-edit-profile').show();
+    // console.log("CLICK");
     $.ajax({
         url: "<?= base_url() ?>profile/saveprofile",
         type: "post",

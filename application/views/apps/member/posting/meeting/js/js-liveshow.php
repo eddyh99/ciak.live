@@ -116,6 +116,11 @@ $.ajax({
         console.log(data);
         connection.extra.userFullName = data.username;
         if (data.performer===true){
+            if((data.meeting_type == "free") && (data.purpose == "public")){
+                $("#connectlive").show()
+            }else{
+                $("#connectlive").remove()
+            }
             $('.please-click-join-live').text('Please start to live');
             $("#btnopen").html("Start");
             $("#broadcast-viewers-counter").html('Online viewers: '+connection.extra.broadcastuser+' <b> User</b>');
@@ -124,6 +129,7 @@ $.ajax({
         }else if (data.performer===false){
             $('.please-click-join-live').text('Please click join button');
             $("#btnopen").html("Join");
+            $("#connectlive").hide()
             performer=false;
             connection.extra.roomOwner = false;
         }
@@ -396,7 +402,7 @@ connection.iceServers= [
 	var mediaRecorder;
  	var socket ;
  	var state ="stop";
-    var rtmpurl='rtmp://a.rtmp.youtube.com/live2/qdgv-vf1b-2sxv-55wp-987h';
+    var rtmpurl='rtmp://a.rtmp.youtube.com/live2/uy8a-84pt-e7bu-1tvm-ba5u';
     var gateway='https://stream.ciak.live:1437/';
     
 	function connect_server(){

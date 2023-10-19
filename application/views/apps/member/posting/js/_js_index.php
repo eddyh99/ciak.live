@@ -295,7 +295,7 @@ $(document).ready(function(){
         var jenis=$("#jenis").val();
         var tipepost=$("#tipepost").val();
         var is_video= localStorage.getItem("is_video");
-        var vs_data = $('#vs-preview').html();
+        // var vs_data = $('#vs-preview').html();
         
         $('#load-edit-profile').show();
         if (jenis=="Post"){
@@ -339,7 +339,7 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
-                        console.log("316 - " + data);
+                        console.log("316 - " + response);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
                             localStorage.removeItem('is_video');
@@ -559,7 +559,9 @@ $(document).ready(function(){
 
 /*----------------------------------------------------------
 13.  Searching Invite Guest Start 
-------------------------------------------------------------*/   
+------------------------------------------------------------*/ 
+
+    // CAM2CAM
     $('#suggestionslist').hide();
     //setup before functions
     var typingTimer;             
@@ -594,6 +596,48 @@ $(document).ready(function(){
                     if (data.length > 0) {
                         $('#suggestionslist').html(data);
                         $('#suggestionslist').show();
+                    }
+                }
+            });
+
+        }  
+    }
+
+    // MEETINGROOM SEARCHING
+    $('#suggestionslistmeeting').hide();
+    //setup before functions
+    var typingTimerMeeting;             
+    var doneTypingIntervalMeeting = 5000;  
+    var $inputMeeting = $('#search_data_invt_meeting');
+
+    //on keyup, start the countdown
+    $inputMeeting.on('keyup', function () {
+        clearTimeout(typingTimerMeeting);
+        typingTimerMeeting = setTimeout(doneTypingMeeting(), doneTypingIntervalMeeting);
+    });
+
+    //on keydown, clear the countdown 
+    $inputMeeting.on('keydown', function () {
+        clearTimeout(typingTimerMeeting);
+    });
+
+    //user is "finished typing," do something
+    function doneTypingMeeting () {
+        var inputMeeting=$('#search_data_invt_meeting').val();
+        if (inputMeeting.length < 3) {
+            $('#suggestionslistmeeting').hide();
+        } else {
+            console.log("200 search");
+            $.ajax({
+                url: "<?=base_url()?>post/invite_search?term="+inputMeeting,
+                success: function(data, response) {
+                    $('.spinner-search').hide();
+                    $('.fa-magnifying-glass').show();
+                    console.log(response);
+                    // return success
+                    if (data.length > 0) {
+                        $('#suggestionslistmeeting').html(data);
+                        $('#suggestionslistmeeting').show();
                     }
                 }
             });
