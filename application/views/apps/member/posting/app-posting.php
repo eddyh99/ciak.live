@@ -239,21 +239,6 @@
                                 </div>
                                 <label class="span-text-toogle-explicit">Max 150</label>
                             </div>
-                            <!-- <div class="row">
-                                <label>Image</label>
-                                <div class="col-6">
-                                    <input type="file" name="imagelive" accept="image/png, image/jpg, image/jpeg">
-                                </div>
-                            </div> -->
-                            <!-- <div class="row mb-4">
-                                <div class="col-6">
-                                    <label class="pb-1">Content Type</label>
-                                    <select name="content_type" class="form-select select-live-duration" required>
-                                        <option value="non explicit" selected>Non Explicit Content</option>
-                                        <option value="explicit ">Explicit Content</option>
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="col-4">
                                 <button type="submit" class="text-white btn-publish px-3 py-2">Submit</button>
                             </div>
@@ -330,6 +315,11 @@
                                 <button class="btn-publish text-white px-3 py-2">Submit</button>
                             </div>
                         </form>
+                    </div>
+                    <div id="progressbar-wrapper" class="fixed-top d-none">
+                        <div class="progress" id="progressbar" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-striped bg-success" id="progress-bar" style="width: 00%"></div>
+                        </div>
                     </div>
                 </div>
             </div>

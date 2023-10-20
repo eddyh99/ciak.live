@@ -86,6 +86,7 @@ $(document).ready(function(){
     $('#img-preview-post').hide();
     localforage.getItem('gbr', function (err, value) {
         var dataImg=JSON.parse(value);
+        console.log(dataImg);
         if(dataImg == null) {
             console.log("");
         }else {
@@ -289,7 +290,7 @@ $(document).ready(function(){
 9.  Process Upload Button Start
 ------------------------------------------------------------*/ 
 // var id_stitch = $('#id_stitch').val();
-
+$(document).ready(function(){
     $("#btnpublish").on("click",function(){
        
         var jenis=$("#jenis").val();
@@ -297,7 +298,7 @@ $(document).ready(function(){
         var is_video= localStorage.getItem("is_video");
         // var vs_data = $('#vs-preview').html();
         
-        $('#load-edit-profile').show();
+        // $('#load-edit-profile').show();
         if (jenis=="Post"){
             if (tipepost=="special" || tipepost=="download"){
                 if (parseFloat($("#postprice").val())<0.5){
@@ -330,11 +331,40 @@ $(document).ready(function(){
                 formdata.append("post", $("#textarea-post").val());
                 formdata.append("tipe",$("#tipepost").val());
                 formdata.append("price",$("#postprice").val());
-    
+                
+                $('#progressbar-wrapper').removeClass('d-none');
+                var progress = $('.progress-bar');
+
                 $.ajax({
+                 
                     url: "<?=base_url()?>post/savepost",
                     type: "post",
                     data: formdata,
+                    xhr: function(){
+                        var xhr = $.ajaxSettings.xhr();
+                        xhr.upload.addEventListener('progress', function(e){
+                            if(e.lengthComputable){
+                                var completed = e.loaded/e.total;
+                                var perc = Math.floor(completed * 100);
+                                console.log("Upload:", perc)
+                                // progress.text(perc+'%');
+                                progress.attr('aria-valuenow',perc);
+                                progress.css('width', perc+'%');
+                            }
+                        }, false)
+        
+                        xhr.addEventListener('progress', function(e){
+                            if(e.lengthComputable){
+                                var completed = e.loaded/e.total;
+                                var perc = Math.floor(completed * 100);
+                                console.log("Download:",perc)
+                                // progress.text(perc+'%');
+                                progress.attr('aria-valuenow',perc);
+                                progress.css('width',perc+'%');
+                            }
+                        }, false)
+                        return xhr;
+                    },
                     processData: false,
                     contentType: false,
                     success: function (response) {
@@ -348,6 +378,11 @@ $(document).ready(function(){
 
                         if(data.success == false){
                             $('#load-edit-profile').hide();
+                            setTimeout(()=>{
+                                $('#progressbar-wrapper').addClass('d-none');
+                                progress.css('width', 0+'%');
+                                alert("MASIH ADA ERROR")
+                            }, 2000);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -369,10 +404,39 @@ $(document).ready(function(){
                 formdata.append("price",$("#postprice").val());
                 console.log("344 - " + formdata);
     
+                $('#progressbar-wrapper').removeClass('d-none');
+                var progress = $('.progress-bar');
+
                 $.ajax({
                     url: "<?=base_url()?>post/savepost",
                     type: "post",
                     data: formdata,
+                    xhr: function(){
+                        var xhr = $.ajaxSettings.xhr();
+                        xhr.upload.addEventListener('progress', function(e){
+
+                            if(e.lengthComputable){
+                                var completed = e.loaded/e.total;
+                                var perc = Math.floor(completed * 100);
+                                console.log("Upload:", perc)
+                                // progress.text(perc+'%');
+                                progress.attr('aria-valuenow',perc);
+                                progress.css('width', perc+'%');
+                            }
+                        }, false)
+        
+                        xhr.addEventListener('progress', function(e){
+                            if(e.lengthComputable){
+                                var completed = e.loaded/e.total;
+                                var perc = Math.floor(completed * 100);
+                                console.log("Download:",perc)
+                                // progress.text(perc+'%');
+                                progress.attr('aria-valuenow',perc);
+                                progress.css('width',perc+'%');
+                            }
+                        }, false)
+                        return xhr;
+                    },
                     processData: false,
                     contentType: false,
                     success: function (response) {
@@ -386,6 +450,11 @@ $(document).ready(function(){
 
                         if(data.success == false){
                             $('#load-edit-profile').hide();
+                            setTimeout(()=>{
+                                $('#progressbar-wrapper').addClass('d-none');
+                                progress.css('width', 0+'%');
+                                alert("MASIH ADA ERROR")
+                            }, 2000);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -400,12 +469,40 @@ $(document).ready(function(){
                         formdata.append("post",$("#textarea-post").val());
                         formdata.append("tipe",$("#tipepost").val());
                         formdata.append("price",$("#postprice").val());
-                        console.log("376 - " + formdata);
-            
+                        
+                        $('#progressbar-wrapper').removeClass('d-none');
+                        var progress = $('.progress-bar');
+
                         $.ajax({
                             url: "<?=base_url()?>post/savepost",
                             type: "post",
                             data: formdata,
+                            xhr: function(){
+                                var xhr = $.ajaxSettings.xhr();
+                                xhr.upload.addEventListener('progress', function(e){
+
+                                    if(e.lengthComputable){
+                                        var completed = e.loaded/e.total;
+                                        var perc = Math.floor(completed * 100);
+                                        console.log("Upload:", perc)
+                                        // progress.text(perc+'%');
+                                        progress.attr('aria-valuenow',perc);
+                                        progress.css('width', perc+'%');
+                                    }
+                                }, false)
+                
+                                xhr.addEventListener('progress', function(e){
+                                    if(e.lengthComputable){
+                                        var completed = e.loaded/e.total;
+                                        var perc = Math.floor(completed * 100);
+                                        console.log("Download:",perc)
+                                        // progress.text(perc+'%');
+                                        progress.attr('aria-valuenow',perc);
+                                        progress.css('width',perc+'%');
+                                    }
+                                }, false)
+                                return xhr;
+                            },
                             processData: false,
                             contentType: false,
                             success: function (response) {
@@ -420,6 +517,11 @@ $(document).ready(function(){
     
                                 if(data.success == false){
                                     $('#load-edit-profile').hide();
+                                    setTimeout(()=>{
+                                        $('#progressbar-wrapper').addClass('d-none');
+                                        progress.css('width', 0+'%');
+                                        alert("MASIH ADA ERROR")
+                                    }, 2000);
                                 }
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
@@ -431,6 +533,7 @@ $(document).ready(function(){
             }
         }
     })
+})
 /*----------------------------------------------------------
 9.  Process Upload Button End
 ------------------------------------------------------------*/ 
