@@ -16,10 +16,21 @@
             </button>
         </div>
         <div class="modal-body">
+            <input type="hidden" id="youtube" value="<?=$rtmp->youtube?>">
+            <input type="hidden" id="facebook" value="<?=$rtmp->facebook?>">
+            <input type="hidden" id="others1" value="<?=$rtmp->others?>">
             <ul class="">
                 <li class="connect-live">
                     <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
+                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="pil_yt" value="yes" <?php echo (empty($rtmp->youtube)?"disabled":"")?>>
+                        <span class="text-white">
+                            Youtube
+                        </span>
+                    </div>
+                </li>
+                <li class="connect-live">
+                    <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
+                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="pil_fb" value="yes" <?php echo (empty($rtmp->facebook)?"disabled":"")?>>
                         <span class="text-white">
                             Facebook
                         </span>
@@ -27,24 +38,17 @@
                 </li>
                 <li class="connect-live">
                     <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
+                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="pil_ot1" value="yes" <?php echo (empty($rtmp->others)?"disabled":"")?>>
                         <span class="text-white">
-                            Instagram
-                        </span>
-                    </div>
-                </li>
-                <li class="connect-live">
-                    <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
-                        <span class="text-white">
-                            Youtube
+                            Others 1
                         </span>
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn-main-green">Save changes</button>
+        <div class="modal-footer ">
+            <button type="button" id="startlive" class="btn-main-green">Start Stream</button>
+            <button type="button" id="cekisi" class="btn-main-green">Cek Isi</button>
         </div>
         </div>
     </div>
