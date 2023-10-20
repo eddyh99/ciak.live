@@ -117,6 +117,7 @@ $.ajax({
         connection.extra.userFullName = data.username;
         if (data.performer===true){
             $('#load-edit-profile').hide()
+            $('#livemodal-connect').modal('show');
             if((data.meeting_type == "free") && (data.purpose == "public")){
                 $("#connectlive").show()
             }else{

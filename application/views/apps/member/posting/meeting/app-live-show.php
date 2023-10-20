@@ -1,7 +1,51 @@
+
 <div id="load-edit-profile">
     <div class="img-load d-flex flex-column justify-content-center align-items-center">
         <div class="spinner-border fs-3" role="status">
             <span class="visually-hidden fs-3">Loading...</span>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="livemodal-connect" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-4 text-white">Enable your livestreaming</h1>
+            <button type="button" class="btn-close text-white fs-4" data-bs-dismiss="modal" aria-label="Close">
+                X
+            </button>
+        </div>
+        <div class="modal-body">
+            <ul class="">
+                <li class="connect-live">
+                    <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
+                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
+                        <span class="text-white">
+                            Facebook
+                        </span>
+                    </div>
+                </li>
+                <li class="connect-live">
+                    <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
+                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
+                        <span class="text-white">
+                            Instagram
+                        </span>
+                    </div>
+                </li>
+                <li class="connect-live">
+                    <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
+                        <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
+                        <span class="text-white">
+                            Youtube
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-main-green">Save changes</button>
+        </div>
         </div>
     </div>
 </div>
@@ -31,7 +75,7 @@
             <div class="col-12 ms-4 mb-5 d-flex">
                 <a href="<?=base_url()?>homepage" class="btn btn-leave-live">Leave</a>
                 <button id="btnopen" class="btn btn-main-green mx-2">Start</button>
-                <div class="dropdown" id="connectlive">
+                <!-- <div class="dropdown" id="connectlive">
                     <button class="btn btn-main-green dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Connect Live
                     </button>
@@ -61,7 +105,7 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

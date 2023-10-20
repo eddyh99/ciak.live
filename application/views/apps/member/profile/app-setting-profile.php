@@ -193,9 +193,9 @@
                         <div class="mb-3 ciak-connect d-flex flex-row justify-content-center align-items-center">
                             <h4 class="text-center">Connect your social platform to start share live real time</h4>
                         </div>
-                        <div class="mb-3 ciak-connect d-flex flex-row justify-content-between">
-                            <div class="w-100">
-                                <a href="" class="wrapper-border d-flex justify-content-around">
+                        <div class="mb-3 ciak-connect d-flex flex-row flex-wrap justify-content-center">
+                            <div class="bg-live-connect">
+                                <a href="<?= base_url()?>profile/facebook_link" class="wrapper-border d-flex justify-content-around" target="_blank">
                                     <div>
                                         <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M13.7008 15.1553L14.4559 10.3616H9.80422V7.24576C9.80422 5.93499 10.4536 4.65418 12.5303 4.65418H14.6749V0.572075C13.426 0.373093 12.164 0.265445 10.8992 0.25C7.07059 0.25 4.57106 2.54946 4.57106 6.70647V10.3616H0.327148V15.1553H4.57106V26.75H9.80422V15.1553H13.7008Z" fill="#337FFF"/>
@@ -209,7 +209,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="w-100 ms-4">
+                            <div class="bg-live-connect">
                                 <a href="<?= base_url()?>profile/youtube_link" class="wrapper-border d-flex justify-content-around" target="_blank">
                                     <div>
                                         <svg width="31" height="23" viewBox="0 0 31 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -221,6 +221,18 @@
                                         +
                                         <span>
                                             CONNECT YOUR ACCOUNT
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="bg-live-connect">
+                                <a href="" class="wrapper-border d-flex justify-content-around" >
+                                    <div>
+                                        <i class="fas fa-plus-circle fs-3"></i>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            ADD CUSTOM RTMP
                                         </span>
                                     </div>
                                 </a>
