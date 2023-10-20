@@ -84,7 +84,9 @@ $("video").on("click",function(e){
 
 var url=new URL(window.location.href);
 var broadcastId = url.searchParams.get("room_id");
-
+var meeting_type;
+var purpose;
+var rtmpurl;
 
 var performer=false;
 var connection = new RTCMultiConnection();
@@ -107,6 +109,7 @@ connection.sdpConstraints.mandatory = {
     OfferToReceiveVideo: true
 };
 
+
 $.ajax({
     url: "<?=base_url()?>meeting/cekroom",
     type: "post",
@@ -115,14 +118,10 @@ $.ajax({
         var data=JSON.parse(response);
         console.log(data);
         connection.extra.userFullName = data.username;
+        meeting_type=data.meeting_type;
+        purpose=data.purpose;
         if (data.performer===true){
             $('#load-edit-profile').hide()
-            $('#livemodal-connect').modal('show');
-            if((data.meeting_type == "free") && (data.purpose == "public")){
-                $("#connectlive").show()
-            }else{
-                $("#connectlive").remove()
-            }
             $('.please-click-join-live').text('Please start to live');
             $("#btnopen").html("Start");
             $("#broadcast-viewers-counter").html('Online viewers: '+connection.extra.broadcastuser+' <b> User</b>');
@@ -132,7 +131,6 @@ $.ajax({
             $('#load-edit-profile').hide()
             $('.please-click-join-live').text('Please click join button');
             $("#btnopen").html("Join");
-            $("#connectlive").hide()
             performer=false;
             connection.extra.roomOwner = false;
         }
@@ -150,6 +148,33 @@ $("#btnopen").on("click",function(){
     if (!performer){
         $("#confirmjoin").modal("show");
     }else if (performer){
+        if((meeting_type == "free") && (purpose == "public")){
+            $('#livemodal-connect').modal('show');
+        }else{
+            connection.open(broadcastId, function(isRoomOpened, roomid, error) {
+                if (error) {
+                    if (error === connection.errors.ROOM_NOT_AVAILABLE) {
+                        alert('Someone already created this room. Please either join or create a separate room.');
+                        return;
+                    }
+                    alert(error);
+                }else{
+                    
+                    $("#btnopen").attr("disabled","true");
+                    $('.please-click-join-live').hide();
+                    
+                }
+    
+                connection.socket.on('disconnect', function() {
+                    location.reload();
+                });
+            });
+        }
+    }
+});
+
+
+$("#startlive").on("click",function(){
         connection.open(broadcastId, function(isRoomOpened, roomid, error) {
             if (error) {
                 if (error === connection.errors.ROOM_NOT_AVAILABLE) {
@@ -158,17 +183,28 @@ $("#btnopen").on("click",function(){
                 }
                 alert(error);
             }else{
+                
                 $("#btnopen").attr("disabled","true");
                 $('.please-click-join-live').hide();
-                
+                if ($("#pil_yt").is(":checked")){
+                    rtmpurl=$("#youtube").val();
+                }
+                if ($("#pil_fb").is(":checked")){
+                    rtmpurl=$("#facebook").val();
+                }
+                if ($("#pil_ot1").is(":checked")){
+                    rtmpurl=$("#others1").val();
+                }
+                connect_server();
             }
 
             connection.socket.on('disconnect', function() {
                 location.reload();
             });
         });
-    }
-})
+    
+});
+
 
 $("#btnconfirm").on("click",function(){
     $("#confirmjoin").modal("hide");
@@ -405,7 +441,6 @@ connection.iceServers= [
 	var mediaRecorder;
  	var socket ;
  	var state ="stop";
-    var rtmpurl='rtmp://a.rtmp.youtube.com/live2/uy8a-84pt-e7bu-1tvm-ba5u';
     var gateway='https://stream.ciak.live:1437/';
     
 	function connect_server(){

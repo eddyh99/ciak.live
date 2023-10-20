@@ -27,8 +27,10 @@ class Meeting extends CI_Controller
 
         // echo "<pre>".print_r($detail,true)."</pre>";
         // die;
+        $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
         $data = array(
             'title'         => NAMETITLE . ' - Meeting',
+            'rtmp'          => $rtmp,
             'content'       => 'apps/member/posting/meeting/app-live-show',
             'extra'         => 'apps/member/posting/meeting/js/js-liveshow',
         );
@@ -49,17 +51,17 @@ class Meeting extends CI_Controller
         $from_time  = strtotime($airtime);
         $selisih    = round(($to_time - $from_time) / 60);
         
-        if ($_SESSION["user_id"]==$detail->id_member){
-            if ($selisih<-15){
-                header("HTTP/1.0 403 Forbidden");
-                echo "You can't open chat room yet, please start 15 minutes before";
-                return;
-            }elseif ($selisih>15){
-                header("HTTP/1.0 403 Forbidden");
-                echo "Room link has been expired, please create another";
-                return;
-            }
-        }
+        // if ($_SESSION["user_id"]==$detail->id_member){
+        //     if ($selisih<-15){
+        //         header("HTTP/1.0 403 Forbidden");
+        //         echo "You can't open chat room yet, please start 15 minutes before";
+        //         return;
+        //     }elseif ($selisih>15){
+        //         header("HTTP/1.0 403 Forbidden");
+        //         echo "Room link has been expired, please create another";
+        //         return;
+        //     }
+        // }
         
         $data=array(
                 "performer"     => ($detail->id_member==$_SESSION["user_id"]) ? true : false,
