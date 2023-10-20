@@ -38,8 +38,6 @@ class Meeting extends CI_Controller
     public function cekroom(){
         $room_id   = $this->security->xss_clean($this->input->post("room"));
         $detail = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
-        // print_r(json_encode($detail));
-        // die;
         
         
         $datetime   = new DateTime($detail->start_date);
@@ -51,17 +49,17 @@ class Meeting extends CI_Controller
         $from_time  = strtotime($airtime);
         $selisih    = round(($to_time - $from_time) / 60);
         
-        // if ($_SESSION["user_id"]==$detail->id_member){
-        //     if ($selisih<-15){
-        //         header("HTTP/1.0 403 Forbidden");
-        //         echo "You can't open chat room yet, please start 15 minutes before";
-        //         return;
-        //     }elseif ($selisih>15){
-        //         header("HTTP/1.0 403 Forbidden");
-        //         echo "Room link has been expired, please create another";
-        //         return;
-        //     }
-        // }
+        if ($_SESSION["user_id"]==$detail->id_member){
+            if ($selisih<-15){
+                header("HTTP/1.0 403 Forbidden");
+                echo "You can't open chat room yet, please start 15 minutes before";
+                return;
+            }elseif ($selisih>15){
+                header("HTTP/1.0 403 Forbidden");
+                echo "Room link has been expired, please create another";
+                return;
+            }
+        }
         
         $data=array(
                 "performer"     => ($detail->id_member==$_SESSION["user_id"]) ? true : false,

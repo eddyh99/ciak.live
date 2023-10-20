@@ -36,14 +36,17 @@ $.ajax({
         console.log(response);
         var data=JSON.parse(response);
         if (data.performer===true){
+            $('#load-edit-profile').hide()
             $("#btnopen").show();
             $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Start');
             performer=true;
         }else if (data.performer===false){
+            $('#load-edit-profile').hide()
             $("#btnopen").show();
             $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Join');
             performer=false;
         }else{
+            $('#load-edit-profile').hide()
             alert(data);
             window.location.href="<?=base_url()?>homepage"
         }

@@ -676,6 +676,7 @@ class Profile extends CI_Controller
         
         $permissions = [
                 'publish_video',
+                'public_profile',
         ];        
         $helper = $fb->getRedirectLoginHelper();
         $loginUrl = $helper->getLoginUrl(base_url()."profile/facebook_callback",$permissions);

@@ -284,6 +284,7 @@ $.ajax({
         var data=JSON.parse(response);
         connection.extra.userFullName = data.username;
         if (data.performer===true){
+            $('#load-edit-profile').hide()
             $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Start');      
             $("#btninvite").show();
             $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
@@ -291,6 +292,7 @@ $.ajax({
             connection.extra.roomOwner = true;
             connection.extra.broadCaster = true;
         }else if (data.performer===false){
+            $('#load-edit-profile').hide()
             $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
             $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Join');
             $("#btninvite").hide();
@@ -298,6 +300,7 @@ $.ajax({
             connection.extra.roomOwner = false;
             connection.extra.broadCaster = true;
         }else{
+            $('#load-edit-profile').hide()
             $("#btnopen").html("Join");
             $("#btninvite").hide();
             performer=false;
