@@ -175,6 +175,20 @@ $("#btnopen").on("click",function(){
 
 
 $("#startlive").on("click",function(){
+        if ($("#pil_yt").is(":checked")){
+            rtmpurl=$("#youtube").val();
+            // rtmpurl.push($("#youtube").val());
+        }
+        if ($("#pil_fb").is(":checked")){
+            rtmpurl=$("#facebook").val();
+            // rtmpurl.push($("#facebook").val());
+        }
+        if ($("#pil_ot1").is(":checked")){
+            rtmpurl=$("#others1").val();
+        }
+
+        console.log("188 + " + rtmpurl);
+        connect_server();
         connection.open(broadcastId, function(isRoomOpened, roomid, error) {
             if (error) {
                 if (error === connection.errors.ROOM_NOT_AVAILABLE) {
@@ -183,19 +197,8 @@ $("#startlive").on("click",function(){
                 }
                 alert(error);
             }else{
-                
                 $("#btnopen").attr("disabled","true");
                 $('.please-click-join-live').hide();
-                if ($("#pil_yt").is(":checked")){
-                    rtmpurl=$("#youtube").val();
-                }
-                if ($("#pil_fb").is(":checked")){
-                    rtmpurl=$("#facebook").val();
-                }
-                if ($("#pil_ot1").is(":checked")){
-                    rtmpurl=$("#others1").val();
-                }
-                connect_server();
             }
 
             connection.socket.on('disconnect', function() {
@@ -483,7 +486,6 @@ connection.iceServers= [
 
 
 function requestMedia(stream){
-	
 	var constraints = {
 	    audio: {sampleRate: 44100,echoCancellation: true},
 		video: {
@@ -518,7 +520,7 @@ function requestMedia(stream){
 		//document.getElementById('button_start').disabled=false;　
 
 		mediaRecorder.ondataavailable = function(e) {
-			console.log(e.data);
+			console.log("534 + " + e.data);
 		  socket.emit("binarystream",e.data);
 		  state="start";
 		}
