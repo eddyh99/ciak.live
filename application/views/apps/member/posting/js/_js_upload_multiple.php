@@ -114,7 +114,7 @@
             
             // Save into localStorage
             localforage.setItem("gbr", JSON.stringify(m_data));
-            localStorage.setItem("is_video",false);
+            // localStorage.setItem("is_video",false);
             //localStorage.setItem('img', JSON.stringify(m_data));
             window.location.href = '<?= base_url()?>post?type=<?=$_SESSION["content_type"]?>';
 

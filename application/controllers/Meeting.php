@@ -25,9 +25,10 @@ class Meeting extends CI_Controller
 
     public function showlive(){
 
-        // echo "<pre>".print_r($detail,true)."</pre>";
-        // die;
         $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
+        // echo "<pre>".print_r($rtmp,true)."</pre>";
+        // die;
+
         $data = array(
             'title'         => NAMETITLE . ' - Meeting',
             'rtmp'          => $rtmp,
