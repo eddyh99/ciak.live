@@ -601,7 +601,12 @@ class Profile extends CI_Controller
     
     public function youtube_link(){
         $client = new Google\Client();
-        $client->setAuthConfig(FCPATH.'assets/service/youtube.json');
+
+        if (stripos($_SERVER['HTTP_HOST'], 'sandbox') === 0) {
+            $client->setAuthConfig(FCPATH.'assets/service/youtube.json');
+        } else {
+            $client->setAuthConfig(FCPATH.'assets/service/youtube-prod.json');
+        }
         $client->addScope(Google_Service_YouTube::YOUTUBE_FORCE_SSL);
         $client->setRedirectUri(base_url()."profile/youtube_callback");
 
@@ -617,14 +622,15 @@ class Profile extends CI_Controller
     public function youtube_callback(){
     
         $client = new Google\Client();
-        $client->setAuthConfig(FCPATH.'assets/service/youtube.json');
+        if (stripos($_SERVER['HTTP_HOST'], 'sandbox') === 0) {
+            $client->setAuthConfig(FCPATH.'assets/service/youtube.json');
+        } else {
+            $client->setAuthConfig(FCPATH.'assets/service/youtube-prod.json');
+        }
         $client->addScope(Google_Service_YouTube::YOUTUBE_FORCE_SSL);
         $client->setRedirectUri(base_url()."profile/youtube_callback");
         $client->authenticate($_GET['code']);
         $access_token = $client->getAccessToken();
-        // echo "<pre>".print_r($client,true)."</pre>";
-		// die;
-
         // Check to ensure that the access token was successfully acquired.
         if ($client->getAccessToken()) {
           try {
@@ -649,6 +655,7 @@ class Profile extends CI_Controller
             $streamkey      = $liveStream->cdn->ingestionInfo->streamName;
             
             $rtmp_address   .=$streamkey;
+
             $mdata=array(
                     "address_rtmp"   => $rtmp_address
                 );
@@ -700,15 +707,20 @@ class Profile extends CI_Controller
         		$newtoken= (string) $longLivedAccessToken;
         		$fb->setDefaultAccessToken($newtoken);
 
-                $createLiveVideo = $fb->post('/me/live_videos', ['title' => 'new video', 'description' => 'descrip of the video']);
+                $createLiveVideo = $fb->post('/me/live_videos?status=LIVE_NOW', ['title' => 'Ciak Live Streaming', 'description' => 'ciak live Streaming']);
             	$createLiveVideo = $createLiveVideo->getGraphNode()->asArray();
+
+            	// to get live video info
+            	$LiveVideo = $fb->get('/'.$createLiveVideo["id"]);
+            	$LiveVideo = $LiveVideo->getGraphNode()->asArray();
+
                 $mdata=array(
-                        "address_rtmp"   => $createLiveVideo["stream_url"]
+                        "address_rtmp"   => $LiveVideo["stream_url"]
                     );
         
                 $url        = URLAPI . "/v1/member/perform/set_streamingrtmp?rtmp=facebook";
         	    $result     = apiciaklive($url,json_encode($mdata));
-    
+
                 $this->session->set_flashdata('success', "Your account success connected to Facebook");
                 redirect("profile/setting_profile");
         }

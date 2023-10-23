@@ -48,7 +48,6 @@
         </div>
         <div class="modal-footer ">
             <button type="button" id="startlive" class="btn-main-green">Start Stream</button>
-            <button type="button" id="cekisi" class="btn-main-green">Cek Isi</button>
         </div>
         </div>
     </div>

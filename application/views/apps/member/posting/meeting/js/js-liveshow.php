@@ -469,6 +469,7 @@ connection.iceServers= [
 			console.log("fatal socket error!!", m);
 			console.log("state on fatal error= " +state);
 			console.log('media recorder restarted');
+			console.log(rtmpurl);
 		});
 		
 		socket.on('ffmpeg_stderr',function(m){
