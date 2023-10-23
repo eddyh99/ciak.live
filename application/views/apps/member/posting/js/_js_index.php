@@ -3,6 +3,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 
@@ -379,9 +380,15 @@ $(document).ready(function(){
                         if(data.success == false){
                             $('#load-edit-profile').hide();
                             setTimeout(()=>{
+                                Swal.fire({
+                                    text: "Something Error to upload, please try again",
+                                    confirmButtonColor: '#03B115',
+                                    background: '#323436',
+                                    color: '#ffffff',
+                                    position: 'top'
+                                });
                                 $('#progressbar-wrapper').addClass('d-none');
                                 progress.css('width', 0+'%');
-                                alert("MASIH ADA ERROR")
                             }, 2000);
                         }
                     },
@@ -441,7 +448,6 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
-                        console.log("353 - " + data);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
                             localStorage.removeItem('is_video');
@@ -451,14 +457,21 @@ $(document).ready(function(){
                         if(data.success == false){
                             $('#load-edit-profile').hide();
                             setTimeout(()=>{
+                                Swal.fire({
+                                    text: "Something Error to upload, please try again",
+                                    confirmButtonColor: '#03B115',
+                                    background: '#323436',
+                                    color: '#ffffff',
+                                    position: 'top'
+                                });
                                 $('#progressbar-wrapper').addClass('d-none');
                                 progress.css('width', 0+'%');
-                                alert("MASIH ADA ERROR")
                             }, 2000);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                        console.log(textStatus, errorThrown);
+                       alert(errorThrown);
                     }
                 });
             }else{
@@ -518,9 +531,15 @@ $(document).ready(function(){
                                 if(data.success == false){
                                     $('#load-edit-profile').hide();
                                     setTimeout(()=>{
+                                        Swal.fire({
+                                            text: "Something Error to upload, please try again",
+                                            confirmButtonColor: '#03B115',
+                                            background: '#323436',
+                                            color: '#ffffff',
+                                            position: 'top'
+                                        });
                                         $('#progressbar-wrapper').addClass('d-none');
                                         progress.css('width', 0+'%');
-                                        alert("MASIH ADA ERROR")
                                     }, 2000);
                                 }
                             },

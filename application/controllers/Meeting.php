@@ -50,19 +50,23 @@ class Meeting extends CI_Controller
         
         $to_time    = strtotime(date("Y-m-d H:i:s"));
         $from_time  = strtotime($airtime);
-        $selisih    = round(($to_time - $from_time) / 60);
+        $selisih    = round(abs($to_time - $from_time) / 60);
+
+        // echo "<pre>".print_r($selisih,true)."</pre>";
+        // die;
+
         
-        // if ($_SESSION["user_id"]==$detail->id_member){
-        //     if ($selisih<-15){
-        //         header("HTTP/1.0 403 Forbidden");
-        //         echo "You can't open chat room yet, please start 15 minutes before";
-        //         return;
-        //     }elseif ($selisih>15){
-        //         header("HTTP/1.0 403 Forbidden");
-        //         echo "Room link has been expired, please create another";
-        //         return;
-        //     }
-        // }
+        if ($_SESSION["user_id"]==$detail->id_member){
+            if ($selisih<-15){
+                header("HTTP/1.0 403 Forbidden");
+                echo "You can't open chat room yet, please start 15 minutes before";
+                return;
+            }elseif ($selisih>15){
+                header("HTTP/1.0 403 Forbidden");
+                echo "Room link has been expired, please create another";
+                return;
+            }
+        }
         
         $data=array(
                 "performer"     => ($detail->id_member==$_SESSION["user_id"]) ? true : false,

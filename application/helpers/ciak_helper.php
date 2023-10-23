@@ -123,7 +123,7 @@ function registerHTML($username, $token)
                 '>
                     Hi " . @$username . ",
                 </h3>
-                <img src='" . base_url() . "assets/img/new-ciak/ciak-logo.png' alt='CIAK.LIVE' height='140'>
+                <img src='" . base_url() . "assets/img/new-ciak/logo.png' alt='CIAK.LIVE' height='140'>
             </div>
 
             <div style='
