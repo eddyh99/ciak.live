@@ -60,7 +60,10 @@
 <?php }?>
 <!-- End Send Tip -->
 
-
+<?php 
+    foreach($allpost as $dt){
+        // if($dt->id_member!=$_SESSION["user_id"]){    
+?>
 <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="settingMenus"
     aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
@@ -70,10 +73,14 @@
     <div class="offcanvas-body small pb-5">
         <div class="d-flex flex-column setting-menus">
             <a href="#" id="post_id">Show post</a>
-            <a href="#" id="report_post">Report this post</a>
+            <a href="#" id="report_post">Report this post <?= $dt->id?></a>
         </div>
     </div>
 </div>
+<?php 
+    }
+        // }
+?>
 
 <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="settingMenusSingle"
     aria-labelledby="offcanvasBottomLabel">

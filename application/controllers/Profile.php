@@ -178,15 +178,16 @@ class Profile extends CI_Controller
     public function setting_profile()
     {
         
-    	$url = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
-		$result = apiciaklive($url);
+    	$profile = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"]);
+        $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
 
-        echo $this->session->flashdata('response');
-        // die; 
+   	    // echo "<pre>".print_r($rtmp,true)."</pre>";
+        // die;
         
         $data = array(
             'title'         => NAMETITLE . ' - Setting Profile',
-            'profile'       => $result->message,
+            'profile'       => $profile->message,
+            'rtmp'          => $rtmp,
             'content'       => 'apps/member/profile/app-setting-profile',
             'popup'         => 'apps/member/app-popup',
             'cssextra'      => 'apps/member/profile/css/_css_settings_profile',
