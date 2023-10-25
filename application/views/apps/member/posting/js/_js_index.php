@@ -347,7 +347,7 @@ $(document).ready(function(){
                             if(e.lengthComputable){
                                 var completed = e.loaded/e.total;
                                 var perc = Math.floor(completed * 100);
-                                console.log("Upload:", perc)
+                           
                                 // progress.text(perc+'%');
                                 progress.attr('aria-valuenow',perc);
                                 progress.css('width', perc+'%');
@@ -358,7 +358,7 @@ $(document).ready(function(){
                             if(e.lengthComputable){
                                 var completed = e.loaded/e.total;
                                 var perc = Math.floor(completed * 100);
-                                console.log("Download:",perc)
+                                
                                 // progress.text(perc+'%');
                                 progress.attr('aria-valuenow',perc);
                                 progress.css('width',perc+'%');
@@ -425,7 +425,7 @@ $(document).ready(function(){
                             if(e.lengthComputable){
                                 var completed = e.loaded/e.total;
                                 var perc = Math.floor(completed * 100);
-                                console.log("Upload:", perc)
+                           
                                 // progress.text(perc+'%');
                                 progress.attr('aria-valuenow',perc);
                                 progress.css('width', perc+'%');
@@ -436,7 +436,7 @@ $(document).ready(function(){
                             if(e.lengthComputable){
                                 var completed = e.loaded/e.total;
                                 var perc = Math.floor(completed * 100);
-                                console.log("Download:",perc)
+                                
                                 // progress.text(perc+'%');
                                 progress.attr('aria-valuenow',perc);
                                 progress.css('width',perc+'%');
@@ -497,7 +497,7 @@ $(document).ready(function(){
                                     if(e.lengthComputable){
                                         var completed = e.loaded/e.total;
                                         var perc = Math.floor(completed * 100);
-                                        console.log("Upload:", perc)
+                                   
                                         // progress.text(perc+'%');
                                         progress.attr('aria-valuenow',perc);
                                         progress.css('width', perc+'%');
@@ -508,7 +508,7 @@ $(document).ready(function(){
                                     if(e.lengthComputable){
                                         var completed = e.loaded/e.total;
                                         var perc = Math.floor(completed * 100);
-                                        console.log("Download:",perc)
+                                        
                                         // progress.text(perc+'%');
                                         progress.attr('aria-valuenow',perc);
                                         progress.css('width',perc+'%');

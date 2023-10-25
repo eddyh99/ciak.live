@@ -18,7 +18,7 @@ class Homepage extends CI_Controller
     
     
         // print_r(json_encode($post->message));
-        // echo "<pre>".print_r($_SESSION,true)."</pre>";
+        // echo "<pre>".print_r($post,true)."</pre>";
         // die;
 
         $data = array(

@@ -73,7 +73,7 @@
     <div class="offcanvas-body small pb-5">
         <div class="d-flex flex-column setting-menus">
             <a href="#" id="post_id">Show post</a>
-            <a href="#" id="report_post">Report this post <?= $dt->id?></a>
+            <a href="#" id="report_post">Report this post</a>
         </div>
     </div>
 </div>

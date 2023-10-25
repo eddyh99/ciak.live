@@ -2966,7 +2966,8 @@ label#label-forsubs {
     color: var(--text-white-color);
 }
 
-#attch-preview-post .text-preview-attch {
+#attch-preview-post .text-preview-attch,
+.post-list-attach {
     list-style-type: disc !important;
     color: var(--text-white-color) !important;
 }
@@ -3036,6 +3037,9 @@ label#label-forsubs {
     margin-bottom: 0px !important
 }
 
+.article {
+    overflow: hidden;
+}
   
  /*----------------------------------------------------------
 2. Member End

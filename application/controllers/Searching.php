@@ -29,7 +29,6 @@ class Searching extends CI_Controller
             'title'         => NAMETITLE . ' - Searching',
             'content'       => 'apps/member/searching/app-searching',
             'botbar'        => 'apps/member/app-botbar',
-            // 'popup'         => 'apps/member/app-popup-search',
             'extra'         => 'apps/js/js-index',
         );
 
@@ -41,13 +40,7 @@ class Searching extends CI_Controller
         $url = URLAPI . "/v1/member/post/search_post?term=".$term;
         $result = @apiciaklive($url)->message;
 
-        // echo "<pre>".print_r($result,true)."</pre>";
-	    // die;
-
         $data['search'] = @apiciaklive($url)->message;
-        // $data['popupsingle']  = $this->load->view('apps/member/app-popup-search');
-        
-
         $this->load->view('apps/member/searching/app-result', $data);
     }
 }
