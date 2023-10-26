@@ -53,12 +53,8 @@ let crop_image_banner = document.getElementById('sample_image_banner');
 let cropper;
 if(JSON.parse(localStorage.getItem('image-pp')) == null){
     toDataURL("<?=$profile->profile?>", function(dataUrl) {
-        if("<?=$profile->profile?>" == 'https://api.sandbox.ciak.live/users/images/profiles/default.png'){
-            console.log("");
-        }else {
-            localStorage.setItem('image-pp',JSON.stringify(dataUrl));
-            $('.img-pp-setting').attr("src", "<?=$profile->profile?>");
-        }
+        localStorage.setItem('image-pp',JSON.stringify(dataUrl));
+        $('.img-pp-setting').attr("src", "<?=$profile->profile?>");
     })
 }else {
     $('.img-pp-setting').attr("src", img_pp_storage);
@@ -128,15 +124,9 @@ $('#pp-crop-cancel').click(function(){
 
 if(JSON.parse(localStorage.getItem('image-banner')) == null){
     toDataURL("<?=$profile->header?>", function(dataUrl) {
-      localStorage.setItem('image-banner',JSON.stringify(dataUrl));
-        if("<?=$profile->header?>" == 'https://api.sandbox.ciak.live/users/images/background/default.png'){
-            console.log("");
-        } else {
-            localStorage.setItem('image-banner', JSON.stringify(dataUrl));
-        }
-    })
-
-    $('.img-banner-setting').attr("src", "<?=$profile->header?>");
+        localStorage.setItem('image-banner',JSON.stringify(dataUrl));
+        $('.img-banner-setting').attr("src", "<?=$profile->header?>");
+    });
 }else {
     $('.img-banner-setting').attr("src", img_banner_storage);
 }
@@ -245,12 +235,12 @@ $('#discard-settings-profile').on("click", function(){
     localStorage.removeItem('image-banner');
 })
 
-// For Default Image Black Edit Profile
-let PPdefaultImage = '<?= base_url()?>assets/img/new-ciak/bg-pp-default.png';
-$('.img-pp-default').attr("src", PPdefaultImage);
+// // For Default Image Black Edit Profile
+// let PPdefaultImage = '<?= base_url()?>assets/img/new-ciak/bg-pp-default.png';
+// $('.img-pp-default').attr("src", PPdefaultImage);
 
-let BannerDefaultImage = '<?= base_url()?>assets/img/new-ciak/bg-banner-default.png';
-$('.img-banner-default').attr("src", BannerDefaultImage);
+// let BannerDefaultImage = '<?= base_url()?>assets/img/new-ciak/bg-banner-default.png';
+// $('.img-banner-default').attr("src", BannerDefaultImage);
 
 // $.ajax({
 //     url: "<?= base_url() ?>profile/setting_profile_data",

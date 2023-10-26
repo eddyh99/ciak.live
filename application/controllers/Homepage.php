@@ -17,7 +17,7 @@ class Homepage extends CI_Controller
         $notif = apiciaklive(URLAPI . "/v1/member/notification/getnotif");
     
     
-        // print_r(json_encode($post->message));
+        //print_r(json_encode($post->message));
         // echo "<pre>".print_r($post,true)."</pre>";
         // die;
 

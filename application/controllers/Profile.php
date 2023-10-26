@@ -574,8 +574,8 @@ class Profile extends CI_Controller
             $url        = URLAPI . "/auth/get_singlepost?post_id=".$id;
         }
 	    $result     = apiciaklive($url)->message;
-
-
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
         $data = array(
             'title'         => NAMETITLE . ' - '.$result->username." Post",
             'content'       => 'apps/member/app-single-posts',

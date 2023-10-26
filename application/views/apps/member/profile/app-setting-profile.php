@@ -34,11 +34,7 @@
                     </div>
                 <?php } ?>
                 <div class="banner-profile w-100">
-                    <?php if(@$profile->header == 'https://api.sandbox.ciak.live/users/images/background/default.png') {?>
-                        <img src="" class="banner-images img-banner-setting img-banner-default">
-                    <?php } else {?>
-                        <img src="<?=@$profile->header?>" alt="" class="banner-images img-banner-setting">
-                    <?php } ?>
+                    <img src="<?=@$profile->header?>" alt="" class="banner-images img-banner-setting">
                     <div class="changes">
                         <form action="<?= base_url('homepage/set_banner') ?>" method="post" autocomplete="off" id="changeprofile" enctype="multipart/form-data">
                             <label for="upload_banner" class="position-relative" style="z-index: 1;">
@@ -99,12 +95,7 @@
                                             </defs>
                                         </svg>
                                     </label>
-
-                                    <?php if(@$profile->profile == 'https://api.sandbox.ciak.live/users/images/profiles/default.png') {?>
-                                        <img src="" class="rounded-circle img-pp-setting img-pp-default">
-                                    <?php } else {?>
-                                        <img src="<?=@$profile->profile ?>" class="rounded-circle img-pp-setting">
-                                    <?php } ?>
+                                    <img src="<?=@$profile->profile ?>" class="rounded-circle img-pp-setting">
 
                                     <input type="file" name="upload_image" class="upload_image" id="upload_image" hidden accept=".png, .jpg, .jpeg">
                                 </form>
