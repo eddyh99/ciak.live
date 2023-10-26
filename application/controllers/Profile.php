@@ -575,6 +575,7 @@ class Profile extends CI_Controller
         }
 	    $result     = apiciaklive($url)->message;
 
+
         $data = array(
             'title'         => NAMETITLE . ' - '.$result->username." Post",
             'content'       => 'apps/member/app-single-posts',

@@ -300,6 +300,14 @@
     background-position-x: 70px; */
 }
 
+.modal-close-ciak {
+    box-shadow: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-white-color);
+    font-size: 20px;
+}
 .apps-container {
     margin: auto;
 
@@ -2966,7 +2974,8 @@ label#label-forsubs {
     color: var(--text-white-color);
 }
 
-#attch-preview-post .text-preview-attch {
+#attch-preview-post .text-preview-attch,
+.post-list-attach {
     list-style-type: disc !important;
     color: var(--text-white-color) !important;
 }
@@ -3036,7 +3045,15 @@ label#label-forsubs {
     margin-bottom: 0px !important
 }
 
+.article {
+    overflow: hidden;
+}
   
+.posts-member .post-member .reportpost-wrapper .bg-report {
+    background-color: var(--bg-auth-secondary-color);
+    color: var(--text-white-color);
+    margin-top: 10px;
+}
  /*----------------------------------------------------------
 2. Member End
 ------------------------------------------------------------*/ 
@@ -3379,6 +3396,7 @@ body.dark .apps-container.auth .apps-body .apps-auth.apps-bg-login {
     text-decoration: none;
     width: 100%;
 }
+
  /*----------------------------------------------------------
 5. Overwrite Bootstrap End
 ------------------------------------------------------------*/ 

@@ -13,10 +13,18 @@
                         ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="download" && $dt->is_download=="yes" && $dt->is_deleted=="deleted") ||
                         ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="download" && ($dt->is_download=="yes"||$dt->is_download=='no') && $dt->is_deleted=="active" && $dt->is_block=='no' && $dt->is_blocked=='no')
                         ) {
+                            // CONDITION CONTENT EXPLICIT
                             if(
                                 ($dt->content_type == 'explicit' && @$_COOKIE['content'] === 'yes') || 
-                                $dt->content_type == 'non explicit'
-                        ) {
+                                ($dt->content_type == 'non explicit')
+                        ) { 
+                            // CONDITION LIVE PURPOSE
+                            if(
+                                ($dt->purpose == null || $dt->purpose == 'public') ||
+                                ($dt->id_member == $_SESSION["user_id"]) ||
+                                ($dt->purpose == 'follower' && $dt->is_follow == 'yes') || 
+                                ($dt->purpose == 'subscriber' && $dt->is_subscribe == 'yes')
+                            ) {
 
         ?>
                         <div class="post-member px-4">
@@ -74,46 +82,89 @@
                                 <?php } ?>
                             </div>
 
-                            
-                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalReport<?= $dt->id?>">
-                            Launch demo modal
-                            </button>
 
                             <div class="modal fade" id="modalReport<?= $dt->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Report</h1>
+                                            <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                        </div>
+                                        <div class="modal-body reportpost-wrapper">
+                                            <h5>Why are you reporting this post?</h5>
+                                            <form action="">
+                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                                    <div>
+                                                        It's spam
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </div>
+                                                </a>
+                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                                    <div>
+                                                        Nudity or sexual activity
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </div>
+                                                </a>
+                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                                    <div>
+                                                        Hate speech or symbols
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </div>
+                                                </a>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="post-body">
+                         
                                 <div class="text">
                                     <?php 
                                         if ($dt->type=="public"){?>
-                                            <p class="article">
+                                            <article class="article">
                                                 <?php echo @base64_decode($dt->article)?>
                                                 <?php 
                                                     if (!empty($dt->post_media)){
                                                         foreach ($dt->post_media as $imgpost){
                                                             if ($imgpost->media_type=='attach'){
                                                 ?>
-                                                    <a class="d-block attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'" download><?= substr($imgpost->imgorg, 42)?></a>
+                                                    <li class="post-list-attach">
+                                                        <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
+                                                            <?= substr($imgpost->imgorg, 42)?>
+                                                        </a>
+                                                    </li>
+                                                    <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                <button type="button" class="btn-close text-white fs-3" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
+                                                                    <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
+                                                                <?php } else {?>
+                                                                    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                <?php } ?>
+                                                            </div>
+                                                            <div class="modal-footer justify-content-center">
+                                                                <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 <?php 
                                                             }
                                                         }
                                                     }
                                                 ?>
-                                            </p>
+                                            </article>
                                             <div class="owl-carousel owl-posts owl-theme" >
                                                 <?php 
                                                     if (!empty($dt->post_media)){
@@ -142,28 +193,49 @@
                                     <?php 
                                         } elseif ($dt->type=="private"){
                                             if ($dt->is_subscribe=='no' && $dt->id_member!=$_SESSION["user_id"]){?>
-                                                <p class="article">
-                                                    <?php 
+                                                <article class="article">
+                                                    <!-- <?php 
                                                         @$str=base64_decode($dt->article);
                                                         echo substr($str,0,1).preg_replace("/[a-z|A-Z|0-9]/","x",substr($str,1));
-                                                    ?>
+                                                    ?> -->
+                                                     <?php echo @base64_decode($dt->article)?>
                                                     <?php 
                                                         if (!empty($dt->post_media)){
                                                             foreach ($dt->post_media as $imgpost){
                                                                 if ($imgpost->media_type=='attach'){
                                                     ?>
-                                                        <button class="d-block attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">
-                                                            <?php
-                                                                @$attstr = substr($imgpost->imgorg, 42);
-                                                                echo substr($attstr,0,1).preg_replace("/[a-z|A-Z|0-9]/","x",substr($attstr,1));
-                                                            ?>
-                                                        </button>
+                                                        <li class="post-list-attach">
+                                                            <a style="cursor: pointer;" class="attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" >
+                                                                 <?= substr($imgpost->imgorg, 42)?>
+                                                            </a>
+                                                        </li>
+                                                        <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                    <button type="button" class="btn-close text-white fs-3" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
+                                                                        <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
+                                                                    <?php } else {?>
+                                                                        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                    <?php } ?>
+                                                                </div>
+                                                                <div class="modal-footer justify-content-center">
+                                                                    <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     <?php 
                                                                 }
                                                             }
                                                         }
                                                     ?>
-                                                </p>
+                                                    
+                                                </article>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($dt->post_media)){
@@ -184,7 +256,7 @@
                                                 </div>
 
                                     <?php } elseif ($dt->is_subscribe=='yes' || $dt->id_member==$_SESSION["user_id"]){?>
-                                                <p class="article">
+                                                <article class="article">
                                                     <?php
                                                         @$str = base64_decode($dt->article);
                                                         echo $str;
@@ -194,13 +266,37 @@
                                                             foreach ($dt->post_media as $imgpost){
                                                                 if ($imgpost->media_type=='attach'){
                                                     ?>
-                                                        <button class="d-block attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'"><?= substr($imgpost->imgorg, 42)?></button>
-                                                    <?php 
+                                                            <li class="post-list-attach">
+                                                                <a style="cursor: pointer;" class="attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" >
+                                                                    <?= substr($imgpost->imgorg, 42)?>
+                                                                </a>
+                                                            </li>
+                                                            <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                        <button type="button" class="btn-close text-white fs-3" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
+                                                                            <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
+                                                                        <?php } else {?>
+                                                                            <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-center">
+                                                                        <button type="button" class="btn btn-main-green text-center" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php 
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                    ?>
-                                                </p>
+                                                        ?>
+                                                </article>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($dt->post_media)){
@@ -231,20 +327,44 @@
                                         }elseif ($dt->type=="special"){ 
                                                 if ($dt->is_special=='yes' || $dt->id_member==$_SESSION["user_id"]){
                                         ?>
-                                                    <p class="article">
+                                                    <article class="article">
                                                         <?php echo @base64_decode($dt->article)?>
                                                         <?php 
                                                             if (!empty($dt->post_media)){
                                                                 foreach ($dt->post_media as $imgpost){
                                                                     if ($imgpost->media_type=='attach'){
                                                         ?>
-                                                            <button class="d-block attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'"><?= substr($imgpost->imgorg, 42)?></button>
+                                                            <li class="post-list-attach">
+                                                                <a style="cursor: pointer;" class="attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" >
+                                                                    <?= substr($imgpost->imgorg, 42)?>
+                                                                </a>
+                                                            </li>
+                                                            <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                        <button type="button" class="btn-close text-white fs-3" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
+                                                                            <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
+                                                                        <?php } else {?>
+                                                                            <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-center">
+                                                                        <button type="button" class="btn btn-main-green text-center" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         <?php 
                                                                     }
                                                                 }
                                                             }
                                                         ?>
-                                                    </p>
+                                                    </article>
                                                     <div class="owl-carousel owl-posts owl-theme" >
                                                         <?php 
                                                             if (!empty($dt->post_media)){
@@ -288,20 +408,44 @@
                                         }elseif ($dt->type=="download"){ 
                                             if ($dt->is_download=='yes' || $dt->id_member==$_SESSION["user_id"]){
                                     ?>
-                                                <p class="article">
+                                                <article class="article">
                                                     <?php echo @base64_decode($dt->article)?>
                                                     <?php 
                                                         if (!empty($dt->post_media)){
                                                             foreach ($dt->post_media as $imgpost){
                                                                 if ($imgpost->media_type=='attach'){
                                                     ?>
-                                                        <button class="d-block attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'"><?= substr($imgpost->imgorg, 42)?></button>
-                                                    <?php 
+                                                            <li class="post-list-attach">
+                                                                <a style="cursor: pointer;" class="attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" >
+                                                                    <?= substr($imgpost->imgorg, 42)?>
+                                                                </a>
+                                                            </li>
+                                                            <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                        <button type="button" class="btn-close text-white fs-3" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
+                                                                            <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
+                                                                        <?php } else {?>
+                                                                            <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-center">
+                                                                        <button type="button" class="btn btn-main-green text-center" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php 
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                    ?>
-                                                </p>
+                                                        ?>
+                                                </article>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($dt->post_media)){
@@ -330,29 +474,44 @@
                                     <?php 
                                             }else{
                                     ?>
-                                                <p class="article">
-                                                    <?php 
-                                                        @$str=base64_decode($dt->article);
-                                                        echo substr($str,0,1).preg_replace("/[a-z|A-Z|0-9]/","x",substr($str,1));
-                                                    ?>    
-
+                                                <article class="article">
+                                                    <?php echo @base64_decode($dt->article)?>
                                                     <?php 
                                                         if (!empty($dt->post_media)){
                                                             foreach ($dt->post_media as $imgpost){
                                                                 if ($imgpost->media_type=='attach'){
                                                     ?>
-                                                        <button class="d-block attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">
-                                                            <?php
-                                                                @$attstr = substr($imgpost->imgorg, 42);
-                                                                echo substr($attstr,0,1).preg_replace("/[a-z|A-Z|0-9]/","x",substr($attstr,1));
-                                                            ?>
-                                                        </button>
-                                                    <?php 
+                                                            <li class="post-list-attach">
+                                                                <a style="cursor: pointer;" class="attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" >
+                                                                    <?= substr($imgpost->imgorg, 42)?>
+                                                                </a>
+                                                            </li>
+                                                            <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                        <button type="button" class="btn-close text-white fs-3" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
+                                                                            <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
+                                                                        <?php } else {?>
+                                                                            <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-center">
+                                                                        <button type="button" class="btn btn-main-green text-center" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php 
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                    ?>
-                                                </p>
+                                                        ?>
+                                                </article>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($dt->post_media)){
@@ -372,12 +531,13 @@
                                                 </div>
                                     <?php }
                                         }elseif ($dt->type=="vs"){ ?>
-                                           
+                                        
                                             <?php echo base64_decode($dt->article)?>
                                             
                                     <?php 
                                         } ?>
                                 </div>
+                             
                             </div>
                     
                             <div class="post-footer">
@@ -457,6 +617,7 @@
                         
 
         <?php   
+                            }
                         }
                     }   
                 }

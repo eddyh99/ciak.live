@@ -63,6 +63,7 @@ if (isset($extra)) {
     ------------------------------------------------------------*/ 
     function eventpopup(id){
         $('#post_id').attr('href','<?=base_url()?>profile/post/'+id);
+        $('#report_post').attr('data-bs-target', '#modalReport'+id).attr('data-bs-toggle', 'modal');
         $('#report_post').attr('onclick','reportpost('+id+')');
         $('#profile_postid').attr('href','<?=base_url()?>profile/post/'+id);
         $('#delete_post').attr('href','<?=base_url()?>profile/deletepost/'+id);
