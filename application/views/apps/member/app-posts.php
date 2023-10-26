@@ -64,6 +64,22 @@
                                                 if($dt->id_member!=$_SESSION["user_id"]){
                                         ?>
                                             <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
+                                            <!-- OFF CANVAS BUY POST SPECIAL -->
+                                            <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="basketShopping<?= $dt->id?>"
+                                                aria-labelledby="offcanvasBottomLabel">
+                                                <div class="offcanvas-header">
+                                                    <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="offcanvas-body small text-center pb-5">
+                                                    <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel">$2.00</h5>
+                                                    <p class="mt-1 mb-3">Are you sure to buy this post?</p>
+                                                    <form action="">
+                                                        <input type="hidden" value="id">
+                                                        <button  class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         <?php } }
                                             if ($dt->id_member!=$_SESSION["user_id"]){
                                         ?>
@@ -83,6 +99,33 @@
                             </div>
 
 
+                            <!-- OFFCANVAS SEND TIP -->
+                            <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="sendTip<?= $dt->id?>"
+                                aria-labelledby="offcanvasBottomLabel">
+                                <div class="offcanvas-header">
+                                    <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body small text-center pb-5">
+                                    <h5 class="offcanvas-title <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?> mx-auto" id="offcanvasBottomLabel">Send tip?</h5>
+                                    <form action="frmsendtips" class="d-flex flex-column">
+                                        <input type="hidden" name="id_membertips">
+                                        <div class="mt-2 mb-3">
+                                            <div class="rounded-pill bg-input <?php echo ($dt->content_type == 'explicit') ? 'tip-explicit' : 'tip-nonexplicit'?>">
+                                                <input type="text" name="tipsamount" id="tipsamount" placeholder="$0.00" value="0.5" class="rounded-pill">
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <button type="button" id="btnsendtips" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                         
+
+
+                            <!-- Modal Report -->
                             <div class="modal fade" id="modalReport<?= $dt->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -144,13 +187,18 @@
                                                             <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
-                                                                <button type="button" class="btn-close text-white fs-3" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
                                                             </div>
-                                                            <div class="modal-body">
+                                                            <div class="modal-body d-flex justify-content-center">
                                                                 <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
                                                                     <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
+                                                                <?php } else if((substr($imgpost->imgorg,-3) == "mp3")) {?>
+                                                                    <audio style="width: 80%;" controls controlsList="nodownload">>
+                                                                        <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
+                                                                        Your browser does not support the audio element.
+                                                                    </audio>
                                                                 <?php } else {?>
-                                                                    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
                                                                 <?php } ?>
                                                             </div>
                                                             <div class="modal-footer justify-content-center">
