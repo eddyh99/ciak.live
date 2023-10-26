@@ -82,28 +82,46 @@
                                 <?php } ?>
                             </div>
 
-                            
-                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalReport<?= $dt->id?>">
-                            Launch demo modal
-                            </button> -->
 
-                            <!-- <div class="modal fade" id="modalReport<?= $dt->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modalReport<?= $dt->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Report</h1>
+                                            <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                        </div>
+                                        <div class="modal-body reportpost-wrapper">
+                                            <h5>Why are you reporting this post?</h5>
+                                            <form action="">
+                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                                    <div>
+                                                        It's spam
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </div>
+                                                </a>
+                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                                    <div>
+                                                        Nudity or sexual activity
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </div>
+                                                </a>
+                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                                    <div>
+                                                        Hate speech or symbols
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </div>
+                                                </a>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="post-body">
                          
                                 <div class="text">

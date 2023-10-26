@@ -300,6 +300,14 @@
     background-position-x: 70px; */
 }
 
+.modal-close-ciak {
+    box-shadow: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-white-color);
+    font-size: 20px;
+}
 .apps-container {
     margin: auto;
 
@@ -3041,6 +3049,11 @@ label#label-forsubs {
     overflow: hidden;
 }
   
+.posts-member .post-member .reportpost-wrapper .bg-report {
+    background-color: var(--bg-auth-secondary-color);
+    color: var(--text-white-color);
+    margin-top: 10px;
+}
  /*----------------------------------------------------------
 2. Member End
 ------------------------------------------------------------*/ 
@@ -3383,6 +3396,7 @@ body.dark .apps-container.auth .apps-body .apps-auth.apps-bg-login {
     text-decoration: none;
     width: 100%;
 }
+
  /*----------------------------------------------------------
 5. Overwrite Bootstrap End
 ------------------------------------------------------------*/ 

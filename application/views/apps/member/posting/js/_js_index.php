@@ -42,14 +42,16 @@ Desc        : Modul ini di digunakan untuk melakukan
             toolbar: [
                 ['style', ['style']],
                 ['font', ['bold', 'italic']],
-                ['fontname', ['fontname']],
                 ['fontsize', ['fontsize']],
                 ['para', ['paragraph']],
             ],
             height: 200,
             disableResizeEditor: true,
+            disableDragAndDrop: true,
             placeholder: "What's on your mind",
         });
+        $("#textarea-post").summernote("removeModule", "autoLink");
+
     });
     $('.note-statusbar').hide(); 
 /*----------------------------------------------------------
@@ -252,7 +254,7 @@ $(document).ready(function(){
             source.src = URL.createObjectURL(files[i]);
             localStorage.setItem("is_video","video");
 
-            //console.log(files[i]);
+            localforage.clear();
             $('#img-preview-post').show();
             // $(".carousel-item").append(source)
             $('.carousel-inner').append('<div class="carousel-item '+(i ==  1? "active" : "")+' d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');

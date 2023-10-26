@@ -21,6 +21,7 @@ class Homepage extends CI_Controller
         // echo "<pre>".print_r($post,true)."</pre>";
         // die;
 
+
         $data = array(
             'title'         => NAMETITLE . ' - Homepage',
             'content'       => 'apps/member/app-index',

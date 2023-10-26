@@ -138,11 +138,8 @@ class Post extends CI_Controller
         }
 
         
-        //convert url to clickable
-
-
-
-        $pattern = '/((ftp|http|https):\/\/)?([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/';
+        //convert url to clickable       
+        $pattern = '/((ftp|http|https):\/\/)?([a-z_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/';
         $post = preg_replace_callback($pattern, function($matches){
                     if (!preg_match("~^(?:f|ht)tps?://~i", $matches[0])) {
                         $url = "https://" . $matches[0];
@@ -152,7 +149,9 @@ class Post extends CI_Controller
                     $link='<a href="'.$url.'" class="link" target="_blank" title="'.$url.'">'.$url.'</a>';
                     return $link;
                 }, $post);
+
         //$post=preg_replace('/((ftp|http|https):\/\/)?([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/', '<a href="$0" target="_blank" title="$0">$0</a>', $post);
+
         $mdata=array(
                 "article"       => $post,
                 "type"          => $tipe,
@@ -166,9 +165,6 @@ class Post extends CI_Controller
 
     	$url = URLAPI . "/v1/member/post/add";
 		$result = apiciaklive($url,json_encode($mdata));
-
-        // echo "<pre>".print_r($mdata,true)."</pre>";
-        // die;
 
 		if (@$result->code!=200){
 		    $message=array(
