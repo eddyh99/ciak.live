@@ -4,7 +4,6 @@
             <div class="banner-profile w-100">
                 <img src="<?=$profile->header?>" alt="" class="banner-images">
             </div>
-            
             <div class="profile mb-4">
                 <div class="d-flex flex-row position-relative user">
                     <div class="d-flex align-items-center">
