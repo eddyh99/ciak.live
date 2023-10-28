@@ -208,6 +208,29 @@
                                                             <?php }?>
                                                         </div>
                                                     <?php } ?>
+
+                                                    <!-- SEND TIPS -->
+                                                        <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="sendTip<?= $dt->id?>"
+                                                            aria-labelledby="offcanvasBottomLabel">
+                                                            <div class="offcanvas-header">
+                                                                <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="offcanvas-body small text-center pb-5">
+                                                                <h5 class="offcanvas-title <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?> mx-auto" id="offcanvasBottomLabel">Send tip?</h5>
+                                                                <form action="frmsendtips" class="d-flex flex-column">
+                                                                    <input type="hidden" name="id_membertips">
+                                                                    <div class="mt-2 mb-3">
+                                                                        <div class="rounded-pill bg-input <?php echo ($dt->content_type == 'explicit') ? 'tip-explicit' : 'tip-nonexplicit'?>">
+                                                                            <input type="text" name="tipsamount" id="tipsamount" placeholder="$0.00" value="0.5" class="rounded-pill">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="">
+                                                                        <button type="button" id="btnsendtips" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                 </div>
                                                 <div class="post-body">
                                                     <div class="text text-start">

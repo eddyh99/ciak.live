@@ -64,7 +64,7 @@ if (set_value('agree')) {
                 <div>
                     <input class="me-2 my-0" type="checkbox" value="0" id="agree" name="agree" <?= @$checked; ?>>
                     <label class="light" for="agree">
-                        I agree with Terms and Privacy
+                        I agree with <a class="term-condition" href="<?= base_url()?>link/term_condition"> Terms and Privacy </a>
                     </label>
                 </div>
                 <div class="mb-5">

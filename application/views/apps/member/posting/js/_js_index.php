@@ -269,11 +269,20 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 8.  Preview Attachment Start
 ------------------------------------------------------------*/   
+$(function() {
+    $('#header-preview-text').hide();
     $('#upload_attch').on('change', function(){
         var input = document.getElementById('upload_attch');
         var children = "";
         if(this.files[0].size > 50097152){
-            alert("File is too big!");
+            Swal.fire({
+                text: "File is too big! max 50MB",
+                showCloseButton: true,
+                showConfirmButton: false,
+                background: '#323436',
+                color: '#ffffff',
+                position: 'top'
+            });
             this.value = "";
         }else{
             files = input.files;
@@ -281,9 +290,11 @@ $(document).ready(function(){
             for (var i = 0; i < input.files.length; ++i) {
                 children += '<li class="text-preview-attch">' + input.files.item(i).name + '</li>';
             }
-            $('#attch-preview-post').append('<h4>Preview Attachment: </h4> <ul>'+children+'</ul>');
+            $('#header-preview-text').show();
+            $('#attch-preview-post').append('<ul>'+children+'</ul>');
         }
     })
+});
 /*----------------------------------------------------------
 8.  Preview Attachment End
 ------------------------------------------------------------*/ 

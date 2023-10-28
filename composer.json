@@ -1,6 +1,8 @@
 {
     "require": {
         "google/apiclient": "^2.15.0",
-        "facebook/graph-sdk": "^5.7"
+        "facebook/graph-sdk": "^5.7",
+        "gimucco/tiktok-loginkit": "^0.5.3",
+        "hybridauth/hybridauth": "^3.10"
     }
 }
