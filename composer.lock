@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b56381b2e0e7c6fc1220977743859558",
+    "content-hash": "db51560cc0622b66dca9f2c559eff085",
     "packages": [
         {
             "name": "facebook/graph-sdk",
@@ -131,6 +131,43 @@
                 "source": "https://github.com/firebase/php-jwt/tree/v6.9.0"
             },
             "time": "2023-10-05T00:24:42+00:00"
+        },
+        {
+            "name": "gimucco/tiktok-loginkit",
+            "version": "v0.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaolivato/TikTok-LoginKit-PHP.git",
+                "reference": "a8f452079c0907daa4105c297a214b623303c698"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaolivato/TikTok-LoginKit-PHP/zipball/a8f452079c0907daa4105c297a214b623303c698",
+                "reference": "a8f452079c0907daa4105c297a214b623303c698",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "gimucco\\TikTokLoginKit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Andrea Olivato",
+                    "email": "andrea@olivato.me"
+                }
+            ],
+            "description": "TikTok Login Kit for Web in PHP",
+            "support": {
+                "issues": "https://github.com/andreaolivato/TikTok-LoginKit-PHP/issues",
+                "source": "https://github.com/andreaolivato/TikTok-LoginKit-PHP/tree/v0.5.3"
+            },
+            "time": "2023-06-02T09:07:55+00:00"
         },
         {
             "name": "google/apiclient",
@@ -627,6 +664,68 @@
                 }
             ],
             "time": "2023-08-27T10:13:57+00:00"
+        },
+        {
+            "name": "hybridauth/hybridauth",
+            "version": "v3.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hybridauth/hybridauth.git",
+                "reference": "9b5e8a7782b630d5b1151003999d6db91a863ffe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/9b5e8a7782b630d5b1151003999d6db91a863ffe",
+                "reference": "9b5e8a7782b630d5b1151003999d6db91a863ffe",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "^4.8.35 || ^6.5 || ^8.0"
+            },
+            "suggest": {
+                "firebase/php-jwt": "Needed to support Apple provider",
+                "phpseclib/phpseclib": "Needed to support Apple provider"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hybridauth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miled",
+                    "email": "hybridauth@gmail.com"
+                }
+            ],
+            "description": "PHP Social Authentication Library",
+            "homepage": "https://hybridauth.github.io",
+            "keywords": [
+                "Authentication",
+                "OpenId",
+                "api",
+                "apple",
+                "authorization",
+                "facebook",
+                "google",
+                "oauth",
+                "social",
+                "twitter"
+            ],
+            "support": {
+                "gitter": "https://gitter.im/hybridauth/hybridauth",
+                "issues": "https://github.com/hybridauth/hybridauth/issues",
+                "source": "https://github.com/hybridauth/hybridauth/tree/v3.10.0"
+            },
+            "time": "2023-07-25T15:02:07+00:00"
         },
         {
             "name": "monolog/monolog",

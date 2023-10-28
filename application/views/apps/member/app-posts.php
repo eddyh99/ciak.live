@@ -191,12 +191,33 @@
                                                             </div>
                                                             <div class="modal-body d-flex justify-content-center">
                                                                 <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
-                                                                    <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
-                                                                <?php } else if((substr($imgpost->imgorg,-3) == "mp3")) {?>
-                                                                    <audio style="width: 80%;" controls controlsList="nodownload">>
-                                                                        <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
-                                                                        Your browser does not support the audio element.
-                                                                    </audio>
+                                                                        <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>#toolbar=0" type="application/pdf">
+                                                                <?php } else if (
+                                                                        (substr($imgpost->imgorg,-3) == "mp3") || 
+                                                                        (substr($imgpost->imgorg,-3) == "wav") || 
+                                                                        (substr($imgpost->imgorg,-3) == "ogg") || 
+                                                                        (substr($imgpost->imgorg,-4) == "weba") || 
+                                                                        (substr($imgpost->imgorg,-4) == "mp4a")) {?>
+                                                                        <audio style="width: 80%;" controls controlsList="nodownload">>
+                                                                            <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
+                                                                            Your browser does not support the audio.
+                                                                        </audio>
+                                                                <?php } else if(
+                                                                        (substr($imgpost->imgorg,-3) == "mp4") ||
+                                                                        (substr($imgpost->imgorg,-4) == "webm") ||
+                                                                        (substr($imgpost->imgorg,-3) == "m4v") ||
+                                                                        (substr($imgpost->imgorg,-3) == "mov")){?>
+                                                                        <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
+                                                                            <source src="<?=@$imgpost->imgorg?>" type="video/mp4">
+                                                                        </video>   
+                                                                <?php } else if(
+                                                                        (substr($imgpost->imgorg,-3) == "jpg") ||
+                                                                        (substr($imgpost->imgorg,-3) == "png") ||
+                                                                        (substr($imgpost->imgorg,-3) == "gif") ||
+                                                                        (substr($imgpost->imgorg,-4) == "heic")){?>
+                                                                        <div class="wrapper-attch-img">
+                                                                            <img class="attch-img" src="<?= $imgpost->imgorg?>" alt="img">
+                                                                        </div>
                                                                 <?php } else {?>
                                                                         <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
                                                                 <?php } ?>

@@ -300,7 +300,7 @@
 
                             <!-- TIKTOK RTMP -->
                             <div class="bg-live-connect">
-                                <a href="" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                <a href="<?= base_url()?>profile/tiktok_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
                                     <div class="ps-4">
                                     <svg width="25" height="28" viewBox="0 0 25 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_2655_14472)">
@@ -326,7 +326,7 @@
 
                             <!-- LINKEDIN RTMP -->
                             <div class="bg-live-connect">
-                                <a href="" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                <a href="<?= base_url()?>profile/linkedin_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
                                     <div class="ps-4">
                                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_2655_14469)">

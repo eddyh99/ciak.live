@@ -67,7 +67,12 @@
                                                         <path d="M12.6433 5.83339L7.155 11.3217C6.99582 11.4755 6.86885 11.6594 6.7815 11.8627C6.69415 12.0661 6.64817 12.2848 6.64625 12.5061C6.64433 12.7274 6.6865 12.9468 6.7703 13.1516C6.8541 13.3565 6.97785 13.5426 7.13434 13.699C7.29083 13.8555 7.47692 13.9793 7.68174 14.0631C7.88657 14.1469 8.10604 14.1891 8.32734 14.1871C8.54863 14.1852 8.76733 14.1392 8.97067 14.0519C9.17401 13.9645 9.35792 13.8376 9.51167 13.6784L14.8567 8.19006C15.4639 7.56138 15.7998 6.71937 15.7922 5.84538C15.7847 4.9714 15.4341 4.13535 14.8161 3.51733C14.198 2.8993 13.362 2.54874 12.488 2.54114C11.614 2.53355 10.772 2.86953 10.1433 3.47672L4.7975 8.96422C3.85974 9.90198 3.33291 11.1739 3.33291 12.5001C3.33291 13.8263 3.85974 15.0981 4.7975 16.0359C5.73526 16.9737 7.00714 17.5005 8.33333 17.5005C9.65953 17.5005 10.9314 16.9737 11.8692 16.0359L17.0833 10.8334" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
                                                 </label>
-                                                <input type="file" name="upload_attch" id="upload_attch" accept=".doc, .docx, .pdf, .pptx, .ppt, .xls, .xlsx, .mp3, .wav, .mp4a, .ogg, weba" hidden multiple />
+                                                <input type="file" name="upload_attch" id="upload_attch" 
+                                                    accept=".doc, .docx, .pdf, .pptx, .ppt, 
+                                                            .xls, .xlsx, .mp3, .wav, .mp4a, 
+                                                            .ogg, .weba, .heic, .jpg, .png,
+                                                            .gif, .mp4, .webm, .m4v, .mov"    
+                                                    hidden multiple />
                                             </div>
                                         </div>
                                     </div>
@@ -76,6 +81,7 @@
                             </div>
                             <div class="write-posting ps-3 pt-2 w-100">
                                 <textarea id="textarea-post"></textarea>
+                                <h4 id="header-preview-text">Preview Attachment</h4>
                                 <div id="attch-preview-post"></div>
                                 <div id="img-preview-post" class="img-preview-post">
                                     <div id="carouselPreviewImg" class="carousel slide" data-bs-interval="false">

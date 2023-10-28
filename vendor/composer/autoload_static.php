@@ -21,6 +21,10 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         array (
             'phpseclib3\\' => 11,
         ),
+        'g' => 
+        array (
+            'gimucco\\TikTokLoginKit\\' => 23,
+        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
@@ -32,6 +36,10 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         'M' => 
         array (
             'Monolog\\' => 8,
+        ),
+        'H' => 
+        array (
+            'Hybridauth\\' => 11,
         ),
         'G' => 
         array (
@@ -53,6 +61,10 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         'phpseclib3\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
+        'gimucco\\TikTokLoginKit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gimucco/tiktok-loginkit/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -78,6 +90,10 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Hybridauth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hybridauth/hybridauth/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (

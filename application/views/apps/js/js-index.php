@@ -430,6 +430,12 @@ $(document).ready(function () {
         playFile.call(this);
     });
 })
+
+// Otomatis ke pause ketika modal close
+$('body').on('hidden.bs.modal', '.modal', function () {
+    $('video').trigger('pause');
+    $('audio').trigger('pause');
+});
 /*----------------------------------------------------------
 9. GSAP Scroll Triger End
 ------------------------------------------------------------*/

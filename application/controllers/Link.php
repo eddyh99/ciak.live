@@ -57,8 +57,19 @@ class Link extends CI_Controller
     public function privacy_police()
     {
         $data = array(
-            'title' => NAMETITLE,
+            'title' => NAMETITLE . ' - Privacy Policy',
             'content' => 'landingpage/privacy_policy',
+            'extra' => 'landingpage/js/js_index',
+        );
+
+        $this->load->view('landingpage/template/wrapper', $data);
+    }
+
+    public function term_condition()
+    {
+        $data = array(
+            'title' => NAMETITLE . ' - Term Condition',
+            'content' => 'landingpage/term_condition',
             'extra' => 'landingpage/js/js_index',
         );
 

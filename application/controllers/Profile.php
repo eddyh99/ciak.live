@@ -14,6 +14,7 @@
 ------------------------------------------------------------*/ 
 
 defined('BASEPATH') or exit('No direct script access allowed');
+use gimucco\TikTokLoginKit;
 
 class Profile extends CI_Controller
 {
@@ -686,7 +687,8 @@ class Profile extends CI_Controller
         $permissions = [
                 'publish_video',
                 'public_profile',
-        ];        
+        ];    
+        
         $helper = $fb->getRedirectLoginHelper();
         $loginUrl = $helper->getLoginUrl(base_url()."profile/facebook_callback",$permissions);
         redirect ($loginUrl);
@@ -727,4 +729,79 @@ class Profile extends CI_Controller
                 redirect("profile/setting_profile");
         }
     }    
+
+    public function linkedin_link()
+    {
+        $adapter = new Hybridauth\Provider\LinkedIn( [
+            'callback' => base_url().'profile/linkedin_link',
+            'keys'     => [
+                            'id' => '78q1ppp3b53hca',
+                            'secret' => 'J9zKtY9bLIn5DzYS'
+                        ],
+            'scope'    => "openid profile email",
+        ]);
+
+        // ACCESS TOKEN
+        // getAccessToken()
+
+        try {
+            $adapter->authenticate();
+            $token = $adapter->getAccessToken();
+
+            // print_r(json_encode($token['access_token']));
+            echo "<pre>".print_r($token['access_token'],true)."</pre>";
+            die;
+        }
+        catch( Exception $e ){
+            echo "ERROR DISINI";
+            echo $e->getMessage() ;
+        }
+
+    }
+
+
+
+    public function tiktok_link()
+    {
+
+        $api_key = 'awgjaa9rn3qxcrp7'; // Your API Key, as obtained from TikTok Developers portal
+        $api_secret = 'CBDYb1xiKjLB7s7S5ZUsBwH4TUbAA4dM'; // Your API Secret, as obtained from TikTok Developers portal
+        $redirect_uri = base_url().'profile/tiktok_link'; // Where to return after authorization. Must be approved in the TikTok Developers portal
+
+        $_TK = new TikTokLoginKit($api_key, $api_secret, $redirect_uri);
+        
+        echo "<pre>".print_r($_TK,true)."</pre>";
+        die;
+
+        if (TikTokLoginKit\Connector::receivingResponse()) { // Check if you're receiving the Authorisation Code
+            try {
+                $token = $_TK->verifyCode($_GET[TikTokLoginKit\Connector::CODE_PARAM]); // Verify the Authorisation code and get the Access Token
+        
+                /****  Your logic to store the access token goes here ****/
+        
+                $user = $_TK->getUser(); // Retrieve the User Object
+        
+                /****  Your logic to store or use the User Info goes here ****/
+        
+                // Print some HTML as example
+                echo <<<HTML
+                <table width="500">
+                    <tr>
+                        <td with="200"><img src="{$user->getAvatarLarger()}"></td>
+                        <td>
+                            <br />
+                            <strong>ID</strong>: {$user->getOpenID()}<br /><br />
+                            <strong>Name</strong>: {$user->getDisplayName()}
+                        </td>
+                    </tr>
+                </table>
+                HTML;
+            } catch (Exception $e) {
+                echo "Error: ".$e->getMessage();
+                echo '<br /><a href="?">Retry</a>';
+            }
+        } else { // Print the initial login button that redirects to TikTok
+            echo '<a href="'.$_TK->getRedirect().'">Log in with TikTok</a>';
+        }
+    }
 }

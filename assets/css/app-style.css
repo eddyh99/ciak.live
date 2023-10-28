@@ -598,6 +598,12 @@
     color: var(--text-white-color);
 }
 
+.apps-container.auth .apps-body .apps-auth .form-login label .term-condition {
+    text-decoration: none;
+    color: var(--text-white-color);
+    font-weight: 700;
+}
+
 .apps-container.auth .apps-body .apps-auth .form-login input {
     background: var(--bg-auth-input);
 }
@@ -1308,6 +1314,19 @@ input[type=number] {
 }
 
 .apps-member .posts-member .post-member .post-body .img .image-post {
+    width: 100%;
+    height: 375px;
+    object-fit: contain;
+}
+
+.wrapper-attch-img {
+    background-color: #000000;
+    height: 375px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.wrapper-attch-img .attch-img{
     width: 100%;
     height: 375px;
     object-fit: contain;
