@@ -270,7 +270,7 @@ class Post extends CI_Controller
 		$result = apiciaklive($url,json_encode($mdata));
 
 		if (@$result->code!=200){
-		    //set flash data error
+		    $this->session->set_flashdata('failed', $result->message);
 	        return;
 		}
 		
@@ -293,6 +293,11 @@ class Post extends CI_Controller
             $message.="<br>Description : ".$deskripsi;
         }
 
+        if ($guestinvite=='alone'){
+            $message="You Are Invited to join meeting";
+            $message.="<br>Description : ".$deskripsi;
+        }
+
         $mdata=array(
                 "start_time"    => $post_time,
                 "content_type"  => $_SESSION["content_type"],
@@ -301,15 +306,17 @@ class Post extends CI_Controller
                 "meeting_type"  => $meetingtype
             );
 
+            
         $url = URLAPI . "/v1/member/post/performmeeting";
-		$result = apiciaklive($url,json_encode($mdata));
+        $result = apiciaklive($url,json_encode($mdata));
+            
         
 		if (@$result->code!=200){
-		    //set flash data error
+		    $this->session->set_flashdata('failed', $result->message);
 	        return;
 		}
 		
-		redirect($result->message);
+		redirect('homepage');
 
     }    
 

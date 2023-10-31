@@ -1,5 +1,4 @@
-<div class="row">
-    <div class="posts-member col-12 col-lg-5 mx-auto">
+
         <?php 
             foreach ($allpost as $dt){
                 if ($dt->is_admin=="active"){
@@ -177,44 +176,44 @@
                                                         foreach ($dt->post_media as $imgpost){
                                                             if ($imgpost->media_type=='attach'){
                                                 ?>
-                                                    <li class="post-list-attach">
-                                                        <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
-                                                            <?= substr($imgpost->imgorg, 42)?>
-                                                        </a>
-                                                    </li>
-                                                    <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
-                                                                    <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
-                                                                </div>
-                                                                <div class="modal-body d-flex justify-content-center">
-                                                                    <?php if ($imgpost->media_extension == "pdf"){?>
-                                                                            <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>#toolbar=0" type="application/pdf">
-                                                                    <?php } else if ($imgpost->media_extension == "audio") {?>
-                                                                            <audio style="width: 80%;" controls controlsList="nodownload">>
-                                                                                <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
-                                                                                Your browser does not support the audio.
-                                                                            </audio>
-                                                                    <?php } else if($imgpost->media_extension == "video"){?>
-                                                                            <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
-                                                                                <source src="<?=@$imgpost->imgorg?>" type="video/mp4">
-                                                                            </video>   
-                                                                    <?php } else if($imgpost->media_extension == "image"){?>
-                                                                            <div class="wrapper-attch-img">
-                                                                                <img class="attch-img" src="<?= $imgpost->imgorg?>" alt="img">
-                                                                            </div>
-                                                                    <?php } else {?>
-                                                                            <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
-                                                                    <?php } ?>
-                                                                </div>
-                                                                <div class="modal-footer justify-content-center">
-                                                                    <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                        <li class="post-list-attach">
+                                                            <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
+                                                                <?= substr($imgpost->imgorg, 42)?>
+                                                            </a>
+                                                        </li>
+                                                        <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                        <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                    </div>
+                                                                    <div class="modal-body d-flex justify-content-center">
+                                                                        <?php if ($imgpost->media_extension == "pdf"){?>
+                                                                                <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>#toolbar=0" type="application/pdf">
+                                                                        <?php } else if ($imgpost->media_extension == "audio") {?>
+                                                                                <audio style="width: 80%;" controls controlsList="nodownload">>
+                                                                                    <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
+                                                                                    Your browser does not support the audio.
+                                                                                </audio>
+                                                                        <?php } else if($imgpost->media_extension == "video"){?>
+                                                                                <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
+                                                                                    <source src="<?=@$imgpost->imgorg?>" type="video/mp4">
+                                                                                </video>   
+                                                                        <?php } else if($imgpost->media_extension == "image"){?>
+                                                                                <div class="wrapper-attch-img">
+                                                                                    <img class="attch-img" src="<?= $imgpost->imgorg?>" alt="img">
+                                                                                </div>
+                                                                        <?php } else {?>
+                                                                                <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-center">
+                                                                        <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                 <?php 
                                                             }
                                                         }
@@ -416,44 +415,44 @@
                                                                 foreach ($dt->post_media as $imgpost){
                                                                     if ($imgpost->media_type=='attach'){
                                                         ?>
-                                                                <li class="post-list-attach">
-                                                                    <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
-                                                                        <?= substr($imgpost->imgorg, 42)?>
-                                                                    </a>
-                                                                </li>
-                                                                <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-lg">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
-                                                                                <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
-                                                                            </div>
-                                                                            <div class="modal-body d-flex justify-content-center">
-                                                                                <?php if ($imgpost->media_extension == "pdf"){?>
-                                                                                        <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>#toolbar=0" type="application/pdf">
-                                                                                <?php } else if ($imgpost->media_extension == "audio") {?>
-                                                                                        <audio style="width: 80%;" controls controlsList="nodownload">>
-                                                                                            <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
-                                                                                            Your browser does not support the audio.
-                                                                                        </audio>
-                                                                                <?php } else if($imgpost->media_extension == "video"){?>
-                                                                                        <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
-                                                                                            <source src="<?=@$imgpost->imgorg?>" type="video/mp4">
-                                                                                        </video>   
-                                                                                <?php } else if($imgpost->media_extension == "image"){?>
-                                                                                        <div class="wrapper-attch-img">
-                                                                                            <img class="attch-img" src="<?= $imgpost->imgorg?>" alt="img">
-                                                                                        </div>
-                                                                                <?php } else {?>
-                                                                                        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
-                                                                                <?php } ?>
-                                                                            </div>
-                                                                            <div class="modal-footer justify-content-center">
-                                                                                <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
-                                                                            </div>
+                                                            <li class="post-list-attach">
+                                                                <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
+                                                                    <?= substr($imgpost->imgorg, 42)?>
+                                                                </a>
+                                                            </li>
+                                                            <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                            <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                        </div>
+                                                                        <div class="modal-body d-flex justify-content-center">
+                                                                            <?php if ($imgpost->media_extension == "pdf"){?>
+                                                                                    <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>#toolbar=0" type="application/pdf">
+                                                                            <?php } else if ($imgpost->media_extension == "audio") {?>
+                                                                                    <audio style="width: 80%;" controls controlsList="nodownload">>
+                                                                                        <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
+                                                                                        Your browser does not support the audio.
+                                                                                    </audio>
+                                                                            <?php } else if($imgpost->media_extension == "video"){?>
+                                                                                    <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
+                                                                                        <source src="<?=@$imgpost->imgorg?>" type="video/mp4">
+                                                                                    </video>   
+                                                                            <?php } else if($imgpost->media_extension == "image"){?>
+                                                                                    <div class="wrapper-attch-img">
+                                                                                        <img class="attch-img" src="<?= $imgpost->imgorg?>" alt="img">
+                                                                                    </div>
+                                                                            <?php } else {?>
+                                                                                    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                        <div class="modal-footer justify-content-center">
+                                                                            <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                         <?php 
                                                                     }
                                                                 }
@@ -510,44 +509,31 @@
                                                             foreach ($dt->post_media as $imgpost){
                                                                 if ($imgpost->media_type=='attach'){
                                                     ?>
-                                                                <li class="post-list-attach">
-                                                                    <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
-                                                                        <?= substr($imgpost->imgorg, 42)?>
-                                                                    </a>
-                                                                </li>
-                                                                <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-lg">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
-                                                                                <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
-                                                                            </div>
-                                                                            <div class="modal-body d-flex justify-content-center">
-                                                                                <?php if ($imgpost->media_extension == "pdf"){?>
-                                                                                        <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>#toolbar=0" type="application/pdf">
-                                                                                <?php } else if ($imgpost->media_extension == "audio") {?>
-                                                                                        <audio style="width: 80%;" controls controlsList="nodownload">>
-                                                                                            <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
-                                                                                            Your browser does not support the audio.
-                                                                                        </audio>
-                                                                                <?php } else if($imgpost->media_extension == "video"){?>
-                                                                                        <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
-                                                                                            <source src="<?=@$imgpost->imgorg?>" type="video/mp4">
-                                                                                        </video>   
-                                                                                <?php } else if($imgpost->media_extension == "image"){?>
-                                                                                        <div class="wrapper-attch-img">
-                                                                                            <img class="attch-img" src="<?= $imgpost->imgorg?>" alt="img">
-                                                                                        </div>
-                                                                                <?php } else {?>
-                                                                                        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
-                                                                                <?php } ?>
-                                                                            </div>
-                                                                            <div class="modal-footer justify-content-center">
-                                                                                <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
-                                                                            </div>
-                                                                        </div>
+                                                            <li class="post-list-attach">
+                                                                <a style="cursor: pointer;" class="attachment <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" >
+                                                                    <?= substr($imgpost->imgorg, 42)?>
+                                                                </a>
+                                                            </li>
+                                                            <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                        <button type="button" class="btn-close text-white fs-3" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <?php if ((substr($imgpost->imgorg,-3) == "pdf")){?>
+                                                                            <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>" type="application/pdf">
+                                                                        <?php } else {?>
+                                                                            <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-center">
+                                                                        <button type="button" class="btn btn-main-green text-center" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
+                                                                    </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                         <?php 
                                                                     }
                                                                 }
@@ -589,7 +575,7 @@
                                                             foreach ($dt->post_media as $imgpost){
                                                                 if ($imgpost->media_type=='attach'){
                                                     ?>
-                                                          <li class="post-list-attach">
+                                                            <li class="post-list-attach">
                                                                 <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
                                                                     <?= substr($imgpost->imgorg, 42)?>
                                                                 </a>
@@ -745,22 +731,23 @@
             }
         ?>
 
-        <div id="load-post-homepage"></div>
-        <div class="spinner-load-content">
-            <div class=" d-flex flex-column justify-content-center align-items-center">
-                <div class="spinner-border fs-5" role="status">
-                    <span class="visually-hidden fs-5">Loading...</span>
-                </div>
-            </div>
-        </div>
+        <script>
+            $(function() {  
+                    $('.article').readmore({
+                        speed: 75, 
+                        collapsedHeight: 95, 
+                        moreLink: `<a class="ac" href="#">Read more</a>`, 
+                        lessLink: `<a class="ac" href="#">Close</a>`, 
+                    }); 
+                $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
+                    $('.article').readmore({
+                        speed: 75, 
+                        collapsedHeight: 75, 
+                        moreLink: `<a class="ac" href="#">Read more</a>`, 
+                        lessLink: `<a class="ac" href="#">Close</a>`, 
+                    });
+                })
+            });
+        </script>
 
-        <!-- THIS CODE FOR EMPTY MESSAGE -->
-        <?php if(empty($allpost)){?>
-            <div class="d-flex justify-content-center mt-5 pt-5">
-                <img class="empty-notif" src="<?= base_url()?>assets/img/new-ciak/empty-post.png" alt="empty">
-            </div>
-        <?php }?>
-
-
-    </div>
-</div>
+        

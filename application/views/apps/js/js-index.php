@@ -374,24 +374,48 @@ function doneTyping () {
 /*----------------------------------------------------------
 8. Readmore For Guest Profile Start
 ------------------------------------------------------------*/ 
-//  var get_explicit = localStorage.getItem("explicit");
-//  console.log(get_explicit);
+
 $(function() {  
         $('.article').readmore({
             speed: 75, 
-            collapsedHeight: 50, 
+            collapsedHeight: 95, 
             moreLink: `<a class="ac" href="#">Read more</a>`, 
             lessLink: `<a class="ac" href="#">Close</a>`, 
         }); 
     $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
         $('.article').readmore({
             speed: 75, 
-            collapsedHeight: 50, 
+            collapsedHeight: 95, 
             moreLink: `<a class="ac" href="#">Read more</a>`, 
             lessLink: `<a class="ac" href="#">Close</a>`, 
         });
     })
 });
+
+var loadContent = $(window), d = $(document); 
+var pages = 1;
+$('.spinner-load-content').hide();
+
+$(window).scroll(function() {
+   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+        pages += 1;
+        $('.spinner-load-content').show();
+        $.ajax({
+            url: "<?= base_url()?>homepage/load_more/"+pages,
+            type: "GET",
+            success: function(html) {
+                // alert("SUKSES");
+                $('.spinner-load-content').hide();
+                $('#load-post-homepage').append(html);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("ERROR");
+            }
+        });
+   }
+});
+
+
 /*----------------------------------------------------------
 8. Readmore For Guest Profile End
 ------------------------------------------------------------*/ 
@@ -481,11 +505,7 @@ modeToggleContentHome.addEventListener("click", () =>{
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
 
-// For Looping Modal Send Tips
-// let sendTip = document.getElementById('sendTipClick').getAttribute('data-bs-target');
-// console.log(sendTip);
 
-// let sendTipShow = document.getElementById('sendTip').style.visibility = "hidden";
 
 
 </script>

@@ -37,6 +37,13 @@ class Homepage extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
+    public function load_more($id)
+    {
+
+        $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/getall_post?page=".$id)->message;
+        $this->load->view('apps/member/loadcontent/load-homepage', $data);
+    }
+
     public function recomend_friends()
     {
         $data = [

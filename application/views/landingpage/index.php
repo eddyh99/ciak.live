@@ -358,13 +358,16 @@
                 </div>
             </div>
             
-            <div class="col-12 col-lg-2 d-flex justify-content-end my-auto">
+            <div class="col-12 col-lg-3 d-flex justify-content-between my-auto">
+                <a href="<?= base_url()?>link/privacy_police" class="privacy-police-footer">
+                    Privacy Police
+                </a>
                 <a href="<?= base_url()?>link/privacy_police" class="privacy-police-footer">
                     Privacy Police
                 </a>
             </div>
 
-            <div class="col-12 col-lg-6 d-flex justify-content-end my-auto">
+            <div class="col-12 col-lg-5 d-flex justify-content-end my-auto">
                 <div>
                     <!-- <div class="col-12">
                         <div class="icon-sosmed text-center">
