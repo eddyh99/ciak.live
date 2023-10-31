@@ -539,9 +539,10 @@ class Profile extends CI_Controller
 	    echo json_encode($message);
     }
     
-    public function reportpost($post_id){
+    public function reportpost($post_id,$reason){
         $post_id    = $this->security->xss_clean($post_id);
-        $url = URLAPI . "/v1/member/profile/report?post_id=".$post_id;
+        $reason     = $this->security->xss_clean($reason);
+        $url = URLAPI . "/v1/member/profile/report?post_id=".$post_id."&reason=".$reason;
         $mdata=array(
                'ipaddress'=> $this->input->ip_address()
             );

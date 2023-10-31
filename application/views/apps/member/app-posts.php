@@ -135,8 +135,8 @@
                                         </div>
                                         <div class="modal-body reportpost-wrapper">
                                             <h5>Why are you reporting this post?</h5>
-                                            <form action="">
-                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                            
+                                                <a onclick="reportpost('<?= $dt->id?>','spam')" class="d-flex justify-content-between p-2 bg-report">
                                                     <div>
                                                         It's spam
                                                     </div>
@@ -144,15 +144,15 @@
                                                         <i class="fas fa-chevron-right"></i>
                                                     </div>
                                                 </a>
-                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                                <a  onclick="reportpost('<?= $dt->id?>','wrong category')" class="d-flex justify-content-between p-2 bg-report">
                                                     <div>
-                                                        Nudity or sexual activity
+                                                        Wrong category/explicit content/non explicit content 
                                                     </div>
                                                     <div>
                                                         <i class="fas fa-chevron-right"></i>
                                                     </div>
                                                 </a>
-                                                <a href="" class="d-flex justify-content-between p-2 bg-report">
+                                                <a onclick="reportpost('<?= $dt->id?>','hate speech')" class="d-flex justify-content-between p-2 bg-report">
                                                     <div>
                                                         Hate speech or symbols
                                                     </div>
@@ -160,7 +160,23 @@
                                                         <i class="fas fa-chevron-right"></i>
                                                     </div>
                                                 </a>
-                                            </form>
+                                                <a onclick="reportpost('<?= $dt->id?>','abusing')" class="d-flex justify-content-between p-2 bg-report">
+                                                    <div>
+                                                        Abusing Person
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </div>
+                                                </a>
+                                                <a onclick="reportpost('<?= $dt->id?>','others')" class="d-flex justify-content-between p-2 bg-report">
+                                                    <div>
+                                                        Others
+                                                    </div>
+                                                    <div>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </div>
+                                                </a>                                                
+                                            
                                         </div>
                                     </div>
                                 </div>

@@ -63,7 +63,6 @@ if (isset($extra)) {
     function eventpopup(id){
         $('#post_id').attr('href','<?=base_url()?>profile/post/'+id);
         $('#report_post').attr('data-bs-target', '#modalReport'+id).attr('data-bs-toggle', 'modal');
-        $('#report_post').attr('onclick','reportpost('+id+')');
         $('#profile_postid').attr('href','<?=base_url()?>profile/post/'+id);
         $('#delete_post').attr('href','<?=base_url()?>profile/deletepost/'+id);
         $('#block_user').attr('href','<?=base_url()?>profile/blockeduser/'+id);
@@ -109,14 +108,16 @@ if (isset($extra)) {
     4. Report Post Start
     ------------------------------------------------------------*/ 
     
-    //add swal alert if failed
-    function reportpost(id){
+     //@todo : swal sukses
+     //swal failed
+    function reportpost(id,reason){
          $("#settingMenus").offcanvas('hide');
         $.ajax({
-            url: "<?=base_url()?>profile/reportpost/"+id,
+            url: "<?=base_url()?>profile/reportpost/"+id+"/"+reason,
             success: function (response) {
                 if (response){
-                    
+                    //alert sukses send report
+                    //modal close
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
