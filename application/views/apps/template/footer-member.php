@@ -32,7 +32,6 @@
 
 
 <?php
-// $this->load->view('apps/js/js-darkmode');
 if (isset($extra)) {
     $this->load->view($extra);
 }

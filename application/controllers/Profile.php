@@ -34,7 +34,7 @@ class Profile extends CI_Controller
     	$url = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
 		$result = apiciaklive($url)->message;
 		$post = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=1")->message;
-        // echo "<pre>".print_r($result,true)."</pre>";
+        // echo "<pre>".print_r($post,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
@@ -50,6 +50,13 @@ class Profile extends CI_Controller
         );
 
         $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function load_more_profile($id)
+    {
+
+        $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=".$id)->message;
+        $this->load->view('apps/member/loadcontent/load-homepage', $data);
     }
     
     public function user($ucode=NULL){
@@ -105,6 +112,8 @@ class Profile extends CI_Controller
 
         $this->load->view('apps/template/wrapper-member', $data);
     }
+
+  
     
     public function follow(){
         $input      = $this->input;
@@ -182,7 +191,7 @@ class Profile extends CI_Controller
     	$profile = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"]);
         $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
 
-   	    // echo "<pre>".print_r($rtmp,true)."</pre>";
+   	    // echo "<pre>".print_r($profile,true)."</pre>";
         // die;
         
         $data = array(
