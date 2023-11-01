@@ -195,7 +195,7 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 6.  Function Blob Image Start
 ------------------------------------------------------------*/    
-    let formdata = new FormData();
+    let formdata;
     
     function base64ToBlob(base64, mime) 
     {
@@ -305,7 +305,7 @@ $(function() {
 // var id_stitch = $('#id_stitch').val();
 $(document).ready(function(){
     $("#btnpublish").on("click",function(){
-       
+        formdata = new FormData();
         var jenis=$("#jenis").val();
         var tipepost=$("#tipepost").val();
         var is_video= localStorage.getItem("is_video");
