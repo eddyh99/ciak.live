@@ -352,6 +352,48 @@ $(function() {
         moreLink: `<a class="ac" href="#">Read more</a>`, 
         lessLink: `<a class="ac" href="#">Close</a>`, 
     });
+
+
+    // var pages = 1;
+    // $('.spinner-load-content').hide();
+    // $(window).scroll(function() {
+    //     if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+    //             pages += 1;
+    //             $('.spinner-load-content').show();
+    //             $.ajax({
+    //                 url: "<?= base_url()?>profile/load_more_profile_public/"+pages,
+    //                 type: "GET",
+    //                 success: function(html) {
+    //                     $('.spinner-load-content').hide();
+    //                     $('#load-post-profile-public').after(html);
+    //                 },
+    //                 error: function(jqXHR, textStatus, errorThrown) {
+    //                     console.log("ERROR");
+    //                 }
+    //             });
+    //     }
+    // });
+
+    var pages = 1;
+    $('.spinner-load-content').hide();
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+            pages += 1;
+            $('.spinner-load-content').show();
+            $.ajax({
+                url: "<?= base_url()?>profile/load_more_profile_public/"+pages,
+                type: "GET",
+                success: function(html) {
+                    $('.spinner-load-content').hide();
+                    $('#load-post-profile-public').after(html);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("ERROR");
+                }
+            });
+        }
+    });
+
     $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
         $('.article').readmore({
             speed: 75, 
@@ -359,6 +401,64 @@ $(function() {
             moreLink: `<a class="ac" href="#">Read more</a>`, 
             lessLink: `<a class="ac" href="#">Close</a>`, 
         });
+
+        var target = $(e.target).attr("href");
+
+
+        var pages = 1;
+        $('.spinner-load-content').hide();
+        $(window).scroll(function() {
+            if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+                if (target == '#private') {
+                    pages += 1;
+                    $('.spinner-load-content').show();
+                    $.ajax({
+                        url: "<?= base_url()?>profile/load_more_profile_private/"+pages,
+                        type: "GET",
+                        success: function(html) {
+                            $('.spinner-load-content').hide();
+                            $('#load-post-profile-private').after(html);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log("ERROR");
+                        }
+                    });
+                } else if(target == '#public') {
+                    pages += 1;
+                    $('.spinner-load-content').show();
+                    $.ajax({
+                        url: "<?= base_url()?>profile/load_more_profile_public/"+pages,
+                        type: "GET",
+                        success: function(html) {
+                            $('.spinner-load-content').hide();
+                            $('#load-post-profile-public').after(html);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log("ERROR");
+                        }
+                    });
+                } else if (target == '#special') {
+                    pages += 1;
+                    $('.spinner-load-content').show();
+                    $.ajax({
+                        url: "<?= base_url()?>profile/load_more_profile_special/"+pages,
+                        type: "GET",
+                        success: function(html) {
+                            $('.spinner-load-content').hide();
+                            $('#load-post-profile-special').after(html);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log("ERROR");
+                        }
+                    });
+                }
+
+            }
+        });
+
+    
+
+
         $('.tab-pane:not(.active)').each(function(idx,el){
             var vid = $(this).find('video');
             if(!vid.paused){
@@ -371,6 +471,10 @@ $(function() {
 /*----------------------------------------------------------
 7. Readmore for Tabs End
 ------------------------------------------------------------*/
+
+
+
+
 
 /*----------------------------------------------------------
 8. Rating Profile Start
@@ -446,6 +550,17 @@ modeToggleContentHome.addEventListener("click", () =>{
 });
 /*----------------------------------------------------------
 10. Toggle for Content Explicit End
+------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------
+11. Loading Infinite Scroll Start 
+------------------------------------------------------------*/
+
+
+
+/*----------------------------------------------------------
+11. Loading Infinite Scroll End 
 ------------------------------------------------------------*/
 
 </script>

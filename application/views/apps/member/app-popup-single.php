@@ -44,7 +44,7 @@
 
 
 
-<div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="settingMenus"
+<!-- <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="settingMenus"
     aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
         <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -56,7 +56,7 @@
             <a href="#" id="report_post">Report this post</a>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="settingMenusSingle"
     aria-labelledby="offcanvasBottomLabel">
@@ -66,7 +66,7 @@
     </div>
     <div class="offcanvas-body small pb-5">
         <div class="d-flex flex-column setting-menus">
-            <a href="#" id="report_post">Report this post</a>
+            <a href="#" class="text-danger" id="report_post">Report this post</a>
         </div>
     </div>
 </div>

@@ -360,10 +360,10 @@
             
             <div class="col-12 col-lg-3 d-flex justify-content-between my-auto">
                 <a href="<?= base_url()?>link/privacy_police" class="privacy-police-footer">
-                    Privacy Police
+                    Privacy Policy
                 </a>
-                <a href="<?= base_url()?>link/privacy_police" class="privacy-police-footer">
-                    Privacy Police
+                <a href="<?= base_url()?>link/term_condition" class="privacy-police-footer">
+                    Term of Service 
                 </a>
             </div>
 

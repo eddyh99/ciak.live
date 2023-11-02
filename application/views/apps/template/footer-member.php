@@ -110,17 +110,36 @@ if (isset($extra)) {
     
      //@todo : swal sukses
      //swal failed
-    function reportpost(id,reason){
+    function reportpost(id, reason)  {
          $("#settingMenus").offcanvas('hide');
         $.ajax({
             url: "<?=base_url()?>profile/reportpost/"+id+"/"+reason,
-            success: function (response) {
-                if (response){
-                    //alert sukses send report
-                    //modal close
+            type: "post",
+            success: function(response) {
+                let ress = JSON.parse(response);
+                console.log(ress);
+                if (ress.success == true){
+                    Swal.fire({
+                        icon: 'success',
+                        text: "Report Success",
+                        confirmButtonColor: '#03B115',
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                    });
+                    $('.modal').modal('hide');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire({
+                        icon: 'error',
+                        text: "Report Failed",
+                        confirmButtonColor: '#03B115',
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                });
+                $('.modal').modal('hide');
               console.log(textStatus, errorThrown);
             }
         });

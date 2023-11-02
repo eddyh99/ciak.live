@@ -52,12 +52,34 @@ class Profile extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
-    public function load_more_profile($id)
+    public function load_more_profile_public($id)
     {
-
         $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=".$id)->message;
-        $this->load->view('apps/member/loadcontent/load-homepage', $data);
+        $data['profile'] = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        $this->load->view('apps/member/loadcontent/profile/load-profile-public', $data);
     }
+
+    public function load_more_profile_private($id)
+    {
+        $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=".$id)->message;
+        $data['profile'] = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        $this->load->view('apps/member/loadcontent/profile/load-profile-private', $data);
+    }
+
+    public function load_more_profile_special($id)
+    {
+        $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=".$id)->message;
+        $data['profile'] = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        $this->load->view('apps/member/loadcontent/profile/load-profile-special', $data);
+    }
+
+    public function load_more_profile_download($id)
+    {
+        $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=".$id)->message;
+        $data['profile'] = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        $this->load->view('apps/member/loadcontent/profile/load-profile-download', $data);
+    }
+
     
     public function user($ucode=NULL){
         $url = URLAPI . "/auth/getmember_byucode?ucode=".$ucode;
@@ -111,6 +133,13 @@ class Profile extends CI_Controller
         );
 
         $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function load_more_guest_public($ucode, $id)
+    {
+        $data['guestpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?ucode=".$ucode."&page=".$id)->message;
+        // $data['profile'] = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        $this->load->view('apps/member/loadcontent/profile/load-guest-public', $data);
     }
 
   

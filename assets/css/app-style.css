@@ -3072,6 +3072,12 @@ label#label-forsubs {
     background-color: var(--bg-auth-secondary-color);
     color: var(--text-white-color);
     margin-top: 10px;
+    cursor: pointer;
+}
+
+.posts-member .post-member .modal-title-report,
+.posts-member .post-member .modal-subtitle-report {
+    color: var(--text-white-color) ;
 }
  /*----------------------------------------------------------
 2. Member End

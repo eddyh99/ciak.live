@@ -89,6 +89,61 @@
                                                     <?php }?>
                                                 </div>
                                             <?php } ?>
+                                            <!-- Modal Report -->
+                                            <div class="modal fade" id="modalReport<?= $dt->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title-report fs-5" id="exampleModalLabel">Report</h1>
+                                                            <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                        </div>
+                                                        <div class="modal-body reportpost-wrapper">
+                                                            <h5 class="modal-subtitle-report">Why are you reporting this post?</h5>
+                                                                <a onclick="reportpost('<?= $dt->id?>','spam')" class="d-flex justify-content-between p-2 bg-report">
+                                                                    <div>
+                                                                        It's spam
+                                                                    </div>
+                                                                    <div>
+                                                                        <i class="fas fa-chevron-right"></i>
+                                                                    </div>
+                                                                </a>
+                                                                <a onclick="reportpost('<?= $dt->id?>','wrong-category')" class="d-flex justify-content-between p-2 bg-report">
+                                                                    <div>
+                                                                        Wrong category/explicit content/non explicit content 
+                                                                    </div>
+                                                                    <div>
+                                                                        <i class="fas fa-chevron-right"></i>
+                                                                    </div>
+                                                                </a>
+                                                                <a onclick="reportpost('<?= $dt->id?>','hate-speech')" class="d-flex justify-content-between p-2 bg-report">
+                                                                    <div>
+                                                                        Hate speech or symbols
+                                                                    </div>
+                                                                    <div>
+                                                                        <i class="fas fa-chevron-right"></i>
+                                                                    </div>
+                                                                </a>
+                                                                <a onclick="reportpost('<?= $dt->id?>','abusing')" class="d-flex justify-content-between p-2 bg-report">
+                                                                    <div>
+                                                                        Abusing Person
+                                                                    </div>
+                                                                    <div>
+                                                                        <i class="fas fa-chevron-right"></i>
+                                                                    </div>
+                                                                </a>
+                                                                <a onclick="reportpost('<?= $dt->id?>','others')" class="d-flex justify-content-between p-2 bg-report">
+                                                                    <div>
+                                                                        Others
+                                                                    </div>
+                                                                    <div>
+                                                                        <i class="fas fa-chevron-right"></i>
+                                                                    </div>
+                                                                </a>                                                
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="post-body">
                                             <div class="text">

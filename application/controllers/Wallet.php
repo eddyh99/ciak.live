@@ -75,7 +75,7 @@ class Wallet extends CI_Controller
         $_SESSION["currency"]=$currency;
         $data = array(
             'title'         => NAMETITLE . ' - Wallet Deposit',
-            'content'       => 'apps/member/wallet/deposit/comingsoon',
+            'content'       => 'apps/member/wallet/deposit/app-deposit',
             'mn_wallet'     => 'active',
             'extra'         => 'apps/js/js-index',
         );
