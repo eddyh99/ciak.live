@@ -740,6 +740,14 @@
                                     }
                                 }
                             ?>
+                            <div id="load-post-guest-private" class="load-profile"></div>
+                            <div class="spinner-load-content">
+                                <div class=" d-flex flex-column justify-content-center align-items-center">
+                                    <div class="spinner-border fs-5" role="status">
+                                        <span class="visually-hidden fs-5">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div id="special" class="tab-pane fade">
@@ -1001,6 +1009,14 @@
                                     }
                                 }
                             ?>
+                            <div id="load-post-guest-special" class="load-profile"></div>
+                            <div class="spinner-load-content">
+                                <div class=" d-flex flex-column justify-content-center align-items-center">
+                                    <div class="spinner-border fs-5" role="status">
+                                        <span class="visually-hidden fs-5">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div id="download" class="tab-pane fade">
@@ -1323,6 +1339,14 @@
                                     }
                                 }
                             ?>
+                            <div id="load-post-guest-download" class="load-profile"></div>
+                            <div class="spinner-load-content">
+                                <div class=" d-flex flex-column justify-content-center align-items-center">
+                                    <div class="spinner-border fs-5" role="status">
+                                        <span class="visually-hidden fs-5">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- <div id="vs" class="tab-pane fade">

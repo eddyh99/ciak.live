@@ -120,27 +120,37 @@ if (isset($extra)) {
                 console.log(ress);
                 if (ress.success == true){
                     Swal.fire({
-                        icon: 'success',
-                        text: "Report Success",
-                        confirmButtonColor: '#03B115',
+                        html:  `<div class="d-flex justify-content-center">
+                                    <div>
+                                        <i class="fas fa-check text-success fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">Report Success</div>
+                                </div>`,
+                        showConfirmButton: false,
                         background: '#323436',
                         color: '#ffffff',
-                        position: 'top'
+                        position: 'top',
+                        timer: 1000,
                     });
                     $('.modal').modal('hide');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 Swal.fire({
-                        icon: 'error',
-                        text: "Report Failed",
-                        confirmButtonColor: '#03B115',
-                        background: '#323436',
-                        color: '#ffffff',
-                        position: 'top'
+                    html:  `<div class="d-flex justify-content-center">
+                                <div>
+                                    <i class="fas fa-times fs-3 text-danger"></i>
+                                </div>
+                                <div class="ms-3">Report Failed</div>
+                            </div>`,
+                    showConfirmButton: false,
+                    background: '#323436',
+                    color: '#ffffff',
+                    position: 'top',
+                    timer: 1000,
                 });
                 $('.modal').modal('hide');
-              console.log(textStatus, errorThrown);
+                console.log(textStatus, errorThrown);
             }
         });
     }

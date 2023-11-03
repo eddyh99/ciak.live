@@ -129,7 +129,8 @@ class Profile extends CI_Controller
             'popup'         => 'apps/member/app-popup-guest',
             'profile'       => $profile,
             'guestpost'     => $post,
-            'extra'         => 'apps/js/js-index',
+            'ucodeguest'    => @$ucode,
+            'extra'         => 'apps/member/profile/js/_js_guest',
         );
 
         $this->load->view('apps/template/wrapper-member', $data);
@@ -138,11 +139,27 @@ class Profile extends CI_Controller
     public function load_more_guest_public($ucode, $id)
     {
         $data['guestpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?ucode=".$ucode."&page=".$id)->message;
-        // $data['profile'] = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
-        $this->load->view('apps/member/loadcontent/profile/load-guest-public', $data);
+        $this->load->view('apps/member/loadcontent/guest/load-guest-public', $data);
     }
 
-  
+    public function load_more_guest_private($ucode, $id)
+    {
+        $data['guestpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?ucode=".$ucode."&page=".$id)->message;
+        $this->load->view('apps/member/loadcontent/guest/load-guest-private', $data);
+    }
+
+    public function load_more_guest_special($ucode, $id)
+    {
+        $data['guestpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?ucode=".$ucode."&page=".$id)->message;
+        $this->load->view('apps/member/loadcontent/guest/load-guest-special', $data);
+    }
+
+    public function load_more_guest_download($ucode, $id)
+    {
+        $data['guestpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?ucode=".$ucode."&page=".$id)->message;
+        $this->load->view('apps/member/loadcontent/guest/load-guest-download', $data);
+    }
+
     
     public function follow(){
         $input      = $this->input;

@@ -17,7 +17,7 @@ Desc        : Modul ini di digunakan untuk melakukan
  * 3. Input Profile Setting
  * 5. Discard Profile
  * 6. Owl Carausel
- * 7. Readmore for Tabs
+ * 7. Readmore & Infinite Scroll for Tabs
  * 8. Rating Profile
  * 9. GSAP Scroll Trigger
  * 10. Toggle for Content Explicit
@@ -331,19 +331,8 @@ $(document).ready(function(){
 ------------------------------------------------------------*/ 
 
 
-$('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-    // here is the new selected tab id
-    // var selectedTabId = e.target.id;
-    // var id = $('.tab-content .active').attr('id'); 
-    // if (id == "private") {
-    //     alert(id);
-    // } else {
-    //     alert(id);
-    // }
-});   
-
 /*----------------------------------------------------------
-7. Readmore for Tabs Start 
+7. Readmore & Infinite Scroll for Tabs Start 
 ------------------------------------------------------------*/ 
 $(function() {
     $('.article').readmore({
@@ -353,26 +342,6 @@ $(function() {
         lessLink: `<a class="ac" href="#">Close</a>`, 
     });
 
-
-    // var pages = 1;
-    // $('.spinner-load-content').hide();
-    // $(window).scroll(function() {
-    //     if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-    //             pages += 1;
-    //             $('.spinner-load-content').show();
-    //             $.ajax({
-    //                 url: "<?= base_url()?>profile/load_more_profile_public/"+pages,
-    //                 type: "GET",
-    //                 success: function(html) {
-    //                     $('.spinner-load-content').hide();
-    //                     $('#load-post-profile-public').after(html);
-    //                 },
-    //                 error: function(jqXHR, textStatus, errorThrown) {
-    //                     console.log("ERROR");
-    //                 }
-    //             });
-    //     }
-    // });
 
     var pages = 1;
     $('.spinner-load-content').hide();
@@ -403,8 +372,6 @@ $(function() {
         });
 
         var target = $(e.target).attr("href");
-
-
         var pages = 1;
         $('.spinner-load-content').hide();
         $(window).scroll(function() {
@@ -451,14 +418,27 @@ $(function() {
                             console.log("ERROR");
                         }
                     });
+                } else if(target == '#download') {
+                    pages += 1;
+                    $('.spinner-load-content').show();
+                    $.ajax({
+                        url: "<?= base_url()?>profile/load_more_profile_download/"+pages,
+                        type: "GET",
+                        success: function(html) {
+                            $('.spinner-load-content').hide();
+                            $('#load-post-profile-download').after(html);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log("ERROR");
+                        }
+                    });
                 }
 
             }
         });
 
     
-
-
+        // Untuk Pause click tabs berbeda
         $('.tab-pane:not(.active)').each(function(idx,el){
             var vid = $(this).find('video');
             if(!vid.paused){
@@ -469,7 +449,7 @@ $(function() {
 });
 
 /*----------------------------------------------------------
-7. Readmore for Tabs End
+7. Readmore & Infinite Scroll for Tabs End
 ------------------------------------------------------------*/
 
 
@@ -553,14 +533,5 @@ modeToggleContentHome.addEventListener("click", () =>{
 ------------------------------------------------------------*/
 
 
-/*----------------------------------------------------------
-11. Loading Infinite Scroll Start 
-------------------------------------------------------------*/
-
-
-
-/*----------------------------------------------------------
-11. Loading Infinite Scroll End 
-------------------------------------------------------------*/
 
 </script>

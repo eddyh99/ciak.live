@@ -385,13 +385,14 @@ $(function() {
 
 
     var pages = 1;
+    var ucode = '8jxyryq';
     $('.spinner-load-content').hide();
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
             pages += 1;
             $('.spinner-load-content').show();
             $.ajax({
-                url: "<?= base_url()?>profile/load_more_guest_public/"+pages,
+                url: "<?= base_url()?>profile/load_more_guest_public/"+ucode+"/"+pages,
                 type: "GET",
                 success: function(html) {
                     $('.spinner-load-content').hide();
@@ -419,27 +420,27 @@ $(function() {
     })
 });
 
-var loadContent = $(window), d = $(document); 
-var pages = 1;
-$('.spinner-load-content').hide();
+// var loadContent = $(window), d = $(document); 
+// var pages = 1;
+// $('.spinner-load-content').hide();
 
-$(window).scroll(function() {
-   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-        pages += 1;
-        $('.spinner-load-content').show();
-        $.ajax({
-            url: "<?= base_url()?>homepage/load_more/"+pages,
-            type: "GET",
-            success: function(html) {
-                $('.spinner-load-content').hide();
-                $('#load-post-homepage').append(html);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert("ERROR");
-            }
-        });
-   }
-});
+// $(window).scroll(function() {
+//    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+//         pages += 1;
+//         $('.spinner-load-content').show();
+//         $.ajax({
+//             url: "<?= base_url()?>homepage/load_more/"+pages,
+//             type: "GET",
+//             success: function(html) {
+//                 $('.spinner-load-content').hide();
+//                 $('#load-post-homepage').append(html);
+//             },
+//             error: function(jqXHR, textStatus, errorThrown) {
+//                 alert("ERROR");
+//             }
+//         });
+//    }
+// });
 
 
 /*----------------------------------------------------------
