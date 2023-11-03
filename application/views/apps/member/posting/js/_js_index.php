@@ -71,6 +71,13 @@ $(document).ready(function(){
 
     $(".icon-upload-video").click(function() {
         $("#hidden-iconpost").toggle();
+        localforage.clear().then(function() {
+                // Run this code once the database has been entirely deleted.
+            console.log('Database is now empty.');
+        }).catch(function(err) {
+            // This code runs if there were any errors
+            console.log(err);
+        });
     });
 
     $(".icon-upload-attach").click(function() {
@@ -89,7 +96,7 @@ $(document).ready(function(){
     $('#img-preview-post').hide();
     localforage.getItem('gbr', function (err, value) {
         var dataImg=JSON.parse(value);
-        console.log(dataImg);
+        // console.log(dataImg.length);
         if(dataImg == null) {
             console.log("");
         }else {
@@ -109,13 +116,16 @@ $(document).ready(function(){
     });
     
     // Function for delete image in X button
-    const del = (index) => {
+    function del(index){
         localforage.getItem('gbr', function (err, value) {
             var dataImg=JSON.parse(value);
             dataImg.splice(index, 1);
             localforage.setItem("gbr", JSON.stringify(dataImg));
         });
-        location.reload();
+        $('#myDiv').load('#myDiv')
+            // location.replace(location.href.split('#')[0]);
+            // e.preventDefault()
+            // location.reload();
     }
 
 /*----------------------------------------------------------
@@ -140,7 +150,14 @@ $(document).ready(function(){
     $('#discard-post').click(function(){
         localStorage.removeItem('textarea-post');
         localStorage.removeItem('is_video');
-        localforage.clear();
+        // localforage.clear();
+        localforage.clear().then(function() {
+            // Run this code once the database has been entirely deleted.
+            console.log('Database is now empty.');
+        }).catch(function(err) {
+            // This code runs if there were any errors
+            console.log(err);
+        });
     })
 /*----------------------------------------------------------
 4.  Set Localstorage Textare & Discard Pos End
@@ -195,7 +212,7 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 6.  Function Blob Image Start
 ------------------------------------------------------------*/    
-    let formdata = new FormData();
+    let formdata;
     
     function base64ToBlob(base64, mime) 
     {
@@ -253,13 +270,12 @@ $(document).ready(function(){
             source.classList.add('d-block');
             source.src = URL.createObjectURL(files[i]);
             localStorage.setItem("is_video","video");
-
-
+            
             $('#img-preview-post').show();
-            // $(".carousel-item").append(source)
             $('.carousel-inner').append('<div class="carousel-item '+(i ==  1? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
         }
-    }) 
+    }) ;
+
 /*----------------------------------------------------------
 7.  Preview Video End
 ------------------------------------------------------------*/   
@@ -305,7 +321,7 @@ $(function() {
 // var id_stitch = $('#id_stitch').val();
 $(document).ready(function(){
     $("#btnpublish").on("click",function(){
-       
+        formdata = new FormData();
         var jenis=$("#jenis").val();
         var tipepost=$("#tipepost").val();
         var is_video= localStorage.getItem("is_video");

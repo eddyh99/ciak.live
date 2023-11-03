@@ -3079,6 +3079,12 @@ label#label-forsubs {
 .posts-member .post-member .modal-subtitle-report {
     color: var(--text-white-color) ;
 }
+
+/* #messages_area {
+    overflow-x:hidden;
+    overflow-y:visible;
+    height: 500px;
+} */
  /*----------------------------------------------------------
 2. Member End
 ------------------------------------------------------------*/ 

@@ -14,9 +14,7 @@ let $modal_attch = $('#modal_attch_chat');
                 children += '<li class="text-preview-attch">' + input.files.item(i).name + '</li>';
             }
 			$('#pricechat').offcanvas('show');
-			// $modal_attch.modal('show');
-			// alert("SUKSES");
-            // $('#attch-preview-post').append('<h4>Preview Attachment: </h4> <ul>'+children+'</ul>');
+
         }
     })
 
@@ -80,6 +78,7 @@ let $modal_attch = $('#modal_attch_chat');
 				$('#messages_area').append(html_data);
 
 				$('#messages_area').scrollTop($('#messages_area')[0].scrollHeight);
+				window.scrollTo(0, document.body.scrollHeight);
 
 				$('#chat_message').val("");
 			}
@@ -105,6 +104,7 @@ let $modal_attch = $('#modal_attch_chat');
 
 		$(function(){
 		    console.log("100");
+			$('#load-edit-profile').show();
 			$.ajax({
 				url:"<?=base_url()?>message/history_chat",
 				type:"POST",
@@ -113,6 +113,7 @@ let $modal_attch = $('#modal_attch_chat');
 				success:function(data)
 				{
 					console.log(data);
+	
 					
 					if(data.length > 0)
 					{
@@ -174,35 +175,50 @@ let $modal_attch = $('#modal_attch_chat');
 						$('#messages_area').html(html_data);
 
 						$('#messages_area').scrollTop($('#messages_area')[0].scrollHeight);
-
 						
 					}
+					window.scrollTo(0, document.body.scrollHeight);
+					setTimeout(() => {
+						$('#load-edit-profile').hide();
+					}, 1000);
+
 				}
 			})
 
 		});
 
-		// $("#chat_message").keyup(function (event) {
-        //     if (event.keyCode === 13) {
-				
-        //     }
-        // });
+		$("#chat_message").keyup(function (event) {
+            if (event.keyCode === 13) {
+				event.preventDefault();
+				var user_id = <?=$_SESSION["user_id"]?>;
+				var message = $('#chat_message').val();
+				var data = {
+					userId: user_id,
+					msg: message,
+					receiver_userid:receiver_userid,
+					mode:'<?=CHATMODE?>'
+				};
+				conn.send(JSON.stringify(data));
+				$('#chat_message').val('');
+            }
+        });
 		
 		$("#chat_submit").on('click', function(event){
 			event.preventDefault();
 			var user_id = <?=$_SESSION["user_id"]?>;
 			var message = $('#chat_message').val();
 			var data = {
-					userId: user_id,
-					msg: message,
-					receiver_userid:receiver_userid,
-					mode:'<?=CHATMODE?>'
-				};
+				userId: user_id,
+				msg: message,
+				receiver_userid:receiver_userid,
+				mode:'<?=CHATMODE?>'
+			};
 
-				conn.send(JSON.stringify(data));
-				$('#chat_message').val('');
+			conn.send(JSON.stringify(data));
+			$('#chat_message').val('');
 		});
 	});
-	
+
+
 	
 </script>
