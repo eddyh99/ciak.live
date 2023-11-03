@@ -39,6 +39,7 @@ class Homepage extends CI_Controller
 
     public function load_more($id)
     {
+        
 
         $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/getall_post?page=".$id)->message;
         $this->load->view('apps/member/loadcontent/load-homepage', $data);

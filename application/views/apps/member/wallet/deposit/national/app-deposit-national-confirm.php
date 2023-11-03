@@ -31,7 +31,7 @@
                         </div>
                         <div class="d-flex justify-content-center mt-4 gap-3">
                             <a href="<?= base_url()?>wallet/deposit_national" class="btn btn-cancel w-50">Cancel</a>
-                            <button type="submit" class="btn btn-orange w-50">Confirm</button>
+                            <button type="submit" class="btn btn-main-green w-50">Confirm</button>
                         </div>
                     </div>
                 </form>

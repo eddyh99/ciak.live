@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center mt-4">
-                            <button type="submit" class="btn btn-orange w-50">Next</button>
+                            <button type="submit" class="btn btn-main-green w-50">Next</button>
                         </div>
                     </div>
                 </form>

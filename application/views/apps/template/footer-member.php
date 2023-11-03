@@ -110,18 +110,47 @@ if (isset($extra)) {
     
      //@todo : swal sukses
      //swal failed
-    function reportpost(id,reason){
+    function reportpost(id, reason)  {
          $("#settingMenus").offcanvas('hide');
         $.ajax({
             url: "<?=base_url()?>profile/reportpost/"+id+"/"+reason,
-            success: function (response) {
-                if (response){
-                    //alert sukses send report
-                    //modal close
+            type: "post",
+            success: function(response) {
+                let ress = JSON.parse(response);
+                console.log(ress);
+                if (ress.success == true){
+                    Swal.fire({
+                        html:  `<div class="d-flex justify-content-center">
+                                    <div>
+                                        <i class="fas fa-check text-success fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">Report Success</div>
+                                </div>`,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top',
+                        timer: 1000,
+                    });
+                    $('.modal').modal('hide');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-              console.log(textStatus, errorThrown);
+                Swal.fire({
+                    html:  `<div class="d-flex justify-content-center">
+                                <div>
+                                    <i class="fas fa-times fs-3 text-danger"></i>
+                                </div>
+                                <div class="ms-3">Report Failed</div>
+                            </div>`,
+                    showConfirmButton: false,
+                    background: '#323436',
+                    color: '#ffffff',
+                    position: 'top',
+                    timer: 1000,
+                });
+                $('.modal').modal('hide');
+                console.log(textStatus, errorThrown);
             }
         });
     }

@@ -376,12 +376,36 @@ function doneTyping () {
 ------------------------------------------------------------*/ 
 
 $(function() {  
-        $('.article').readmore({
-            speed: 75, 
-            collapsedHeight: 95, 
-            moreLink: `<a class="ac" href="#">Read more</a>`, 
-            lessLink: `<a class="ac" href="#">Close</a>`, 
-        }); 
+    $('.article').readmore({
+        speed: 75, 
+        collapsedHeight: 95, 
+        moreLink: `<a class="ac" href="#">Read more</a>`, 
+        lessLink: `<a class="ac" href="#">Close</a>`, 
+    }); 
+
+
+    var pages = 1;
+    var ucode = '8jxyryq';
+    $('.spinner-load-content').hide();
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+            pages += 1;
+            $('.spinner-load-content').show();
+            $.ajax({
+                url: "<?= base_url()?>profile/load_more_guest_public/"+ucode+"/"+pages,
+                type: "GET",
+                success: function(html) {
+                    $('.spinner-load-content').hide();
+                    $('#load-post-guest-public').after(html);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("ERROR");
+                }
+            });
+        }
+    });
+
+
     $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
         $('.article').readmore({
             speed: 75, 
@@ -389,31 +413,34 @@ $(function() {
             moreLink: `<a class="ac" href="#">Read more</a>`, 
             lessLink: `<a class="ac" href="#">Close</a>`, 
         });
+
+
+
+
     })
 });
 
-var loadContent = $(window), d = $(document); 
-var pages = 1;
-$('.spinner-load-content').hide();
+// var loadContent = $(window), d = $(document); 
+// var pages = 1;
+// $('.spinner-load-content').hide();
 
-$(window).scroll(function() {
-   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-        pages += 1;
-        $('.spinner-load-content').show();
-        $.ajax({
-            url: "<?= base_url()?>homepage/load_more/"+pages,
-            type: "GET",
-            success: function(html) {
-                // alert("SUKSES");
-                $('.spinner-load-content').hide();
-                $('#load-post-homepage').append(html);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert("ERROR");
-            }
-        });
-   }
-});
+// $(window).scroll(function() {
+//    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+//         pages += 1;
+//         $('.spinner-load-content').show();
+//         $.ajax({
+//             url: "<?= base_url()?>homepage/load_more/"+pages,
+//             type: "GET",
+//             success: function(html) {
+//                 $('.spinner-load-content').hide();
+//                 $('#load-post-homepage').append(html);
+//             },
+//             error: function(jqXHR, textStatus, errorThrown) {
+//                 alert("ERROR");
+//             }
+//         });
+//    }
+// });
 
 
 /*----------------------------------------------------------
