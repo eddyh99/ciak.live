@@ -82,7 +82,7 @@ class Topup extends CI_Controller
         }
 
         $input        = $this->input;
-        $target        = "USDX";
+        $target        = "XEUR";
         $amount        = $this->security->xss_clean($input->post("amount"));
 
         if ($amount > 0) {
@@ -93,6 +93,7 @@ class Topup extends CI_Controller
                 "userid"    => $_SESSION["user_id"]
             );
             $result = apiciaklive(URLAPI . "/v1/member/swap/getSummary", json_encode($mdata));
+
             if (@$result->code != 200) {
                 header("HTTP/1.1 500 Internal Server Error");
                 $error = array(
@@ -131,7 +132,7 @@ class Topup extends CI_Controller
         $_POST["amountget"]=$new_amountget;
         
         $this->form_validation->set_rules('amount', 'Amount', 'trim|required|greater_than[0]');
-        $this->form_validation->set_rules('quoteid', 'quoteid', 'trim|required');
+        $this->form_validation->set_rules('quoteid', 'quoteid', 'trim');
         $this->form_validation->set_rules('amountget', 'Amount Get', 'trim|required|greater_than[0]');
 
         if ($this->form_validation->run() == FALSE) {
@@ -141,7 +142,7 @@ class Topup extends CI_Controller
 
         $input      = $this->input;
         $amount     = $this->security->xss_clean($this->input->post("amount"));
-        $target     = 'USDX';
+        $target     = 'XEUR';
         
         $mdata  = array(
             "source"    => $_SESSION["currency"],
@@ -150,7 +151,9 @@ class Topup extends CI_Controller
             "userid"    => $_SESSION["user_id"]
         );
 
-        $result = apiciaklive(URLAPI . "/v1/member/swap/getSummary", json_encode($mdata));
+        $result = apiciaklive(URLAPI . "/v1/member/swap/swapCurrency", json_encode($mdata));
+        print_r($result);
+        die;
         
         if (@$result->code != 200) {
             $this->session->set_flashdata("failed", $result->message);

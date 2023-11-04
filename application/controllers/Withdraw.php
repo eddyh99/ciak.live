@@ -30,7 +30,7 @@ class Withdraw extends CI_Controller
             'title'         => NAMETITLE . ' - Wallet Withdraw',
             'content'       => 'apps/member/wallet/withdraw/app-withdraw',
             'mn_wallet'     => 'active',
-            'balance'       => apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=USDX&userid=" . $_SESSION["user_id"])->message->balance,
+            'balance'       => apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance,
             'currency'      => apiciaklive(URLAPI . "/v1/member/currency/getall")->message
         );
         $this->load->view('apps/template/wrapper-member', $data);
@@ -41,7 +41,7 @@ class Withdraw extends CI_Controller
     {
 
         $this->form_validation->set_rules('currencycode', 'Currency Code', 'trim|required');
-        $this->form_validation->set_rules('usdx', 'USDX', 'trim|required');
+        $this->form_validation->set_rules('xeur', 'XEUR', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
@@ -51,10 +51,10 @@ class Withdraw extends CI_Controller
     
         $input              = $this->input;
         $currencycode       = $this->security->xss_clean($input->post("currencycode") );
-        $usdx               = $this->security->xss_clean($input->post("usdx"));
+        $xeur               = $this->security->xss_clean($input->post("xeur"));
 
         $mdata = array(
-            "usdx"      => $usdx,
+            "xeur"      => $xeur,
             "currencycode"  => $currencycode
         );
 
@@ -98,39 +98,49 @@ class Withdraw extends CI_Controller
     public function withdraw_confirm()
     {
 
-        $this->form_validation->set_rules('currencycode', 'Currency Code', 'trim|required');
-        $this->form_validation->set_rules('usdx', 'USDX', 'trim|required');
-        $this->form_validation->set_rules('recipientname', 'Recipient Name', 'trim|required');
-        $this->form_validation->set_rules('iban', 'IBAN', 'trim|required');
-        $this->form_validation->set_rules('causal', 'Causal', 'trim|required');
+        
+        // $this->form_validation->set_rules('currencycode', 'Currency Code', 'trim|required');
+        // $this->form_validation->set_rules('usdx', 'USDX', 'trim|required');
+        // $this->form_validation->set_rules('recipientname', 'Recipient Name', 'trim|required');
+        // $this->form_validation->set_rules('iban', 'IBAN', 'trim|required');
+        // $this->form_validation->set_rules('causal', 'Causal', 'trim|required');
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
-            redirect("withdraw");
-            return;
-        }
+        // if ($this->form_validation->run() == FALSE) {
+        //     $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
+        //     redirect("withdraw");
+        //     return;
+        // }
 
         
-        $input              = $this->input;
-        $currencycode       = $this->security->xss_clean($input->post("currencycode") );
-        $usdx               = $this->security->xss_clean($input->post("usdx"));
-        $recipientname      = $this->security->xss_clean($input->post("recipientname"));
-        $iban               = $this->security->xss_clean($input->post("iban"))          ;
-        $causal             = $this->security->xss_clean($input->post("causal"));
+        // $input              = $this->input;
+        // $currencycode       = $this->security->xss_clean($input->post("currencycode") );
+        // $usdx               = $this->security->xss_clean($input->post("usdx"));
 
-        $mdata = array(
-            "usdx"              => $usdx,
-            "currencycode"      => $currencycode,
-            "recipientname"     => $recipientname,
-            "iban"              => $iban,
-            "causal"            => $causal
-        );
-
+        
+        /* Endpoint untuk untuk proses bank transfer summary
+          "/v1/member/wallet/bankSummary
+          
+          data dikirimkan :
+          userid => yang melakukan wd
+          amount => jumlah yang di tarik
+          currency => target currency
+          transfer_type => tipe transfer (circuit, outside)
+          
+          */
+        $mdata=array(
+                "userid"    => 2,
+                "amount"    => 8,
+                "currency"  => "EUR",
+                "transfer_type" => "circuit"
+            );
+        $result=apiciaklive(URLAPI . "/v1/member/wallet/bankSummary",json_encode($mdata));
+        print_r($result);
+        die;
         $data = array(
             'title'         => NAMETITLE . ' - Wallet Withdraw',
             'content'       => 'apps/member/wallet/withdraw/app-withdraw-national-confirm',
             'mn_wallet'     => 'active',
-            'balance'       => apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=USDX&userid=" . $_SESSION["user_id"])->message->balance,
+            'balance'       => apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance,
             'extra'         => 'apps/js/js-index',
         );
         $this->load->view('apps/template/wrapper-member', $data);
@@ -138,6 +148,17 @@ class Withdraw extends CI_Controller
 
     public function withdraw_notif()
     {
+        /* Endpoint untuk untuk proses bank transfer
+          "/v1/member/wallet/bankTransfer
+          
+          data dikirimkan :
+          userid => yang melakukan wd
+          amount => jumlah yang di tarik
+          currency => target currency
+          transfer_type => tipe transfer (circuit, outside)
+          bank_detail => seperti pada bank          
+          */
+
 
         $data = array(
             'title'         => NAMETITLE . ' - Wallet Withdraw',
