@@ -18,7 +18,9 @@
                     </a>
                     <a class="rounded-circle add-border" href="<?= base_url() ?>message">
                         <i class="fa-regular fa-envelope">
-                            <span class="buble-red rounded-circle"></span>
+                            <?php if(!empty($notifmsg)){ ?>   
+                                <span class="buble-red rounded-circle"></span>
+                            <?php }?>
                         </i>
                     </a>
                 </div>

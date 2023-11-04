@@ -15,10 +15,11 @@ class Homepage extends CI_Controller
 		$nonfollow = apiciaklive(URLAPI . "/v1/member/home/randomuser");
 		$post = apiciaklive(URLAPI . "/v1/member/post/getall_post?page=1");
         $notif = apiciaklive(URLAPI . "/v1/member/notification/getnotif");
+        $notifmsg = apiciaklive(URLAPI . "/v1/member/notification/chat_notif");
     
     
         //print_r(json_encode($post->message));
-        // echo "<pre>".print_r($post,true)."</pre>";
+        // echo "<pre>".print_r($msg,true)."</pre>";
         // die;
 
 
@@ -31,6 +32,7 @@ class Homepage extends CI_Controller
             'nonfollow'     => @$nonfollow->message,
             'allpost'       => @$post->message,
             'notif'         => @$notif->message,
+            'notifmsg'      => @$notifmsg->message,
             'mn_home'       => 'active',
             'extra'         => 'apps/js/js-index',
         );

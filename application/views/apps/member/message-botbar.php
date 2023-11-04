@@ -4,7 +4,6 @@
             <div class="list-notif">
                 <div class="search">
                     <input type="text" name="chat_message" id="chat_message" class="form-control" placeholder="Type your message here...">
-                    <!-- <button><i class="fa-solid fa-magnifying-glass"></i></button> -->
                     <a href="">
                         <label for="upload_attch_chat" style="cursor: pointer;">
                             <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">

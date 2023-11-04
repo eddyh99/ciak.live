@@ -30,48 +30,6 @@
                             </div>
                         </div>
                         <div id="suggestionslist"></div>                        
-                        
-                        <!-- <div class="list-notif"> -->
-                        <!--    <span class="title-date">PINNED</span>-->
-                        <!--    <div class="d-flex">-->
-                        <!--        <div class="massage">-->
-                        <!--            <div class="icon rounded-circle d-flex flex-column justify-content-center align-items-center">-->
-                        <!--                <img class="img-fluid" src="<?= base_url()?>assets/img/profile.jpg" alt="mp">-->
-                        <!--                <span class="text-center">Josep</span>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--        <div class="massage">-->
-                        <!--            <div class="icon rounded-circle d-flex flex-column justify-content-center align-items-center">-->
-                        <!--                <img class="img-fluid" src="<?= base_url()?>assets/img/profile.jpg" alt="mp">-->
-                        <!--                <span class="text-center">Josep</span>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--        <div class="massage">-->
-                        <!--            <div class="icon rounded-circle d-flex flex-column justify-content-center align-items-center">-->
-                        <!--                <img class="img-fluid" src="<?= base_url()?>assets/img/profile.jpg" alt="mp">-->
-                        <!--                <span class="text-center">Josep</span>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--        <div class="massage">-->
-                        <!--            <div class="icon rounded-circle d-flex flex-column justify-content-center align-items-center">-->
-                        <!--                <img class="img-fluid" src="<?= base_url()?>assets/img/profile.jpg" alt="mp">-->
-                        <!--                <span class="text-center">Josep</span>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--        <div class="massage">-->
-                        <!--            <div class="icon rounded-circle d-flex flex-column justify-content-center align-items-center">-->
-                        <!--                <img class="img-fluid" src="<?= base_url()?>assets/img/profile.jpg" alt="mp">-->
-                        <!--                <span class="text-center">Josep</span>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--        <div class="massage">-->
-                        <!--            <div class="icon rounded-circle d-flex flex-column justify-content-center align-items-center">-->
-                        <!--                <img class="img-fluid" src="<?= base_url()?>assets/img/profile.jpg" alt="mp">-->
-                        <!--                <span class="text-center">Josep</span>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--    </div>-->
-                        <!--</div>-->
 
                         <div class="list-notif">
                             <?php foreach ($lastchat as $dt){
