@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '../withdraw-countries-list.php'; ?>
+<?php require_once("withdraw-countries-list.php"); ?>
 <div class="row">
     <div class="col-11 col-md-7 col-lg-5 mx-auto">
         <div class="apps-body ptop pbot">
@@ -20,22 +20,22 @@
             </div>
             <div>
                 <form action="<?= base_url() ?>withdraw/withdraw_confirm" method="POST">
-
                     <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
                     <input type="hidden" name="currencycode" id="currencycode" value="<?= $_SESSION['withdraw']['currencycode']?>">
-                    <input type="hidden" name="usdx" id="usdx" value="<?= $_SESSION['withdraw']['usdx']?>">
+                    <input type="hidden" name="xeuramount" id="xeuramount" value="<?= $_SESSION['withdraw']['xeur']?>">
+                    <input type="hidden" name="transfer_type" id="transfer_type" value="circuit">
 
                     <div class="apps-member light w-100 mt-5">
                         <div class="topup-headwithdraw-national d-flex justify-content-center w-auto">
                             <span class="py-3 px-4 w-100 text-center">
-                                National
+                                <?= $_SESSION['withdraw']['currencycode']?> - National
                             </span>
                         </div>
                         <div class="wrap-withdraw-national my-5 p-4">
                             <div class="withdraw-national-field mb-4">
-                                <label for="recipientname">Recipient Name</label><br>
-                                <input type="text" name="recipientname" id="recipientname" autocomplete="off">
+                                <label for="accountHolderName">Recipient Name</label><br>
+                                <input type="text" name="accountHolderName" id="accountHolderName" autocomplete="off">
                             </div>
 
                             <?php 

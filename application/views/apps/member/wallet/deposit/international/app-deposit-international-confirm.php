@@ -10,7 +10,7 @@
                             </a>
                         </div>
                         <div class="action">
-                            <a href="" class="text-white fs-5"><?=$_SESSION["currency"]?> - Deposit National</a>
+                            <a href="" class="text-white fs-5"><?=$_SESSION["currency"]?> - Deposit International</a>
                         </div>
                         <div class="action">
                         </div>
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div>
-                <form action="<?=base_url()?>wallet/national_info" method="post">
+                <form action="<?=base_url()?>wallet/international_info" method="post">
                     <input type="hidden" name="amount" value="<?=$amount?>">
                     <div class="apps-member light w-100 mt-5">
                         <div class="topup-headwithdraw-national d-flex flex-column align-items-center justify-content-center w-auto">
@@ -30,7 +30,7 @@
                             </span>
                         </div>
                         <div class="d-flex justify-content-center mt-4 gap-3">
-                            <a href="<?= base_url()?>wallet/deposit_national" class="btn btn-cancel w-50">Cancel</a>
+                            <a href="<?= base_url()?>wallet/deposit_international" class="btn btn-cancel w-50">Cancel</a>
                             <button type="submit" class="btn btn-main-green w-50">Confirm</button>
                         </div>
                     </div>

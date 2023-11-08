@@ -40,9 +40,6 @@ class Wallet extends CI_Controller
     public function index()
     {
         
-        // print_r(json_encode($_SESSION));
-        // die;
-
         $currency   = apiciaklive(URLAPI . "/v1/member/currency/getall?depo=yes")->message;
 
         $data = array();
@@ -57,6 +54,8 @@ class Wallet extends CI_Controller
         }
 
         $currency = (object)$data;
+        // echo "<pre>".print_r($currency,true)."</pre>";
+        // die;
         $data = array(
             'title'         => NAMETITLE . ' - Wallet',
             'content'       => 'apps/member/wallet/app-wallet',
@@ -143,8 +142,8 @@ class Wallet extends CI_Controller
         
 
         $result = apiciaklive(URLAPI . "/v1/member/wallet/topup", json_encode($mdata));
-        print_r(json_encode($result));
-        die;
+        // print_r(json_encode($result));
+        // die;
         
         if (@$result->code != "200") {
             $this->session->set_flashdata('failed', $result->message);
@@ -153,13 +152,13 @@ class Wallet extends CI_Controller
         }
         //$result='{"content":{"payinBank":{"bankName":"Wise Europe SA\/NV","bankAddress":{"country":"BE","firstLine":"Avenue Louise 54, Room s52","postCode":"1050","city":"Brussels","state":null}},"payinBankAccount":{"currency":"EUR","details":[{"type":"recipientName","label":"Recipient name","value":"TransferWise Europe SA"},{"type":"IBAN","label":"IBAN","value":"BE79967040785533"},{"type":"BIC","label":"Bank code (BIC\/SWIFT)","value":"TRWIBEB1XXX"}]},"wiseInformation":{"localCompanyName":"Wise Europe SA","localAddress":{"country":"BE","firstLine":"Avenue Louise 54\/S52","postCode":"1050","city":"Brussels","state":null}}},"causal":"RCPT026837"}}';
 
-        $data['title'] = NAMETITLE . " - Top Up Process";
 
         $data = array(
             'title'         => NAMETITLE . ' - Wallet Deposit',
             'content'       => 'apps/member/wallet/deposit/national/app-deposit-national-info',
             'mn_wallet'     => 'active',
-            'extra'         => 'apps/js/js-index',
+            'extra'         => 'apps/member/wallet/deposit/js/_js_index',
+            'deposit'       => $result->message,
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }
@@ -172,6 +171,76 @@ class Wallet extends CI_Controller
             'content'       => 'apps/member/wallet/deposit/international/app-deposit-international',
             'mn_wallet'     => 'active',
             'extra'         => 'apps/js/js-index',
+        );
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function international_confirm()
+    {
+        $_POST["amount"]=preg_replace("/,(?=[\d,]*\.\d{2}\b)/", '', $_POST["amount"]);
+        $_POST["confirm_amount"]=preg_replace("/,(?=[\d,]*\.\d{2}\b)/", '', $_POST["confirm_amount"]);
+
+        $this->form_validation->set_rules('amount', 'Amount', 'trim|required|greater_than[0]');
+        $this->form_validation->set_rules('confirm_amount', 'Confirm Amount', 'trim|required|greater_than[0]|matches[amount]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
+            redirect("wallet/deposit_international");
+            return;
+        }
+
+        $input              = $this->input;
+        $amount             = $this->security->xss_clean($input->post("amount"));
+
+        $data = array(
+            'title'         => NAMETITLE . ' - Wallet Deposit',
+            'content'       => 'apps/member/wallet/deposit/international/app-deposit-international-confirm',
+            'amount'        => $amount,
+            'mn_wallet'     => 'active',
+            'extra'         => 'apps/js/js-index',
+        );
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function international_info()
+    {
+        $this->form_validation->set_rules('amount', 'Amount', 'trim|required|greater_than[0]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
+            redirect("wallet/deposit_international");
+            return;
+        }
+
+        $input              = $this->input;
+        $amount             = $this->security->xss_clean($input->post("amount"));
+        
+        $mdata = array(
+            'userid'        => $_SESSION["user_id"],
+            'amount'        => $amount,
+            'currency'      => $_SESSION["currency"],
+            'transfer_type' => 'topup inter'
+        );
+        
+
+        $result = apiciaklive(URLAPI . "/v1/member/wallet/topup", json_encode($mdata));
+        // print_r(json_encode($result));
+        // die;
+        
+        if (@$result->code != "200") {
+            $this->session->set_flashdata('failed', $result->message);
+            redirect("wallet/deposit_international");
+            return;
+        }
+
+
+
+        $data = array(
+            'title'         => NAMETITLE . ' - Wallet Deposit',
+            'content'       => 'apps/member/wallet/deposit/international/app-deposit-international-info',
+            'mn_wallet'     => 'active',
+            'extra'         => 'apps/member/wallet/deposit/js/_js_index',
+            'deposit'       => $result->message,
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }

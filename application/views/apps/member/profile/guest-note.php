@@ -28,7 +28,7 @@
                                 <?php }?>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-main-green py-2 px-5 mt-4">Save Note</button>
+                        <button type="submit" class="btn btn-main-green py-2 px-5 mt-4">Send Note</button>
                     </form>
                 </div>
             </div>

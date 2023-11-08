@@ -72,7 +72,7 @@
                                                 }
                                             ?>
                                     </div>
-                                    <a class="fs-4 text-decoration-none text-danger ms-3" href="<?=base_url()?>message/delete_message/<?=$dt->to_user_id?>">x</a>
+                                    <a class="fs-4 text-decoration-none text-danger ms-3" href="<?=base_url()?>message/delete_message/<?=$dt->from_user_id?>">x</a>
                                 </div>
                             </div>
                             <?php } ?>

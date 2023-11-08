@@ -384,26 +384,26 @@ $(function() {
     }); 
 
 
-    var pages = 1;
-    var ucode = '8jxyryq';
-    $('.spinner-load-content').hide();
-    $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-            pages += 1;
-            $('.spinner-load-content').show();
-            $.ajax({
-                url: "<?= base_url()?>profile/load_more_guest_public/"+ucode+"/"+pages,
-                type: "GET",
-                success: function(html) {
-                    $('.spinner-load-content').hide();
-                    $('#load-post-guest-public').after(html);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("ERROR");
-                }
-            });
-        }
-    });
+    // var pages = 1;
+    // var ucode = '8jxyryq';
+    // $('.spinner-load-content').hide();
+    // $(window).scroll(function() {
+    //     if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+    //         pages += 1;
+    //         $('.spinner-load-content').show();
+    //         $.ajax({
+    //             url: "<?= base_url()?>profile/load_more_guest_public/"+ucode+"/"+pages,
+    //             type: "GET",
+    //             success: function(html) {
+    //                 $('.spinner-load-content').hide();
+    //                 $('#load-post-guest-public').after(html);
+    //             },
+    //             error: function(jqXHR, textStatus, errorThrown) {
+    //                 console.log("ERROR");
+    //             }
+    //         });
+    //     }
+    // });
 
 
     $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
@@ -421,26 +421,71 @@ $(function() {
 });
 
 // var loadContent = $(window), d = $(document); 
-// var pages = 1;
-// $('.spinner-load-content').hide();
+var page = 1;
+$('.spinner-load-content').hide();
+var maxpage = $('#max-page').val();
 
-// $(window).scroll(function() {
-//    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-//         pages += 1;
-//         $('.spinner-load-content').show();
-//         $.ajax({
-//             url: "<?= base_url()?>homepage/load_more/"+pages,
+
+$(window).scroll(function() {
+    if($(window).scrollTop() + window.innerHeight == $(document).height()) {
+        if(page != maxpage){
+            page++;
+            $.ajax({
+                url: "<?= base_url()?>homepage/load_more/"+page,
+                type: "GET",
+                beforeSend: function(){
+                    $('.spinner-load-content').show();
+                },
+                success: function(html, response) {
+                    $('.spinner-load-content').hide();
+                    $('#load-post-homepage').append(html);
+                    
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("ERROR");
+                }
+            });
+        }else{
+            Swal.fire({
+                html:  `<div class="d-flex justify-content-center">
+                            <div>
+                                <i class="fas fa-photo-video text-success fs-3"></i>
+                            </div>
+                            <div class="ms-3">No More Result Found</div>
+                        </div>`,
+                showConfirmButton: false,
+                showCloseButton: true,
+                background: '#323436',
+                color: '#ffffff',
+                position: 'top',
+                timer: 4000,
+            });
+        }
+   }
+});
+
+// function morehomepage(page){
+//     $.ajax({
+//             url: "<?= base_url()?>homepage/load_more/"+page,
 //             type: "GET",
+//             beforeSend: function(){
+//                 $('.spinner-load-content').show();
+//             },
 //             success: function(html) {
+//                 if(html == " "){
+// 	                // $('#load-post-homepage').html("No more records found");
+// 	                return;
+// 	            }
+
 //                 $('.spinner-load-content').hide();
 //                 $('#load-post-homepage').append(html);
+                
 //             },
 //             error: function(jqXHR, textStatus, errorThrown) {
 //                 alert("ERROR");
 //             }
 //         });
-//    }
-// });
+// }
 
 
 /*----------------------------------------------------------

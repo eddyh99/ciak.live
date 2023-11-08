@@ -27,6 +27,8 @@ class Message extends CI_Controller
     public function index()
     {
         $lastchat   = apiciaklive(URLAPI . "/v1/member/message/get_lastchat")->message;
+        // echo "<pre>".print_r($lastchat,true)."</pre>";
+        // die;
         $data = array(
             'title'         => NAMETITLE . ' - Message',
             'content'       => 'apps/member/message/app-message',
@@ -74,7 +76,7 @@ class Message extends CI_Controller
 
     public function delete_message($to_id){
         $url = URLAPI . "/v1/member/message/delete_chat?to_id=".$to_id;
-        $result = @apiciaklive($url)->message;
+        $result = @apiciaklive($url);
         redirect('message');
     }
 }

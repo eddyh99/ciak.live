@@ -759,6 +759,7 @@
         ?>
 
         <div id="load-post-homepage"></div>
+        <input hidden id="max-page" class="max-page" type="text" value="<?= $max_page?>">
         <div class="spinner-load-content">
             <div class=" d-flex flex-column justify-content-center align-items-center">
                 <div class="spinner-border fs-5" role="status">

@@ -5,7 +5,7 @@
                 <div class="apps-member mx-auto col-12 col-lg-5" style="border-bottom: none;">
                     <div class="alert-notif d-flex justify-content-between px-4 px-lg-0">
                         <div class="action-icon">
-                            <a href="<?= base_url()?>wallet">
+                            <a href="<?= base_url()?>withdraw">
                                 <i class="fa-solid fa-arrow-left"></i>
                             </a>
                         </div>
@@ -36,34 +36,74 @@
                             <?=number_format($balance,2)?>
                         </span>
                     </div>
-                    <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
-                        <span class="left">Bank</span>
-                        <span class="right">Piggy Bank</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
-                        <span class="left">Account Number</span>
-                        <span class="right">xxxxxx</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
-                        <span class="left">Amount to Withdraw</span>
-                        <span class="right">USDX 100</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
-                        <span class="left">Transaction Charges</span>
-                        <span class="right">$6.00</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
-                        <span class="left">You will receive</span>
-                        <span class="right">€ 99</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
-                        <span class="left">USDX Balance</span>
-                        <span class="right">800</span>
-                    </div>
-                    <div class="my-5 ciak-data-input d-grid gap-2 ">
-                        <!-- <button class="btn-orange">Confirm</button> -->
-                        <a href="<?= base_url() ?>withdraw/withdraw_notif" class="btn-main-green">CONTINUE</a>
-                    </div>
+                    
+                    <form action="<?= base_url() ?>withdraw/withdraw_notif" method="post" id="form_submit" onsubmit="return validate()">
+                        
+                       <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                       
+                       <!-- REQUIRE INPUT -->
+                       <input type="hidden" name="xeuramount" value="<?= $dataWD->xeuramount ?>">
+                       <input type="hidden" name="accountHolderName" value="<?= $dataWD->accountHolderName?>">
+                       <input type="hidden" name="causal" value="<?= $dataWD->causal?>">
+                       <input type="hidden" name="transfer_type" value="<?= $dataWD->transfer_type ?>">
+
+                       <!-- ADDITIONAL INPUT -->
+                       <input type="hidden" name="iban" value="<?= @$dataWD->iban ?>">
+
+
+                        <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                            <span class="left">Recipient Name</span>
+                            <span class="right"><?= $dataWD->accountHolderName?></span>
+                        </div>
+    
+                        <?php if(
+                            ($_SESSION['withdraw']['currencycode'] == 'EUR')
+                        ){?>
+                            <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                                <span class="left">IBAN</span>
+                                <span class="right"><?= $dataWD->iban?></span>
+                            </div>
+                        <?php }?>
+    
+                        <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                            <span class="left">Amount to Withdraw</span>
+                            <span class="right">XEUR <?= $summary->amount?></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                            <span class="left">Transaction Charges</span>
+                            <span class="right">
+                                <?php 
+                                    echo $_SESSION['withdraw']['currencycode']; 
+                                    echo '&nbsp';
+                                    echo $summary->fee; 
+                                ?>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                            <span class="left">You will receive</span>
+                            <span class="right">    
+                                <?php 
+                                    echo $_SESSION['withdraw']['currencycode']; 
+                                    echo '&nbsp';
+                                    echo $summary->amt_trans; 
+                                ?></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                            <span class="left">XEUR Balance</span>
+                            <span class="right">
+                                <?php
+                                    $oldbalance = number_format($balance,2);
+                                    $amountwd = $summary->amount;
+                                    $totalbalance = $oldbalance - $amountwd;
+                                    echo $totalbalance;
+                                ?>
+                            </span>
+                        </div>
+                        <div class="my-5 ciak-data-input d-grid gap-2 ">
+                            <!-- <button class="btn-orange">Confirm</button> -->
+                            <button type="submit" class="btn-main-green">CONFIRM</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 

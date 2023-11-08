@@ -1,7 +1,7 @@
 <?php
 /*----------------------------------------------------------
     Modul Name  : Modul Withdraw
-    Desc        : Modul ini di gunakan melakukan topup
+    Desc        : Modul ini di gunakan melakukan Swap
                   pada wallet
 
     Sub fungsi  : 
@@ -13,7 +13,7 @@
 ------------------------------------------------------------*/ 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Topup extends CI_Controller
+class Swap extends CI_Controller
 {
 
     public function __construct()
@@ -41,9 +41,10 @@ class Topup extends CI_Controller
         }
 
         $currency = (object)$data;
+
         $data = array(
-            'title'         => NAMETITLE . ' - Wallet Topup',
-            'content'       => 'apps/member/wallet/topup/app-topup',
+            'title'         => NAMETITLE . ' - Swap ',
+            'content'       => 'apps/member/wallet/swap/app-swap',
             'mn_wallet'     => 'active',
             'currency'      => $currency,
             'extra'         => 'apps/js/js-index',
@@ -52,14 +53,14 @@ class Topup extends CI_Controller
     }
 
     
-    public function topup_receive()
+    public function swap_receive()
     {
         $_SESSION["currency"]=$_GET["cur"];
         $data = array(
-            'title'         => NAMETITLE . ' - Wallet Topup',
-            'content'       => 'apps/member/wallet/topup/app-topup-receive',
+            'title'         => NAMETITLE . ' - Swap',
+            'content'       => 'apps/member/wallet/swap/app-swap-receive',
             'mn_wallet'     => 'active',
-            'extra'         => 'apps/member/wallet/topup/js/js-topup',
+            'extra'         => 'apps/member/wallet/swap/js/js-swap',
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }
@@ -110,6 +111,7 @@ class Topup extends CI_Controller
                 "receive"   => $result->message->receive
             );
             echo json_encode($data);
+
         } else {
             header("HTTP/1.1 500 Internal Server Error");
             $error = array(
@@ -121,7 +123,7 @@ class Topup extends CI_Controller
         }
     }
     
-    public function topup_confirm()
+    public function swap_confirm()
     {
         $amount = $this->input->post("amount");
         $new_amount = preg_replace('/,(?=[\d,]*\.\d{2}\b)/', '', $amount);
@@ -137,7 +139,7 @@ class Topup extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata("failed", validation_errors());
-            redirect('topup');
+            redirect('swap');
         }
 
         $input      = $this->input;
@@ -151,43 +153,37 @@ class Topup extends CI_Controller
             "userid"    => $_SESSION["user_id"]
         );
 
-        $result = apiciaklive(URLAPI . "/v1/member/swap/swapCurrency", json_encode($mdata));
-        print_r($result);
-        die;
-        
-        if (@$result->code != 200) {
-            $this->session->set_flashdata("failed", $result->message);
-            redirect('topup');
-        }
+        $symbol = apiciaklive(URLAPI . "/v1/member/currency/getByCurrency?currency=" . $target)->message->symbol;
+
+        // print_r($symbol);
+        // die;
         
         $data = array(
-            'title'         => NAMETITLE . ' - Wallet Topup',
-            'content'       => 'apps/member/wallet/topup/app-topup-confirm',
+            'title'         => NAMETITLE . ' - Swap',
+            'content'       => 'apps/member/wallet/swap/app-swap-confirm',
             'mn_wallet'     => 'active',
             "target"        => $target,
             "amount"        => $this->security->xss_clean($input->post("amount")),
             "quoteid"       => $this->security->xss_clean($input->post("quoteid")),
             "amountget"     => $this->security->xss_clean($input->post("amountget")),
-            "symbol"        => apiciaklive(URLAPI . "/v1/member/currency/getByCurrency?currency=" . $target)->message->symbol
+            "symbol"        => $symbol,
         );
         
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
-    public function topup_notif()
+    public function swap_notif()
     {
         $this->form_validation->set_rules('amount', 'Amount', 'trim|required|greater_than[0]');
-        $this->form_validation->set_rules('quoteid', 'quoteid', 'trim|required');
+        $this->form_validation->set_rules('quoteid', 'quoteid', 'trim');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata("failed", validation_errors());
-            echo "<pre>".print_r(validation_errors(),true)."</pre>";
-            die;
-            redirect('topup');
+            redirect('swap');
         }
 
         $input    = $this->input;
-        $target = 'USDX';
+        $target = 'XEUR';
         $amount = $this->security->xss_clean($input->post("amount"));
         $quoteid = $this->security->xss_clean($input->post("quoteid"));
 
@@ -201,14 +197,16 @@ class Topup extends CI_Controller
             );
 
             $result = apiciaklive(URLAPI . "/v1/member/swap/swapCurrency", json_encode($mdata));
+            // print_r(json_encode($result));
+            // die;
             if (@$result->code != 200) {
                 $this->session->set_flashdata("failed", $result->message);
-                redirect('topup');
+                redirect('swap');
             }
 
             $data = array(
-                'title'         => NAMETITLE . ' - Wallet Topup',
-                'content'       => 'apps/member/wallet/topup/app-topup-notif',
+                'title'         => NAMETITLE . ' - Swap',
+                'content'       => 'apps/member/wallet/swap/app-swap-notif',
                 'mn_wallet'     => 'active',
                 "amount"    => $amount,
                 "amountget" => $result->message->receive,

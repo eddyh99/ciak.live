@@ -34,7 +34,10 @@ class Profile extends CI_Controller
     	$url = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
 		$result = apiciaklive($url)->message;
 		$post = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=1")->message;
-        // echo "<pre>".print_r($post,true)."</pre>";
+        $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost");
+
+
+        // echo "<pre>".print_r($maxpost,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
@@ -45,6 +48,7 @@ class Profile extends CI_Controller
             'botbar'        => 'apps/member/app-botbar',
             'popup'         => 'apps/member/app-popup',
             'allpost'       => $post,
+            'max_post'      => $maxpost->message,
             'mn_profile'    => 'active',
             'extra'         => 'apps/member/profile/js/_js_settings_profile',
         );
@@ -117,8 +121,10 @@ class Profile extends CI_Controller
         $profile["dayleft"]      = apiciaklive(URLAPI . "/v1/member/subscription/days_subscribe?follow_id=".$profile["id"])->message;
         $profile["price"]        = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$profile["id"])->message;
         $post = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?ucode=".$ucode."&page=1")->message;
-	    // echo "<pre>".print_r($post,true)."</pre>";
-        // die;
+        $post = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost?ucode=".$ucode);
+
+
+    
 	    // print_r(json_encode($post));
         // die;
 

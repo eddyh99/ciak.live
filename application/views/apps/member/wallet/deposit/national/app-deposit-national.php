@@ -10,7 +10,7 @@
                             </a>
                         </div>
                         <div class="action">
-                            <a href="" class="text-white fs-5"><?=$_SESSION["currency"]?> - Top up - National</a>
+                            <a href="" class="text-white fs-5"><?=$_SESSION["currency"]?> - Deposit National</a>
                         </div>
                         <div class="action">
                         </div>
