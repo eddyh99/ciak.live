@@ -16,10 +16,11 @@ class Homepage extends CI_Controller
 		$post = apiciaklive(URLAPI . "/v1/member/post/getall_post?page=1");
         $notif = apiciaklive(URLAPI . "/v1/member/notification/getnotif");
         $notifmsg = apiciaklive(URLAPI . "/v1/member/notification/chat_notif");
+        $maxpage = apiciaklive(URLAPI . "/v1/member/post/getmax_page");
     
     
         //print_r(json_encode($post->message));
-        // echo "<pre>".print_r($msg,true)."</pre>";
+        // echo "<pre>".print_r($maxpage,true)."</pre>";
         // die;
 
 
@@ -33,6 +34,7 @@ class Homepage extends CI_Controller
             'allpost'       => @$post->message,
             'notif'         => @$notif->message,
             'notifmsg'      => @$notifmsg->message,
+            'max_page'      => @$maxpage->message, 
             'mn_home'       => 'active',
             'extra'         => 'apps/js/js-index',
         );
@@ -41,8 +43,6 @@ class Homepage extends CI_Controller
 
     public function load_more($id)
     {
-        
-
         $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/getall_post?page=".$id)->message;
         $this->load->view('apps/member/loadcontent/load-homepage', $data);
     }

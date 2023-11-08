@@ -4,11 +4,12 @@ $("#notifcalculate").hide();
 function calculate() {
     if ($("#amount").val().replace(/,/g, '') > 0) {
         $.ajax({
-            url: "<?= base_url() ?>topup/swapcalculate",
+            url: "<?= base_url() ?>swap/swapcalculate",
             method: "post",
             data: $("#swapconfirm").serialize(),
             success: function(response) {
                 var data = JSON.parse(response);
+                console.log(data);
                 $("#notifcalculate").hide();
                 $("#btnconfirm").attr("disabled", false);
                 $("#receive").val(data.receive);

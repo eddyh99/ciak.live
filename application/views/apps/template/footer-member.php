@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="<?= base_url()?>assets/js/js-darkmode-landing.js"></script>
+<script src="<?= base_url()?>assets/js/main-member.js"></script>
 <script src="<?= base_url()?>assets/js/explicit-content.js"></script>
 <script src="<?= base_url()?>assets/js/readmore.js"></script>
 <script src="<?= base_url()?>assets/js/localforage.min.js"></script>

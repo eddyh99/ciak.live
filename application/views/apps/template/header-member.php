@@ -72,6 +72,6 @@
 
 </head>
 
-<body>
-    <div class="apps-container member px-0">
+<body class="bg-white">
+    <div class="apps-container member px-0 ">
         <div class="apps">

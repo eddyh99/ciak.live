@@ -10,7 +10,7 @@
                             </a>
                         </div>
                         <div class="action">
-                            <a href="" class="text-white fs-5">Topup</a>
+                            <a href="" class="text-white fs-5">Swap</a>
                         </div>
                         <div class="action">
                             <a href="" class="text-white fs-5">
@@ -33,9 +33,9 @@
                     </div>
                     <div class="card-currency row mt-2">
                         <?php foreach ($currency as $dt){
-                                if ($dt->currency!='USDX'){
+                            if ($dt->currency!='XEUR'){
                         ?>
-                        <a href="<?= base_url()?>topup/topup_receive?cur=<?=$dt->currency?>" class="href-detail-currency">
+                        <a href="<?= base_url()?>swap/swap_receive?cur=<?=$dt->currency?>" class="href-detail-currency">
                             <div class="detail-currency d-flex justify-content-between align-items-center col-10 mx-auto py-3 px-3 my-2">                   
                                 <div class="ps-3">
                                     <span><?=$dt->currency?></span>
@@ -46,8 +46,10 @@
                                 </div>
                             </div>
                         </a>
-                        <?php }
-                        }?>
+                        <?php 
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

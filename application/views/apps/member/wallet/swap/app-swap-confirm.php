@@ -5,12 +5,12 @@
                 <div class="apps-member mx-auto col-12 col-lg-5" style="border-bottom: none;">
                     <div class="alert-notif d-flex justify-content-between px-4 px-lg-0">
                         <div class="action-icon">
-                            <a href="<?= base_url()?>topup">
+                            <a href="<?= base_url()?>wallet">
                                 <i class="fa-solid fa-arrow-left"></i>
                             </a>
                         </div>
                         <div class="action">
-                            <a href="" class="text-white fs-5">Topup</a>
+                            <a href="" class="text-white fs-5">Swap</a>
                         </div>
                         <div class="action">
                             <a href="" class="text-white fs-5">
@@ -27,43 +27,35 @@
             </div>
             <div>
                 <div class="apps-member light w-100">
-                    <form id="swapconfirm" method="post" action="<?=base_url()?>topup/topup_confirm" onsubmit="return validate()">
-                        <?php if (@isset($_SESSION["failed"])) { ?>
-                            <div class="col-12 alert alert-danger alert-dismissible fade show" role="alert">
-                                <span class="notif-login f-poppins"><?= $_SESSION["failed"] ?></span>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        <?php } ?>
+                    <p class="text-center mt-5">You Top up</p>
+                    <h2 class="text-center" style="color: #03B115;"><?=$_SESSION["currency"]." ".number_format($amount,2)?></h2>
+                    <form action="<?= base_url() ?>swap/swap_notif" method="post" class="mt-5">
+                       <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                        <input type="hidden" name="quoteid" value="<?= $quoteid ?>">
+                        <input type="hidden" name="amount" id="amount" value="<?= $amount?>" hidden>
 
-                        <div id="notifcalculate" class="col-12 alert alert-warning alert-dismissible fade show"
-                            role="alert">
-                            <span class="notif-login f-poppins" id="txtnotif"></span>
-                        </div>
-
-                        <input type="hidden" id="token"
-                            name="<?php echo $this->security->get_csrf_token_name(); ?>"
-                            value="<?php echo $this->security->get_csrf_hash(); ?>">
-                        <input type="hidden" id="amountget" name="amountget">
-                        <input type="hidden" id="quoteid" name="quoteid">
                         <div>
-                            <label for="topup-receive" class="ps-3">Amount to top up</label>
+                            <label for="topup-receive" class="ps-3">You Receive</label>
                             <div class="topup-receive-input d-flex justify-content-between text-end mt-2">
-                                <label for="topup-receive"><?=$_GET["cur"]?></label>
-                                <input type="text" id="amount" name="amount" class="money-input text-end w-100" placeholder="0.00" autocomplete="off">
+                                <label for="topup-receive"><?= $symbol?></label>
+                                <input type="text" id="topup-receive" class="money-input text-end w-50" value="<?=number_format($amountget,2)?>" placeholder="0.00" disabled>
                             </div>
                         </div>
                         <div class="my-5">
-                            <label for="you-receive" class="ps-3">You Receive</label>
-                            <div class="topup-receive-input d-flex justify-content-between text-end mt-2">
-                                <label for="you-receive">XEUR</label>
-                                <input type="text" id="receive" class="money-input text-end w-100" placeholder="0.00" readonly>
+                            <label for="you-receive" class="ps-3">Order</label>
+                            <div class="topup-receive-input-collapse b-border up d-flex justify-content-between text-end mt-2">
+                                <label for="you-receive">From <?= $_SESSION['currency']?></label>
+                                <input type="text" id="you-receive" class="money-input text-end w-50" value="<?=number_format($amount,2)?>" placeholder="0.00" disabled>
+                            </div>
+                            <div class="topup-receive-input-collapse down d-flex justify-content-between text-end">
+                                <label for="you-receive">To <?= $symbol?></label>
+                                <input type="text" id="you-receive" class="money-input text-end w-50" value="<?=number_format($amountget,2)?>" placeholder="0.00" disabled>
                             </div>
                         </div>
                                 
                         <div class="mb-3 ciak-data-input d-grid gap-2 ">
                             <!-- <button class="btn-orange">Confirm</button> -->
-                            <button id="btnconfirm" type="submit" class="btn-main-green">Top up</button>
+                            <button type="submit" class="btn-main-green">Confirm</button>
                         </div>
                     </form>
                 </div>

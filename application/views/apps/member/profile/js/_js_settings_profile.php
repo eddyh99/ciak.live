@@ -344,22 +344,42 @@ $(function() {
 
 
     var pages = 1;
+    var maxpage = $('.max-post-profile').val();
     $('.spinner-load-content').hide();
     $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-            pages += 1;
-            $('.spinner-load-content').show();
-            $.ajax({
-                url: "<?= base_url()?>profile/load_more_profile_public/"+pages,
-                type: "GET",
-                success: function(html) {
-                    $('.spinner-load-content').hide();
-                    $('#load-post-profile-public').after(html);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("ERROR");
-                }
-            });
+        if($(window).scrollTop() + window.innerHeight == $(document).height()) {
+            if(pages != maxpage){
+                pages++;
+                $.ajax({
+                    url: "<?= base_url()?>profile/load_more_profile_public/"+pages,
+                    type: "GET",
+                    beforeSend: function(){
+                        $('.spinner-load-content').show();
+                    },
+                    success: function(html) {
+                        $('.spinner-load-content').hide();
+                        $('#load-post-profile-public').after(html);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("ERROR");
+                    }
+                });
+            } else {
+                Swal.fire({
+                    html:  `<div class="d-flex justify-content-center">
+                                <div>
+                                    <i class="fas fa-photo-video text-success fs-3"></i>
+                                </div>
+                                <div class="ms-3">No More Result Found</div>
+                            </div>`,
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    background: '#323436',
+                    color: '#ffffff',
+                    position: 'top',
+                    timer: 4000,
+                });
+            }
         }
     });
 
@@ -371,71 +391,80 @@ $(function() {
             lessLink: `<a class="ac" href="#">Close</a>`, 
         });
 
-        var target = $(e.target).attr("href");
-        var pages = 1;
-        $('.spinner-load-content').hide();
-        $(window).scroll(function() {
-            if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-                if (target == '#private') {
-                    pages += 1;
-                    $('.spinner-load-content').show();
-                    $.ajax({
-                        url: "<?= base_url()?>profile/load_more_profile_private/"+pages,
-                        type: "GET",
-                        success: function(html) {
-                            $('.spinner-load-content').hide();
-                            $('#load-post-profile-private').after(html);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("ERROR");
-                        }
-                    });
-                } else if(target == '#public') {
-                    pages += 1;
-                    $('.spinner-load-content').show();
-                    $.ajax({
-                        url: "<?= base_url()?>profile/load_more_profile_public/"+pages,
-                        type: "GET",
-                        success: function(html) {
-                            $('.spinner-load-content').hide();
-                            $('#load-post-profile-public').after(html);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("ERROR");
-                        }
-                    });
-                } else if (target == '#special') {
-                    pages += 1;
-                    $('.spinner-load-content').show();
-                    $.ajax({
-                        url: "<?= base_url()?>profile/load_more_profile_special/"+pages,
-                        type: "GET",
-                        success: function(html) {
-                            $('.spinner-load-content').hide();
-                            $('#load-post-profile-special').after(html);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("ERROR");
-                        }
-                    });
-                } else if(target == '#download') {
-                    pages += 1;
-                    $('.spinner-load-content').show();
-                    $.ajax({
-                        url: "<?= base_url()?>profile/load_more_profile_download/"+pages,
-                        type: "GET",
-                        success: function(html) {
-                            $('.spinner-load-content').hide();
-                            $('#load-post-profile-download').after(html);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("ERROR");
-                        }
-                    });
-                }
+        // var target = $(e.target).attr("href");
+        // var pages = 1;
+        // var maxpage = $('.max-post-profile').val();
+        // $('.spinner-load-content').hide();
+        // $(window).scroll(function() {
+        //     if($(window).scrollTop() + window.innerHeight == $(document).height()){
+        //             if (target == '#private') {
+        //                 if(pages != maxpage){
+        //                     pages++;
+        //                     $.ajax({
+        //                         url: "<?= base_url()?>profile/load_more_profile_private/"+pages,
+        //                         type: "GET",
+        //                         beforeSend: function(){
+        //                             $('.spinner-load-content').show();
+        //                         },
+        //                         success: function(html) {
+        //                             $('.spinner-load-content').hide();
+        //                             $('#load-post-profile-private').after(html);
+        //                         },
+        //                         error: function(jqXHR, textStatus, errorThrown) {
+        //                             console.log("ERROR");
+        //                         }
+        //                     });
+        //                 }
 
-            }
-        });
+        //             } else if(target == '#public') {
+        //                 pages++;
+        //                 $.ajax({
+        //                     url: "<?= base_url()?>profile/load_more_profile_public/"+pages,
+        //                     type: "GET",
+        //                     beforeSend: function(){
+        //                         $('.spinner-load-content').show();
+        //                     },
+        //                     success: function(html) {
+        //                         $('.spinner-load-content').hide();
+        //                         $('#load-post-profile-public').after(html);
+        //                     },
+        //                     error: function(jqXHR, textStatus, errorThrown) {
+        //                         console.log("ERROR");
+        //                     }
+        //                 });
+                    
+        //             } else if (target == '#special') {
+        //                 pages += 1;
+        //                 $('.spinner-load-content').show();
+        //                 $.ajax({
+        //                     url: "<?= base_url()?>profile/load_more_profile_special/"+pages,
+        //                     type: "GET",
+        //                     success: function(html) {
+        //                         $('.spinner-load-content').hide();
+        //                         $('#load-post-profile-special').after(html);
+        //                     },
+        //                     error: function(jqXHR, textStatus, errorThrown) {
+        //                         console.log("ERROR");
+        //                     }
+        //                 });
+        //             } else if(target == '#download') {
+        //                 pages += 1;
+        //                 $('.spinner-load-content').show();
+        //                 $.ajax({
+        //                     url: "<?= base_url()?>profile/load_more_profile_download/"+pages,
+        //                     type: "GET",
+        //                     success: function(html) {
+        //                         $('.spinner-load-content').hide();
+        //                         $('#load-post-profile-download').after(html);
+        //                     },
+        //                     error: function(jqXHR, textStatus, errorThrown) {
+        //                         console.log("ERROR");
+        //                     }
+        //                 });
+        //             }
+             
+        //     }
+        // });
 
     
         // Untuk Pause click tabs berbeda

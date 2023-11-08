@@ -40,9 +40,9 @@
                             International
                         </a>
                         <?php }?>
-                        <a href="<?= base_url()?>withdraw/to_wallet" class="withdraw-payment text-center my-4">
+                        <!-- <a href="<?= base_url()?>withdraw/to_wallet" class="withdraw-payment text-center my-4">
                             Wallet to wallet
-                        </a>
+                        </a> -->
                     </div>
                 </form>
             </div>

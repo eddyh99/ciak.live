@@ -24,19 +24,17 @@
                             Deposit Type
                         </span>
                     </div>
-                    <?php if (($_SESSION["currency"]=="USD") || ($_SESSION["currency"]=="EUR") || ($_SESSION["currency"]=="GBP") ){?>
-                        <a href="<?= base_url()?>wallet/deposit_national" class="withdraw-payment text-center my-4">
-                            National
-                        </a>
-                    <?php }?>
+                    <a href="<?= base_url()?>wallet/deposit_national" class="withdraw-payment text-center my-4">
+                        National
+                    </a>
                     <?php if (($_SESSION["currency"]=="USD") || ($_SESSION["currency"]=="EUR") || ($_SESSION["currency"]=="GBP") ){?>
                         <a href="<?= base_url()?>wallet/deposit_international" class="withdraw-payment text-center my-4">
                             International
                         </a>
                     <?php } ?>
-                    <a href="<?= base_url()?>wallet/deposit_towallet" class="withdraw-payment text-center my-4">
+                    <!-- <a href="<?= base_url()?>wallet/deposit_towallet" class="withdraw-payment text-center my-4">
                         Wallet to wallet
-                    </a>
+                    </a> -->
                 </div>
             </div>
 

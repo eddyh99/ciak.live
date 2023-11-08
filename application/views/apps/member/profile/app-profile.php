@@ -1,3 +1,4 @@
+<input hidden id="max-post-profile" class="max-post-profile" type="text" value="<?= $max_post?>">
 <div class="apps-body">
     <div class="row">
         <div class="apps-member col-12 col-lg-5 mx-auto">
