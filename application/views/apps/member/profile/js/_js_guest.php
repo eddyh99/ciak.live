@@ -204,7 +204,20 @@ $(document).ready(function () {
 3. GSAP Scroll Trigger End     
 ------------------------------------------------------------*/ 
 
-
+function subscribe(ucode, jenis){
+    $.ajax({
+        url: `<?= base_url()?>profile/subscribe`,
+        type: "POST",
+        data: "ucode="+ucode+"&jenis="+jenis,
+        success: function(html) {
+            //location.reload();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            //munculin toast errornya
+            console.log("ERROR");
+        }
+    });
+}
 
 
 </script>
