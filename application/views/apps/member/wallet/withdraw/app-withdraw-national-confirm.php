@@ -39,16 +39,44 @@
                     
                     <form action="<?= base_url() ?>withdraw/withdraw_notif" method="post" id="form_submit" onsubmit="return validate()">
                         
-                       <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-                       
-                       <!-- REQUIRE INPUT -->
-                       <input type="hidden" name="xeuramount" value="<?= $dataWD->xeuramount ?>">
-                       <input type="hidden" name="accountHolderName" value="<?= $dataWD->accountHolderName?>">
-                       <input type="hidden" name="causal" value="<?= $dataWD->causal?>">
-                       <input type="hidden" name="transfer_type" value="<?= $dataWD->transfer_type ?>">
+                        <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                        
+                        <!-- REQUIRE INPUT -->
+                        <input type="hidden" name="xeuramount" value="<?= $dataWD->xeuramount ?>">
+                        <input type="hidden" name="accountHolderName" value="<?= $dataWD->accountHolderName?>">
+                        <input type="hidden" name="causal" value="<?= $dataWD->causal?>">
+                        <input type="hidden" name="transfer_type" value="<?= $dataWD->transfer_type ?>">
 
-                       <!-- ADDITIONAL INPUT -->
-                       <input type="hidden" name="iban" value="<?= @$dataWD->iban ?>">
+                        <!-- ADDITIONAL INPUT -->
+                        <input type="hidden" name="iban" value="<?= @$dataWD->iban ?>">
+                        <input type="hidden" name="accountNumber" value="<?= @$dataWD->accountNumber ?>">
+                        <input type="hidden" name="accountNumber" value="<?= @$dataWD->accountNumber ?>">
+                        <input type="hidden" name="accountType" value="<?= @$dataWD->accountType ?>">
+                        <input type="hidden" name="city" value="<?= @$dataWD->city ?>">
+                        <input type="hidden" name="postCode" value="<?= @$dataWD->postCode ?>">
+                        <input type="hidden" name="firstLine" value="<?= @$dataWD->firstLine ?>">
+                        <input type="hidden" name="state" value="<?= @$dataWD->state ?>">
+                        <input type="hidden" name="countryCode" value="<?= @$dataWD->countryCode ?>">
+                        <input type="hidden" name="abartn" value="<?= @$dataWD->abartn ?>">
+                        <input type="hidden" name="swiftCode" value="<?= @$dataWD->swiftCode ?>">
+                        <input type="hidden" name="bsbCode" value="<?= @$dataWD->bsbCode ?>">
+                        <input type="hidden" name="sortCode" value="<?= @$dataWD->sortCode ?>">
+                        <input type="hidden" name="bankCode" value="<?= @$dataWD->bankCode ?>">
+                        <input type="hidden" name="BIC" value="<?= @$dataWD->BIC ?>">
+                        <input type="hidden" name="branchCode" value="<?= @$dataWD->branchCode ?>">
+                        <input type="hidden" name="institutionNumber" value="<?= @$dataWD->institutionNumber ?>">
+                        <input type="hidden" name="transitNumber" value="<?= @$dataWD->transitNumber ?>">
+                        <input type="hidden" name="taxId" value="<?= @$dataWD->taxId ?>">
+                        <input type="hidden" name="rut" value="<?= @$dataWD->rut ?>">
+                        <input type="hidden" name="phoneNumber" value="<?= @$dataWD->phoneNumber ?>">
+                        <input type="hidden" name="legalType" value="<?= @$dataWD->legalType ?>">
+                        <input type="hidden" name="type" value="<?= @$dataWD->type ?>">
+                        <input type="hidden" name="ifscCode" value="<?= @$dataWD->ifscCode ?>">
+                        <input type="hidden" name="clabe" value="<?= @$dataWD->clabe ?>">
+                        <input type="hidden" name="email" value="<?= @$dataWD->email ?>">
+                        <input type="hidden" name="interacAccount" value="<?= @$dataWD->interacAccount ?>">
+                        <input type="hidden" name="customerReferenceNumber" value="<?= @$dataWD->customerReferenceNumber ?>">
+                        <input type="hidden" name="billerCode" value="<?= @$dataWD->billerCode ?>">
 
 
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
@@ -64,6 +92,46 @@
                                 <span class="right"><?= $dataWD->iban?></span>
                             </div>
                         <?php }?>
+
+                        <?php if (
+                                    (
+                                        ($_SESSION['withdraw']['currencycode'] == "EUR") &&
+                                        ($dataWD->transfer_type == "circuit")
+                                    ) ||
+                                    ($_SESSION['withdraw']['currencycode'] == "AED") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "DKK") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "EGP") ||
+                                    (
+                                        ($_SESSION['withdraw']['currencycode'] == "GBP") &&
+                                        ($dataWD->transfer_type == "outside")
+                                    ) ||
+                                    ($_SESSION['withdraw']['currencycode'] == "GEL") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "HRK") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "ILS") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "NOK") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "PKR") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "PLN") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "RON") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "SEK") ||
+                                    ($_SESSION['withdraw']['currencycode'] == "TRY")
+                                ) { ?>
+                                     <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                                        <span class="left">IBAN</span>
+                                        <span class="right"><?= $dataWD->iban?></span>
+                                    </div>
+                                <?php } elseif (
+                                    ($_SESSION['withdraw']['currencycode'] == "MXN")
+                                ) { ?>
+                                    <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                                        <span class="left">Clabe</span>
+                                        <span class="right"><?= $dataWD->clabe?></span>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
+                                        <span class="left">Account Number</span>
+                                        <span class="right"><?= $dataWD->accountNumber?></span>
+                                    </div>
+                                <?php } ?>
     
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
                             <span class="left">Amount to Withdraw</span>

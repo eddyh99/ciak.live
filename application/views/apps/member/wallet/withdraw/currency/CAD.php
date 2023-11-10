@@ -4,8 +4,8 @@
 </div>
 
 <div class="withdraw-national-field mb-4">
-    <select name="accountType" class="form-select me-2" id="accountType">
-        <option value="">--Account Type--</option>
+<label for="accountType">Account Type</label><br>
+    <select name="accountType" class="form-select select-currency-withdraw me-2" id="accountType">
         <option value="saving">Saving</option>
         <option value="checking">Checking</option>
     </select>

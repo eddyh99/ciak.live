@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div>
-                <form action="<?= base_url() ?>withdraw/withdraw_confirm" method="POST">
+                <form action="<?= base_url() ?>withdraw/withdraw_confirm" method="POST" id="form_submit" onsubmit="return validate()">
                     <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
                     <input type="hidden" name="currencycode" id="currencycode" value="<?= $_SESSION['withdraw']['currencycode']?>">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="mb-3 ciak-data-input d-grid gap-2 ">
-                            <button type="submit" class="btn-main-green">CONTINUE</button>
+                            <button type="submit" id="btnconfirm" class="btn-main-green">CONTINUE</button>
                         </div>
                     </div>
                 </form>

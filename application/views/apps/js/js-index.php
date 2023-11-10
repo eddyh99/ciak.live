@@ -384,28 +384,6 @@ $(function() {
     }); 
 
 
-    // var pages = 1;
-    // var ucode = '8jxyryq';
-    // $('.spinner-load-content').hide();
-    // $(window).scroll(function() {
-    //     if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-    //         pages += 1;
-    //         $('.spinner-load-content').show();
-    //         $.ajax({
-    //             url: "<?= base_url()?>profile/load_more_guest_public/"+ucode+"/"+pages,
-    //             type: "GET",
-    //             success: function(html) {
-    //                 $('.spinner-load-content').hide();
-    //                 $('#load-post-guest-public').after(html);
-    //             },
-    //             error: function(jqXHR, textStatus, errorThrown) {
-    //                 console.log("ERROR");
-    //             }
-    //         });
-    //     }
-    // });
-
-
     $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
         $('.article').readmore({
             speed: 75, 
@@ -415,19 +393,19 @@ $(function() {
         });
 
 
-
-
     })
 });
 
-// var loadContent = $(window), d = $(document); 
+
 var page = 1;
 $('.spinner-load-content').hide();
 var maxpage = $('#max-page').val();
 
 
 $(window).scroll(function() {
-    if($(window).scrollTop() + window.innerHeight == $(document).height()) {
+ 
+    if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) { 
+    // if($(window).scrollTop() + window.innerHeight == $(document).height()) {
         if(page != maxpage){
             page++;
             $.ajax({
@@ -463,29 +441,6 @@ $(window).scroll(function() {
         }
    }
 });
-
-// function morehomepage(page){
-//     $.ajax({
-//             url: "<?= base_url()?>homepage/load_more/"+page,
-//             type: "GET",
-//             beforeSend: function(){
-//                 $('.spinner-load-content').show();
-//             },
-//             success: function(html) {
-//                 if(html == " "){
-// 	                // $('#load-post-homepage').html("No more records found");
-// 	                return;
-// 	            }
-
-//                 $('.spinner-load-content').hide();
-//                 $('#load-post-homepage').append(html);
-                
-//             },
-//             error: function(jqXHR, textStatus, errorThrown) {
-//                 alert("ERROR");
-//             }
-//         });
-// }
 
 
 /*----------------------------------------------------------
@@ -545,18 +500,7 @@ $('#explicit').on('click', function(){
     localStorage.setItem('explicit', 'yes');
 });
 
-$('#nonexplicit').on('click', function(){
-    localStorage.removeItem('explicit');
-});
-
-let ex = localStorage.getItem("explicit");
-
-$('#switch-content').click(function(){
-    var tea = 1; 
-})
-
-
-const   bodyContentHome = document.querySelector("body"),
+let bodyContentHome = document.querySelector("body"),
 modeToggleContentHome = body.querySelector(".mode-toggle-content");
     
 

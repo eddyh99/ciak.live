@@ -1,3 +1,4 @@
+<input hidden id="max-post-guest" class="max-post-guest" type="text" value="<?= $max_post?>">
 <div class="apps-body">
     <!-- Looping username serta dengan pengkondisian -->
         <div class="row">

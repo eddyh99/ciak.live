@@ -64,6 +64,7 @@
                                                 if($dt->id_member!=$_SESSION["user_id"]){
                                         ?>
                                             <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
+                                            
                                             <!-- OFF CANVAS BUY POST SPECIAL -->
                                             <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="basketShopping<?= $dt->id?>"
                                                 aria-labelledby="offcanvasBottomLabel">

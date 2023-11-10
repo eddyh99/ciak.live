@@ -5,10 +5,11 @@
 
 <div class="withdraw-national-field mb-4">
     <label for="bankCode">Bank Code</label><br>
-    <select name="bankCode" class="form-select select-currency-withdraw  me-2" id="bankCode">
-    <option value="" >--Bank Code--</option>
-        <?php foreach ($codecur as $dt) { ?>
-            <option value="<?= $dt->code ?>"><?= $dt->title ?></option>
-        <?php } ?>
-    </select>
+    <input class="form-control me-2" type="text" name="bankCode" id="bankCode">
 </div>
+
+<div class="withdraw-national-field mb-4">
+    <label for="dateOfBirth">Date of Birth</label><br>
+    <input class="form-control me-2" type="date" name="dateOfBirth" id="dateOfBirth">
+</div>
+

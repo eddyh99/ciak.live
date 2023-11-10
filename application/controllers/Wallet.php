@@ -84,7 +84,8 @@ class Wallet extends CI_Controller
     public function deposit_national()
     {
 
-        $data = array(
+
+       $data = array(
             'title'         => NAMETITLE . ' - Wallet Deposit',
             'content'       => 'apps/member/wallet/deposit/national/app-deposit-national',
             'mn_wallet'     => 'active',
@@ -102,7 +103,7 @@ class Wallet extends CI_Controller
         $this->form_validation->set_rules('confirm_amount', 'Confirm Amount', 'trim|required|greater_than[0]|matches[amount]');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
+            $this->session->set_flashdata('failed',  validation_errors());
             redirect("wallet/deposit_national");
             return;
         }

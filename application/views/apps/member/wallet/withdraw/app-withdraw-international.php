@@ -1,3 +1,4 @@
+<?php require_once("withdraw-countries-list.php"); ?>
 <div class="row">
     <div class="col-11 col-md-7 col-lg-5 mx-auto">
         <div class="apps-body ptop pbot">
@@ -18,30 +19,40 @@
                 </div>
             </div>
             <div>
-                <form action="">
+                <form action="<?= base_url() ?>withdraw/withdraw_confirm" method="POST" onsubmit="return validate()">
+                    <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+
+                    <input type="hidden" name="currencycode" id="currencycode" value="<?= $_SESSION['withdraw']['currencycode']?>">
+                    <input type="hidden" name="xeuramount" id="xeuramount" value="<?= $_SESSION['withdraw']['xeur']?>">
+                    <input type="hidden" name="transfer_type" id="transfer_type" value="outside">
+
+
+
                     <div class="apps-member light w-100 mt-5">
                         <div class="topup-headwithdraw-national d-flex justify-content-center w-auto">
                             <span class="py-3 px-4 w-100 text-center">
-                                International
+                            <?= $_SESSION['withdraw']['currencycode']?> - International
                             </span>
                         </div>
                         <div class="wrap-withdraw-national my-5 p-4">
                             <div class="withdraw-national-field mb-4">
-                                <label for="name">Name</label><br>
-                                <input type="text">
+                                <label for="accountHolderName">Recipient Name</label><br>
+                                <input type="text" name="accountHolderName" id="accountHolderName" autocomplete="off">
                             </div>
+
+                            <?php 
+                                $data['type'] = "international";
+                                $data['countries_list'] = $countries_list;
+                                $this->load->view('apps/member/wallet/withdraw/currency/' . @$_SESSION['withdraw']['currencycode'], $data)
+                            ?>
+
                             <div class="withdraw-national-field mb-4">
-                                <label for="name">Name</label><br>
-                                <input type="text">
-                            </div>
-                            <div class="withdraw-national-field mb-4">
-                                <label for="name">Name</label><br>
-                                <input type="text">
+                                <label for="causal">Causal</label><br>
+                                <input type="text" name="causal" id="causal" autocomplete="off">
                             </div>
                         </div>
                         <div class="mb-3 ciak-data-input d-grid gap-2 ">
-                            <!-- <button class="btn-orange">Confirm</button> -->
-                            <a href="<?= base_url() ?>withdraw/withdraw_confirm" class="btn-main-green">CONTINUE</a>
+                            <button type="submit" class="btn-main-green">CONTINUE</button>
                         </div>
                     </div>
                 </form>
