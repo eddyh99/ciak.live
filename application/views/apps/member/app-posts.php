@@ -72,10 +72,10 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="offcanvas-body small text-center pb-5">
-                                                    <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel">$2.00</h5>
+                                                    <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel"><?=$dt->price?> XEUR</h5>
                                                     <p class="mt-1 mb-3">Are you sure to buy this post?</p>
-                                                    <form action="">
-                                                        <input type="hidden" value="id">
+                                                    <form action="<?=base_url()?>post/payspecial" method="post">
+                                                        <input type="hidden" name="post_id" value="<?=$dt->id?>">
                                                         <button  class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
                                                     </form>
                                                 </div>
@@ -108,15 +108,15 @@
                                 </div>
                                 <div class="offcanvas-body small text-center pb-5">
                                     <h5 class="offcanvas-title <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?> mx-auto" id="offcanvasBottomLabel">Send tip?</h5>
-                                    <form action="frmsendtips" class="d-flex flex-column">
-                                        <input type="hidden" name="id_membertips">
+                                    <form id="frmsendtips" class="d-flex flex-column" onsubmit="return false;">
+                                        <input type="hidden" name="owner_post" value="<?=$dt->id_member?>">
                                         <div class="mt-2 mb-3">
                                             <div class="rounded-pill bg-input <?php echo ($dt->content_type == 'explicit') ? 'tip-explicit' : 'tip-nonexplicit'?>">
-                                                <input type="text" name="tipsamount" id="tipsamount" placeholder="$0.00" value="0.5" class="rounded-pill">
+                                                <input type="text" name="amount" id="amount" placeholder="0.00 XEUR" value="0.50" class="rounded-pill">
                                             </div>
                                         </div>
                                         <div class="">
-                                            <button type="button" id="btnsendtips" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                                            <button type="submit" id="btnsendtips" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
                                         </div>
                                     </form>
                                 </div>

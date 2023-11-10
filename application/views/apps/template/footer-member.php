@@ -81,22 +81,24 @@ if (isset($extra)) {
     //add swal alert if failed
     $("#btnsendtips").on("click",function(e){
         e.preventDefault();
-        if (parseFloat($("#tipsamount").val())<0.5){
+        if (parseFloat($("#amount").val())<0.5){
             alert("Minimum amount is 0.5");
             return
         }
         $("#sendTip").offcanvas('hide');
         $.ajax({
-            url: "<?=base_url()?>profile/sendtips",
+            url: "<?=base_url()?>post/givetips",
             type: "post",
             data: $("#frmsendtips").serialize(),
             success: function (response) {
+                console.log(response);
                 if (response){
-                    
+                    //swall sukses
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
               console.log(textStatus, errorThrown);
+              //swal gagal
             }
         });
     })

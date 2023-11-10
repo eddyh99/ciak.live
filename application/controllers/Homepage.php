@@ -11,7 +11,6 @@ class Homepage extends CI_Controller
         }
         $_SESSION["path"]="homepage";
 
-        
 		$nonfollow = apiciaklive(URLAPI . "/v1/member/home/randomuser");
 		$post = apiciaklive(URLAPI . "/v1/member/post/getall_post?page=1");
         $notif = apiciaklive(URLAPI . "/v1/member/notification/getnotif");
