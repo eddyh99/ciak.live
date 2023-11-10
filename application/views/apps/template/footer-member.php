@@ -81,22 +81,38 @@ if (isset($extra)) {
     //add swal alert if failed
     $("#btnsendtips").on("click",function(e){
         e.preventDefault();
-        if (parseFloat($("#tipsamount").val())<0.5){
+        if (parseFloat($("#amount").val())<0.5){
             alert("Minimum amount is 0.5");
             return
         }
         $("#sendTip").offcanvas('hide');
         $.ajax({
-            url: "<?=base_url()?>profile/sendtips",
+            url: "<?=base_url()?>post/givetips",
             type: "post",
             data: $("#frmsendtips").serialize(),
             success: function (response) {
-                if (response){
-                    
+                let ress = JSON.parse(response)
+                console.log(ress);
+                if (ress.success == true){
+                    Swal.fire({
+                        html:  `<div class="d-flex justify-content-center">
+                                    <div>
+                                        <i class="fas fa-check text-success fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">Success Give Tips</div>
+                                </div>`,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top',
+                        timer: 1500,
+                    });
+                    $(".offcanvas").offcanvas('hide');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
               console.log(textStatus, errorThrown);
+              //swal gagal
             }
         });
     })
@@ -108,9 +124,6 @@ if (isset($extra)) {
     /*----------------------------------------------------------
     4. Report Post Start
     ------------------------------------------------------------*/ 
-    
-     //@todo : swal sukses
-     //swal failed
     function reportpost(id, reason)  {
          $("#settingMenus").offcanvas('hide');
         $.ajax({

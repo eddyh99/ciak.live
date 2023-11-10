@@ -329,7 +329,85 @@ class Post extends CI_Controller
 
         $this->load->view('apps/member/posting/app-result-invite-search', $data);
     }
+    
+    public function payspecial(){
+        $post_id  = $this->security->xss_clean($this->input->post("post_id"));
+        $url = URLAPI . "/v1/member/post/paypost?post_id=".$post_id;
+        $result = @apiciaklive($url);
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
+        if ($result->code!=200){
+            $this->session->set_flashdata("error",$result->message);
+            //redirect ini menyesuaikan dimana posisi dia beli postingannya
+            redirect("homepage");
+        }
+        redirect('profile/post/'.$post_id);
+    }
 
+    public function paydownload(){
+        $post_id  = $this->security->xss_clean($this->input->post("post_id"));
+        $url = URLAPI . "/v1/member/post/pay_download?post_id=".$post_id;
+        $result = @apiciaklive($url);
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
+        if ($result->code!=200){
+            $this->session->set_flashdata("error",$result->message);
+            //redirect ini menyesuaikan dimana posisi dia beli postingannya
+            redirect("homepage");
+        }
+        redirect('profile/post/'.$post_id);
+    }
+
+    public function givetips(){
+        $amount     = $this->security->xss_clean($this->input->post("amount"));
+        $owner_post = $this->security->xss_clean($this->input->post("owner_post"));
+        
+        $balance    = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance;
+        if ($amount<0.5){
+            header("HTTP/1.0 406 Not Acceptable");
+            $message=array(
+		            "success"   => false,
+		            "message"   => "Minimum tips is 0.5 XEUR"
+		        );
+		    echo json_encode($message);
+    	    die;
+        }
+
+        if ($balance<$amount){
+            header("HTTP/1.0 406 Not Acceptable");
+            $message=array(
+		            "success"   => false,
+		            "message"   => "Insufficient XEUR funds"
+		        );
+		    echo json_encode($message);
+    	    // die;
+        }
+
+        $mdata = array(
+                "receiver"  => $owner_post,
+                "amount"    => $amount
+            );
+        $url = URLAPI . "/v1/member/post/post_tips";
+        $result = @apiciaklive($url,json_encode($mdata));
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
+        if (@$result->code!=200||@$result->status==400){
+            header("HTTP/1.0 406 Not Acceptable");
+            $message=array(
+		            "success"   => false,
+		            "message"   => (empty($result->message))?$result->messages:$result->message
+		        );
+		    echo json_encode($message);
+    	    // die;
+    	  }
+        $message=array(
+	            "success"   => true,
+	            "message"   => true
+	        );
+	    echo json_encode($message);
+	    // die;
+    }
+    
     // public function vs($id)
     // {
     //     $post_id   = $this->security->xss_clean($id);

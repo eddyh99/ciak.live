@@ -43,15 +43,9 @@ class Meeting extends CI_Controller
         $detail = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
         
         
-        $datetime   = new DateTime($detail->start_date);
-        $la_time    = new DateTimeZone($_SESSION["time_location"]);
-        $datetime->setTimezone($la_time);
-        $airtime    =$datetime->format('Y-m-d H:i:s');
-        
         $to_time    = strtotime(date("Y-m-d H:i:s"));
-        $from_time  = strtotime($airtime);
+        $from_time  = strtotime($detail->start_date);
         $selisih    = round(abs($to_time - $from_time) / 60);
-
         // echo "<pre>".print_r($selisih,true)."</pre>";
         // die;
 
@@ -98,14 +92,9 @@ class Meeting extends CI_Controller
             }
         }
         
-        $datetime   = new DateTime($detail->start_date);
-        $la_time    = new DateTimeZone($_SESSION["time_location"]);
-        $datetime->setTimezone($la_time);
-        $airtime    =$datetime->format('Y-m-d H:i:s');
-        
         $to_time    = strtotime(date("Y-m-d H:i:s"));
-        $from_time  = strtotime($airtime);
-        $selisih    = round(($to_time - $from_time) / 60);
+        $from_time  = strtotime($detail->start_date);
+        $selisih    = round(abs($to_time - $from_time) / 60);
 
         if ($_SESSION["user_id"]==$detail->id_member){
             if ($selisih<-15){
@@ -152,14 +141,9 @@ class Meeting extends CI_Controller
             }
         }
         
-        $datetime   = new DateTime($detail->start_date);
-        $la_time    = new DateTimeZone($_SESSION["time_location"]);
-        $datetime->setTimezone($la_time);
-        $airtime    =$datetime->format('Y-m-d H:i:s');
-        
         $to_time    = strtotime(date("Y-m-d H:i:s"));
-        $from_time  = strtotime($airtime);
-        $selisih    = round(($to_time - $from_time) / 60);
+        $from_time  = strtotime($detail->start_date);
+        $selisih    = round(abs($to_time - $from_time) / 60);
 
         if ($_SESSION["user_id"]==$detail->id_member){
             if ($selisih<-15){

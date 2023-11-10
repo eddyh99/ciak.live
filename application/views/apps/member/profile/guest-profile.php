@@ -109,12 +109,12 @@
                                             </button>
                                     <?php } 
                                         if (@$profile['price']->sub30>0){?>
-                                            <button id="btnsubsribe" onclick='subscribe(<?=$profile["id"]?>","sub30")' class="text-decoration-none col-5 m-2 p-2 mx-auto text-center text-white btn-guest-subs">
+                                            <button id="btnsubsribe" onclick='subscribe("<?=$profile["id"]?>","sub30")' class="text-decoration-none col-5 m-2 p-2 mx-auto text-center text-white btn-guest-subs">
                                                 1 Month <?=$profile['price']->sub30?>
                                             </button>
                                     <?php } 
                                         if (@$profile['price']->sub365>0){?>
-                                            <button id="btnsubsribe" onclick='subscribe(<?=$profile["id"]?>","sub365")' class="text-decoration-none col-5 m-2 p-2 mx-auto text-center text-white btn-guest-subs">
+                                            <button id="btnsubsribe" onclick='subscribe("<?=$profile["id"]?>","sub365")' class="text-decoration-none col-5 m-2 p-2 mx-auto text-center text-white btn-guest-subs">
                                                 1 Year <?=$profile['price']->sub365?>
                                             </button>
                                     <?php } ?>

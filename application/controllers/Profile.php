@@ -114,7 +114,6 @@ class Profile extends CI_Controller
             redirect("profile");
         }
 		$profile                 = (array) apiciaklive(URLAPI . "/auth/getmember_byucode?ucode=".$ucode)->message;
-
         $profile["is_follow"]    = apiciaklive(URLAPI . "/v1/member/profile/is_follow?follow_id=".$profile["id"])->message;
         $profile["is_block"]     = apiciaklive(URLAPI . "/v1/member/profile/is_block?block_id=".$profile["id"])->message;
         $profile["is_blocked"]   = apiciaklive(URLAPI . "/v1/member/profile/is_blocked?block_id=".$profile["id"])->message;
@@ -554,42 +553,6 @@ class Profile extends CI_Controller
         }elseif ($_SESSION["path"]=="homepage"){
             redirect("homepage");
         }
-    }
-    
-    public function sendtips(){
-        $input      = $this->input;
-        $amount     = $this->security->xss_clean($this->input->post("tipsamount"));
-        $id_member  = $this->security->xss_clean($this->input->post("id_membertips"));
-        if ($amount<0.5){
-            header("HTTP/1.0 406 Not Acceptable");
-            $message=array(
-    	            "success"   => false,
-    	            "message"   => "Minimum amount is 0.5"
-    	        );
-    	    echo json_encode($message);
-    	    die;
-        }
-        
-        $mdata=array(
-                "receiver_id"   => $id_member,
-                "amount"        => $amount
-            );
-        $url        = URLAPI . "/v1/member/profile/towallet";
-        $result     = apiciaklive($url,json_encode($mdata));
-        if ($result->code!=200){
-            header("HTTP/1.0 406 Not Acceptable");
-            $message=array(
-    	            "success"   => false,
-    	            "message"   => $result->message
-    	        );
-    	    echo json_encode($message);
-    	    die;
-        }
-        $message=array(
-	            "success"   => true,
-	            "message"   => true
-	        );
-	    echo json_encode($message);
     }
     
     public function reportpost($post_id,$reason){
