@@ -69,14 +69,17 @@
                                             <?php if (!isset($mn_search)) { ?>
                                                 <div class="action d-flex flex-row align-items-center">
                                                     <?php 
-                                                        if ($dt->type=='special'){
-                                                            if($dt->id_member!=$_SESSION["user_id"]){
+                                                        if ($dt->type=='download' && $dt->id_member != $_SESSION["user_id"] && $dt->is_download != 'yes'){
+                                                    ?>
+                                                        <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>"  data-bs-toggle="offcanvas" data-bs-target="#basketDownload<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
+                                                    <?php }
+                                                        if ($dt->type=='special' && $dt->id_member != $_SESSION["user_id"] && $dt->is_special != 'yes'){
                                                     ?>
                                                         <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
-                                                    <?php } }
+                                                    <?php } 
                                                         if ($dt->id_member!=$_SESSION["user_id"]){
                                                     ?>
-                                                        <a href="" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
+                                                        <a href="" onclick="popupSendTip('<?=$dt->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
                                                             <div class="bg-white-dollar rounded-circle"></div>
                                                             <i class="fa-solid fa-euro-sign"></i>
                                                         </a>

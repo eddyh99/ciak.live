@@ -1,13 +1,18 @@
 <?php
 /*----------------------------------------------------------
     Modul Name  : Modul Meeting
-    Desc        : Modul ini di gunakan untuk Meeting member
+    Desc        : Modul ini di gunakan untuk melakukan Live show,
+                  Cam2Cam, Meeting Room
                   
     Sub fungsi  : 
-
-
-
-        
+    - showlive          : Menampilkan halaman sebelum dimulai live show
+    - cekroom           : Validasi live show
+    - showcam           : Menampilkan halaman sebelum dimulai Cam2Cam
+    - cekroomcam        : Validasi Cam2Cam
+    - showmeeting       : Menampilkan halaman sebelum dimulai Meeting Room
+    - cekroommeeting    : Validasi Meeting Room
+    - follower_search   : Searching member follower
+    - inviteuser        : Invite member
 ------------------------------------------------------------*/ 
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -24,11 +29,7 @@ class Meeting extends CI_Controller
 
 
     public function showlive(){
-
         $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
-        // echo "<pre>".print_r($rtmp,true)."</pre>";
-        // die;
-
         $data = array(
             'title'         => NAMETITLE . ' - Meeting',
             'rtmp'          => $rtmp,
@@ -41,15 +42,11 @@ class Meeting extends CI_Controller
     public function cekroom(){
         $room_id   = $this->security->xss_clean($this->input->post("room"));
         $detail = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
-        
-        
+
         $to_time    = strtotime(date("Y-m-d H:i:s"));
         $from_time  = strtotime($detail->start_date);
         $selisih    = round(abs($to_time - $from_time) / 60);
-        // echo "<pre>".print_r($selisih,true)."</pre>";
-        // die;
-
-        
+ 
         if ($_SESSION["user_id"]==$detail->id_member){
             if ($selisih<-15){
                 header("HTTP/1.0 403 Forbidden");
@@ -83,6 +80,7 @@ class Meeting extends CI_Controller
     public function cekroomcam(){
         $room_id   = $this->security->xss_clean($this->input->post("room"));
         $detail = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+
         if ($detail->id_member!=$_SESSION["user_id"]){
             $guest = apiciaklive(URLAPI . "/v1/member/perform/getmember_byroom?room_id=".$room_id."&to_id=".$_SESSION["user_id"])->message;
             if (empty($guest)){
@@ -109,14 +107,15 @@ class Meeting extends CI_Controller
         }
         
         $data=array(
-                "performer" => ($detail->id_member==$_SESSION["user_id"]) ? true : false,
-                "username"  => ($detail->id_member==$_SESSION["user_id"]) ? $detail->username : $_SESSION["username"]
-            );
+            "performer" => ($detail->id_member==$_SESSION["user_id"]) ? true : false,
+            "username"  => ($detail->id_member==$_SESSION["user_id"]) ? $detail->username : $_SESSION["username"]
+        );
         echo json_encode($data);
     }
 
     public function showmeeting(){
         $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
+
         $data = array(
             'title'         => NAMETITLE . ' - Meeting',
             'content'       => 'apps/member/posting/meeting/app-meeting-room',
@@ -129,6 +128,7 @@ class Meeting extends CI_Controller
     public function cekroommeeting(){
         $room_id   = $this->security->xss_clean($this->input->post("room"));
         $detail = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+
         if ($detail->id_member!=$_SESSION["user_id"]){
             $guest = apiciaklive(URLAPI . "/v1/member/perform/getmember_byroom?room_id=".$room_id."&to_id=".$_SESSION["user_id"])->message;
             if (empty($guest)){
@@ -177,7 +177,6 @@ class Meeting extends CI_Controller
         $url = URLAPI . "/v1/member/follow/get_searchfollower?term=".$term;
         $result = @apiciaklive($url)->message;
 
-
         $data['search'] = $result;
         $data["roomid"] = $roomid;
         $this->load->view('apps/member/posting/meeting/app-profile-result', $data);
@@ -188,9 +187,7 @@ class Meeting extends CI_Controller
         $detail     = apiciaklive(URLAPI . "/v1/member/perform/getchat_byroom?room_id=".$room_id)->message;
         
         $guestid=$this->security->xss_clean($_GET["guestid"]);
-
         $post_time=date("Y-m-d H:i");
-        
         $mdata=array(
                 "to_user_id"    => $guestid,
                 "from_user_id"  => $_SESSION["user_id"],

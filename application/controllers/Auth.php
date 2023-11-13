@@ -6,8 +6,16 @@
 				  Login dan Registrasi
 
     Sub fungsi  : 
-        - page404    	: berfungsi Menampilkan Error 404
-        
+	- index    			: Menampilkan Login dan Registrasi
+	- page404    		: Berfungsi Menampilkan Error 404
+	- form_login    	: Menampilkan halaman login dan autentikasi validasi member
+	- form_signup    	: Menampilkan halaman Registrasi dan autentikasi validasi member
+	- signup_success    : Menampilkan halaman Registrasi berhasil
+	- signup_activate   : Menampilkan halaman aktivasi member pada email
+	- forget_pass   	: Menampilkan halaman Lupa password 
+	- recovery_pass   	: Validasi lupa password
+	- forgetpass_success : Menampilkan halaman Lupa password berhasil
+	- logout 			: Logout dari halaman beranda ciak.live
 ------------------------------------------------------------*/ 
 
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -74,11 +82,6 @@ class Auth extends CI_Controller
 				return;
 			}
 
-// 			$userCode = base_url() . 'qrcode/users/' . $result->message->ucode . '.png';
-// 			if (@getimagesize($userCode) == FALSE) {
-// 				generateQRCode($result->message->ucode, 'users', $result->message->ucode);
-// 			}
-
 			$session_data = array(
 				'user_id'   => $result->message->id,
 				'username'  => $result->message->username,
@@ -97,7 +100,6 @@ class Auth extends CI_Controller
 			redirect('homepage');
 		}
 	}
-
 
 	public function form_signup()
 	{
@@ -294,20 +296,20 @@ class Auth extends CI_Controller
 		redirect('/');
 	}
 
-	public function mode()
-	{
-		$this->session->unset_userdata('mode');
+	// public function mode()
+	// {
+	// 	$this->session->unset_userdata('mode');
 
-		$mode = $this->input->post('mode');
-		if ($mode == 'dark') {
-			$session_data = array(
-				'mode'   => NULL,
-			);
-		} else {
-			$session_data = array(
-				'mode'   => 'checked',
-			);
-		}
-		$this->session->set_userdata($session_data);
-	}
+	// 	$mode = $this->input->post('mode');
+	// 	if ($mode == 'dark') {
+	// 		$session_data = array(
+	// 			'mode'   => NULL,
+	// 		);
+	// 	} else {
+	// 		$session_data = array(
+	// 			'mode'   => 'checked',
+	// 		);
+	// 	}
+	// 	$this->session->set_userdata($session_data);
+	// }
 }

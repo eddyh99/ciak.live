@@ -1,78 +1,67 @@
+<?php foreach($guestpost as $dt){?>
 
-<!-- Modal Report -->
-<!-- <div class="modal fade" id="modalReport<?= $dt->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Report</h1>
-                <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
-            </div>
-            <div class="modal-body reportpost-wrapper">
-                <h5>Why are you reporting this post?</h5>
-                    <a onclick="reportpost('<?= $dt->id?>','spam')" class="d-flex justify-content-between p-2 bg-report">
-                        <div>
-                            It's spam
-                        </div>
-                        <div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </a>
-                    <a onclick="reportpost('<?= $dt->id?>','wrong-category')" class="d-flex justify-content-between p-2 bg-report">
-                        <div>
-                            Wrong category/explicit content/non explicit content 
-                        </div>
-                        <div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </a>
-                    <a onclick="reportpost('<?= $dt->id?>','hate-speech')" class="d-flex justify-content-between p-2 bg-report">
-                        <div>
-                            Hate speech or symbols
-                        </div>
-                        <div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </a>
-                    <a onclick="reportpost('<?= $dt->id?>','abusing')" class="d-flex justify-content-between p-2 bg-report">
-                        <div>
-                            Abusing Person
-                        </div>
-                        <div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </a>
-                    <a onclick="reportpost('<?= $dt->id?>','others')" class="d-flex justify-content-between p-2 bg-report">
-                        <div>
-                            Others
-                        </div>
-                        <div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </a>                                                
-                
-            </div>
+     <!-- OFF CANVAS BUY SPECIAL POST -->
+    <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="basketShopping<?= $dt->id?>"
+        aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small text-center pb-5">
+            <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel">$2.00</h5>
+            <p class="mt-1 mb-3">Are you sure to buy this post?</p>
+
+            <form action="<?=base_url()?>post/payspecial" method="post">
+                <input type="hidden" name="post_id" value="<?=$dt->id?>">
+                <input type="hidden" name="guest" value="guest">
+                <input type="hidden" name="ucodeguest" value="<?=$profile['ucode']?>">
+                <button type="submit" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+            </form>
         </div>
     </div>
-</div> -->
 
 
-<!-- Start Chart Ciak -->
-<?php foreach($guestpost as $dt){?>
-<div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="basketShopping<?= $dt->id?>"
-    aria-labelledby="offcanvasBottomLabel">
-    <div class="offcanvas-header">
-        <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
-            aria-label="Close"></button>
+    <!-- OFF CANVAS BUY DOWNLOAD POST -->
+    <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="basketDownload<?=$dt->id?>"
+        aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small text-center pb-5">
+            <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel"><?=$dt->price?> XEUR</h5>
+            <p class="mt-1 mb-3">Are you sure to buy this post?</p>
+            <form action="<?=base_url()?>post/paydownload" method="post">
+                <input type="hidden" name="post_id" value="<?=$dt->id?>">
+                <input type="hidden" name="guest" value="guest">
+                <input type="hidden" name="ucodeguest" value="<?=$profile['ucode']?>">
+                <button type="submit" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+            </form>
+        </div>
     </div>
-    <div class="offcanvas-body small text-center pb-5">
-        <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel">$2.00</h5>
-        <p class="mt-1 mb-3">Are you sure to buy this post?</p>
-        <form action="">
-            <input type="hidden" value="id">
-            <button  class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
-        </form>
+
+    <!-- OFFCANVAS SEND TIP -->
+    <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="sendTip<?= $dt->id?>"
+        aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small text-center pb-5">
+            <h5 class="offcanvas-title <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?> mx-auto" id="offcanvasBottomLabel">Send tip?</h5>
+            <form id="frmsendtips<?= $dt->id?>" method="post" class="d-flex flex-column" onsubmit="return false;">
+                <input type="hidden" name="owner_post" value="<?=$dt->id_member?>">
+                <div class="mt-2 mb-3">
+                    <div class="rounded-pill bg-input <?php echo ($dt->content_type == 'explicit') ? 'tip-explicit' : 'tip-nonexplicit'?>">
+                        <input type="text" name="amount" id="amount" placeholder="0.00 XEUR" value="0.5" class="rounded-pill money-input">
+                    </div>
+                </div>
+                <div class="">
+                    <button type="submit" id="btnsendtips<?= $dt->id?>" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 <?php }?>
 <!-- End Chart Ciak -->
 

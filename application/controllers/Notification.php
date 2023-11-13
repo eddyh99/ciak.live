@@ -6,8 +6,9 @@
                   pada Member 
 
     Sub fungsi  : 
-        - EXAMPLE    	: berfungsi Menampilkan Error 404
-        
+        - index    	        : Berfungsi Menampilkan semua notifikasi yang masuk
+        - clear_notif       : Menghapus semua notifikasi masuk
+        - delete_notif      : Menghapus secara spesifik notifikasi masuk
 ------------------------------------------------------------*/ 
 
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -26,10 +27,8 @@ class Notification extends CI_Controller
     public function index()
     {
         $followers   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
-        $url = URLAPI . "/v1/member/notification/getnotif";
-		$result = apiciaklive($url)->message;
-// 		print_r($result);
-// 		die;
+        $result = apiciaklive(URLAPI . "/v1/member/notification/getnotif")->message;
+
         $data = array(
             'title'         => NAMETITLE . ' - Notification',
             'content'       => 'apps/member/app-notif',

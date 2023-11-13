@@ -1,4 +1,22 @@
 <?php
+
+/*----------------------------------------------------------
+    Modul Name  : Modul Homepage
+    Desc        : Modul ini di gunakan untuk segala aktivitas di homepage
+                  atau halaman beranda
+
+    Sub fungsi  : 
+    - index    	        :   Menampikan semua postingan yang ada, 
+                            melakukan follow kepada member lain di header beranda
+                            menampilkan notification terkait follow,like,love,dll,
+                            menampilkan notifikasi chating.
+    - load_more         :   Infite Scroll max page post.
+    - recomend_friends  :   Recomend member ketika pertama kali login.
+    - get_content_type  :   Direct segment dengan cookie 
+                            untuk mendapatkan content explicit dan non 
+------------------------------------------------------------*/ 
+
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Homepage extends CI_Controller
@@ -9,6 +27,7 @@ class Homepage extends CI_Controller
         if (!$this->session->userdata('user_id')) {
             redirect('auth/form_login');
         }
+        
         $_SESSION["path"]="homepage";
 
 		$nonfollow = apiciaklive(URLAPI . "/v1/member/home/randomuser");
@@ -16,13 +35,10 @@ class Homepage extends CI_Controller
         $notif = apiciaklive(URLAPI . "/v1/member/notification/getnotif");
         $notifmsg = apiciaklive(URLAPI . "/v1/member/notification/chat_notif");
         $maxpage = apiciaklive(URLAPI . "/v1/member/post/getmax_page");
-    
-    
+
         //print_r(json_encode($post->message));
         // echo "<pre>".print_r($post,true)."</pre>";
         // die;
-
-
         $data = array(
             'title'         => NAMETITLE . ' - Homepage',
             'content'       => 'apps/member/app-index',
@@ -57,6 +73,7 @@ class Homepage extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
+    // Dimana berfungsinya ?
     public function search()
     {
         $data = [
@@ -70,6 +87,7 @@ class Homepage extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
+    // Dimana berfungsinya ?
     public function chat()
     {
         $data = [

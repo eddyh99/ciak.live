@@ -124,8 +124,8 @@ class Profile extends CI_Controller
 
 
     
-	    // print_r(json_encode($maxpost));
-        // die;
+	//  echo "<pre>".print_r($profile,true)."</pre>";
+    //     die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Guest Profile',

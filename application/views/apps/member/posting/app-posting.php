@@ -334,7 +334,7 @@
                     <?php if(empty($stitch)){?>
                     <div class="mx-auto d-flex justify-content-between col-12 col-lg-5 px-3 py-4">
                         <div>
-                            <select id="tipepost" class="form-select select-posting-type">
+                            <select id="tipepost" name="tipepost" class="form-select select-posting-type">
                                 <option value="public">Public</option>
                                 <option value="private">Private</option>
                                 <option value="special">Special</option>

@@ -1,15 +1,22 @@
 <?php
+/*----------------------------------------------------------
+    Modul Name  : Modul Link
+    Desc        : Modul ini di gunakan untuk segala aktivitas di Landing Page
+
+    Sub fungsi  : 
+    - index    	        :   Menampikan landing page ciak.live.
+    - guide             :   Menampilkan tentang guide secara general. 
+    - guides            :   Menampilkan detail guide secara spesifik.
+    - wallet            :   Menampilkan tentang wallet.
+    - privacy_police    :   Menampilkan Privacy Policy.
+    - term_condition    :   Menampilkan Term Condition.
+------------------------------------------------------------*/ 
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Link extends CI_Controller
 {
     public function index()
     {
-
-        // print_r(json_encode($_SESSION));
-        // die;
-
-
         $data = [
             'title' => NAMETITLE,
             'content' => 'landingpage/index',
