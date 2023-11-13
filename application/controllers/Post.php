@@ -35,15 +35,10 @@ class Post extends CI_Controller
             $_SESSION["content_type"]='non explicit';
         }
 
-        $url = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
-		$result = apiciaklive($url)->message;
+		$result = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
         $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
         $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
-
         // $vsdata = $this->session->flashdata('vs_data');
-
-        // echo "<pre>".print_r($follower,true)."</pre>";
-        // die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Post',
@@ -332,30 +327,72 @@ class Post extends CI_Controller
     
     public function payspecial(){
         $post_id  = $this->security->xss_clean($this->input->post("post_id"));
+        @$homepage  = $this->security->xss_clean($this->input->post("homepage"));
+        @$guest  = $this->security->xss_clean($this->input->post("guest"));
+        @$ucodeguest  = $this->security->xss_clean($this->input->post("ucodeguest"));
+        @$single  = $this->security->xss_clean($this->input->post("single"));
+
+        $mdata=array(
+            "homepage"      => @$homepage,
+            "guest"         => @$guest,
+            "ucodeguest"    => @$ucodeguest,
+            "single"        => @$single,
+        );
+
+
         $url = URLAPI . "/v1/member/post/paypost?post_id=".$post_id;
         $result = @apiciaklive($url);
-        // echo "<pre>".print_r($result,true)."</pre>";
+
+        // print_r($result);
         // die;
-        if ($result->code!=200){
+
+        if ($result->code==200){
+            redirect('profile/post/'.$post_id);
+        }else{
             $this->session->set_flashdata("error",$result->message);
-            //redirect ini menyesuaikan dimana posisi dia beli postingannya
-            redirect("homepage");
+            if(!empty($mdata['homepage'])){
+                    redirect("homepage");
+                }else if(!empty($mdata['guest'])){
+                        redirect("profile/guest_profile/".$mdata['ucodeguest']);
+            }else if(!empty($mdata['single'])){
+                    redirect("profile/post/".$post_id);
+            }else{
+                    redirect("searching");
+            }
         }
-        redirect('profile/post/'.$post_id);
     }
 
     public function paydownload(){
         $post_id  = $this->security->xss_clean($this->input->post("post_id"));
+        @$homepage  = $this->security->xss_clean($this->input->post("homepage"));
+        @$guest  = $this->security->xss_clean($this->input->post("guest"));
+        @$ucodeguest  = $this->security->xss_clean($this->input->post("ucodeguest"));
+        @$single  = $this->security->xss_clean($this->input->post("single"));
+
+        $mdata=array(
+            "homepage"      => @$homepage,
+            "guest"         => @$guest,
+            "ucodeguest"    => @$ucodeguest,
+            "single"        => @$single,
+        );
+
         $url = URLAPI . "/v1/member/post/pay_download?post_id=".$post_id;
         $result = @apiciaklive($url);
-        // echo "<pre>".print_r($result,true)."</pre>";
-        // die;
-        if ($result->code!=200){
+
+        if ($result->code==200){
+            redirect('profile/post/'.$post_id);
+        }else{
             $this->session->set_flashdata("error",$result->message);
-            //redirect ini menyesuaikan dimana posisi dia beli postingannya
-            redirect("homepage");
+            if(!empty($mdata['homepage'])){
+                    redirect("homepage");
+                }else if(!empty($mdata['guest'])){
+                        redirect("profile/guest_profile/".$mdata['ucodeguest']);
+            }else if(!empty($mdata['single'])){
+                    redirect("profile/post/".$post_id);
+            }else{
+                    redirect("searching");
+            }
         }
-        redirect('profile/post/'.$post_id);
     }
 
     public function givetips(){
@@ -370,7 +407,6 @@ class Post extends CI_Controller
 		            "message"   => "Minimum tips is 0.5 XEUR"
 		        );
 		    echo json_encode($message);
-    	    die;
         }
 
         if ($balance<$amount){
@@ -380,17 +416,17 @@ class Post extends CI_Controller
 		            "message"   => "Insufficient XEUR funds"
 		        );
 		    echo json_encode($message);
-    	    die;
         }
 
         $mdata = array(
                 "receiver"  => $owner_post,
                 "amount"    => $amount
             );
+            
+
         $url = URLAPI . "/v1/member/post/post_tips";
         $result = @apiciaklive($url,json_encode($mdata));
-            echo "<pre>".print_r($result,true)."</pre>";
-            die;
+
         if (@$result->code!=200||@$result->status==400){
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
@@ -398,15 +434,17 @@ class Post extends CI_Controller
 		            "message"   => (empty($result->message))?$result->messages:$result->message
 		        );
 		    echo json_encode($message);
-    	    die;
-    	  }
-        $message=array(
-	            "success"   => true,
-	            "message"   => true
-	        );
-	    echo json_encode($message);
-	    die;
+        }
+
+        if(@$result->code==200){
+            $message=array(
+                    "success"   => true,
+                    "message"   => "Success Give Tip"
+            );
+            echo json_encode($message);
+        }
     }
+
     
     // public function vs($id)
     // {

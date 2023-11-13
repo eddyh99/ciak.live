@@ -60,30 +60,18 @@
                                 <?php if (!isset($mn_search)) { ?>
                                     <div class="action d-flex flex-row align-items-center">
                                         <?php 
-                                            if ($dt->type=='special'){
-                                                if($dt->id_member!=$_SESSION["user_id"]){
+                                            if ($dt->type=='download' && $dt->id_member != $_SESSION["user_id"] && $dt->is_download != 'yes'){
                                         ?>
-                                            <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
-                                            <!-- OFF CANVAS BUY POST SPECIAL -->
-                                            <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="basketShopping<?= $dt->id?>"
-                                                aria-labelledby="offcanvasBottomLabel">
-                                                <div class="offcanvas-header">
-                                                    <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="offcanvas-body small text-center pb-5">
-                                                    <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel"><?=$dt->price?> XEUR</h5>
-                                                    <p class="mt-1 mb-3">Are you sure to buy this post?</p>
-                                                    <form action="<?=base_url()?>post/payspecial" method="post">
-                                                        <input type="hidden" name="post_id" value="<?=$dt->id?>">
-                                                        <button  class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        <?php } }
+                                            <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>"  data-bs-toggle="offcanvas" data-bs-target="#basketDownload<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
+                                        <?php 
+                                            }
+                                            if ($dt->type=='special' && $dt->id_member != $_SESSION["user_id"] && $dt->is_special != 'yes'){
+                                        ?>
+                                            <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>"   data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
+                                        <?php } 
                                             if ($dt->id_member!=$_SESSION["user_id"]){
                                         ?>
-                                            <a href="" id="sendTipClick" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
+                                            <a href="" id="sendTipClick" onclick="popupSendTip('<?=$dt->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
                                                 <div class="bg-white-dollar rounded-circle"></div>
                                                 <i class="fa-solid fa-euro-sign"></i>
                                             </a>
@@ -98,9 +86,7 @@
                                 <?php } ?>
                             </div>
 
-
-                            <!-- OFFCANVAS SEND TIP -->
-                            <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="sendTip<?= $dt->id?>"
+                            <!-- <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="sendTip<?= $dt->id?>"
                                 aria-labelledby="offcanvasBottomLabel">
                                 <div class="offcanvas-header">
                                     <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -108,19 +94,19 @@
                                 </div>
                                 <div class="offcanvas-body small text-center pb-5">
                                     <h5 class="offcanvas-title <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?> mx-auto" id="offcanvasBottomLabel">Send tip?</h5>
-                                    <form id="frmsendtips" class="d-flex flex-column" onsubmit="return false;">
+                                    <form id="frmsendtips" class="frmsendtips d-flex flex-column" onsubmit="return false;">
                                         <input type="hidden" name="owner_post" value="<?=$dt->id_member?>">
                                         <div class="mt-2 mb-3">
                                             <div class="rounded-pill bg-input <?php echo ($dt->content_type == 'explicit') ? 'tip-explicit' : 'tip-nonexplicit'?>">
-                                                <input type="text" name="amount" id="amount" placeholder="0.00 XEUR" value="0.50" class="rounded-pill">
+                                                <input type="text" name="amount" id="amount" placeholder="0.00 XEUR" value="0.5" class="rounded-pill money-input">
                                             </div>
                                         </div>
                                         <div class="">
-                                            <button type="submit" id="btnsendtips" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                                            <button type="submit" id="btnsendtips" class="btn btnsendtips <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- Modal Report -->
                             <div class="modal fade" id="modalReport<?= $dt->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -179,7 +165,6 @@
                             </div>
 
                             <div class="post-body">
-                         
                                 <div class="text">
                                     <?php 
                                         if ($dt->type=="public"){?>

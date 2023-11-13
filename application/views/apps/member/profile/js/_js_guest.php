@@ -47,6 +47,7 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 2. Infinite Loading Start        
 ------------------------------------------------------------*/ 
+
 $(function() {  
     $('.article').readmore({
         speed: 75, 
@@ -57,22 +58,29 @@ $(function() {
 
 
     var pages = 1;
+    var maxpage = $('.max-post-guest').val();
     $('.spinner-load-content').hide();
     $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-            pages += 1;
-            $('.spinner-load-content').show();
-            $.ajax({
-                url: `<?= base_url()?>profile/load_more_guest_public/<?= $ucodeguest;?>/${pages}`,
-                type: "GET",
-                success: function(html) {
-                    $('.spinner-load-content').hide();
-                    $('#load-post-guest-public').after(html);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("ERROR");
-                }
-            });
+        if((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
+            if(pages != maxpage){
+                pages++;
+                $.ajax({
+                    url: `<?= base_url()?>profile/load_more_guest_public/<?= $ucodeguest;?>/${pages}`,
+                    type: "GET",
+                    beforeSend: function(){
+                        $('.spinner-load-content').show();
+                    },
+                    success: function(html) {
+                        $('.spinner-load-content').hide();
+                        $('#load-post-guest-public').after(html);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("ERROR");
+                    }
+                });
+            } else {
+                return;
+            }
         }
     });
 
@@ -87,65 +95,90 @@ $(function() {
 
         var target = $(e.target).attr("href");
         var pages = 1;
+        var maxpage = $('.max-post-guest').val();
         $('.spinner-load-content').hide();
         $(window).scroll(function() {
-            if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+            if((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
                 if (target == '#private') {
-                    pages += 1;
-                    $('.spinner-load-content').show();
-                    $.ajax({
-                        url: `<?= base_url()?>profile/load_more_guest_private/<?= $ucodeguest;?>/${pages}`,
-                        type: "GET",
-                        success: function(html) {
-                            $('.spinner-load-content').hide();
-                            $('#load-post-guest-private').after(html);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("ERROR");
-                        }
-                    });
+                    if(pages != maxpage){
+                        pages++;
+                        $.ajax({
+                            url: `<?= base_url()?>profile/load_more_guest_private/<?= $ucodeguest;?>/${pages}`,
+                            type: "GET",
+                            beforeSend: function(){
+                                $('.spinner-load-content').show();
+                            },
+                            success: function(html) {
+                                $('.spinner-load-content').hide();
+                                $('#load-post-guest-private').after(html);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log("ERROR");
+                            }
+                        });
+                    } else {
+                        return;
+                    }
                 } else if(target == '#public') {
-                    pages += 1;
-                    $('.spinner-load-content').show();
-                    $.ajax({
-                        url: `<?= base_url()?>profile/load_more_guest_public/<?= $ucodeguest;?>/${pages}`,
-                        type: "GET",
-                        success: function(html) {
-                            $('.spinner-load-content').hide();
-                            $('#load-post-guest-public').after(html);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("ERROR");
-                        }
-                    });
+                    if(pages != maxpage){
+                        pages++;
+                        $.ajax({
+                            url: `<?= base_url()?>profile/load_more_guest_public/<?= $ucodeguest;?>/${pages}`,
+                            type: "GET",
+                            beforeSend: function(){
+                                $('.spinner-load-content').show();
+                            },
+                            success: function(html) {
+                                $('.spinner-load-content').hide();
+                                $('#load-post-guest-public').after(html);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log("ERROR");
+                            }
+                        });
+                    } else {
+                        return;
+                    }
                 } else if (target == '#special') {
-                    pages += 1;
-                    $('.spinner-load-content').show();
-                    $.ajax({
-                        url: `<?= base_url()?>profile/load_more_guest_special/<?= $ucodeguest;?>/${pages}`,
-                        type: "GET",
-                        success: function(html) {
-                            $('.spinner-load-content').hide();
-                            $('#load-post-guest-special').after(html);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("ERROR");
-                        }
-                    });
+                    if(pages != maxpage){
+                        pages++;
+                        $.ajax({
+                            url: `<?= base_url()?>profile/load_more_guest_special/<?= $ucodeguest;?>/${pages}`,
+                            type: "GET",
+                            beforeSend: function(){
+                                $('.spinner-load-content').show();
+                            },
+                            success: function(html) {
+                                $('.spinner-load-content').hide();
+                                $('#load-post-guest-special').after(html);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log("ERROR");
+                            }
+                        });
+                    } else  {
+                        return;
+                    }
                 } else if(target == '#download') {
-                    pages += 1;
-                    $('.spinner-load-content').show();
-                    $.ajax({
-                        url: `<?= base_url()?>profile/load_more_guest_download/<?= $ucodeguest;?>/${pages}`,
-                        type: "GET",
-                        success: function(html) {
-                            $('.spinner-load-content').hide();
-                            $('#load-post-guest-download').after(html);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("ERROR");
-                        }
-                    });
+                    if(pages != maxpage){
+                        pages++;
+                        $.ajax({
+                            url: `<?= base_url()?>profile/load_more_guest_download/<?= $ucodeguest;?>/${pages}`,
+                            type: "GET",
+                            beforeSend: function(){
+                                $('.spinner-load-content').show();
+                            },
+                            success: function(html) {
+                                $('.spinner-load-content').hide();
+                                $('#load-post-guest-download').after(html);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log("ERROR");
+                            }
+                        });
+                    } else {
+                        return;
+                    }
                 }
             }
         });

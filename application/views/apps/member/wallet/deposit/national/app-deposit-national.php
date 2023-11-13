@@ -3,6 +3,14 @@
         <div class="apps-body ptop pbot">
             <div class="apps-topbar alerts fixed-top light row">
                 <div class="apps-member mx-auto col-12 col-lg-5" style="border-bottom: none;">
+                    <?php if (@isset($_SESSION["failed"])) { ?>
+                        <div class="col-12 alert alert-danger alert-dismissible fade show" role="alert">
+                            <span class="notif-login f-poppins text-center "> 
+                                <?= $_SESSION["failed"] ?>
+                            </span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
                     <div class="alert-notif d-flex justify-content-between px-4 px-lg-0">
                         <div class="action-icon">
                             <a href="<?= base_url()?>wallet">

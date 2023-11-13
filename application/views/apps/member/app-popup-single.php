@@ -1,4 +1,4 @@
-<!-- Start Chart Ciak -->
+<!-- OFF CANVAS BUY SPECIAL POST -->
 <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="basketShopping<?= $posts->id?>"
     aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
@@ -8,17 +8,33 @@
     <div class="offcanvas-body small text-center pb-5">
         <h5 class="offcanvas-title mx-auto <?php echo ($posts->content_type == 'explicit') ? 'text-danger' : 'text-success'?> " id="offcanvasBottomLabel">$2.00</h5>
         <p class="mt-1 mb-3">Are you sure to buy this post?</p>
-        <form action="">
-            <input type="hidden" value="id">
-            <button class="btn <?php echo ($posts->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+        <form action="<?=base_url()?>post/payspecial" method="post">
+            <input type="hidden" name="post_id" value="<?=$posts->id?>">
+            <input type="hidden" name="single" value="single">
+            <button type="submit" class="btn <?php echo ($posts->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
         </form>
     </div>
 </div>
-<!-- End Chart Ciak -->
 
+<!-- OFF CANVAS BUY DOWNLOAD POST -->
+<div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="basketDownload<?=$posts->id?>"
+    aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body small text-center pb-5">
+        <h5 class="offcanvas-title mx-auto <?php echo ($posts->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel"><?=$posts->price?> XEUR</h5>
+        <p class="mt-1 mb-3">Are you sure to buy this post?</p>
+        <form action="<?=base_url()?>post/paydownload" method="post">
+            <input type="hidden" name="post_id" value="<?=$posts->id?>">
+            <input type="hidden" name="single" value="single">
+            <button type="submit" class="btn <?php echo ($posts->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+        </form>
+    </div>
+</div>
 
-
-<!-- Start Send Tip -->
+<!-- OFF CANVAS SEND TIP -->
 <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="sendTip<?= $posts->id?>"
     aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
@@ -27,36 +43,20 @@
     </div>
     <div class="offcanvas-body small text-center pb-5">
         <h5 class="offcanvas-title <?php echo ($posts->content_type == 'explicit') ? 'text-danger' : 'text-success'?> mx-auto" id="offcanvasBottomLabel">Send tip?</h5>
-        <form action="frmsendtips" class="d-flex flex-column">
-            <input type="hidden" name="id_membertips">
+        <form id="frmsendtips<?= $posts->id?>" method="post" class="d-flex flex-column" onsubmit="return false;">
+            <input type="hidden" name="owner_post" value="<?=$posts->id_member?>">
             <div class="mt-2 mb-3">
                 <div class="rounded-pill bg-input <?php echo ($posts->content_type == 'explicit') ? 'tip-explicit' : 'tip-nonexplicit'?>">
-                    <input type="text" name="tipsamount" id="tipsamount" placeholder="$0.00" value="0.5" class="rounded-pill">
+                    <input type="text" name="amount" id="amount" placeholder="$0.00" value="0.5" class="rounded-pill">
                 </div>
             </div>
             <div class="">
-                <button type="button" id="btnsendtips" class="btn <?php echo ($posts->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                <button type="submit" id="btnsendtips<?= $posts->id?>" class="btn <?php echo ($posts->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
             </div>
         </form>
     </div>
 </div>
-<!-- End Send Tip -->
 
-
-
-<!-- <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="settingMenus"
-    aria-labelledby="offcanvasBottomLabel">
-    <div class="offcanvas-header">
-        <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
-            aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body small pb-5">
-        <div class="d-flex flex-column setting-menus">
-            <a href="#" id="post_id">Show post</a>
-            <a href="#" id="report_post">Report this post</a>
-        </div>
-    </div>
-</div> -->
 
 <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="settingMenusSingle"
     aria-labelledby="offcanvasBottomLabel">

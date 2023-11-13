@@ -77,32 +77,75 @@ if (isset($extra)) {
     /*----------------------------------------------------------
     3. Send tips Start
     ------------------------------------------------------------*/ 
-    
-    //add swal alert if failed
-    $("#btnsendtips").on("click",function(e){
-        e.preventDefault();
-        if (parseFloat($("#amount").val())<0.5){
-            alert("Minimum amount is 0.5");
-            return
-        }
-        $("#sendTip").offcanvas('hide');
-        $.ajax({
-            url: "<?=base_url()?>post/givetips",
-            type: "post",
-            data: $("#frmsendtips").serialize(),
-            success: function (response) {
-                console.log(response);
-                if (response){
-                    //swall sukses
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-              console.log(textStatus, errorThrown);
-              //swal gagal
+    function popupSendTip(id){
+        $("#btnsendtips"+id).on("click",function(e){
+            e.preventDefault();
+            if (parseFloat($("#amount").val())<0.5){
+                alert("Minimum amount is 0.5");
+                return
             }
-        });
-    })
-    
+            $("#sendTip").offcanvas('hide');
+
+            $.ajax({
+                url: "<?=base_url()?>post/givetips",
+                type: "post",
+                data: $("#frmsendtips"+id).serialize(),
+                success: function (response) {
+                    let ress = JSON.parse(response)
+                    console.log(ress);
+                    if (ress.success == true){
+                        Swal.fire({
+                            html:  `<div class="d-flex justify-content-center">
+                                        <div>
+                                            <i class="fas fa-check text-success fs-3"></i>
+                                        </div>
+                                        <div class="ms-3">${ress.message}</div>
+                                    </div>`,
+                            showConfirmButton: false,
+                            background: '#323436',
+                            color: '#ffffff',
+                            position: 'top',
+                            timer: 1500,
+                        });
+                        $(".offcanvas").offcanvas('hide');
+                    }else{
+                        Swal.fire({
+                            html:  `<div class="d-flex justify-content-center">
+                                        <div>
+                                            <i class="fas fa-check text-success fs-3"></i>
+                                        </div>
+                                        <div class="ms-3">${ress.message}</div>
+                                    </div>`,
+                            showConfirmButton: false,
+                            background: '#323436',
+                            color: '#ffffff',
+                            position: 'top',
+                            timer: 1500,
+                        });
+                        $(".offcanvas").offcanvas('hide');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    Swal.fire({
+                        html:  `<div class="d-flex justify-content-center">
+                                    <div>
+                                    <i class="fas fa-times fs-3 text-danger"></i>
+                                    </div>
+                                    <div class="ms-3">Send Tip Failed</div>
+                                </div>`,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top',
+                        timer: 1500,
+                    });
+                    $(".offcanvas").offcanvas('hide');
+                }
+            });
+        })
+    }
+    //add swal alert if failed
+
     /*----------------------------------------------------------
     3. Send tips End        
     ------------------------------------------------------------*/ 
@@ -110,9 +153,6 @@ if (isset($extra)) {
     /*----------------------------------------------------------
     4. Report Post Start
     ------------------------------------------------------------*/ 
-    
-     //@todo : swal sukses
-     //swal failed
     function reportpost(id, reason)  {
          $("#settingMenus").offcanvas('hide');
         $.ajax({
@@ -200,16 +240,6 @@ if (isset($extra)) {
         vMin: '0.00'
     });
     
-    // $(document).ready(function(){
-    //     $('.article').readmore({
-    //       speed: 75, 
-    //       collapsedHeight: 50, 
-    //       moreLink: '<a class="ac" href="#">Read more</a>', 
-    //     });
-
-    // })
-
-
     
     function onReady(callback) {
         var intervalId = window.setInterval(function() {

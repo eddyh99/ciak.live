@@ -3,12 +3,16 @@
 /*----------------------------------------------------------
     Modul Name  : Modul Message
     Desc        : Modul ini di gunakan untuk mengirim dan menerima 
-                  Message antara sesama Member
+                  pesan antara sesama Member
 
     Sub fungsi  : 
-        - message_detail    : Tampilan member melakukan interakasi
-                              dengan member lain
-        
+    - index                 : Menampilkan serta dapat menghapus dafar member
+                              yang pernah chating
+    - message_detail        : Tampilan member melakukan interakasi
+                               dengan member lain
+    - history_chat          : Menampilkan History Chat
+    - follower_search       : Mencari member followers
+    - delete_message        : Menghapus chatigan yang ada di halaman list member chating
 ------------------------------------------------------------*/ 
 
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -27,8 +31,6 @@ class Message extends CI_Controller
     public function index()
     {
         $lastchat   = apiciaklive(URLAPI . "/v1/member/message/get_lastchat")->message;
-        // echo "<pre>".print_r($lastchat,true)."</pre>";
-        // die;
         $data = array(
             'title'         => NAMETITLE . ' - Message',
             'content'       => 'apps/member/message/app-message',
@@ -45,8 +47,6 @@ class Message extends CI_Controller
     public function message_detail($ucode)
     {
         $member = apiciaklive(URLAPI . "/auth/getmember_byucode?ucode=".$ucode)->message;
-        // print_r(json_encode($member));
-        // die;
         $data = array(
             'title'         => NAMETITLE . ' - Message',
             'content'       => 'apps/member/message/message-detail',

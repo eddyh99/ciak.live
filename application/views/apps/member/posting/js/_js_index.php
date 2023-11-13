@@ -82,6 +82,7 @@ $(document).ready(function(){
 
     $(".icon-upload-attach").click(function() {
         $("#hidden-iconpost").toggle();
+        $('select[name*="tipepost"] option[value="special"]').remove();
     });
 
 });
@@ -608,6 +609,7 @@ $(document).ready(function(){
             $("#postprice").val("0.5");
             $("#postprice").attr("readonly",false);
             $("#forsubs-wrap").hide();
+            $('.icon-upload-attach').hide();
         }else{
             $("#postprice").show();
             $("#postprice").val("0.5");

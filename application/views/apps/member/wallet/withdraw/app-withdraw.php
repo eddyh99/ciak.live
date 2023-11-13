@@ -51,9 +51,20 @@
                         </div>
                         <div class="my-5">
                             <select name="currencycode" class="form-select select-currency-withdraw">
-                                <?php foreach ($currency as $dt){?>
-                                <option value="<?=$dt->currency?>"><?=$dt->currency?></option>
-                                <?php }?>
+                                <?php foreach ($currency as $dt){
+                                    if(
+                                        $dt->currency != 'BGN' && $dt->currency != 'BWP' &&
+                                        $dt->currency != 'CRC' && $dt->currency != 'CHF' &&
+                                        $dt->currency != 'RUB' && $dt->currency != 'UYU' &&
+                                        $dt->currency != 'XEUR' && $dt->currency != 'XOF' &&
+                                        $dt->currency != 'ZMW' 
+                                    ){
+                                ?>    
+                                    <option value="<?=$dt->currency?>"><?=$dt->currency?></option>
+                                <?php 
+                                        }
+                                    }
+                                ?>
                             </select>
                         </div>
                                 

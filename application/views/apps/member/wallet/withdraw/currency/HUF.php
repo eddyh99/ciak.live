@@ -4,6 +4,6 @@
 </div>
 
 <div class="withdraw-national-field mb-4">
-    <label for="IBAN">IBAN</label><br>
-    <input type="text" name="IBAN" id="IBAN" autocomplete="off">
+    <label for="iban">IBAN</label><br>
+    <input type="text" name="iban" id="iban" autocomplete="off">
 </div>

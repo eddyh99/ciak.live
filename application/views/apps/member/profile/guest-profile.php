@@ -1,3 +1,4 @@
+<input hidden id="max-post-guest" class="max-post-guest" type="text" value="<?= $max_post?>">
 <div class="apps-body">
     <!-- Looping username serta dengan pengkondisian -->
         <div class="row">
@@ -187,15 +188,10 @@
                                                     </div>
                                                     <?php if (!isset($mn_search)) { ?>
                                                         <div class="action d-flex flex-row align-items-center">
-                                                            <?php 
-                                                                if ($dt->type=='special'){
-                                                                    if($dt->id_member!=$_SESSION["user_id"]){
-                                                            ?>
-                                                                <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
-                                                            <?php } }
+                                                            <?php
                                                                 if ($dt->id_member!=$_SESSION["user_id"]){
                                                             ?>
-                                                                <a href="" id="sendTipClick" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
+                                                                <a href="" id="sendTipClick" onclick="popupSendTip('<?=$dt->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
                                                                     <div class="bg-white-dollar rounded-circle"></div>
                                                                     <i class="fa-solid fa-euro-sign"></i>
                                                                 </a>
@@ -208,29 +204,6 @@
                                                             <?php }?>
                                                         </div>
                                                     <?php } ?>
-
-                                                    <!-- SEND TIPS -->
-                                                    <div class="offcanvas offcanvas-bottom popup-bottom rounded-top" tabindex="-1" id="sendTip<?= $dt->id?>"
-                                                        aria-labelledby="offcanvasBottomLabel">
-                                                        <div class="offcanvas-header">
-                                                            <button type="button" class="ms-auto btn-close text-reset" data-bs-dismiss="offcanvas"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="offcanvas-body small text-center pb-5">
-                                                            <h5 class="offcanvas-title <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?> mx-auto" id="offcanvasBottomLabel">Send tip?</h5>
-                                                            <form action="frmsendtips" class="d-flex flex-column">
-                                                                <input type="hidden" name="id_membertips">
-                                                                <div class="mt-2 mb-3">
-                                                                    <div class="rounded-pill bg-input <?php echo ($dt->content_type == 'explicit') ? 'tip-explicit' : 'tip-nonexplicit'?>">
-                                                                        <input type="text" name="tipsamount" id="tipsamount" placeholder="$0.00" value="0.5" class="rounded-pill">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="">
-                                                                    <button type="button" id="btnsendtips" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
 
                                                     <!-- Modal Report -->
                                                     <div class="modal fade" id="modalReport<?= $dt->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -469,14 +442,9 @@
                                                 <?php if (!isset($mn_search)) { ?>
                                                     <div class="action d-flex flex-row align-items-center">
                                                         <?php 
-                                                            if ($dt->type=='special'){
-                                                                if($dt->id_member!=$_SESSION["user_id"]){
-                                                        ?>
-                                                            <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
-                                                        <?php } }
                                                             if ($dt->id_member!=$_SESSION["user_id"]){
                                                         ?>
-                                                            <a href="" id="sendTipClick" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
+                                                            <a href="" id="sendTipClick" onclick="popupSendTip('<?=$dt->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
                                                                 <div class="bg-white-dollar rounded-circle"></div>
                                                                 <i class="fa-solid fa-euro-sign"></i>
                                                             </a>
@@ -788,14 +756,13 @@
                                                         <?php if (!isset($mn_search)) { ?>
                                                             <div class="action d-flex flex-row align-items-center">
                                                                 <?php 
-                                                                    if ($dt->type=='special'){
-                                                                        if($dt->id_member!=$_SESSION["user_id"]){
+                                                                    if ($dt->type=='special' && $dt->id_member != $_SESSION["user_id"] && $dt->is_special != 'yes'){
                                                                 ?>
                                                                     <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
-                                                                <?php } }
+                                                                <?php }
                                                                     if ($dt->id_member!=$_SESSION["user_id"]){
                                                                 ?>
-                                                                    <a href="" id="sendTipClick" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
+                                                                    <a href="" id="sendTipClick" onclick="popupSendTip('<?=$dt->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
                                                                         <div class="bg-white-dollar rounded-circle"></div>
                                                                         <i class="fa-solid fa-euro-sign"></i>
                                                                     </a>
@@ -1057,14 +1024,13 @@
                                                         <?php if (!isset($mn_search)) { ?>
                                                             <div class="action d-flex flex-row align-items-center">
                                                                 <?php 
-                                                                    if ($dt->type=='special'){
-                                                                        if($dt->id_member!=$_SESSION["user_id"]){
+                                                                    if ($dt->type=='download' && $dt->id_member != $_SESSION["user_id"] && $dt->is_download != 'yes'){
                                                                 ?>
-                                                                    <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
-                                                                <?php } }
+                                                                    <a href="" class="icon color-bp rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>"  data-bs-toggle="offcanvas" data-bs-target="#basketDownload<?= $dt->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
+                                                                <?php }
                                                                     if ($dt->id_member!=$_SESSION["user_id"]){
                                                                 ?>
-                                                                    <a href="" id="sendTipClick" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
+                                                                    <a href="" id="sendTipClick" onclick="popupSendTip('<?=$dt->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($dt->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $dt->id?>" aria-controls="offcanvasBottom">
                                                                         <div class="bg-white-dollar rounded-circle"></div>
                                                                         <i class="fa-solid fa-euro-sign"></i>
                                                                     </a>

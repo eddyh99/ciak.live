@@ -56,12 +56,12 @@
                                 </div>
                                 <?php if (!isset($mn_search)) { ?>
                                     <div class="action d-flex flex-row align-items-center">
-                                        <?php if ($posts->type=='special'){?>
+                                        <?php if ($posts->type=='special' && $posts->id_member != $_SESSION["user_id"] && $posts->is_special != 'yes'){?>
                                             <a href="" class="icon color-bp rounded-circle <?php echo ($posts->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>" data-bs-toggle="offcanvas" data-bs-target="#basketShopping<?= $posts->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-basket-shopping"></i></a>
                                         <?php }
                                             if ($posts->id_member!=$_SESSION["user_id"]){
                                         ?>
-                                            <a href="" class="icon color-bp dollar rounded-circle <?php echo ($posts->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $posts->id?>" aria-controls="offcanvasBottom">
+                                            <a href="" onclick="popupSendTip('<?=$posts->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($posts->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $posts->id?>" aria-controls="offcanvasBottom">
                                                 <div class="bg-white-dollar rounded-circle"></div>
                                                 <i class="fa-solid fa-euro-sign"></i>
                                             </a>
