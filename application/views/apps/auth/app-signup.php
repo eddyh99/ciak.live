@@ -49,13 +49,17 @@ if (set_value('agree')) {
                 </div>
                 <div class="mb-2">
                     <label for="pass" class="form-label fw-bold">Password</label>
-                    <input type="password" class="form-control py-2 rounded-pill" id="pass" name="pass" placeholder="******" required>
-                    <?= form_error('pass', '<small class="text-danger d-block text-end">', '</small>'); ?>
+                    <div class="d-flex align-items-center bg-pw-login rounded-pill">
+                        <input type="password" class="form-control py-2" id="password" name="pass" placeholder="******" required>
+                        <i class="far fa-eye me-3" id="togglePassword" style="cursor: pointer" toggle="#password"></i>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="passconfirm" class="form-label fw-bold">Confirm Password</label>
-                    <input type="password" class="form-control py-2 rounded-pill" id="passconfirm" name="passconfirm" placeholder="******"  required>
-                    <?= form_error('passconfirm', '<small class="text-danger d-block text-end">', '</small>'); ?>
+                    <div class="d-flex align-items-center bg-pw-login rounded-pill">
+                        <input type="password" class="form-control py-2" id="password1" name="passconfirm" placeholder="******" required>
+                        <i class="far fa-eye me-3" id="togglePassword1" style="cursor: pointer" toggle="#password1"></i>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="referral" class="form-label fw-bold">Referral code (optional)</label>

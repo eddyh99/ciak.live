@@ -57,6 +57,7 @@ class Auth extends CI_Controller
 		$data = [
 			'title' => NAMETITLE . ' - Login',
 			'content' => 'apps/auth/app-login',
+			'extra'	=> 'apps/auth/js/js_login'
 		];
 
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
@@ -120,6 +121,7 @@ class Auth extends CI_Controller
 		$data = [
 			'title' => NAMETITLE . ' - Signup',
 			'content' => 'apps/auth/app-signup',
+			'extra'	=> 'apps/auth/js/js_login'
 		];
 
 		$this->form_validation->set_rules('email', 'E-mail', 'trim|required|valid_email');

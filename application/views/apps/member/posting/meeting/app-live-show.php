@@ -128,8 +128,8 @@
         <hr>
         <div class="row mt-5 mb-3 ms-2 me-2 d-flex justify-content-center">
             <div class="row col-lg-12 justify-content-center text-center text-white">
-                <!-- <label>This show will cost <?=$mdata["price"]." ".$mdata["currency"]?></label> -->
-                <label>Balance will be deducted from your wallet each minutes</label>
+                <label><span id="costjoin"></span></label>
+                <label><strong><span id="notifjoin"></span></strong></label>
                 <hr>
                 <strong>Do You Want to join?</strong>
             </div>

@@ -35,7 +35,10 @@
                 </div>
                 <div class="mb-2">
                     <label for="pass" class="form-label fw-bold">Password</label>
-                    <input type="password" class="form-control py-2 rounded-pill" id="pass" name="pass" placeholder="******">
+                    <div class="d-flex align-items-center bg-pw-login rounded-pill">
+                        <input type="password" class="form-control py-2" id="password" name="pass" placeholder="******">
+                        <i class="far fa-eye me-3" id="togglePassword" style="cursor: pointer" toggle="#password"></i>
+                    </div>
                 </div>
                 <div class="mb-5 text-end foget-pass">
                     <a href="<?= base_url() ?>auth/forget_pass" class="me-3">Forgot Password?</a>

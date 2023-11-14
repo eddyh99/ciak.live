@@ -56,18 +56,18 @@
 
     <div class="row">
         <div class="apps-member col-12 col-lg-5 d-flex align-items-center mx-auto px-4">
-            <button class="btn btn-hide px-2 d-flex align-items-center" id="hideadive">
+            <!-- <button class="btn btn-hide px-2 d-flex align-items-center" id="hideadive">
                 <span>Hide</span> 
                 <i id="iconhide" class="fa fa-eye ms-1"></i>
-            </button>
+            </button> -->
             <div class="d-flex justify-content-between w-100">
-                <div>
+                <!-- <div>
                     <a class="link">
                         <span class="mode-toggle">
                             <span class="switch"></span>
                         </span>
                     </a>
-                </div>
+                </div> -->
                 <div class="d-flex align-items-center">
                     <span class="span-text-toogle-explicit">Explicit contents</span>
                     <a class="link-content mt-1 ms-2">

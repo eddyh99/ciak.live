@@ -110,18 +110,20 @@ function actionFollow(user, ucode) {
     });
 }
 
-function subscribe(ucode,jenis ){
+function subscribe(ucode,jenis){
     $.ajax({
         url: "<?=base_url()?>profile/subscribe",
         type: "post",
         data: "ucode="+ucode+"&jenis="+jenis,
         success: function (response) {
+            console.log(response);
             if (response){
                 $("#subscribeleft").show();
                 $("#subscribebox").hide();
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
+            console.log("ERROR SUBS");
            console.log(textStatus, errorThrown);
         }
     });
