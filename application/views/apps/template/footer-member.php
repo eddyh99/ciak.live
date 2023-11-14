@@ -258,6 +258,18 @@ if (isset($extra)) {
         setVisible('.apps-container', true);
         setVisible('#loading', false);
     });
+
+
+
+    // DISABLED BUTTON BUY SPECIAL START  
+    $('.frmspecial').submit(function(){
+        $('.btn-buy-special').prop('disabled', true);
+    });
+    $('.frmdownload').submit(function(){
+        $('.btn-buy-download').prop('disabled', true);
+    });
+    // DISABLED BUTTON BUY SPECIAL END 
+
     
 
     

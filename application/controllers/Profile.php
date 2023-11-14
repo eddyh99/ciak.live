@@ -124,8 +124,9 @@ class Profile extends CI_Controller
 
 
     
-	//  echo "<pre>".print_r($profile,true)."</pre>";
-    //     die;
+	    // echo "<pre>".print_r($profile,true)."</pre>";
+        // print_r(json_encode($profile));
+        // die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Guest Profile',
@@ -440,6 +441,8 @@ class Profile extends CI_Controller
             
         $url    = URLAPI . "/v1/member/subscription/add";
         $result = apiciaklive($url,json_encode($mdata));
+        print_r($result->code);
+        die;
         if ($result->code!=200){
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
@@ -450,10 +453,12 @@ class Profile extends CI_Controller
     	    die;
         }
         $message=array(
-	            "success"   => true,
-	            "message"   => true
-	        );
-	    echo json_encode($message);
+            "success"   => true,
+            "message"   => true
+        );
+        redirect("profile/guest_profile/".$subscribe_id);
+        // redirect('profile/guest_profile/'.$subscribe_id);
+	    // echo json_encode($message);
         
     }
     

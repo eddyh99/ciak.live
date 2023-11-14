@@ -25,11 +25,11 @@
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M4 12C4 11.4477 4.44772 11 5 11L11 11C11.5523 11 12 11.4477 12 12C12 12.5523 11.5523 13 11 13L5 13C4.44772 13 4 12.5523 4 12Z"/>
                             </svg>
                         </a>
-                        <a class="link pt-3 px-0 px-md-3" style="z-index: 999;">
+                        <!-- <a class="link pt-3 px-0 px-md-3" style="z-index: 999;">
                             <span class="mode-toggle">
                                 <span class="switch"></span>
                             </span>
-                        </a>
+                        </a> -->
                         <div class="img-profile">
                             <div class="img rounded-circle">
                                 <img src="<?=$profile["profile"]?>" alt="" class="rounded-circle">
@@ -45,16 +45,18 @@
                             </svg>
 
                         </a>
-                        
-                        <a onclick="eventpopup('<?=$profile['id']?>')" style="cursor:pointer" class="icon-profile"  data-bs-toggle="offcanvas" data-bs-target="#blockeduser" aria-controls="offcanvasBottom">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" fill="#181A1C"/>
-                                <path d="M22.0123 22.9197C21.1017 20.4841 18.7534 18.75 16 18.75C13.2467 18.75 10.8984 20.4841 9.98778 22.9197M22.0123 22.9197C23.9449 21.2391 25.1667 18.7622 25.1667 16C25.1667 10.9374 21.0627 6.83333 16 6.83333C10.9374 6.83333 6.83337 10.9374 6.83337 16C6.83337 18.7622 8.05515 21.2391 9.98778 22.9197M22.0123 22.9197C20.4028 24.3193 18.3004 25.1667 16 25.1667C13.6997 25.1667 11.5972 24.3193 9.98778 22.9197M18.75 13.25C18.75 14.7688 17.5188 16 16 16C14.4813 16 13.25 14.7688 13.25 13.25C13.25 11.7312 14.4813 10.5 16 10.5C17.5188 10.5 18.75 11.7312 18.75 13.25Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-                                <line x1="7.39221" y1="12.3027" x2="23.3922" y2="21.3027" stroke="white" stroke-width="1.6"/>
-                                <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="#727477"/>
-                            </svg>
+                            <?php if($profile['ucode'] != 'rqzqkqx'){?>
+                                <a onclick="eventpopup('<?=$profile['id']?>')" style="cursor:pointer" class="icon-profile"  data-bs-toggle="offcanvas" data-bs-target="#blockeduser" aria-controls="offcanvasBottom">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" fill="#181A1C"/>
+                                        <path d="M22.0123 22.9197C21.1017 20.4841 18.7534 18.75 16 18.75C13.2467 18.75 10.8984 20.4841 9.98778 22.9197M22.0123 22.9197C23.9449 21.2391 25.1667 18.7622 25.1667 16C25.1667 10.9374 21.0627 6.83333 16 6.83333C10.9374 6.83333 6.83337 10.9374 6.83337 16C6.83337 18.7622 8.05515 21.2391 9.98778 22.9197M22.0123 22.9197C20.4028 24.3193 18.3004 25.1667 16 25.1667C13.6997 25.1667 11.5972 24.3193 9.98778 22.9197M18.75 13.25C18.75 14.7688 17.5188 16 16 16C14.4813 16 13.25 14.7688 13.25 13.25C13.25 11.7312 14.4813 10.5 16 10.5C17.5188 10.5 18.75 11.7312 18.75 13.25Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                                        <line x1="7.39221" y1="12.3027" x2="23.3922" y2="21.3027" stroke="white" stroke-width="1.6"/>
+                                        <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="#727477"/>
+                                    </svg>
 
-                        </a>
+                                </a>
+                            <?php } ?>
+
                         <?php }else{?>
                             <a class="icon-profile ms-auto me-3"></a>
                             <a onclick="eventpopup('<?=$profile['id']?>')" style="cursor:pointer" class="icon-profile"  data-bs-toggle="offcanvas" data-bs-target="#unblockuser" aria-controls="offcanvasBottom">
@@ -86,9 +88,11 @@
                         </div>
                 </div>
                 <?php if (!$profile["is_block"] && !$profile["is_blocked"]){?>
-                    <div class="action-profile text-center mx-auto d-flex justify-content-center">
-                        <input type="button" value="<?=($profile["is_follow"]==true) ? "Unfollow":"Follow" ?>" id="user1" class="col-8 col-md-4 mx-auto btn-main-green follow <?=($profile["is_follow"]==true) ? "active":"" ?> py-2" onclick="actionFollow('1','<?=$profile["id"]?>')">
-                    </div>
+
+                        <div class="action-profile text-center mx-auto d-flex justify-content-center" disable>
+                            <input type="button" value="<?=($profile["is_follow"]==true) ? "Unfollow":"Follow" ?>" id="user1" 
+                                class="<?=($profile["ucode"]=='rqzqkqx') ? "disabled-follow":"" ?> col-8 col-md-4 mx-auto btn-main-green follow <?=($profile["is_follow"]==true) ? "active":"" ?> py-2" onclick="actionFollow('1','<?=$profile["id"]?>')">
+                        </div>
                     <?php if ($profile["dayleft"]<=0){?>
                         <div id="subscribebox" class="mt-4 action-guest-subs">
                                 <?php if(@$profile['price']->trial>0 || @$profile['price']->sub7>0 || @$profile['price']->sub30>0 || @$profile['price']->sub365>0) {?>

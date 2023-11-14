@@ -128,6 +128,15 @@ $.ajax({
             performer=true;
             connection.extra.roomOwner = true;
         }else if (data.performer===false){
+            if (data.meeting_type=="free"){
+                $("#notifjoin").html("This show is free");
+            }else if (data.meeting_type=="ticket"){
+                $("#costjoin").html("This show will cost "+data.price+" XEUR");
+                $("#notifjoin").html("Balance will be deducted from your wallet");
+            }else if (data.meeting_type=="minutes"){
+                $("#costjoin").html("This show will cost "+data.price+" XEUR/minutes");
+                $("#notifjoin").html("Balance will be deducted from your wallet each minutes");
+            }
             $('#load-edit-profile').hide()
             $('.please-click-join-live').text('Please click join button');
             $("#btnopen").html("Join");
@@ -187,7 +196,7 @@ $("#startlive").on("click",function(){
             rtmpurl=$("#others1").val();
         }
 
-        console.log("188 + " + rtmpurl);
+        $("#livemodal-connect").modal("hide");	
         connect_server();
         connection.open(broadcastId, function(isRoomOpened, roomid, error) {
             if (error) {
@@ -210,29 +219,39 @@ $("#startlive").on("click",function(){
 
 
 $("#btnconfirm").on("click",function(){
-    $("#confirmjoin").modal("hide");
-        connection.join(broadcastId, function(isRoomJoined, roomid, error) {
-            if (error) {
-                if (error === connection.errors.ROOM_NOT_AVAILABLE) {
-                    alert('This room does not exist. Please either create it or wait for moderator to enter in the room.');
-                    return;
+    $.ajax({
+        url: "<?=base_url()?>meeting/confirmjoin",
+        type: "post",
+        data: "room="+broadcastId,
+        success: function (response) {
+            $("#confirmjoin").modal("hide");
+            connection.join(broadcastId, function(isRoomJoined, roomid, error) {
+                if (error) {
+                    if (error === connection.errors.ROOM_NOT_AVAILABLE) {
+                        alert('This room does not exist. Please either create it or wait for moderator to enter in the room.');
+                        return;
+                    }
+                    if (error === connection.errors.ROOM_FULL) {
+                        alert('Room is full.');
+                        return;
+                    }
+                    alert(error);
+                }else{
+                    connection.extra.broadcastuser +=1;
+                    $("#btnopen").attr("disabled","true");
+                    $('.please-click-join-live').hide();
                 }
-                if (error === connection.errors.ROOM_FULL) {
-                    alert('Room is full.');
-                    return;
-                }
-                alert(error);
-            }else{
-                connection.extra.broadcastuser +=1;
-                $("#btnopen").attr("disabled","true");
-                $('.please-click-join-live').hide();
-            }
-
-            connection.socket.on('disconnect', function() {
-                location.reload();
+        
+                connection.socket.on('disconnect', function() {
+                    location.reload();
+                });
             });
-        });
-    
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+            window.location.href="<?=base_url()?>homepage"
+        }
+    });
 })
 
 $("#btnleave").on("click",function(){

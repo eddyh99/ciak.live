@@ -156,6 +156,12 @@
     margin-top: auto;
 }
 
+.disabled-follow {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 @media (max-height: 720px) {
     .mt-auth-auto {
         margin-top: 5rem;
@@ -608,6 +614,14 @@
     background: var(--bg-auth-input);
 }
 
+.apps-container.auth .apps-body .apps-auth .form-login .bg-pw-login {
+    background: var(--bg-auth-input) ;
+}
+
+.apps-container.auth .apps-body .apps-auth .form-login .bg-pw-login input {
+    background: transparent;
+}
+
 .apps-container.auth .apps-body .apps-auth .form-login input,
 .apps-container.auth .apps-body .apps-auth .form-login input:focus {
     font-weight: 300;
@@ -616,6 +630,8 @@
     border: none;
     color: var(--text-white-color);
 }
+
+
 
 .apps-container.auth .apps-body .apps-auth .form-login input::placeholder {
     color: #595959;

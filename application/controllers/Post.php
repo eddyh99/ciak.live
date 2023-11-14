@@ -184,6 +184,7 @@ class Post extends CI_Controller
             3. jika pilih_price = 'minutes' => durasi boleh kosong dan priceshow >=0.5
         **/
         
+        $time   = $this->security->xss_clean($this->input->post("time"));
         $schedule   = $this->security->xss_clean($this->input->post("schedule"));
         $selection  = $this->security->xss_clean($this->input->post("selection"));
         $pilih_price= $this->security->xss_clean($this->input->post("pilih_price"));
@@ -236,8 +237,15 @@ class Post extends CI_Controller
             $this->session->set_flashdata('failed', $result->message);
 	        return;
 		}
+
+        if($time == 'now'){
+            redirect("meeting/showlive?room_id=".$result->message->roomid);
+        }
+
+        redirect("homepage");
+
+
 		
-		redirect("homepage");
 
     }
     

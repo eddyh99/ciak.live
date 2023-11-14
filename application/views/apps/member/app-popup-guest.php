@@ -10,12 +10,11 @@
         <div class="offcanvas-body small text-center pb-5">
             <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel">$2.00</h5>
             <p class="mt-1 mb-3">Are you sure to buy this post?</p>
-
-            <form action="<?=base_url()?>post/payspecial" method="post">
+            <form class="frmspecial" action="<?=base_url()?>post/payspecial" method="post">
                 <input type="hidden" name="post_id" value="<?=$dt->id?>">
                 <input type="hidden" name="guest" value="guest">
                 <input type="hidden" name="ucodeguest" value="<?=$profile['ucode']?>">
-                <button type="submit" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                <button type="submit" class="btn btn-buy-special <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
             </form>
         </div>
     </div>
@@ -31,11 +30,11 @@
         <div class="offcanvas-body small text-center pb-5">
             <h5 class="offcanvas-title mx-auto <?php echo ($dt->content_type == 'explicit') ? 'text-danger' : 'text-success'?>"  id="offcanvasBottomLabel"><?=$dt->price?> XEUR</h5>
             <p class="mt-1 mb-3">Are you sure to buy this post?</p>
-            <form action="<?=base_url()?>post/paydownload" method="post">
+            <form class="frmdownload" action="<?=base_url()?>post/paydownload" method="post">
                 <input type="hidden" name="post_id" value="<?=$dt->id?>">
                 <input type="hidden" name="guest" value="guest">
                 <input type="hidden" name="ucodeguest" value="<?=$profile['ucode']?>">
-                <button type="submit" class="btn <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
+                <button type="submit" class="btn btn-buy-download <?php echo ($dt->content_type == 'explicit') ? 'btn-orange' : 'btn-main-green'?> rounded-pill px-4">Confirm</button>
             </form>
         </div>
     </div>

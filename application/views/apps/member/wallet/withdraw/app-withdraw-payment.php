@@ -36,9 +36,9 @@
                             ($_SESSION['withdraw']['currencycode'] == "EUR") ||
                             ($_SESSION['withdraw']['currencycode'] == "GBP")
                         ) { ?> 
-                        <a href="<?= base_url()?>withdraw/withdraw_international" class="withdraw-payment text-center my-4">
+                        <!-- <a href="<?= base_url()?>withdraw/withdraw_international" class="withdraw-payment text-center my-4">
                             International
-                        </a>
+                        </a> -->
                         <?php }?>
                         <!-- <a href="<?= base_url()?>withdraw/to_wallet" class="withdraw-payment text-center my-4">
                             Wallet to wallet

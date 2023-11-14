@@ -47,23 +47,24 @@ class Meeting extends CI_Controller
         $from_time  = strtotime($detail->start_date);
         $selisih    = round(abs($to_time - $from_time) / 60);
  
-        if ($_SESSION["user_id"]==$detail->id_member){
-            if ($selisih<-15){
-                header("HTTP/1.0 403 Forbidden");
-                echo "You can't open chat room yet, please start 15 minutes before";
-                return;
-            }elseif ($selisih>15){
-                header("HTTP/1.0 403 Forbidden");
-                echo "Room link has been expired, please create another";
-                return;
-            }
-        }
+        // if ($_SESSION["user_id"]==$detail->id_member){
+        //     if ($selisih<-15){
+        //         header("HTTP/1.0 403 Forbidden");
+        //         echo "You can't open chat room yet, please start 15 minutes before";
+        //         return;
+        //     }elseif ($selisih>15){
+        //         header("HTTP/1.0 403 Forbidden");
+        //         echo "Room link has been expired, please create another";
+        //         return;
+        //     }
+        // }
         
         $data=array(
                 "performer"     => ($detail->id_member==$_SESSION["user_id"]) ? true : false,
                 "username"      => ($detail->id_member==$_SESSION["user_id"]) ? $detail->username : $_SESSION["username"],
                 "meeting_type"  => $detail->meeting_type,
-                "purpose"       => $detail->purpose
+                "purpose"       => $detail->purpose,
+                "price"         => $detail->price
             );
         echo json_encode($data);
     }
@@ -108,7 +109,8 @@ class Meeting extends CI_Controller
         
         $data=array(
             "performer" => ($detail->id_member==$_SESSION["user_id"]) ? true : false,
-            "username"  => ($detail->id_member==$_SESSION["user_id"]) ? $detail->username : $_SESSION["username"]
+            "username"  => ($detail->id_member==$_SESSION["user_id"]) ? $detail->username : $_SESSION["username"],
+            "price"     => $detail->price
         );
         echo json_encode($data);
     }
@@ -168,6 +170,31 @@ class Meeting extends CI_Controller
             );
         }
         echo json_encode($data);
+    }
+    
+    public function confirmjoin(){
+        $room_id    = $this->security->xss_clean($this->input->post("room"));
+
+        $balance    = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance;
+        $detail     = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+
+        if ($detail->price>$balance){
+            header("HTTP/1.0 403 Forbidden");
+            echo "Insufficient XEUR Balance";
+            return;
+        }
+        
+        $url = URLAPI . "/v1/member/perform/confirm_join?room_id=".$room_id;
+        $result = @apiciaklive($url);
+
+        print_r($result);
+        die;
+
+        // if (@$result->code!=200){
+        //     header("HTTP/1.0 403 Forbidden");
+        //     echo $result->message;
+        //     return;
+        // }
     }
     
     public function follower_search(){
