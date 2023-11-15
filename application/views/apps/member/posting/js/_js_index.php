@@ -31,6 +31,7 @@ Desc        : Modul ini di digunakan untuk melakukan
     * 11. Settings Live Show
     * 12. Settings Cam2Cam
     * 13. Searching Invite Guest
+    * 14. Class Explicit Content
 */
 
 
@@ -800,29 +801,18 @@ $(document).ready(function(){
 13.  Searching Invite Guest End 
 ------------------------------------------------------------*/   
 
-// $(document).ready(function(){
-//     $('.owl-vs').owlCarousel({
-//         loop: false,
-//         margin: 10,
-//         dots: true,
-//         responsive:{
-//             0:{
-//                 items:1
-//             },
-//             600:{
-//                 items:1
-//             },
-//             1000:{
-//                 items:1
-//             },
-//             1200:{
-//                 items:1
-//             }
-//         }
-//     });
-// });
-
-
+/*----------------------------------------------------------
+14.  Class Explicit Content Start 
+------------------------------------------------------------*/   
+<?php if($_SESSION['content_type'] == 'explicit'){?>
+    document.body.classList.add('explicit');
+<?php } else {?>
+    document.body.classList.remove('explicit');
+<?php } ?>
+        
+/*----------------------------------------------------------
+14.  Class Explicit Content End 
+------------------------------------------------------------*/   
 
 
 </script>

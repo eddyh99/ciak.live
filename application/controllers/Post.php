@@ -35,6 +35,7 @@ class Post extends CI_Controller
             $_SESSION["content_type"]='non explicit';
         }
 
+
 		$result = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
         $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
         $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;

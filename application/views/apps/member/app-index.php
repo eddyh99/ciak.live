@@ -61,13 +61,13 @@
                 <i id="iconhide" class="fa fa-eye ms-1"></i>
             </button> -->
             <div class="d-flex justify-content-between w-100">
-                <!-- <div>
-                    <a class="link">
+                <div>
+                    <!-- <a class="link">
                         <span class="mode-toggle">
                             <span class="switch"></span>
                         </span>
-                    </a>
-                </div> -->
+                    </a> -->
+                </div>
                 <div class="d-flex align-items-center">
                     <span class="span-text-toogle-explicit">Explicit contents</span>
                     <a class="link-content mt-1 ms-2">
