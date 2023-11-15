@@ -110,21 +110,20 @@ function actionFollow(user, ucode) {
     });
 }
 
-function subscribe(ucode,jenis){
+function subscribe(ucode, jenis){
     $.ajax({
-        url: "<?=base_url()?>profile/subscribe",
-        type: "post",
+        url: "<?= base_url()?>profile/subscribe",
+        type: "POST",
         data: "ucode="+ucode+"&jenis="+jenis,
-        success: function (response) {
-            console.log(response);
-            if (response){
-                $("#subscribeleft").show();
-                $("#subscribebox").hide();
+        success: function(html) {
+            var data=JSON.parse(html);
+            if (data.success){
+                location.reload();
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log("ERROR SUBS");
-           console.log(textStatus, errorThrown);
+            //munculin toast errornya
+            console.log("ERROR");
         }
     });
 }
@@ -498,9 +497,9 @@ $('body').on('hidden.bs.modal', '.modal', function () {
 10. Toggle for Content Explicit Start
 ------------------------------------------------------------*/
 
-$('#explicit').on('click', function(){
-    localStorage.setItem('explicit', 'yes');
-});
+// $('#explicit').on('click', function(){
+//     localStorage.setItem('explicit-post', 'yes');
+// });
 
 let bodyContentHome = document.querySelector("body"),
 modeToggleContentHome = body.querySelector(".mode-toggle-content");

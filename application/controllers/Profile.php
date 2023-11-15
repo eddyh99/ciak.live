@@ -435,14 +435,14 @@ class Profile extends CI_Controller
         }
         
         $mdata  = array(
-                "subscribe_id"  => $subscribe_id,
-                "jenis"         => $jenis
-            );
+            "subscribe_id"  => $subscribe_id,
+            "jenis"         => $jenis
+        );
             
         $url    = URLAPI . "/v1/member/subscription/add";
         $result = apiciaklive($url,json_encode($mdata));
-        print_r($result->code);
-        die;
+
+
         if ($result->code!=200){
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
@@ -456,9 +456,9 @@ class Profile extends CI_Controller
             "success"   => true,
             "message"   => true
         );
-        redirect("profile/guest_profile/".$subscribe_id);
+	    echo json_encode($message);
+        // redirect("profile/guest_profile/".$subscribe_id);
         // redirect('profile/guest_profile/'.$subscribe_id);
-	    // echo json_encode($message);
         
     }
     

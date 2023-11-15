@@ -187,14 +187,11 @@ class Meeting extends CI_Controller
         $url = URLAPI . "/v1/member/perform/confirm_join?room_id=".$room_id;
         $result = @apiciaklive($url);
 
-        print_r($result);
-        die;
-
-        // if (@$result->code!=200){
-        //     header("HTTP/1.0 403 Forbidden");
-        //     echo $result->message;
-        //     return;
-        // }
+        if (@$result->code!=200){
+            header("HTTP/1.0 403 Forbidden");
+            echo $result->message;
+            return;
+        }
     }
     
     public function follower_search(){
