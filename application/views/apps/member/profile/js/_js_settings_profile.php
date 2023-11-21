@@ -51,14 +51,10 @@ let $modal_banner = $('#modal_banner');
 let crop_image_banner = document.getElementById('sample_image_banner');
 
 let cropper;
-if(JSON.parse(localStorage.getItem('image-pp')) == null){
-    toDataURL("<?=$profile->profile?>", function(dataUrl) {
-        localStorage.setItem('image-pp',JSON.stringify(dataUrl));
-        $('.img-pp-setting').attr("src", "<?=$profile->profile?>");
-    })
-}else {
-    $('.img-pp-setting').attr("src", img_pp_storage);
-}
+toDataURL("<?=$profile->profile?>", function(dataUrl) {
+    localStorage.setItem('image-pp',JSON.stringify(dataUrl));
+    $('.img-pp-setting').attr("src", "<?=$profile->profile?>");
+})
 
 $('#upload_image').change(function(event){
     let files = event.target.files;
@@ -122,14 +118,10 @@ $('#pp-crop-cancel').click(function(){
 2. Photo Banner Setting Start        
 ------------------------------------------------------------*/ 
 
-if(JSON.parse(localStorage.getItem('image-banner')) == null){
-    toDataURL("<?=$profile->header?>", function(dataUrl) {
-        localStorage.setItem('image-banner',JSON.stringify(dataUrl));
-        $('.img-banner-setting').attr("src", "<?=$profile->header?>");
-    });
-}else {
-    $('.img-banner-setting').attr("src", img_banner_storage);
-}
+toDataURL("<?=$profile->header?>", function(dataUrl) {
+    localStorage.setItem('image-banner',JSON.stringify(dataUrl));
+    $('.img-banner-setting').attr("src", "<?=$profile->header?>");
+});
 
 
 $('#upload_banner').change(function(event){

@@ -243,7 +243,7 @@ function subscribe(ucode, jenis){
         type: "POST",
         data: "ucode="+ucode+"&jenis="+jenis,
         success: function(html) {
-            //location.reload();
+            location.reload();
         },
         error: function(jqXHR, textStatus, errorThrown) {
             //munculin toast errornya

@@ -150,6 +150,25 @@ $.ajax({
     }
 });
 
+function payperminutes(){
+    $.ajax({
+        url: "<?=base_url()?>meeting/confirmjoin",
+        type: "post",
+        data: "room="+broadcastId,
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+            window.location.href="<?=base_url()?>homepage"
+        }
+    });
+}
+
+if (meeting_type=="minutes" && !performer){){
+    setInterval(payperminutes, 58000);
+}
+
 $("#btnopen").on("click",function(){
     $("#txt-chat-message").removeAttr("disabled");
     $("#btn-chat-message").removeAttr("disabled");

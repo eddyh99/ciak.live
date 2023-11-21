@@ -6,7 +6,7 @@
     <div class="content py-3 py-sm-5">
         <div class="col-12 content-wallet">
             <div class="col-12 mt-5 pt-5 text-white ms-0 ms-lg-5">
-                <h4>Privacy Police</h4>
+                <h4>Privacy Policy</h4>
                 <span>
                     At <span translate="no"> Ciak.live </span>, accessible from <span translate="no"> www.ciak.live </span> , one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by <span translate="no"> Ciak.live </span>  and how we use it.
                     If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.
@@ -30,6 +30,12 @@
                     <span translate="no"> Ciak.live’s </span> Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
                     You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers' respective websites. 
                 </span>
+                <h4 class="pt-4">Google API Service: User Data Policy</h4>
+                <span>
+                    <span translate="no"> Ciak.live </span> only uses information received from Google APIs to get the RTMP server URL and store it in our system. This RTMP URL is used for broadcast streaming to your YouTube account. This process is not mandatory, and you can choose to use it or not by connecting your account.
+                    <span translate="no"> Ciak.live </span> use and transfer to any other app of information received from Google APIs will adhere to <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Google API Services User Data Policy</a>, including the Limited Use requirements.
+                </span>
+
                 <h4 class="pt-4">Online Privacy Policy Only</h4>
                 <span>
                     Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.

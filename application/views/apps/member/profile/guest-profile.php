@@ -8,13 +8,15 @@
                 </div>
                 <div class="profile mb-4">
                     <div class="d-flex flex-row position-relative user">
-                        <?php if ($profile["is_share"]=="yes" && !$profile["is_block"] && !$profile["is_blocked"]){?>
+                        <?php if ($profile["is_share"]=="yes" && !$profile["is_block"] && !$profile["is_blocked"] && $profile["ucode"]!='rqzqkqx'){?>
                             <a class="icon-profile span-text-toogle-explicit" style="cursor:pointer" onclick="setClipboard('<?=base_url()?>profile/user/<?=$profile['ucode']?>')">
                                 <svg class="stroke-share-color" width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M6.59 12.51L13.42 16.49M13.41 5.51L6.59 9.49M19 4C19 5.65685 17.6569 7 16 7C14.3431 7 13 5.65685 13 4C13 2.34315 14.3431 1 16 1C17.6569 1 19 2.34315 19 4ZM7 11C7 12.6569 5.65685 14 4 14C2.34315 14 1 12.6569 1 11C1 9.34315 2.34315 8 4 8C5.65685 8 7 9.34315 7 11ZM19 18C19 19.6569 17.6569 21 16 21C14.3431 21 13 19.6569 13 18C13 16.3431 14.3431 15 16 15C17.6569 15 19 16.3431 19 18Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>                           
                             </a>
-                        <?php }?>
+                        <?php }
+                        if ($profile["ucode"]!='rqzqkqx'){
+                        ?>
                         <a href="<?= base_url()?>profile/guest_note/<?=$profile["ucode"]?>" class="icon-profile span-text-toogle-explicit ms-0 ms-md-2">
                             <svg class="fill-note-color" width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M18 4C18 4.55228 17.5523 5 17 5L11 5C10.4477 5 10 4.55228 10 4C10 3.44771 10.4477 3 11 3L17 3C17.5523 3 18 3.44772 18 4Z"/>
@@ -25,6 +27,7 @@
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M4 12C4 11.4477 4.44772 11 5 11L11 11C11.5523 11 12 11.4477 12 12C12 12.5523 11.5523 13 11 13L5 13C4.44772 13 4 12.5523 4 12Z"/>
                             </svg>
                         </a>
+                        <?}?>
                         <!-- <a class="link pt-3 px-0 px-md-3" style="z-index: 999;">
                             <span class="mode-toggle">
                                 <span class="switch"></span>
@@ -36,7 +39,9 @@
                             </div>
                         </div>
         
-                        <?php if (!$profile["is_block"] && !$profile["is_blocked"]){?>
+                        <?php if (!$profile["is_block"] && !$profile["is_blocked"]){
+                                if ($profile["ucode"]!='rqzqkqx'){
+                        ?>
                         <a href="<?=base_url()?>message/message_detail/<?=$profile["ucode"]?>" class="icon-profile ms-auto me-3">
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" fill="black"/>
@@ -45,7 +50,7 @@
                             </svg>
 
                         </a>
-                            <?php if($profile['ucode'] != 'rqzqkqx'){?>
+                            <?php }if($profile['ucode'] != 'rqzqkqx'){?>
                                 <a onclick="eventpopup('<?=$profile['id']?>')" style="cursor:pointer" class="icon-profile"  data-bs-toggle="offcanvas" data-bs-target="#blockeduser" aria-controls="offcanvasBottom">
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" fill="#181A1C"/>
@@ -83,17 +88,18 @@
                                 <?php if (@$profile["is_emailshare"]=='yes'){?>
                                     <a href="mailto:<?= @$profile["email"]?>" class="location mb-2"><?=@$profile["email"]?></a>
                                 <?php }?>
-                                <p><a href="<?=@$profile["web"]?>" class="location mb-2"><?=@$profile["web"]?></a></p>
+                                <p><a href="<?=(preg_match("/http/",@$profile->web)>0)?@$profile->web:"https://".@$profile->web?>" class="location mb-2"><?=@$profile["web"]?></a></p>
                             <?php }?>
                         </div>
                 </div>
-                <?php if (!$profile["is_block"] && !$profile["is_blocked"]){?>
-
+                <?php if (!$profile["is_block"] && !$profile["is_blocked"]){
+                        if ($profile["ucode"]!='rqzqkqx'){
+                ?>
                         <div class="action-profile text-center mx-auto d-flex justify-content-center" disable>
                             <input type="button" value="<?=($profile["is_follow"]==true) ? "Unfollow":"Follow" ?>" id="user1" 
                                 class="<?=($profile["ucode"]=='rqzqkqx') ? "disabled-follow":"" ?> col-8 col-md-4 mx-auto btn-main-green follow <?=($profile["is_follow"]==true) ? "active":"" ?> py-2" onclick="actionFollow('1','<?=$profile["id"]?>')">
                         </div>
-                    <?php if ($profile["dayleft"]<=0){?>
+                    <?php }if ($profile["dayleft"]<=0){?>
                         <div id="subscribebox" class="mt-4 action-guest-subs">
                                 <?php if(@$profile['price']->trial>0 || @$profile['price']->sub7>0 || @$profile['price']->sub30>0 || @$profile['price']->sub365>0) {?>
                                     <div class="action-profile text-center mx-auto d-flex justify-content-center mb-3">

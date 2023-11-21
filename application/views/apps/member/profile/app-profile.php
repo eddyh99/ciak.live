@@ -78,7 +78,7 @@
                     <?php if (@$profile->is_emailshare=='yes'){?>
                         <a href="mailto:<?= @$profile->email?>" class="location mb-2"><?=@$profile->email?></a>
                     <?php }?>
-                    <p><a href="<?=@$profile->web?>" target="_blank"><?=@$profile->web?></a></a></p>
+                    <p><a href="<?=(preg_match("/http/",@$profile->web)>0)?@$profile->web:"https://".@$profile->web?>" target="_blank"><?=@$profile->web?></a></a></p>
                 </div>
             </div>
             

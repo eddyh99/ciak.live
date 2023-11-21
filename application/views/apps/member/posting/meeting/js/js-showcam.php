@@ -68,35 +68,47 @@ $("#btnopen").on("click",function(){
 })
 
 $("#btnconfirm").on("click",function(){
-    is_joined=true;
-    $("#confirmjoin").modal("hide");
-    connection.checkPresence(room_id, function(isRoomExist, roomid) {
-        if (isRoomExist === true) {
-            $("#btnopen").attr("disabled","true");
-            $("#btncamera").removeAttr("disabled");
-
-            // $.get("<?=base_url()?>broadcast/paycam", {roomid: room_id}).done(function(data){
-            //     if (data==0){
-            //             connection.getAllParticipants().forEach(function(pid) {
-            //                 connection.disconnectWith(pid);
-            //             });
-                    
-            //             connection.attachStreams.forEach(function(localStream) {
-            //                 localStream.stop();
-            //             });
-                    
-            //             connection.closeSocket();
-            //             window.location.href="<?=base_url()?>my"
-            //     }else{
-            //         console.log("123");
-                    connection.join(roomid);
-            //     }
-            // });
-        } else {
-            alert("Performer not open the room");
+    $.ajax({
+        url: "<?=base_url()?>meeting/confirmjoin",
+        type: "post",
+        data: "room="+broadcastId,
+        success: function (response) {
+            is_joined=true;
+            $("#confirmjoin").modal("hide");
+            connection.checkPresence(room_id, function(isRoomExist, roomid) {
+                if (isRoomExist === true) {
+                    $("#btnopen").attr("disabled","true");
+                    $("#btncamera").removeAttr("disabled");
+                } else {
+                    alert("Performer not open the room");
+                }
+            });
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+            window.location.href="<?=base_url()?>homepage"
         }
     });
 })
+
+function payperminutes(){
+    $.ajax({
+        url: "<?=base_url()?>meeting/confirmjoin",
+        type: "post",
+        data: "room="+broadcastId,
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+            window.location.href="<?=base_url()?>homepage"
+        }
+    });
+}
+
+if (!performer){
+    setInterval(payperminutes, 58000);
+}
 
 $("#btncamera").on("click",function(){
     if (camera===true){
