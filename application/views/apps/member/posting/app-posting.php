@@ -198,7 +198,7 @@
                                             <option value="schedule">Schedule</option>
                                         </select>
                                     </div>
-                                    <input type="text" id="schedule" name="schedule" class="form-control my-3" placeholder="Select your schedule">
+                                    <input type="text" id="schedule" name="schedule" class="form-control my-3" placeholder="Select your schedule" autocomplete="off">
                                 </div>
                                 <div class="col-6 d-flex align-items-center">
                                     <label class="pe-3 span-text-toogle-explicit">Selection</label>

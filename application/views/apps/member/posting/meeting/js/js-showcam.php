@@ -27,6 +27,7 @@ var room_id = url.searchParams.get("room_id");
 var performer=false;
 var camera=true;
 var is_joined=false;
+var statusPayperMinutes = false;
 
 $.ajax({
     url: "<?=base_url()?>meeting/cekroomcam",
@@ -35,6 +36,7 @@ $.ajax({
     success: function (response) {
         console.log(response);
         var data=JSON.parse(response);
+        console.log(data);
         if (data.performer===true){
             $('#load-edit-profile').hide()
             $("#btnopen").show();
@@ -44,16 +46,19 @@ $.ajax({
             $('#load-edit-profile').hide()
             $("#btnopen").show();
             $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Join');
+            $("#costjoin").html("This show will cost "+data.price+" XEUR");
+            $("#notifjoin").html("Balance will be deducted from your wallet");
             performer=false;
-        }else{
-            $('#load-edit-profile').hide()
-            alert(data);
-            window.location.href="<?=base_url()?>homepage"
         }
+    },
+    error: function (request, status, error) {
+        alert(request.responseText);
+        window.location.href="<?=base_url()?>homepage";
     }
 });
 
 $("#btnopen").on("click",function(){
+    console.log(performer);
     if (!performer){
         $("#confirmjoin").modal("show");
     }else if (performer){
@@ -67,48 +72,51 @@ $("#btnopen").on("click",function(){
     }
 })
 
+function payperminutes(){
+    if(!performer){
+        $.ajax({
+            url: "<?=base_url()?>meeting/confirmjoin",
+            type: "post",
+            data: "room="+room_id,
+            success: function (response) {
+                console.log(response);
+                console.log("PAY");
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+                window.location.href="<?=base_url()?>homepage"
+            }
+        });
+    }
+}
+
+setInterval(()=>{
+        console.log(statusPayperMinutes);
+        if(statusPayperMinutes === true){
+            payperminutes()
+        }else{
+            return;
+        }
+    }, 58000
+);
+
 $("#btnconfirm").on("click",function(){
-    $.ajax({
-        url: "<?=base_url()?>meeting/confirmjoin",
-        type: "post",
-        data: "room="+broadcastId,
-        success: function (response) {
-            is_joined=true;
-            $("#confirmjoin").modal("hide");
-            connection.checkPresence(room_id, function(isRoomExist, roomid) {
-                if (isRoomExist === true) {
-                    $("#btnopen").attr("disabled","true");
-                    $("#btncamera").removeAttr("disabled");
-                } else {
-                    alert("Performer not open the room");
-                }
-            });
-        },
-        error: function (request, status, error) {
-            alert(request.responseText);
-            window.location.href="<?=base_url()?>homepage"
+    $("#confirmjoin").modal("hide");
+    connection.checkPresence(room_id, function(isRoomExist, roomid) {
+        if (isRoomExist === true) {
+            console.log(isRoomExist);
+            console.log("MASUK CAM");
+            $("#btnopen").attr("disabled","true");
+            $("#btncamera").removeAttr("disabled");
+            payperminutes();
+            statusPayperMinutes = true;
+        } else {
+            alert("Performer not open the room");
         }
     });
 })
 
-function payperminutes(){
-    $.ajax({
-        url: "<?=base_url()?>meeting/confirmjoin",
-        type: "post",
-        data: "room="+broadcastId,
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (request, status, error) {
-            alert(request.responseText);
-            window.location.href="<?=base_url()?>homepage"
-        }
-    });
-}
 
-if (!performer){
-    setInterval(payperminutes, 58000);
-}
 
 $("#btncamera").on("click",function(){
     if (camera===true){

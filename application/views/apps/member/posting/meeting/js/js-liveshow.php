@@ -87,11 +87,12 @@ var broadcastId = url.searchParams.get("room_id");
 var meeting_type;
 var purpose;
 var rtmpurl;
+var statusPayperMinutes = false;
 
 var performer=false;
 var connection = new RTCMultiConnection();
 connection.socketURL = 'https://muazkhan.com:9001/';
-connection.socketMessageEvent = 'cial-liveshow';
+connection.socketMessageEvent = 'ciak-liveshow';
 connection.extra.broadcastuser = 0;
 
 // keep room opened even if owner leaves
@@ -146,28 +147,37 @@ $.ajax({
     },
     error: function (request, status, error) {
         alert(request.responseText);
-        window.location.href="<?=base_url()?>homepage"
+        window.location.href="<?=base_url()?>homepage";
     }
 });
 
 function payperminutes(){
-    $.ajax({
-        url: "<?=base_url()?>meeting/confirmjoin",
-        type: "post",
-        data: "room="+broadcastId,
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (request, status, error) {
-            alert(request.responseText);
-            window.location.href="<?=base_url()?>homepage"
-        }
-    });
+    if(meeting_type=="minutes" && !performer){
+        $.ajax({
+            url: "<?=base_url()?>meeting/confirmjoin",
+            type: "post",
+            data: "room="+broadcastId,
+            success: function (response) {
+                console.log(response);
+                console.log("PAY");
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+                window.location.href="<?=base_url()?>homepage"
+            }
+        });
+    }
 }
 
-if (meeting_type=="minutes" && !performer){){
-    setInterval(payperminutes, 58000);
-}
+setInterval(()=>{
+        console.log(statusPayperMinutes);
+        if(statusPayperMinutes === true){
+            payperminutes()
+        }else{
+            return;
+        }
+    }, 58000
+);
 
 $("#btnopen").on("click",function(){
     $("#txt-chat-message").removeAttr("disabled");
@@ -238,38 +248,29 @@ $("#startlive").on("click",function(){
 
 
 $("#btnconfirm").on("click",function(){
-    $.ajax({
-        url: "<?=base_url()?>meeting/confirmjoin",
-        type: "post",
-        data: "room="+broadcastId,
-        success: function (response) {
-            $("#confirmjoin").modal("hide");
-            connection.join(broadcastId, function(isRoomJoined, roomid, error) {
-                if (error) {
-                    if (error === connection.errors.ROOM_NOT_AVAILABLE) {
-                        alert('This room does not exist. Please either create it or wait for moderator to enter in the room.');
-                        return;
-                    }
-                    if (error === connection.errors.ROOM_FULL) {
-                        alert('Room is full.');
-                        return;
-                    }
-                    alert(error);
-                }else{
-                    connection.extra.broadcastuser +=1;
-                    $("#btnopen").attr("disabled","true");
-                    $('.please-click-join-live').hide();
-                }
-        
-                connection.socket.on('disconnect', function() {
-                    location.reload();
-                });
-            });
-        },
-        error: function (request, status, error) {
-            alert(request.responseText);
-            window.location.href="<?=base_url()?>homepage"
+    $("#confirmjoin").modal("hide");
+    connection.join(broadcastId, function(isRoomJoined, roomid, error) {
+        if (error) {
+            if (error === connection.errors.ROOM_NOT_AVAILABLE) {
+                alert('This room does not exist. Please either create it or wait for moderator to enter in the room.');
+                return;
+            }
+            if (error === connection.errors.ROOM_FULL) {
+                alert('Room is full.');
+                return;
+            }
+            alert(error);
+        }else{
+            connection.extra.broadcastuser +=1;
+            $("#btnopen").attr("disabled","true");
+            $('.please-click-join-live').hide();
+            payperminutes();
+            statusPayperMinutes = true;
         }
+
+        connection.socket.on('disconnect', function() {
+            location.reload();
+        });
     });
 })
 
