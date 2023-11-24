@@ -35,19 +35,18 @@
       <div class="modal-body">
         <div class="row p-2 d-flex justify-content-center text-center">
             <div class="col-4">
-                <!-- <img id="imgprofilep" src="<?=$mdata["profile"]?>" height="100px" width="100px" style="object-fit:cover" class="rounded-circle"> -->
+                <img src="<?= base_url()?>assets/img/new-ciak/logo.png" id="imgprofilep" height="100px" width="100px" style="object-fit:cover">
             </div>
-            <!-- <div class="col-12"><span id="nicknamep" class="nickname"><?=$mdata["nickname"]?></span></div> -->
         </div>
         <hr>
         <div class="row mt-5 mb-3 ms-2 me-2 d-flex justify-content-center">
-            <div class="row col-lg-12 justify-content-center text-center">
-                <!-- <label>This Meeting will cost <?=$mdata["price"]." ".$mdata["currency"]?></label> -->
-                <label>Balance will be deducted from your wallet each minutes</label>
+            <div class="row col-lg-12 justify-content-center text-center  text-white">
+                <label><span id="costjoin"></span></label>
+                <label class="mb-2"><strong><span id="notifjoin"></span></strong></label>
                 <hr>
                 <strong>Do You Want to join?</strong>
             </div>
-            <button id="btnconfirm" class="btn ciakbtn col-lg-8 m-1 mt-2">Confirm</button>            
+            <button id="btnconfirm" class="btn btn-main-green col-lg-8 m-1 mt-">Confirm</button>            
         </div>
       </div>
       <div class="modal-footer">

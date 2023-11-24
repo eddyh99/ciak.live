@@ -250,9 +250,9 @@ if (isset($extra)) {
         }, 1000);
     }
 
-    function setVisible(selector, visible) {
-        document.querySelector(selector).style.display = visible ? 'block' : 'none';
-    }
+    // function setVisible(selector, visible) {
+    //     document.querySelector(selector).style.display = visible ? 'block' : 'none';
+    // }
 
     onReady(function() {
         setVisible('.apps-container', true);

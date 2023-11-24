@@ -27,7 +27,7 @@
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M4 12C4 11.4477 4.44772 11 5 11L11 11C11.5523 11 12 11.4477 12 12C12 12.5523 11.5523 13 11 13L5 13C4.44772 13 4 12.5523 4 12Z"/>
                             </svg>
                         </a>
-                        <?}?>
+                        <?php } ?>
                         <!-- <a class="link pt-3 px-0 px-md-3" style="z-index: 999;">
                             <span class="mode-toggle">
                                 <span class="switch"></span>

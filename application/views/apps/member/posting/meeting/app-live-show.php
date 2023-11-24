@@ -123,7 +123,6 @@
             <div class="col-4">
                 <img src="<?= base_url()?>assets/img/new-ciak/logo.png" id="imgprofilep" height="100px" width="100px" style="object-fit:cover">
             </div>
-            <!-- <div class="col-12"><span id="nicknamep" class="nickname"><?=$mdata["username"]?></span></div> -->
         </div>
         <hr>
         <div class="row mt-5 mb-3 ms-2 me-2 d-flex justify-content-center">
