@@ -74,7 +74,7 @@
                     <?php if (@$profile->is_kontakshare=='yes'){?>
                         <span class="location mb-2"><?=$profile->contact?></span>
                     <?php } ?>
-                    <span class="px-5 mx-5 d-block span-text-toogle-explicit" style="white-space: pre-line;"><?=$profile->bio?></span>
+                    <span class="px-5 mx-5 d-block span-text-toogle-explicit" style="white-space: pre-line;word-wrap: break-word;"><?=$profile->bio?></span>
                     <?php if (@$profile->is_emailshare=='yes'){?>
                         <a href="mailto:<?= @$profile->email?>" class="location mb-2"><?=@$profile->email?></a>
                     <?php }?>

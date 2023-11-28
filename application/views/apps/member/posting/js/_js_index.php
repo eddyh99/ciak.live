@@ -478,6 +478,7 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
+                        console.log(data);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
                             localStorage.removeItem('is_video');
@@ -597,6 +598,7 @@ $(document).ready(function(){
             $("#postprice").val("Free");
             $("#postprice").attr("readonly",true);
             $("#forsubs-wrap").hide();
+            $('.icon-upload-attach').show();
         }else if ($(this).val()=='vs'){
             $("#postprice").show();
             $("#postprice").val("Free");
@@ -605,6 +607,7 @@ $(document).ready(function(){
         }else if ($(this).val()=="private"){
             $("#postprice").hide();
             $("#forsubs-wrap").hide();
+            $('.icon-upload-attach').show();
         }else if ($(this).val()=="special"){
             $("#postprice").show();
             $("#postprice").val("0.5");
@@ -616,6 +619,7 @@ $(document).ready(function(){
             $("#postprice").val("0.5");
             $("#postprice").attr("readonly",false);
             $("#forsubs-wrap").show();
+            $('.icon-upload-attach').show();
         }
         
     })

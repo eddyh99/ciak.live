@@ -240,7 +240,9 @@
                                     <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
                                     <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
                                 </a>
-                                <input type="button" value="Unfollow" id="user<?=$i?>" class="btn-main-green active py-1 px-3 rounded" onclick="actionFollow('<?=$i?>','<?=$dt->id?>')">
+                                <?php if($dt->ucode != 'rqzqkqx'){?>
+                                    <input type="button" value="Unfollow" id="user<?=$i?>" class="btn-main-green active py-1 px-3 rounded" onclick="actionFollow('<?=$i?>','<?=$dt->id?>')">
+                                <?php }?>
                             </div>
                     <?php $i++;}?>
                 </div>

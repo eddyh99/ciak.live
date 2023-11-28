@@ -31,7 +31,6 @@ let $modal_attch = $('#modal_attch_chat');
 		conn.onmessage = function(event)
 		{
 			var data = JSON.parse(event.data);
-			console.log(data);
 
 			var row_class = '';
 			var background_class = '';
@@ -57,15 +56,14 @@ let $modal_attch = $('#modal_attch_chat');
 
 			if(receiver_userid == data.userId || data.from == 'Me')
 			{
-                console.log(data);
 			    
 				var html_data = `
 				<div class="`+row_class+`">
-					<div class="col-sm-10 mt-4 `+flex_class+`">
+					<div class="col-sm-10 mt-4 `+flex_class+`" style="word-wrap: break-word;">
 						<div class="`+img_class+` pe-2">
 							<img class="img-fluid rounded-circle" width="50" height="50" src="<?= $member->profile?>">
 						</div>
-						<div class="shadow alert mb-0 `+background_class+`">
+						<div class="shadow alert mb-0 `+background_class+`" style="max-width: 80%;">
 							<b>`+data.from+` - </b>`+data.msg+`<br />
 						</div>
 					</div>
@@ -103,7 +101,6 @@ let $modal_attch = $('#modal_attch_chat');
 		};
 
 		$(function(){
-		    console.log("100");
 			$('#load-edit-profile').show();
 			$.ajax({
 				url:"<?=base_url()?>message/history_chat",
@@ -111,9 +108,7 @@ let $modal_attch = $('#modal_attch_chat');
 				data:{to_user_id:receiver_userid},
 				dataType:"JSON",
 				success:function(data)
-				{
-					console.log(data);
-	
+				{	
 					
 					if(data.length > 0)
 					{
@@ -156,11 +151,11 @@ let $modal_attch = $('#modal_attch_chat');
 
 							html_data += `
 							<div class="`+row_class+`">
-								<div class="col-sm-10 massage mt-4 `+flex_class+`">
+								<div class="col-sm-10 massage mt-4 `+flex_class+`" style="word-wrap: break-word;">
 									<div class="`+img_class+` pe-2">
 										<img class="img-fluid rounded-circle" width="50" height="50" src="<?= $member->profile?>">
 									</div>
-									<div class="shadow alert mb-0 `+background_class+`">
+									<div class="shadow alert mb-0 `+background_class+`" style="max-width: 80%;" >
 										<b>`+user_name+` - </b>
 										`+data[count].chat_message+`<br />
 									</div>

@@ -105,8 +105,6 @@ class Statistic extends CI_Controller
     public function following()
     {
         $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
-        // echo '<pre>'.print_r($following,true)."</pre>";
-        // die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Following',

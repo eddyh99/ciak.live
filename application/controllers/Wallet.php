@@ -127,7 +127,7 @@ class Wallet extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
-            redirect("wallet/national_deposit");
+            redirect("wallet/deposit_national");
             return;
         }
 
@@ -148,7 +148,7 @@ class Wallet extends CI_Controller
         
         if (@$result->code != "200") {
             $this->session->set_flashdata('failed', $result->message);
-            redirect("wallet/national_deposit");
+            redirect("wallet/deposit_national");
             return;
         }
         //$result='{"content":{"payinBank":{"bankName":"Wise Europe SA\/NV","bankAddress":{"country":"BE","firstLine":"Avenue Louise 54, Room s52","postCode":"1050","city":"Brussels","state":null}},"payinBankAccount":{"currency":"EUR","details":[{"type":"recipientName","label":"Recipient name","value":"TransferWise Europe SA"},{"type":"IBAN","label":"IBAN","value":"BE79967040785533"},{"type":"BIC","label":"Bank code (BIC\/SWIFT)","value":"TRWIBEB1XXX"}]},"wiseInformation":{"localCompanyName":"Wise Europe SA","localAddress":{"country":"BE","firstLine":"Avenue Louise 54\/S52","postCode":"1050","city":"Brussels","state":null}}},"causal":"RCPT026837"}}';

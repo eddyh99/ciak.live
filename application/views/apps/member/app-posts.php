@@ -168,7 +168,7 @@
                                 <div class="text">
                                     <?php 
                                         if ($dt->type=="public"){?>
-                                            <article class="article">
+                                            <article class="article <?php echo ($dt->content_type == 'explicit') ? 'explicit' : '' ?>">
                                                 <?php echo @base64_decode($dt->article)?>
                                                 <?php 
                                                     if (!empty($dt->post_media)){

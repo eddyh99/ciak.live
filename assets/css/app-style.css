@@ -1290,8 +1290,18 @@ input[type=number] {
     color: var(--publish-btn) !important;
 }
 
-.apps-member .posts-member .post-member .post-body .text a.link {
-    color: #9e7af9;
+/* .apps-member .posts-member .post-member .post-body .text a.link {
+    color: var(--publish-btn);
+    text-decoration: none;
+} */
+
+.apps-member .posts-member .post-member .post-body .text .article.explicit a.link {
+    color: #03B115;
+    text-decoration: none;
+}
+
+.apps-member .posts-member .post-member .post-body .text .article.explicit a.link {
+    color: #F83B00;
     text-decoration: none;
 }
 
@@ -2058,6 +2068,10 @@ input[type=number] {
     padding: .5rem 0.6rem;
     color: #FFFFFF;
     z-index: 1;
+}
+
+.apps-member .profile .guest-empty-icon {
+    height: 64px;
 }
 
 .apps-member .profile a.icon-profile.stats {

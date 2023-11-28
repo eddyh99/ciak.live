@@ -496,11 +496,6 @@ $('body').on('hidden.bs.modal', '.modal', function () {
 /*----------------------------------------------------------
 10. Toggle for Content Explicit Start
 ------------------------------------------------------------*/
-
-// $('#explicit').on('click', function(){
-//     localStorage.setItem('explicit-post', 'yes');
-// });
-
 let bodyContentHome = document.querySelector("body"),
 modeToggleContentHome = body.querySelector(".mode-toggle-content");
     
@@ -516,13 +511,11 @@ modeToggleContentHome.addEventListener("click", () =>{
         
     }
 });
-
-
-
 /*----------------------------------------------------------
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
 
+// var explicit = $('.apps-member .posts-member .post-member .post-body .text a.link').addClass('explicit');
 
 
 
