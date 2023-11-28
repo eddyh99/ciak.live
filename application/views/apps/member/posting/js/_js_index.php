@@ -42,9 +42,7 @@ Desc        : Modul ini di digunakan untuk melakukan
         $('#textarea-post').summernote({
             toolbar: [
                 ['style', ['style']],
-                ['font', ['bold', 'italic']],
-                ['fontsize', ['fontsize']],
-                ['para', ['paragraph']],
+                ['font', ['bold', 'italic', 'underline']],
             ],
             height: 200,
             disableResizeEditor: true,
@@ -52,7 +50,7 @@ Desc        : Modul ini di digunakan untuk melakukan
             placeholder: "What's on your mind",
         });
         $("#textarea-post").summernote("removeModule", "autoLink");
-
+        
     });
     $('.note-statusbar').hide(); 
 /*----------------------------------------------------------

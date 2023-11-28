@@ -116,7 +116,7 @@
     <div class="offcanvas-body small pb-5">
         <div class="d-flex flex-column setting-menus">
             <a href="#" id="profile_postid">Show post</a>
-            <a href="#" id="editpost_id">Edit Post</a>
+            <!-- <a href="#" id="editpost_id">Edit Post</a> -->
             <a href="<?= base_url()?>profile/setting_promotion" id="promote_post">Promote this post</a>
             <a href="#" id="delete_post" class="text-danger">Delete post</a>
         </div>

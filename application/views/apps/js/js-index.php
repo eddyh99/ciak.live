@@ -515,8 +515,5 @@ modeToggleContentHome.addEventListener("click", () =>{
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
 
-// var explicit = $('.apps-member .posts-member .post-member .post-body .text a.link').addClass('explicit');
-
-
 
 </script>

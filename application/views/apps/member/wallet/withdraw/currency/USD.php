@@ -55,15 +55,14 @@
 
 <?php if ($type == "national") { ?>
 
-<div class="align-items-center my-3 <?php if ($type == 'national') echo 'd-none'; ?>">
-    <input class="form-control me-2" type="text" name="state" placeholder="State initial" maxlength="2"
-        <?php if ($type == 'national') echo 'value="DE"'; ?>>
-</div>
+    <div class="align-items-center my-3 <?php if ($type == 'national') echo 'd-none'; ?>">
+        <input class="form-control me-2" type="text" name="state" placeholder="State initial" maxlength="2"
+            <?php if ($type == 'national') echo 'value="DE"'; ?>>
+    </div>
 
-<div class="align-items-center my-3 <?php if ($type == 'national') echo 'd-none'; ?>">
-    <input class="form-control me-2" type="text" name="countryCode" <?php if ($type == 'national') echo 'value="US"'; ?>>
-</div>
-
+    <div class="align-items-center my-3 <?php if ($type == 'national') echo 'd-none'; ?>">
+        <input class="form-control me-2" type="text" name="countryCode" <?php if ($type == 'national') echo 'value="US"'; ?>>
+    </div>
 
 <?php }?>
 

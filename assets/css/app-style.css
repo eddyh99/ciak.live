@@ -1290,11 +1290,6 @@ input[type=number] {
     color: var(--publish-btn) !important;
 }
 
-/* .apps-member .posts-member .post-member .post-body .text a.link {
-    color: var(--publish-btn);
-    text-decoration: none;
-} */
-
 .apps-member .posts-member .post-member .post-body .text .article.explicit a.link {
     color: #03B115;
     text-decoration: none;
@@ -2718,6 +2713,22 @@ input[type=number] {
     border-radius: 99999px;
 }
 
+.apps-member .wrap-posting .write-posting .title-optional-post {
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    border-top: 1px solid #ddd;
+    font-size: 32px;
+    margin-bottom: 70px;
+    color: white;
+    font-weight: 800;
+}
+
+.apps-member .wrap-posting .write-posting .title-optional-post::placeholder {
+    font-weight: 400;
+}
+
 .apps-member .wrap-posting .write-posting textarea {
     background-color: transparent;
     border: none;
@@ -3456,6 +3467,10 @@ body.dark .apps-container.auth .apps-body .apps-auth.apps-bg-login {
     color: var(--text-white-color);
     text-decoration: none;
     width: 100%;
+}
+
+.ewa-embed-footer {
+    display: none !important;
 }
 
  /*----------------------------------------------------------
