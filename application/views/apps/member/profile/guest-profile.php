@@ -363,7 +363,7 @@
                                                 <div class="post-footer">
                                                     <div class="like">
                                                         <button class="heart <?=(@$dt->is_like=='yes')?"checked":""?>" id="postlike<?=$dt->id?>" onclick="actionLike('<?=$dt->id?>')" <?=($_SESSION["user_id"]==$dt->id_member)?"disabled":""?>><i class="fa-regular fa-heart"></i></button>
-                                                        <span><?=$dt->like_count?></span>
+                                                        <span class="count-like<?=$dt->id?>"><?=$dt->like_count?></span>
                                                     </div>
                                                     <?php if($_SESSION['ucode'] == $dt->ucode) {?>
                                                         <div class="rate-start mx-auto" style="padding-left: 50px;">
@@ -685,7 +685,7 @@
                                             <div class="post-footer">
                                                 <div class="like">
                                                     <button class="heart <?=(@$dt->is_like=='yes')?"checked":""?>" id="postlike<?=$dt->id?>" onclick="actionLike('<?=$dt->id?>')" <?=($_SESSION["user_id"]==$dt->id_member)?"disabled":""?>><i class="fa-regular fa-heart"></i></button>
-                                                    <span><?=$dt->like_count?></span>
+                                                    <span class="count-like<?=$dt->id?>"><?=$dt->like_count?></span>
                                                 </div>
                                                 <?php if($_SESSION['ucode'] == $dt->ucode) {?>
                                                     <div class="rate-start mx-auto" style="padding-left: 50px;">
@@ -905,7 +905,7 @@
                                                     <div class="post-footer">
                                                         <div class="like">
                                                             <button class="heart <?=(@$dt->is_like=='yes')?"checked":""?>" id="postlike<?=$dt->id?>" onclick="actionLike('<?=$dt->id?>')" <?=($_SESSION["user_id"]==$dt->id_member)?"disabled":""?>><i class="fa-regular fa-heart"></i></button>
-                                                            <span><?=$dt->like_count?></span>
+                                                            <span class="count-like<?=$dt->id?>"><?=$dt->like_count?></span>
                                                         </div>
                                                         <?php if($_SESSION['ucode'] == $dt->ucode) {?>
                                                             <div class="rate-start mx-auto" style="padding-left: 50px;">
@@ -1233,7 +1233,7 @@
                                                     <div class="post-footer">
                                                         <div class="like">
                                                             <button class="heart <?=(@$dt->is_like=='yes')?"checked":""?>" id="postlike<?=$dt->id?>" onclick="actionLike('<?=$dt->id?>')" <?=($_SESSION["user_id"]==$dt->id_member)?"disabled":""?>><i class="fa-regular fa-heart"></i></button>
-                                                            <span><?=$dt->like_count?></span>
+                                                            <span class="count-like<?=$dt->id?>"><?=$dt->like_count?></span>
                                                         </div>
                                                         <?php if($_SESSION['ucode'] == $dt->ucode) {?>
                                                             <div class="rate-start mx-auto" style="padding-left: 50px;">

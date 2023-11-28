@@ -611,7 +611,7 @@
                                 <?php } else {?>
                                     <div class="like">
                                         <button class="heart <?=(@$dt->is_like=='yes')?"checked":""?>" id="postlike<?=$dt->id?>" onclick="actionLike('<?=$dt->id?>')" <?=($_SESSION["user_id"]==$dt->id_member)?"disabled":""?>><i class="fa-regular fa-heart"></i></button>
-                                        <span><?=$dt->like_count?></span>
+                                        <span class="count-like<?=$dt->id?>"><?=$dt->like_count?></span>
                                     </div>
                                 <?php } ?>
                                 
