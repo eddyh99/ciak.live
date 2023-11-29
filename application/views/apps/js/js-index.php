@@ -137,6 +137,7 @@ function subscribe(ucode, jenis){
 ------------------------------------------------------------*/ 
 function actionLike(post) {
     var status;
+    var count = $(`.count-like${post}`).text();
     if ($("#postlike" + post).hasClass('checked')) {
         status='unlike';
     }else{
@@ -151,8 +152,13 @@ function actionLike(post) {
             if (response){
                 if ($("#postlike" + post).hasClass('checked')) {
                     $("#postlike" + post).removeClass('checked');
+                    count--;
+                    $(`.count-like${post}`).text(count);
                 }else{
                     $("#postlike" + post).addClass('checked');
+                    count++;
+                    $(`.count-like${post}`).text(count);
+
                 }
             }
         },
@@ -170,7 +176,6 @@ function actionStar(post, star) {
         data: "star="+star+"&post_id="+post,
         success: function (response) {
             var rate = JSON.parse(response);
-            console.log(rate);
             
             if(rate.success == true && rate.is_rerate==false){
                 $(".poststar"+post).addClass("pe-none");
@@ -496,11 +501,6 @@ $('body').on('hidden.bs.modal', '.modal', function () {
 /*----------------------------------------------------------
 10. Toggle for Content Explicit Start
 ------------------------------------------------------------*/
-
-// $('#explicit').on('click', function(){
-//     localStorage.setItem('explicit-post', 'yes');
-// });
-
 let bodyContentHome = document.querySelector("body"),
 modeToggleContentHome = body.querySelector(".mode-toggle-content");
     
@@ -516,14 +516,9 @@ modeToggleContentHome.addEventListener("click", () =>{
         
     }
 });
-
-
-
 /*----------------------------------------------------------
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
-
-
 
 
 </script>

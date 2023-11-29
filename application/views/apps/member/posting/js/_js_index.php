@@ -42,9 +42,7 @@ Desc        : Modul ini di digunakan untuk melakukan
         $('#textarea-post').summernote({
             toolbar: [
                 ['style', ['style']],
-                ['font', ['bold', 'italic']],
-                ['fontsize', ['fontsize']],
-                ['para', ['paragraph']],
+                ['font', ['bold', 'italic', 'underline']],
             ],
             height: 200,
             disableResizeEditor: true,
@@ -52,7 +50,7 @@ Desc        : Modul ini di digunakan untuk melakukan
             placeholder: "What's on your mind",
         });
         $("#textarea-post").summernote("removeModule", "autoLink");
-
+        
     });
     $('.note-statusbar').hide(); 
 /*----------------------------------------------------------
@@ -478,6 +476,7 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
+                        console.log(data);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
                             localStorage.removeItem('is_video');
@@ -597,6 +596,7 @@ $(document).ready(function(){
             $("#postprice").val("Free");
             $("#postprice").attr("readonly",true);
             $("#forsubs-wrap").hide();
+            $('.icon-upload-attach').show();
         }else if ($(this).val()=='vs'){
             $("#postprice").show();
             $("#postprice").val("Free");
@@ -605,6 +605,7 @@ $(document).ready(function(){
         }else if ($(this).val()=="private"){
             $("#postprice").hide();
             $("#forsubs-wrap").hide();
+            $('.icon-upload-attach').show();
         }else if ($(this).val()=="special"){
             $("#postprice").show();
             $("#postprice").val("0.5");
@@ -616,6 +617,7 @@ $(document).ready(function(){
             $("#postprice").val("0.5");
             $("#postprice").attr("readonly",false);
             $("#forsubs-wrap").show();
+            $('.icon-upload-attach').show();
         }
         
     })

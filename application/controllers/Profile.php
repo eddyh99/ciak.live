@@ -16,11 +16,12 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 use gimucco\TikTokLoginKit;
 
+
 class Profile extends CI_Controller
 {
-	public function __construct()
+    public function __construct()
 	{
-		parent::__construct();
+        parent::__construct();
 		$path=explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         if (!$this->session->userdata('user_id') && ($path[2]!='user') && ($path[2]!='post')) {
             redirect('/');
@@ -766,8 +767,8 @@ class Profile extends CI_Controller
         $adapter = new Hybridauth\Provider\LinkedIn( [
             'callback' => base_url().'profile/linkedin_link',
             'keys'     => [
-                            'id' => '78q1ppp3b53hca',
-                            'secret' => 'J9zKtY9bLIn5DzYS'
+                            'id' => '86hzwlo2nhnklx',
+                            'secret' => 'LMzMTFfhCcOzVvIx'
                         ],
             'scope'    => "openid profile email",
         ]);
@@ -799,18 +800,23 @@ class Profile extends CI_Controller
         $api_secret = 'CBDYb1xiKjLB7s7S5ZUsBwH4TUbAA4dM'; // Your API Secret, as obtained from TikTok Developers portal
         $redirect_uri = base_url().'profile/tiktok_link'; // Where to return after authorization. Must be approved in the TikTok Developers portal
 
-        $_TK = new TikTokLoginKit($api_key, $api_secret, $redirect_uri);
+        $_TK = new TikTokLoginKit\Connector($api_key, $api_secret, $redirect_uri);
+
+        // echo "<pre>".print_r($_TK,true)."</pre>";
+        // die;
+        // $_TK = new TikTokLoginKit($api_key, $api_secret, $redirect_uri);
         
-        echo "<pre>".print_r($_TK,true)."</pre>";
-        die;
 
         if (TikTokLoginKit\Connector::receivingResponse()) { // Check if you're receiving the Authorisation Code
             try {
                 $token = $_TK->verifyCode($_GET[TikTokLoginKit\Connector::CODE_PARAM]); // Verify the Authorisation code and get the Access Token
-        
+                echo "<pre>".print_r($token->getAccessToken(),true)."</pre>";
+                die;
                 /****  Your logic to store the access token goes here ****/
         
                 $user = $_TK->getUser(); // Retrieve the User Object
+                // echo "<pre>".print_r($user,true)."</pre>";
+                // die;
         
                 /****  Your logic to store or use the User Info goes here ****/
         
@@ -818,11 +824,11 @@ class Profile extends CI_Controller
                 echo <<<HTML
                 <table width="500">
                     <tr>
-                        <td with="200"><img src="{$user->getAvatarLarger()}"></td>
+                        <td with="200"><img src="{$user->getAvatar()}"></td>
                         <td>
                             <br />
                             <strong>ID</strong>: {$user->getOpenID()}<br /><br />
-                            <strong>Name</strong>: {$user->getDisplayName()}
+                            <strong>Name</strong>: {$user->getDisplayName()}<br /><br />
                         </td>
                     </tr>
                 </table>
@@ -832,7 +838,8 @@ class Profile extends CI_Controller
                 echo '<br /><a href="?">Retry</a>';
             }
         } else { // Print the initial login button that redirects to TikTok
-            echo '<a href="'.$_TK->getRedirect().'">Log in with TikTok</a>';
+            redirect($_TK->getRedirect());
+            // echo '<a href="'.$_TK->getRedirect().'">Log in with TikTok</a>';
         }
     }
 }

@@ -134,7 +134,7 @@
                                 <div class="text">
                                     <?php 
                                         if ($posts->type=="public"){?>
-                                            <p class="article">
+                                            <article class="article">
                                                 <?php echo @base64_decode($posts->article)?>
                                                 <?php 
                                                     if (!empty($posts->post_media)){
@@ -173,9 +173,6 @@
                                                                                     <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
                                                                             <?php } ?>
                                                                         </div>
-                                                                        <div class="modal-footer justify-content-center">
-                                                                            <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>          
@@ -184,7 +181,7 @@
                                                         }
                                                     }
                                                 ?>
-                                            </p>
+                                            </article>
                                             <div class="owl-carousel owl-posts owl-theme" >
                                                 <?php 
                                                     if (!empty($posts->post_media)){
@@ -213,7 +210,7 @@
                                     <?php 
                                         }elseif ($posts->type=="private"){
                                             if ($posts->is_subscribe=='no' && $posts->id_member!=$_SESSION["user_id"]){?>
-                                            <p class="article">
+                                            <article class="article">
                                                 <?php echo @base64_decode($posts->article)?>
                                                 <?php 
                                                     if (!empty($posts->post_media)){
@@ -252,9 +249,6 @@
                                                                                     <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
                                                                             <?php } ?>
                                                                         </div>
-                                                                        <div class="modal-footer justify-content-center">
-                                                                            <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -264,7 +258,7 @@
                                                     }
                                                 ?>
 
-                                            </p>
+                                            </article>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($posts->post_media)){
@@ -283,7 +277,7 @@
                                                     ?>
                                                 </div>
                                     <?php   }elseif ($posts->is_subscribe=='yes' || $posts->id_member==$_SESSION["user_id"]){?>
-                                                    <p class="article">
+                                                    <article class="article">
                                                         <?php 
                                                             @$str=base64_decode($posts->article);
                                                             echo $str;
@@ -325,9 +319,6 @@
                                                                                         <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
                                                                                 <?php } ?>
                                                                             </div>
-                                                                            <div class="modal-footer justify-content-center">
-                                                                                <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -336,7 +327,7 @@
                                                                 }
                                                             }
                                                         ?>
-                                                    </p>
+                                                    </article>
                                                     <div class="owl-carousel owl-posts owl-theme" >
                                                         <?php 
                                                             if (!empty($posts->post_media)){
@@ -367,57 +358,9 @@
                                         }elseif ($posts->type=="special"){ 
                                             if ($posts->is_special=='yes' || $posts->id_member==$_SESSION["user_id"]){
                                     ?>
-                                                <p class="article">
+                                                <article class="article">
                                                     <?php echo @base64_decode($posts->article)?>
-                                                    <?php 
-                                                        if (!empty($posts->post_media)){
-                                                            foreach ($posts->post_media as $imgpost){
-                                                                if($imgpost->media_type=='attach'){
-                                                    ?>
-                                                                <li class="post-list-attach">
-                                                                    <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($posts->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
-                                                                        <?= substr($imgpost->imgorg, 42)?>
-                                                                    </a>
-                                                                </li>
-                                                                <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-lg">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
-                                                                                <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
-                                                                            </div>
-                                                                            <div class="modal-body d-flex justify-content-center">
-                                                                                <?php if ($imgpost->media_extension == "pdf"){?>
-                                                                                        <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>#toolbar=0" type="application/pdf">
-                                                                                <?php } else if ($imgpost->media_extension == "audio") {?>
-                                                                                        <audio style="width: 80%;" controls controlsList="nodownload">>
-                                                                                            <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
-                                                                                            Your browser does not support the audio.
-                                                                                        </audio>
-                                                                                <?php } else if($imgpost->media_extension == "video"){?>
-                                                                                        <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
-                                                                                            <source src="<?=@$imgpost->imgorg?>" type="video/mp4">
-                                                                                        </video>   
-                                                                                <?php } else if($imgpost->media_extension == "image"){?>
-                                                                                        <div class="wrapper-attch-img">
-                                                                                            <img class="attch-img" src="<?= $imgpost->imgorg?>" alt="img">
-                                                                                        </div>
-                                                                                <?php } else {?>
-                                                                                        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
-                                                                                <?php } ?>
-                                                                            </div>
-                                                                            <div class="modal-footer justify-content-center">
-                                                                                <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                    <?php 
-                                                                }
-                                                            }
-                                                        }
-                                                    ?>
-                                                </p>
+                                                </article>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($posts->post_media)){
@@ -459,7 +402,7 @@
                                         }elseif ($posts->type=="download"){ 
                                             if ($posts->is_download=='yes' || $posts->id_member==$_SESSION["user_id"]){
                                     ?>
-                                                <p class="article">
+                                                <article class="article">
                                                     <?php echo @base64_decode($posts->article)?>
                                                     <?php 
                                                         if (!empty($posts->post_media)){
@@ -509,7 +452,7 @@
                                                             }
                                                         }
                                                     ?>
-                                                </p>
+                                                </article>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($posts->post_media)){
@@ -538,7 +481,7 @@
                                     <?php 
                                             }else{
                                     ?>
-                                                <p class="article">
+                                                <article class="article">
                                                     <?php echo @base64_decode($posts->article)?>
                                                     <?php 
                                                         if (!empty($posts->post_media)){
@@ -588,7 +531,7 @@
                                                             }
                                                         }
                                                     ?>
-                                                </p>
+                                                </article>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($posts->post_media)){
@@ -608,7 +551,7 @@
                                                 </div>
                                     <?php }
                                         }elseif ($posts->type=="vs"){ ?>
-                                            <p class="article">
+                                            <article class="article">
                                                 <?php echo @base64_decode($posts->article)?>
                                                 <?php 
                                                     if (!empty($posts->post_media)){
@@ -658,7 +601,7 @@
                                                         }
                                                     }
                                                 ?>
-                                            </p>
+                                            </article>
                                     <?php 
                                         } ?>
                                 </div>
@@ -674,7 +617,7 @@
                                 <?php } else {?>
                                     <div class="like">
                                         <button class="heart <?=(@$posts->is_like=='yes')?"checked":""?>" id="postlike<?=$posts->id?>" onclick="actionLike('<?=$posts->id?>')" <?=($_SESSION["user_id"]==$posts->id_member)?"disabled":""?>><i class="fa-regular fa-heart"></i></button>
-                                        <span><?=$posts->like_count?></span>
+                                        <span class="count-like<?=$posts->id?>"><?=$posts->like_count?></span>
                                     </div>
                                 <?php } ?>
 

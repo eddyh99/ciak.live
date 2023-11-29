@@ -12,6 +12,10 @@
  * 1. Owl Carousel
  * 2. Infinite Loading 
  * 3. GSAP Scroll Trigger 
+ * 4. Subscribe
+ * 5. Like Postingan
+ * 6. Rating Postingan
+ * 7. Bookmark Postingan
  */
 /*----------------------------------------------------------
 1. Owl Carausel Start        
@@ -237,6 +241,9 @@ $(document).ready(function () {
 3. GSAP Scroll Trigger End     
 ------------------------------------------------------------*/ 
 
+/*----------------------------------------------------------
+4. Subscribe Guest Start
+------------------------------------------------------------*/ 
 function subscribe(ucode, jenis){
     $.ajax({
         url: `<?= base_url()?>profile/subscribe`,
@@ -251,6 +258,145 @@ function subscribe(ucode, jenis){
         }
     });
 }
+/*----------------------------------------------------------
+4. Subscribe Guest End 
+------------------------------------------------------------*/ 
+
+/*----------------------------------------------------------
+5. Like Postingan Start
+------------------------------------------------------------*/ 
+
+function actionLike(post) {
+    var status;
+    var count = $(`.count-like${post}`).text();
+    if ($("#postlike" + post).hasClass('checked')) {
+        status='unlike';
+    }else{
+        status='like';
+    }
+    
+    $.ajax({
+        url: "<?=base_url()?>profile/givelike",
+        type: "post",
+        data: "status="+status+"&post_id="+post,
+        success: function (response) {
+            if (response){
+                if ($("#postlike" + post).hasClass('checked')) {
+                    $("#postlike" + post).removeClass('checked');
+                    count--;
+                    $(`.count-like${post}`).text(count);
+                }else{
+                    $("#postlike" + post).addClass('checked');
+                    count++;
+                    $(`.count-like${post}`).text(count);
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+    });
+};
+
+/*----------------------------------------------------------
+5. Like Postingan End 
+------------------------------------------------------------*/ 
+
+/*----------------------------------------------------------
+6. Rating Postingan Start
+------------------------------------------------------------*/ 
+function actionStar(post, star) {
+     $.ajax({
+        url: "<?=base_url()?>profile/giverating",
+        type: "post",
+        data: "star="+star+"&post_id="+post,
+        success: function (response) {
+            var rate = JSON.parse(response);
+            console.log(rate);
+            
+            if(rate.success == true && rate.is_rerate==false){
+                $(".poststar"+post).addClass("pe-none");
+                $(".rate-start "+post).addClass("pe-none");
+            }
+            if (response){
+                if (star > 0) {
+                    if (document.getElementById('clearpost_'+post)===null){
+                        var a = document.createElement("a");
+                        var linkText = document.createTextNode("clear");
+                        a.appendChild(linkText);
+                        a.setAttribute('onclick','actionStar("'+post+'","0")');
+                        a.setAttribute('id','clearpost_'+post);
+                        document.getElementById("clearrate_"+post).appendChild(a);
+                    }
+                    
+                    // Mulai dari 1 sampai rate sama dengan star 
+                    for (var rate = 1; rate < 6; ++rate) {
+                        if (star < 5) { // Jika dibawah 5, akan meng-checked sampai star
+                            if (rate <= star) { // Jika rate masih dibawah star atau sama dengan star akan di checked
+                                $(".s-" + rate + '[name="poststar' + post + '"]').addClass('checked');
+                            } else { // Jika rate sudah melebihi dari star akan di unchecked
+                                $(".s-" + rate + '[name="poststar' + post + '"]').removeClass('checked');
+                            }
+                        } else { // Jika seluruh bintang di checked
+                            $(".s-" + rate + '[name="poststar' + post + '"]').addClass('checked');
+                        }
+                    }
+
+                }else{
+                    for (var i=1;i<6;i++){
+                        $(".s-" + i + '[name="poststar' + post + '"]').removeClass('checked');
+                    }
+                    document.getElementById("clearpost_"+post).remove();
+                }                
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+    });
+};
+/*----------------------------------------------------------
+6. Rating Postingan End 
+------------------------------------------------------------*/ 
+
+
+/*----------------------------------------------------------
+7. Bookmark Postingan Start
+------------------------------------------------------------*/ 
+function actionBookmark(post) {
+    var status;
+    if ($("#postbookmark" + post).hasClass('checked')) {
+        status='unbookmark';
+    }else{
+        status='bookmark';
+    }
+
+    $.ajax({
+        url: "<?=base_url()?>profile/givebookmark",
+        type: "post",
+        data: "status="+status+"&post_id="+post,
+        success: function (response) {
+            if (response){
+                if ($("#postbookmark" + post).hasClass('checked')) {
+                    $("#postbookmark" + post).removeClass('checked');
+                }else{
+                    $("#postbookmark" + post).addClass('checked');
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+    });
+};
+/*----------------------------------------------------------
+7. Bookmark Postingan End 
+------------------------------------------------------------*/ 
+
+
+
+
+
 
 
 </script>
