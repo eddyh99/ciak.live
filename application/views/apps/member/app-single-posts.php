@@ -134,8 +134,10 @@
                                 <div class="text">
                                     <?php 
                                         if ($posts->type=="public"){?>
+                                            <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                                <?= @$posts->title_article?>
+                                            </h1>
                                             <article class="article">
-                                                <?php echo @base64_decode($posts->article)?>
                                                 <?php 
                                                     if (!empty($posts->post_media)){
                                                         foreach ($posts->post_media as $imgpost){
@@ -207,11 +209,16 @@
                                                     }
                                                 ?>
                                             </div>
+                                            <article class="article">
+                                                <?php echo @base64_decode($posts->article)?>
+                                            </article>
                                     <?php 
                                         }elseif ($posts->type=="private"){
                                             if ($posts->is_subscribe=='no' && $posts->id_member!=$_SESSION["user_id"]){?>
+                                            <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                                <?= @$posts->title_article?>
+                                            </h1>
                                             <article class="article">
-                                                <?php echo @base64_decode($posts->article)?>
                                                 <?php 
                                                     if (!empty($posts->post_media)){
                                                         foreach ($posts->post_media as $imgpost){
@@ -276,12 +283,14 @@
                                                         }
                                                     ?>
                                                 </div>
+                                                <article class="article">
+                                                    <?php echo @base64_decode($posts->article)?>
+                                                </article>
                                     <?php   }elseif ($posts->is_subscribe=='yes' || $posts->id_member==$_SESSION["user_id"]){?>
+                                                    <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                                        <?= @$posts->title_article?>
+                                                    </h1>
                                                     <article class="article">
-                                                        <?php 
-                                                            @$str=base64_decode($posts->article);
-                                                            echo $str;
-                                                        ?>
                                                         <?php 
                                                             if (!empty($posts->post_media)){
                                                                 foreach ($posts->post_media as $imgpost){
@@ -353,14 +362,17 @@
                                                             }
                                                         ?>
                                                     </div>
+                                                    <article class="article">
+                                                        <?php echo @base64_decode($posts->article)?>
+                                                    </article>
                                     <?php   
                                             }
                                         }elseif ($posts->type=="special"){ 
                                             if ($posts->is_special=='yes' || $posts->id_member==$_SESSION["user_id"]){
                                     ?>
-                                                <article class="article">
-                                                    <?php echo @base64_decode($posts->article)?>
-                                                </article>
+                                                <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                                    <?= @$posts->title_article?>
+                                                </h1>
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($posts->post_media)){
@@ -388,6 +400,9 @@
                                                         }
                                                     ?>
                                                 </div>
+                                                <article class="article">
+                                                    <?php echo @base64_decode($posts->article)?>
+                                                </article>
                                     <?php 
                                                 }else{
                                     ?>
@@ -402,8 +417,10 @@
                                         }elseif ($posts->type=="download"){ 
                                             if ($posts->is_download=='yes' || $posts->id_member==$_SESSION["user_id"]){
                                     ?>
+                                                <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                                    <?= @$posts->title_article?>
+                                                </h1>
                                                 <article class="article">
-                                                    <?php echo @base64_decode($posts->article)?>
                                                     <?php 
                                                         if (!empty($posts->post_media)){
                                                             foreach ($posts->post_media as $imgpost){
@@ -478,11 +495,16 @@
                                                         }
                                                     ?>
                                                 </div>
+                                                <article class="article">
+                                                    <?php echo @base64_decode($posts->article)?>
+                                                </article>
                                     <?php 
                                             }else{
                                     ?>
+                                                <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                                    <?= @$posts->title_article?>
+                                                </h1>
                                                 <article class="article">
-                                                    <?php echo @base64_decode($posts->article)?>
                                                     <?php 
                                                         if (!empty($posts->post_media)){
                                                             foreach ($posts->post_media as $imgpost){
@@ -549,6 +571,9 @@
                                                         }
                                                     ?>
                                                 </div>
+                                                <article class="article">
+                                                    <?php echo @base64_decode($posts->article)?>
+                                                </article>
                                     <?php }
                                         }elseif ($posts->type=="vs"){ ?>
                                             <article class="article">
@@ -706,8 +731,10 @@
                         <div class="text">
                             <?php 
                                 if ($posts->type=="public"){?>
-                                    <p class="article">
-                                        <?php echo base64_decode($posts->article)?>
+                                    <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                        <?= @$posts->title_article?>
+                                    </h1>
+                                    <article class="article">
                                         <?php 
                                             if (!empty($posts->post_media)){
                                                 foreach ($posts->post_media as $imgpost){
@@ -756,7 +783,7 @@
                                                 }
                                             }
                                         ?>
-                                    </p>
+                                    </article>
                                     <div class="owl-carousel owl-posts owl-theme" >
                                         <?php 
                                             if (!empty($posts->post_media)){
@@ -782,11 +809,16 @@
                                             }
                                         ?>
                                     </div>
+                                    <article class="article">
+                                        <?php echo @base64_decode($posts->article)?>
+                                    </article>
                             <?php 
                                 }elseif ($posts->type=="private"){
                             ?>
-                                        <p class="article">
-                                            <?php echo base64_decode($posts->article)?>
+                                        <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                            <?= @$posts->title_article?>
+                                        </h1>
+                                        <article class="article">
                                             <?php 
                                                 if (!empty($posts->post_media)){
                                                     foreach ($posts->post_media as $imgpost){
@@ -836,7 +868,7 @@
                                                 }
                                             ?>
 
-                                        </p>
+                                        </article>
                                         <div class="owl-carousel owl-posts owl-theme" >
                                             <?php 
                                                 if (!empty($posts->post_media)){
@@ -854,6 +886,9 @@
                                                 }
                                             ?>
                                         </div>
+                                        <article class="article">
+                                            <?php echo @base64_decode($posts->article)?>
+                                        </article>
                             <?php   
                                 }elseif ($posts->type=="special"){ ?>
                                     <div class="item">
@@ -863,8 +898,10 @@
                                     </div>
                             <?php 
                                 }elseif ($posts->type=="download"){ ?>
-                                        <p class="article">
-                                            <?php echo base64_decode($posts->article)?>
+                                        <h1 class="<?php echo (empty($posts->title_article) ? 'd-none' : 'd-block')?>">
+                                            <?= @$posts->title_article?>
+                                        </h1>
+                                        <article class="article">
                                             <?php 
                                                 if (!empty($posts->post_media)){
                                                     foreach ($posts->post_media as $imgpost){
@@ -913,7 +950,7 @@
                                                     }
                                                 }
                                             ?>
-                                        </p>
+                                        </article>
                                         <div class="owl-carousel owl-posts owl-theme" >
                                             <?php 
                                                 if (!empty($posts->post_media)){
@@ -931,6 +968,9 @@
                                                 }
                                             ?>
                                         </div>
+                                        <article class="article">
+                                            <?php echo @base64_decode($posts->article)?>
+                                        </article>
                             <?php 
                                 }elseif ($posts->type=="vs"){ ?>
                                     <p class="article">

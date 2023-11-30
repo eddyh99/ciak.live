@@ -96,7 +96,7 @@ $(document).ready(function(){
     $('#img-preview-post').hide();
     localforage.getItem('gbr', function (err, value) {
         var dataImg=JSON.parse(value);
-        // console.log(dataImg.length);
+        console.log(dataImg);
         if(dataImg == null) {
             console.log("");
         }else {
@@ -124,8 +124,8 @@ $(document).ready(function(){
         });
         $('#myDiv').load('#myDiv')
             // location.replace(location.href.split('#')[0]);
-            // e.preventDefault()
-            // location.reload();
+        // e.preventDefault()
+        location.reload();
     }
 
 /*----------------------------------------------------------
@@ -138,17 +138,22 @@ $(document).ready(function(){
 4.  Set Localstorage Textare & Discard Pos Start
 ------------------------------------------------------------*/ 
     let textarea_post = localStorage.getItem('textarea-post');
+    let title_optional_post = localStorage.getItem('title-optional-post');
  
     // Set Local storage for text area
     $('.add-textarea-local').click(function() {
         let textarea_input = $("#textarea-post").val();
+        let title_optional_input = $("#title-optional-post").val();
         localStorage.setItem('textarea-post', textarea_input);
+        localStorage.setItem('title-optional-post', title_optional_input);
     });
     $("#textarea-post").val(textarea_post);
+    $("#title-optional-post").val(title_optional_post);
 
     // Discard All localstorage if already in localstorage
     $('#discard-post').click(function(){
         localStorage.removeItem('textarea-post');
+        localStorage.removeItem('title-optional-post');
         localStorage.removeItem('is_video');
         // localforage.clear();
         localforage.clear().then(function() {
@@ -357,9 +362,11 @@ $(document).ready(function(){
                 //     formdata.append("price",$("#postprice").val());
                 // }
                 
+                formdata.append("title_article", $("#title-optional-post").val());
                 formdata.append("post", $("#textarea-post").val());
                 formdata.append("tipe",$("#tipepost").val());
                 formdata.append("price",$("#postprice").val());
+
                 
                 $('#progressbar-wrapper').removeClass('d-none');
                 var progress = $('.progress-bar');
@@ -398,9 +405,9 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
-                        console.log("316 - " + response);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
+                            localStorage.removeItem('title-optional-post');
                             localStorage.removeItem('is_video');
                             location.replace('<?= base_url()?>homepage');
                         }
@@ -424,6 +431,7 @@ $(document).ready(function(){
                         console.log(textStatus, errorThrown);
                     }
                 });
+
             }else if (is_video=="attach"){
                 console.log("100-attach");
                 if (typeof files !== 'undefined'){
@@ -434,10 +442,10 @@ $(document).ready(function(){
                         formdata.append("attach[]",f);
                     }
                 }
+                formdata.append("title_article", $("#title-optional-post").val());
                 formdata.append("post",$("#textarea-post").val());
                 formdata.append("tipe",$("#tipepost").val());
                 formdata.append("price",$("#postprice").val());
-                console.log("344 - " + formdata);
     
                 $('#progressbar-wrapper').removeClass('d-none');
                 var progress = $('.progress-bar');
@@ -476,9 +484,9 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
-                        console.log(data);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
+                            localStorage.removeItem('title-optional-post');
                             localStorage.removeItem('is_video');
                             location.replace('<?= base_url()?>homepage');
                         }
@@ -508,6 +516,7 @@ $(document).ready(function(){
                     var dataImg=JSON.parse(value);
                     if(dataImg != null) {
                         dataImg.forEach(b64toblob);
+                        formdata.append("title_article", $("#title-optional-post").val());
                         formdata.append("post",$("#textarea-post").val());
                         formdata.append("tipe",$("#tipepost").val());
                         formdata.append("price",$("#postprice").val());
@@ -549,9 +558,9 @@ $(document).ready(function(){
                             contentType: false,
                             success: function (response) {
                                 var data=JSON.parse(response);
-                                console.log("385 - " + data);
                                 if(data.success == true){
                                     localStorage.removeItem('textarea-post');
+                                    localStorage.removeItem('title-optional-post');
                                     localforage.clear();
                                     localStorage.removeItem('is_video');
                                     location.replace('<?= base_url()?>homepage');

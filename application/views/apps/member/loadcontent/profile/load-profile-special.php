@@ -40,9 +40,9 @@
                         </div>
                         <div class="post-body">
                             <div class="text text-start">
-                                <article class="article">
-                                    <?php echo @base64_decode($dt->article)?>
-                                </article>
+                                <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
+                                    <?= @$dt->title_article?>
+                                </h1>
                                 <div class="owl-carousel owl-posts owl-theme" >
                                     <?php 
                                         if (!empty($dt->post_media)){
@@ -68,6 +68,9 @@
                                         }
                                     ?>
                                 </div>
+                                <article class="article">
+                                    <?php echo @base64_decode($dt->article)?>
+                                </article>
                             </div>
                         </div>
                 
