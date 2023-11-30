@@ -77,12 +77,31 @@ class Auth extends CI_Controller
 
 			$url = URLAPI . "/auth/signin";
 			$result = apiciaklive($url, json_encode($mdata));
+
 			if (@$result->code != 200) {
 				$this->session->set_flashdata('failed', $result->message);
 				$this->load->view('apps/template/wrapper-auth', $data);
 				return;
 			}
 
+            if (@$result->message->role=="super admin"){
+    			$session_data = array(
+    				'user_id'   => $result->message->id,
+    				'email'     => $uname,
+    				'role'      => $result->message->role
+				);
+    			$this->session->set_userdata($session_data);
+    			redirect('godmode/dashboard');
+            }elseif (@$result->message->role=="admin"){
+    			$session_data = array(
+    				'user_id'   => $result->message->id,
+    				'email'     => $uname,
+    				'role'      => $result->message->role
+    				);
+    			$this->session->set_userdata($session_data);
+    			redirect('godmode/dashboard');
+            }
+            
 			$session_data = array(
 				'user_id'   => $result->message->id,
 				'username'  => $result->message->username,
