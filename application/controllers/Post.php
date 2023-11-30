@@ -5,10 +5,18 @@
                   
 
     Sub fungsi  : 
+      - Index           : Tampilian Awal untuk semua jenis postingan
       - upload_image    : berfungsi untuk mengedit single image
-      - upload_images   : berfungsi untuk mengedit multiple image
       - upload_process  : berfungsi untuk memproses hasil image 
                           yang akan diupload
+      - savepost        : Proses mengirimkan data Postingan ke API
+      - simpanlive      : Proses mengirimkan data Liveshow ke API
+      - simpancam       : Proses mengirimkan data Cam2Cam ke API
+      - simpanmeeting   : Proses mengirimkan data Meeting Room ke API
+      - invite_search   : Untuk mendapatkan searching data followers
+      - payspecial      : Proses untuk membeli Postingan type special
+      - paydownload     : Proses untuk membeli Postingan type download
+      - givetips        : Proses untuk memberikan tip kepada member lain
 
 
 
@@ -66,21 +74,9 @@ class Post extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
-
-    
-    function addhttp($matches) {
-    	if (!preg_match("~^(?:f|ht)tps?://~i", $matches[0])) {
-            $url = "https://" . $matches[0];
-        }else{
-        	$url =$matches[0];
-        }
-        $link='<a href="'.$url.'" class="link" target="_blank" title="'.$url.'">'.$url.'</a>';
-        return $link;
-      //return $matches[0] . '(' . strlen($matches[0]) . ')';
-    }
-    
     public function savepost(){
         $input  = $this->input;
+        $title   = $this->security->xss_clean($this->input->post("title_article"));
         $post   = $this->security->xss_clean($this->input->post("post"));
         $tipe   = $this->security->xss_clean($this->input->post("tipe"));
         $price  = $this->security->xss_clean($this->input->post("price"));
@@ -147,8 +143,10 @@ class Post extends CI_Controller
                 }, $post);
 
         //$post=preg_replace('/((ftp|http|https):\/\/)?([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/', '<a href="$0" target="_blank" title="$0">$0</a>', $post);
+        
 
         $mdata=array(
+                "title_article" => empty($title) ? null : $title,
                 "article"       => $post,
                 "type"          => $tipe,
                 "price"         => $price,
@@ -158,9 +156,10 @@ class Post extends CI_Controller
                 "content_type"  => $_SESSION["content_type"]
             );
         
-
-    	$url = URLAPI . "/v1/member/post/add";
-		$result = apiciaklive($url,json_encode($mdata));
+            
+        $url = URLAPI . "/v1/member/post/add";
+        $result = apiciaklive($url,json_encode($mdata));
+            
 
 		if (@$result->code!=200){
 		    $message=array(
@@ -175,6 +174,28 @@ class Post extends CI_Controller
 	            "message"   => ""
 	        );
 	    echo json_encode($message);
+    }
+
+    public function editpost($id)
+    {
+        $post_id   = $this->security->xss_clean($id);
+        $url        = URLAPI . "/v1/member/post/get_singlepost?post_id=".$id;
+	    $result     = apiciaklive($url)->message;
+
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
+
+        $data = array(
+            'title'         => NAMETITLE . ' - Edit Post' ,
+            'content'       => 'apps/member/posting/edit/index',
+            // 'popup'         => 'apps/member/app-popup-single',
+            'edit'          => $result,
+            'cssextra'      => 'apps/member/posting/css/_css_index',
+            'extra'         => 'apps/member/posting/edit/js/_js_index',
+        );
+        
+
+        $this->load->view('apps/template/wrapper-member', $data);
     }
     
     public function simpanlive(){
@@ -453,6 +474,8 @@ class Post extends CI_Controller
             echo json_encode($message);
         }
     }
+
+
 
     
     // public function vs($id)

@@ -38,7 +38,7 @@ class Profile extends CI_Controller
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost");
 
 
-        // echo "<pre>".print_r($maxpost,true)."</pre>";
+        // echo "<pre>".print_r($post,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
@@ -770,7 +770,7 @@ class Profile extends CI_Controller
                             'id' => '86hzwlo2nhnklx',
                             'secret' => 'LMzMTFfhCcOzVvIx'
                         ],
-            'scope'    => "openid profile email",
+            'scope'    => "openid profile email r_liteprofile",
         ]);
 
         // ACCESS TOKEN
@@ -779,9 +779,11 @@ class Profile extends CI_Controller
         try {
             $adapter->authenticate();
             $token = $adapter->getAccessToken();
+            // $userProfile = $adapter->getUserProfile();
 
-            // print_r(json_encode($token['access_token']));
-            echo "<pre>".print_r($token['access_token'],true)."</pre>";
+            // print_r(json_encode($userProfile));
+            echo "token : " . $token['access_token'];
+            // echo "USER PROFILE : " . $userProfile;
             die;
         }
         catch( Exception $e ){

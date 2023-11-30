@@ -113,10 +113,7 @@
                         </div>
                         <div class="post-body">
                             <div class="text text-start">
-                                <?php if ($dt->is_special=='yes' || $dt->id_member==$_SESSION["user_id"]){   ?>
-                                <article class="article">
-                                    <?php echo @base64_decode($dt->article)?>
-                                </article>
+                            <?php if ($dt->is_special=='yes' || $dt->id_member==$_SESSION["user_id"]){   ?>
                                 <div class="owl-carousel owl-posts owl-theme" >
                                     <?php 
                                         if (!empty($dt->post_media)){
@@ -144,6 +141,9 @@
                                         }
                                     ?>
                                 </div>
+                                <article class="article">
+                                    <?php echo @base64_decode($dt->article)?>
+                                </article>
                             <?php 
                                 }else{
                             ?>

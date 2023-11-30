@@ -80,7 +80,7 @@
 
                             </div>
                             <div class="write-posting ps-3 pt-2 w-100">
-                                <input type="text" class="title-optional-post" placeholder="Title (optional)">
+                                <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100">
                                 <textarea id="textarea-post"></textarea>
                                 <h4 id="header-preview-text">Preview Attachment</h4>
                                 <div id="attch-preview-post"></div>

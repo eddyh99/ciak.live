@@ -1277,6 +1277,17 @@ input[type=number] {
     overflow: hidden;
 }
 
+.apps-member .posts-member .post-member .post-body .text p,
+.apps-member .posts-member .post-member .post-body .text pre,
+.apps-member .posts-member .post-member .post-body .text h1,
+.apps-member .posts-member .post-member .post-body .text h2,
+.apps-member .posts-member .post-member .post-body .text h3,
+.apps-member .posts-member .post-member .post-body .text h4,
+.apps-member .posts-member .post-member .post-body .text h5,
+.apps-member .posts-member .post-member .post-body .text h6 {
+    color: var(--text-white-color);
+}
+
 .apps-member .posts-member .post-member .post-body .text a {
     color: #00cf15;
     text-decoration: none;
@@ -2722,7 +2733,6 @@ input[type=number] {
     font-size: 32px;
     margin-bottom: 70px;
     color: white;
-    font-weight: 800;
 }
 
 .apps-member .wrap-posting .write-posting .title-optional-post::placeholder {

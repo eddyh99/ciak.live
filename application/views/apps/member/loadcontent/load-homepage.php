@@ -169,8 +169,10 @@
                                 <div class="text">
                                     <?php 
                                         if ($dt->type=="public"){?>
+                                            <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
+                                                <?= @$dt->title_article?>
+                                            </h1>
                                             <article class="article">
-                                                <?php echo @base64_decode($dt->article)?>
                                                 <?php 
                                                     if (!empty($dt->post_media)){
                                                         foreach ($dt->post_media as $imgpost){
@@ -242,15 +244,16 @@
                                                     }
                                                 ?>
                                             </div>
+                                            <article class="article mt-3">
+                                                <?php echo @base64_decode($dt->article)?>
+                                            </article>
                                     <?php 
                                         } elseif ($dt->type=="private"){
                                             if ($dt->is_subscribe=='no' && $dt->id_member!=$_SESSION["user_id"]){?>
+                                                <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
+                                                    <?= @$dt->title_article?>
+                                                </h1>
                                                 <article class="article">
-                                                    <!-- <?php 
-                                                        @$str=base64_decode($dt->article);
-                                                        echo substr($str,0,1).preg_replace("/[a-z|A-Z|0-9]/","x",substr($str,1));
-                                                    ?> -->
-                                                     <?php echo @base64_decode($dt->article)?>
                                                     <?php 
                                                         if (!empty($dt->post_media)){
                                                             foreach ($dt->post_media as $imgpost){
@@ -316,13 +319,15 @@
                                                         }
                                                     ?>
                                                 </div>
+                                                <article class="article mt-3">
+                                                    <?php echo @base64_decode($dt->article)?>
+                                                </article>
 
                                     <?php } elseif ($dt->is_subscribe=='yes' || $dt->id_member==$_SESSION["user_id"]){?>
+                                                <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
+                                                    <?= @$dt->title_article?>
+                                                </h1>
                                                 <article class="article">
-                                                    <?php
-                                                        @$str = base64_decode($dt->article);
-                                                        echo $str;
-                                                    ?>
                                                     <?php 
                                                         if (!empty($dt->post_media)){
                                                             foreach ($dt->post_media as $imgpost){
@@ -394,14 +399,17 @@
                                                         }
                                                     ?>
                                                 </div>
+                                                <article class="article mt-3">
+                                                    <?php echo @base64_decode($dt->article)?>
+                                                </article>
                                     <?php   
                                             }
                                         }elseif ($dt->type=="special"){ 
                                                 if ($dt->is_special=='yes' || $dt->id_member==$_SESSION["user_id"]){
                                         ?>
-                                                    <article class="article">
-                                                        <?php echo @base64_decode($dt->article)?>
-                                                    </article>
+                                                    <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
+                                                        <?= @$dt->title_article?>
+                                                    </h1>
                                                     <div class="owl-carousel owl-posts owl-theme" >
                                                         <?php 
                                                             if (!empty($dt->post_media)){
@@ -429,6 +437,9 @@
                                                             }
                                                         ?>
                                                     </div>
+                                                    <article class="article">
+                                                        <?php echo @base64_decode($dt->article)?>
+                                                    </article>
                                             <?php 
                                                 }else{
                                             ?>  
@@ -445,8 +456,10 @@
                                         }elseif ($dt->type=="download"){ 
                                             if ($dt->is_download=='yes' || $dt->id_member==$_SESSION["user_id"]){
                                     ?>
+                                                <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
+                                                    <?= @$dt->title_article?>
+                                                </h1>
                                                 <article class="article">
-                                                    <?php echo @base64_decode($dt->article)?>
                                                     <?php 
                                                         if (!empty($dt->post_media)){
                                                             foreach ($dt->post_media as $imgpost){
@@ -508,11 +521,16 @@
                                                         }
                                                     ?>
                                                 </div>
+                                                <article class="article">
+                                                    <?php echo @base64_decode($dt->article)?>
+                                                </article>
                                     <?php 
                                             }else{
                                     ?>
+                                                <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
+                                                    <?= @$dt->title_article?>
+                                                </h1>
                                                 <article class="article">
-                                                    <?php echo @base64_decode($dt->article)?>
                                                     <?php 
                                                         if (!empty($dt->post_media)){
                                                             foreach ($dt->post_media as $imgpost){
@@ -579,6 +597,9 @@
                                                         }
                                                     ?>
                                                 </div>
+                                                <article class="article">
+                                                    <?php echo @base64_decode($dt->article)?>
+                                                </article>
                                     <?php }
                                         }elseif ($dt->type=="vs"){ ?>
                                         
