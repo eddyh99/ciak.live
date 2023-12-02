@@ -13,6 +13,10 @@ class Reported extends CI_Controller
 
     public function index()
     {
+        // $result = apiciaklive(URLAPI."/v1/member/post/get_singlepost?post_id=66");
+
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
         $data = array(
             "title"     => NAMETITLE." - Reported Post",
             "content"   => "admin/report/index",
@@ -28,6 +32,7 @@ class Reported extends CI_Controller
         $category   = $this->security->xss_clean($input->post("category"));
         $result     = ciakadmin(URLAPI . "/v1/admin/post/get_all?category=".$category)->message;
         echo json_encode($result);
+        die;
    }
    
    public function post_lock($id)

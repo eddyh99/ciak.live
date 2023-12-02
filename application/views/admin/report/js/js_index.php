@@ -13,6 +13,7 @@ var tblactive =
                 d.category = $("#category").val()
             },
             "dataSrc": function(data) {
+                console.log(data);
                 return data;
             },
         },
@@ -24,7 +25,23 @@ var tblactive =
             "aTargets": [5],
             "mData": null,
             "mRender": function(data, type, full, meta) {
-                var button = '<a href="<?= base_url() ?>godmode/reported/viewpost/' + full.id_post +'" title="View Post" class="m-1 btn btn-secondary btn-sm"><i class="fa-solid fa-magnifying-glass"></i></a> ';
+                var button = `  <button class="m-1 btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#viewReport${full.id_post}">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                                <div class="modal fade" id="viewReport${full.id_post}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal ${full.username}${full.id_post}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Content Report . . .
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
                 if (full.status == 'active') {
                     button = button +'<a href="<?= base_url() ?>godmode/reported/post_lock/' +full.id_post +'" title="Lock Post" class="m-1 btn btn-danger btn-sm"><i class="fa-solid fa-lock"></i></a> ';
                 }else if (full.status=='deleted'){
@@ -58,4 +75,7 @@ var tblactive =
             },
         ],
     });
+
+
+
 </script>

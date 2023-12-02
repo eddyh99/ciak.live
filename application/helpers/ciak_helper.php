@@ -20,6 +20,27 @@ function apiciaklive($url, $postData = NULL)
     return $result;
 }
 
+function ciakadmin($url, $postData = NULL){
+    $token = "BNkYQzC7Aer9RnP2W3MXhaJHdES54jymxf8G6uwLvcVsUgtTFK";
+    
+    $ch     = curl_init($url);
+    $headers    = array(
+        'Authorization: Bearer ' . $token,
+        'X-TRACKLESS: ciak-live',
+        'Content-Type: application/json'
+    );
+
+    curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    $result = json_decode(curl_exec($ch));
+    curl_close($ch);
+    return $result;
+}
+
 
 function sendmail($email, $subject, $message)
 {
