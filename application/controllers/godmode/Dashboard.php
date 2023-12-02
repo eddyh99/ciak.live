@@ -15,7 +15,7 @@ class Dashboard extends CI_Controller
     {
         $currency = ["XEUR","EUR", "USD", "AUD","CAD","GBP"];
         
-        $ciak   =ciakadmin(URLAPI."/v1/admin/mwallet/get_ciakBalance")->message;
+        $ciak = ciakadmin(URLAPI . "/v1/admin/mwallet/get_ciakBalance")->message;
 
         $ciakbalance=array();
         foreach ($currency as $dt){

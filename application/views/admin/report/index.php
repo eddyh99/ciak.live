@@ -12,14 +12,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <?php } ?>
-        <div class="container-fluid px-4">
-            <div class="col-12 card mb-5">
+        <div class="container-fluid mt-5 px-4">
+            <div class="col-12 card report-member mb-5">
                 <div class="row g-3">
-                    <div class="col-auto">
-                        Category
-                    </div>
-                    <div class="col-auto">
-                        <select name="category" id="category" class="form-select my-3">
+                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        See Modal
+                    </button>  -->
+                    <div class="col-auto m-4">
+                        <label for="">Category</label>
+                        <select name="category" id="category" class="form-select">
                             <option value="all">All Category</option>
                             <option value="hate speech">Hate Speech</option>
                             <option value="spam">Spam</option>
@@ -52,6 +53,36 @@
                     </table>
                 </div>
             </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Report Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="modal-preview-body d-flex">
+                    <div>
+                        <img src="<?= base_url()?>assets/img/profile-2.jpg" class="rounded-circle pp-preview-report" alt="">
+                    </div>
+                    <div>
+                        <h4>Killua Zoldick</h4>
+                        <span>19 Hours Ago</span>
+                    </div>
+                </div>
+                <div>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, natus omnis placeat praesentium hic sunt assumenda unde eveniet animi eligendi! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, cum?
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
         </div>
     </main>
 </div>

@@ -1,7 +1,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <div class="col-6 card my-5">
+            <div class="col-12 card topup my-5">
                 <div class="card-header fw-bold">
                     <i class="fas fa-money-bill me-1"></i>
                     Topup Ciak Process
@@ -26,9 +26,9 @@
                             value="<?php echo $this->security->get_csrf_hash(); ?>">
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Import Excel File</label>
-                            <input class="form-control" type="file" name="topup" id="topup">
+                            <input class="form-control topup" type="file" name="topup" id="topup">
                         </div>
-                        <button class="btn btn-freedy-blue px-4 py-2 shadow-none">Import</button>
+                        <button class="btn btn-green-ciak px-4 py-2 shadow-none">Import</button>
                     </form>
                 </div>
             </div>

@@ -129,7 +129,8 @@ var tbldisable =
         ],
     });
     
-    var tblnew = $('#membernew').DataTable({
+var tblnew = 
+    $('#membernew').DataTable({
         "pageLength": 100,
         "ajax": {
             "url": "<?= base_url() ?>godmode/member/get_all?status=new",

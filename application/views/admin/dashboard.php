@@ -1,7 +1,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <div class="col-12 box-dashboard-freedy-top px-3 py-5 mt-3 mb-4 d-flex flex-row align-items-center">
+                    <div class="col-12 box-dashboard-ciak-top px-3 py-5 mt-3 mb-4 d-flex flex-row align-items-center">
                         <h3 class="me-auto fw-bold text-green-freedy">MASTER WALLET</h3>
                         <img src="<?=base_url()?>assets/img/logo-only.svg" alt="" style="height: 75px;" class="me-5">
                     </div>
