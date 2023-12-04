@@ -19,8 +19,8 @@
                         See Modal
                     </button>  -->
                     <div class="col-auto m-4">
-                        <label for="">Category</label>
-                        <select name="category" id="category" class="form-select">
+                        <label class="text-white" for="">Category</label>
+                        <select name="category" id="category" class="form-select category-report">
                             <option value="all">All Category</option>
                             <option value="hate speech">Hate Speech</option>
                             <option value="spam">Spam</option>
@@ -56,34 +56,45 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Report Preview</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="modal-preview-body d-flex">
-                    <div>
-                        <img src="<?= base_url()?>assets/img/profile-2.jpg" class="rounded-circle pp-preview-report" alt="">
+        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Report Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-preview-body d-flex">
+                        <div>
+                            <img src="<?= base_url()?>assets/img/profile-2.jpg" class="rounded-circle pp-preview-report" alt="">
+                        </div>
+                        <div>
+                            <h4>Killua Zoldick</h4>
+                            <span>19 Hours Ago</span>
+                        </div>
                     </div>
-                    <div>
-                        <h4>Killua Zoldick</h4>
-                        <span>19 Hours Ago</span>
+                    <div class="owl-preview-report">
+                        <div class="owl-carousel owl-posts owl-theme">
+                            <div class="item">
+                                <div class="img">
+                                    <img src="<?= base_url()?>assets/img/new-ciak/img-8.png" class="img-post-report" alt="">
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="img">
+                                    <img src="<?= base_url()?>assets/img/new-ciak/img-9.png" class="img-post-report" alt="">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, natus omnis placeat praesentium hic sunt assumenda unde eveniet animi eligendi! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, cum?
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
+                </div>
             </div>
-          </div>
-        </div>
+        </div> -->
     </main>
 </div>
 </div>
