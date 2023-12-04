@@ -106,15 +106,27 @@ var tblactive =
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="modal-preview-body d-flex">
-                                                    <div class="me-2">
-                                                        <img src="${full.profile}" class="rounded-circle pp-preview-report" alt="img">
+                                            <div class="modal-preview-body d-flex justify-content-between">
+                                                    <div class="d-flex">
+                                                        <div class="me-2">
+                                                            <img src="${full.profile}" class="rounded-circle pp-preview-report" alt="img">
+                                                        </div>
+                                                        <div>
+                                                            <h4>${full.username}</h4>
+                                                            <span>
+                                                                ${hasil}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                     <div>
-                                                        <h4>${full.username}</h4>
-                                                        <span>
-                                                            ${hasil}
-                                                        </span>
+                                                        <form>
+                                                            <select name="explicit" class="form-select category-report">
+                                                                <option value="">--Choose Content--</option>
+                                                                <option value="explicit">Explicit</option>
+                                                                <option value="non explicit">Non Explicit</option>
+                                                            </select>
+                                                            <button class="btn btn-main-green">Change Content</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                                 <div class="mt-3">
@@ -167,17 +179,64 @@ var tblactive =
                                                                     attach += `
                                                                         <div class="accordion-item">
                                                                             <h2 class="accordion-header">
-                                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                                Accordion Item #3
-                                                                            </button>
+                                                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree${dt.imgorg.substr(50, 12)}" aria-expanded="false" aria-controls="collapseThree${dt.imgorg.substr(50, 12)}">
+                                                                                    ${dt.imgorg.substr(42)}
+                                                                                </button>
                                                                             </h2>
-                                                                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                                            <div class="accordion-body">
-                                                                                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                                                            </div>
-                                                                            </div>
-                                                                        </div>
                                                                         `
+                                                                        if(dt.media_extension == "pdf"){
+                                                                            attach += `
+                                                                                <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                                                    <div class="accordion-body">
+                                                                                        <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="${dt.imgorg}#toolbar=0" type="application/pdf">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            `
+                                                                        }else if(dt.media_extension == "audio"){
+                                                                            attach += `
+                                                                                <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                                                    <div class="accordion-body">
+                                                                                        <audio style="width: 80%;" controls controlsList="nodownload">>
+                                                                                            <source src="${dt.imgorg}" type="audio/mpeg">
+                                                                                            Your browser does not support the audio.
+                                                                                        </audio>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            `
+                                                                        }else if(dt.media_extension == "video"){
+                                                                            attach += `
+                                                                                <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                                                    <div class="accordion-body">
+                                                                                        <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
+                                                                                            <source src="${dt.imgorg}" type="video/mp4">
+                                                                                        </video>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            `
+                                                                        }else if(dt.media_extension == "image"){
+                                                                            attach += `
+                                                                                <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="wrapper-preview-report-image">
+                                                                                            <img class="attch-img" src="${dt.imgorg}" alt="img">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            `
+                                                                        } else {
+                                                                            attach += `
+                                                                                <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                                                    <div class="accordion-body">
+                                                                                        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=${dt.imgorg}?&wdInConfigurator=True' width='100%' height='500' frameborder='0'></iframe>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            `
+                                                                        }
                                                                     }
                                                                 })
                                                             }
