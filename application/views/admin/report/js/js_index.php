@@ -60,6 +60,7 @@ var tblactive =
             "aTargets": [5],
             "mData": null,
             "mRender": function(data, type, full, meta) {
+                
                 var now = Math.round(Date.now()/1000);
                 var from_time = Math.round(Date.parse(full.post_time)/1000);
                 var selisih = Math.round((now - from_time)/60);                
@@ -73,27 +74,7 @@ var tblactive =
                     hasil = "Yesterday";
                 }else{
                     hasil = full.post_time;
-                }
-
-        
-
-                // console.log(full.post_media.length);
-
-
-
-                    // if(full.post_media.length !== 0){
-                    //     full.post_media.forEach(image =>{
-                    //         // if(image.media_type == 'non attach'){
-                    //             console.log(`
-                    //                 <div class="item">
-                    //                     <div class="img">
-                    //                         <img src="${image.imgorg}" class="img-post-report" alt="">
-                    //                     </div>
-                    //                 </div>
-                    //             `);
-                    //         // }
-                    //     });
-                    // }                            
+                }                       
 
                 var button = `<a  href="javascript:void(0);" class="m-1 btn btn-secondary btn-sm" data-bs-toggle="modal" onclick="showModal()" data-bs-target="#viewReport${full.id_post}">
                                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -102,7 +83,7 @@ var tblactive =
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Preview Report</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Preview Report (${full.category})</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -119,8 +100,8 @@ var tblactive =
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <form>
-                                                            <select name="explicit" class="form-select category-report">
+                                                        <form action="<?= base_url()?>godmode/reported/change_explicit/${full.id_post}" method="post">
+                                                            <select name="content_type" class="form-select category-report">
                                                                 <option value="">--Choose Content--</option>
                                                                 <option value="explicit">Explicit</option>
                                                                 <option value="non explicit">Non Explicit</option>
@@ -187,7 +168,7 @@ var tblactive =
                                                                         if(dt.media_extension == "pdf"){
                                                                             attach += `
                                                                                 <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                                                    <div class="accordion-body">
+                                                                                    <div class="accordion-body body-report">
                                                                                         <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="${dt.imgorg}#toolbar=0" type="application/pdf">
                                                                                     </div>
                                                                                 </div>
@@ -196,7 +177,7 @@ var tblactive =
                                                                         }else if(dt.media_extension == "audio"){
                                                                             attach += `
                                                                                 <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                                                    <div class="accordion-body">
+                                                                                    <div class="accordion-body body-report">
                                                                                         <audio style="width: 80%;" controls controlsList="nodownload">>
                                                                                             <source src="${dt.imgorg}" type="audio/mpeg">
                                                                                             Your browser does not support the audio.
@@ -208,7 +189,7 @@ var tblactive =
                                                                         }else if(dt.media_extension == "video"){
                                                                             attach += `
                                                                                 <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                                                    <div class="accordion-body">
+                                                                                    <div class="accordion-body body-report">
                                                                                         <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
                                                                                             <source src="${dt.imgorg}" type="video/mp4">
                                                                                         </video>
@@ -219,7 +200,7 @@ var tblactive =
                                                                         }else if(dt.media_extension == "image"){
                                                                             attach += `
                                                                                 <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                                                    <div class="accordion-body">
+                                                                                    <div class="accordion-body body-report">
                                                                                         <div class="wrapper-preview-report-image">
                                                                                             <img class="attch-img" src="${dt.imgorg}" alt="img">
                                                                                         </div>
@@ -230,7 +211,7 @@ var tblactive =
                                                                         } else {
                                                                             attach += `
                                                                                 <div id="collapseThree${dt.imgorg.substr(50, 12)}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                                                    <div class="accordion-body">
+                                                                                    <div class="accordion-body body-report">
                                                                                         <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=${dt.imgorg}?&wdInConfigurator=True' width='100%' height='500' frameborder='0'></iframe>
                                                                                     </div>
                                                                                 </div>
@@ -287,6 +268,9 @@ var tblactive =
         ],
     });
 
+// $("#categoryReport").on("change",function(e){
+//     $('#table_post').ajax.reload();
+// })
 
 
 

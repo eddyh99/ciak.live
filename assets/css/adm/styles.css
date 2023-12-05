@@ -2604,7 +2604,9 @@ textarea.form-control-lg {
   appearance: none;
 }
 
-.form-select.category-report {
+.form-select.category-report,
+.form-select.category-cost,
+.form-select.category-cost:disabled {
   background-color: #00040B;
   color: #ffffff;
 }
@@ -5403,6 +5405,30 @@ fieldset:disabled .btn {
   background-color: #03B115;
   border-bottom: 1px solid rgba(203, 0, 0, 0.125);
   color: white;
+}
+
+.card.fee .card-header,
+.card.cost .card-header{
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  background-color: #03B115;
+  border-bottom: 1px solid rgba(203, 0, 0, 0.125);
+  color: white;
+}
+
+.card.fee .card-body,
+.card.cost .card-body {
+  background-color: #212121;
+}
+
+.card.fee .card-body .fee-input,
+.card.cost .card-body .cost-input {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.card.fee .card-body .fee-input:focus {
+  color: #ffffff;
 }
 
 .card.report-member .card-header{
@@ -12942,7 +12968,8 @@ body {
   background-color: #1A1B1C;
 }
 
-.card.report-member{
+.card.report-member,
+.card.member{
   background-color: #1A1B1C;
 }
 
@@ -13258,7 +13285,9 @@ table.dataTable tbody tr:hover{
   color: #ffffff;
 }
 
-
+.accordion-body.body-report {
+  background-color: #000000;
+}
 .accordion-button:not(.collapsed)::after{
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }

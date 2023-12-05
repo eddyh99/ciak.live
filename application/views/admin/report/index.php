@@ -20,7 +20,7 @@
                     </button>  -->
                     <div class="col-auto m-4">
                         <label class="text-white" for="">Category</label>
-                        <select name="category" id="category" class="form-select category-report">
+                        <select name="categoryReport" id="categoryReport" class="form-select category-report">
                             <option value="all">All Category</option>
                             <option value="hate speech">Hate Speech</option>
                             <option value="spam">Spam</option>
