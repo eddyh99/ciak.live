@@ -11,6 +11,7 @@
 
 <!-- AUTO NUMERIC -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/1.8.2/autoNumeric.js"></script>
+<script src="<?= base_url()?>assets/js/readmore.js"></script>
 <?php
 if (isset($extra)) {
     $this->load->view($extra);

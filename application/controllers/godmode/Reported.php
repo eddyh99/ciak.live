@@ -34,6 +34,16 @@ class Reported extends CI_Controller
         echo json_encode($result);
         die;
    }
+
+   public function change_explicit($id)
+   {
+        $input      = $this->input;
+        $content_type   = $this->security->xss_clean($input->post("content_type"));
+        $result     = ciakadmin(URLAPI . "/v1/admin/post/post/changecategory?post_id=".$id."&category=".$content_type);
+        echo json_encode($result);
+        $this->session->set_flashdata("success", $result->message);
+        redirect('godmode/reported');
+   }
    
    public function post_lock($id)
     {

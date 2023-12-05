@@ -15,7 +15,7 @@
                 </div>
                 <?php } ?>
             </div>
-            <div class="col-12 card mb-5 mt-3">
+            <div class="col-12 card cost mb-5 mt-3">
                 <div class="card-header fw-bold">
                     Management Cost
                 </div>
@@ -27,7 +27,7 @@
                         <div class="row mb-3">
                             <label for="currency_dcost" class="col-sm-2 col-form-label">Currency</label>
                             <div class="col-sm-10">
-                                <select name="currency" id="currency_dcost" class="form-select" disabled>
+                                <select name="currency" id="currency_dcost" class="form-select category-cost" disabled>
                                     <option value="">-Select Currency-</option>
                                     <?php foreach ($currency as $dt) { ?>
                                     <option value="<?= $dt ?>"
@@ -53,27 +53,27 @@
                             ($curr == "RON")
                         ) { ?>
                         <div class="mb-3" id="topup_nasional_fxd_div">
-                            <label class="form-label">Topup Circuit (Fixed)</label>
+                            <label class="form-label text-white">Topup Circuit (Fixed)</label>
                             <input type="text" id="topup_circuit_fxd" name="topup_circuit_fxd"
-                                class="form-control money-input" value="<?= $dcost['topup_circuit_fxd'] ?>">
+                                class="form-control cost-input money-input" value="<?= $dcost['topup_circuit_fxd'] ?>">
                         </div>
                         <div class="mb-3" id="topup_circuit_pct_div">
-                            <label class="form-label">Topup Circuit (%)</label>
+                            <label class="form-label text-white">Topup Circuit (%)</label>
                             <input type="text" id="topup_circuit_pct" name="topup_circuit_pct"
-                                class="form-control money-input" value="<?= $dcost['topup_circuit_pct'] ?>">
+                                class="form-control cost-input money-input" value="<?= $dcost['topup_circuit_pct'] ?>">
                         </div>
                         <?php 
                         } ?>
 
                         <div class="mb-3" id="walletbank_circuit_fxd_div">
-                            <label class="form-label">Walletbank Circuit (Fixed)</label>
+                            <label class="form-label text-white">Walletbank Circuit (Fixed)</label>
                             <input type="text" id="walletbank_circuit_fxd" name="walletbank_circuit_fxd"
-                                class="form-control money-input" value="<?= $dcost['walletbank_circuit_fxd'] ?>">
+                                class="form-control cost-input money-input" value="<?= $dcost['walletbank_circuit_fxd'] ?>">
                         </div>
                         <div class="mb-3" id="walletbank_circuit_pct_div">
-                            <label class="form-label">Walletbank Circuit (%)</label>
+                            <label class="form-label text-white">Walletbank Circuit (%)</label>
                             <input type="text" id="walletbank_circuit_pct" name="walletbank_circuit_pct"
-                                class="form-control money-input" value="<?= $dcost['walletbank_circuit_pct'] ?>">
+                                class="form-control cost-input money-input" value="<?= $dcost['walletbank_circuit_pct'] ?>">
                         </div>
 
                         <?php
@@ -83,21 +83,21 @@
                         ) {
                         ?>
                         <div class="mb-3" id="walletbank_outside_fxd_div">
-                            <label class="form-label">Walletbank Outside (Fixed)</label>
+                            <label class="form-label text-white">Walletbank Outside (Fixed)</label>
                             <input type="text" id="walletbank_outside_fxd" name="walletbank_outside_fxd"
-                                class="form-control money-input" value="<?= $dcost['walletbank_outside_fxd'] ?>">
+                                class="form-control cost-input money-input" value="<?= $dcost['walletbank_outside_fxd'] ?>">
                         </div>
                         <div class="mb-3" id="walletbank_outside_pct_div">
-                            <label class="form-label">Walletbank Outside (%)</label>
+                            <label class="form-label text-white">Walletbank Outside (%)</label>
                             <input type="text" id="walletbank_outside_pct" name="walletbank_outside_pct"
-                                class="form-control money-input" value="<?= $dcost['walletbank_outside_pct'] ?>">
+                                class="form-control cost-input money-input" value="<?= $dcost['walletbank_outside_pct'] ?>">
                         </div>
                         <?php
                         } ?>
                         <div class="mb-3" id="swap_div">
-                            <label class="form-label">Swap (%)</label>
+                            <label class="form-label text-white">Swap (%)</label>
                             <input type="text" id="swap" name="swap"
-                                class="form-control money-input" value="<?= $dcost['swap'] ?>">
+                                class="form-control cost-input money-input" value="<?= $dcost['swap'] ?>">
                         </div>
 
                         <div class="mb-3">

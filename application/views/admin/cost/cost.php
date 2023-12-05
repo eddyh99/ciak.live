@@ -16,7 +16,7 @@
         </div>
         <?php } ?>
         <div class="container-fluid px-4">
-            <div class="col-12 card mb-5 mt-3">
+            <div class="col-12 card cost mb-5 mt-3">
                 <div class="card-header fw-bold">
                     MANAJEMEN COST
                 </div>
@@ -25,7 +25,7 @@
                         <div class="row mb-3">
                             <label for="currency" class="col-sm-2 col-form-label">Currency</label>
                             <div class="col-sm-10">
-                                <select name="currency" id="currency" class="form-select">
+                                <select name="currency" id="currency" class="form-select category-cost">
                                     <?php foreach ($currency as $dt) {?>
                                     <option value="<?= $dt?>"><?= $dt ?></option>
                                     <?php   }?>
@@ -33,39 +33,39 @@
                             </div>
                         </div>
                         <div class="mb-3" id="topup_circuit_fxd_div">
-                            <label class="form-label">Topup Circuit (Fixed)</label>
-                            <input type="text" id="topup_circuit_fxd" name="topup_circuit_fxd" class="form-control"
+                            <label class="form-label text-white">Topup Circuit (Fixed)</label>
+                            <input type="text" id="topup_circuit_fxd" name="topup_circuit_fxd" class="form-control cost-input"
                                 readonly>
                         </div>
                         <div class="mb-3" id="topup_circuit_pct_div">
-                            <label class="form-label">Topup Circuit (%)</label>
-                            <input type="text" id="topup_circuit_pct" name="topup_circuit_pct" class="form-control"
+                            <label class="form-label text-white">Topup Circuit (%)</label>
+                            <input type="text" id="topup_circuit_pct" name="topup_circuit_pct" class="form-control cost-input"
                                 readonly>
                         </div>
                         <div class="mb-3" id="walletbank_circuit_fxd_div">
-                            <label class="form-label">Walletbank Circuit (Fixed)</label>
+                            <label class="form-label text-white">Walletbank Circuit (Fixed)</label>
                             <input type="text" id="walletbank_circuit_fxd" name="walletbank_circuit_fxd"
-                                class="form-control" readonly>
+                                class="form-control cost-input" readonly>
                         </div>
                         <div class="mb-3" id="walletbank_circuit_pct_div">
-                            <label class="form-label">Walletbank Circuit (%)</label>
+                            <label class="form-label text-white">Walletbank Circuit (%)</label>
                             <input type="text" id="walletbank_circuit_pct" name="walletbank_circuit_pct"
-                                class="form-control" readonly>
+                                class="form-control cost-input" readonly>
                         </div>
                         <div class="mb-3" id="walletbank_outside_fxd_div">
-                            <label class="form-label">Walletbank Outside (Fixed)</label>
+                            <label class="form-label text-white">Walletbank Outside (Fixed)</label>
                             <input type="text" id="walletbank_outside_fxd" name="walletbank_outside_fxd"
-                                class="form-control" readonly>
+                                class="form-control cost-input" readonly>
                         </div>
                         <div class="mb-3" id="walletbank_outside_pct_div">
-                            <label class="form-label">Walletbank Outside (%)</label>
+                            <label class="form-label text-white">Walletbank Outside (%)</label>
                             <input type="text" id="walletbank_outside_pct" name="walletbank_outside_pct"
-                                class="form-control" readonly>
+                                class="form-control cost-input" readonly>
                         </div>
                         <div class="mb-3" id="swap_div">
-                            <label class="form-label">Swap (%)</label>
+                            <label class="form-label text-white">Swap (%)</label>
                             <input type="text" id="swap" name="swap"
-                                class="form-control" readonly>
+                                class="form-control cost-input" readonly>
                         </div>
                          <div class="mb-3">
                             <button id="btnconfirm"
