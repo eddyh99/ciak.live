@@ -456,6 +456,8 @@ class Post extends CI_Controller
 
         $url = URLAPI . "/v1/member/post/post_tips";
         $result = @apiciaklive($url,json_encode($mdata));
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
 
         if (@$result->code!=200||@$result->status==400){
             header("HTTP/1.0 406 Not Acceptable");

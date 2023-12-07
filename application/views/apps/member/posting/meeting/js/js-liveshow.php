@@ -69,16 +69,16 @@ video::-webkit-media-controls {
         height:75vh;
     }
 }
-
-
-
 </style>
+
 <script src="https://muazkhan.com:9001/dist/RTCMultiConnection.js"></script>
 <script src="https://muazkhan.com:9001/node_modules/webrtc-adapter/out/adapter.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+<script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
+
 <script>
 $("video").on("click",function(e){
- e.preventDefault();   
+    e.preventDefault();   
 })
 
 
@@ -118,6 +118,7 @@ $.ajax({
     success: function (response) {
         var data=JSON.parse(response);
         console.log(data);
+        console.log(connection.extra.broadcastuser, "121");
         connection.extra.userFullName = data.username;
         meeting_type=data.meeting_type;
         purpose=data.purpose;
@@ -125,7 +126,8 @@ $.ajax({
             $('#load-edit-profile').hide()
             $('.please-click-join-live').text('Please start to live');
             $("#btnopen").html("Start");
-            $("#broadcast-viewers-counter").html('Online viewers: '+connection.extra.broadcastuser+' <b> User</b>');
+            // $("#broadcast-viewers-counter").html('Online viewers: '+connection.extra.broadcastuser+' <b> User</b>');
+            // console.log(connection.extra.broadcastuser, "130");
             performer=true;
             connection.extra.roomOwner = true;
         }else if (data.performer===false){
@@ -182,6 +184,7 @@ setInterval(()=>{
 $("#btnopen").on("click",function(){
     $("#txt-chat-message").removeAttr("disabled");
     $("#btn-chat-message").removeAttr("disabled");
+    $("#btn-emoji-livestream").removeAttr("disabled");
     console.log(performer);
     if (!performer){
         $("#confirmjoin").modal("show");
@@ -307,12 +310,15 @@ connection.onmessage = function(event) {
 
 // extra code
 
+
 connection.onstream = function(event) {
     if (event.extra.roomOwner === true) {
         if (connection.extra.broadcastuser>1){
-            $("#broadcast-viewers-counter").html('Online viewers: <b>' + connection.extra.broadcastuser + ' Users</b>');
+            console.log(connection.extra.broadcastuser, "315");
+            // $("#broadcast-viewers-counter").html('Online viewers: <b>' + connection.extra.broadcastuser + ' Users</b>');
         }else{
-            $("#broadcast-viewers-counter").html('Online viewers: <b>' + connection.extra.broadcastuser + ' User</b>');
+            console.log(connection.extra.broadcastuser, "317");
+            // $("#broadcast-viewers-counter").html('Online viewers: <b>' + connection.extra.broadcastuser + ' User</b>');
         }
         
         event.mediaElement.controls = false;
@@ -353,7 +359,7 @@ function appendChatMessage(event, checkmark_id) {
     div.className = 'message mt-2';
 
     if (event.data) {
-        div.innerHTML = '<b>' + (event.extra.userFullName || event.userid) + ':</b><br>' + event.data.chatMessage;
+        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> ${(performer == true) ? '<div><a class="btn btn-main-green">Kick</a></div>' : ''}  </div>`;
 
         if (event.data.checkmark_id) {
             connection.send({
@@ -399,7 +405,23 @@ document.getElementById('btn-chat-message').onclick = function() {
     });
 };
 
+connection.onUserStatusChanged = function(event, dontWriteLogs) {
+    if (!!connection.enableLogs && !dontWriteLogs) {
+        console.info(event.userid, event.status, connection.extra.broadcastuser,  "HALLO 404");
+        var countViewer = $(`.count-viewer`).text();
+        if(event.status == 'online'){
+            countViewer++
+            $(`.count-viewer`).text(countViewer);
+        }
+    }
+};
 
+
+connection.onleave = function(event) {
+    var countViewer = $(`.count-viewer`).text();
+    countViewer--;
+    $(`.count-viewer`).text(countViewer);
+};
 
 
 function replaceTrack(videoTrack, screenTrackId) {
@@ -575,4 +597,36 @@ function stopStream(){
 
 	mediaRecorder.stop();
 }
+
+
+$(document).ready(function(){
+    new EmojiPicker({
+        trigger: [
+            {
+                selector: '.btn-emoji',
+                insertInto: '.input-live-show-chating'
+            }
+        ],
+        closeButton: true,
+        dragButton: true,
+        width: 350,
+        height: 370,
+        addPosX: -130,
+        addPosY: -380,
+        tabbed: false,
+        navPos: "bottom",
+        navButtonReversed: false,
+        disableSearch: false,
+        hiddenScrollBar: true, // Not for Firefox
+        animation: "slideDown",
+        animationDuration: "1s",
+        disableNav: false,
+        emojiDim: {
+            emojiPerRow: 5,
+            emojiSize: 30,
+            emojiButtonHeight: 80,
+            hideCategory: true
+        },
+    });
+});
 </script>

@@ -9,7 +9,6 @@ function calculate() {
             data: $("#swapconfirm").serialize(),
             success: function(response) {
                 var data = JSON.parse(response);
-                console.log(data);
                 $("#notifcalculate").hide();
                 $("#btnconfirm").attr("disabled", false);
                 $("#receive").val(data.receive);

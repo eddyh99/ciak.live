@@ -187,6 +187,26 @@
     border: none;
 }
 
+.btn-emoji {
+    text-decoration: none;
+    text-align: center;
+    background: linear-gradient(90deg, #828a83 47.56%, #868686 102.84%);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    color: #FFF !important;
+    border: none;
+}
+
+.btn-emoji:hover {
+    text-decoration: none;
+    text-align: center;
+    background: linear-gradient(90deg, #828a83 47.56%, #868686 102.84%);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    color: #FFF !important;
+    border: none;
+}
+
 .btn-main-green {
     text-decoration: none;
     text-align: center;
@@ -1248,6 +1268,7 @@ input[type=number] {
     justify-content: center;
     align-items: center;
 }
+
 
 .apps-member .posts-member .post-member .post-header .action a.color-bp.dollar .bg-white-dollar {
     background-color: #181A1C;

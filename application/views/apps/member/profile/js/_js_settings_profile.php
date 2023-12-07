@@ -1,7 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
 
 <script>
-
 /*----------------------------------------------------------
 Modul Name  : _js_settings_profile
 Desc        : Modul ini di digunakan untuk melakukan 

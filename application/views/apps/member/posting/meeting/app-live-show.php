@@ -65,10 +65,18 @@
         </div>
         <div class="col-12 col-lg-4 mt-4 live-show-chating">
             <!--<div id="onUserStatusChanged"></div>-->
-            <div id="broadcast-viewers-counter" class="text-white pb-3"></div>
+            <div id="broadcast-viewers-counter" class="text-white d-flex justify-content-between pb-3">
+                <div>Online Viewers: <span class="count-viewer">0</span></div>
+                <div class="send-tips-livestream me-5">
+                   <a class="btn-main-green">
+                        <i class="fa-solid fa-euro-sign"></i>
+                   </a>
+                </div>
+            </div>
             <div id="conversation-panel" class="col-lg-12 main-live-chating"></div>
             <div class="d-flex align-items-center mx-4">
                 <input type="text" class="form-control input-live-show-chating"  id="txt-chat-message" disabled placeholder="live chat...">
+                <button class="btn btn-emoji ms-2" id="btn-emoji-livestream" disabled><i class="fas fa-icons"></i></button>
                 <button class="btn btn-main-green ms-2" id="btn-chat-message" disabled>Send</button>
             </div>
         </div>
