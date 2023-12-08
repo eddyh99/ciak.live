@@ -91,14 +91,11 @@ function actionFollow(user, ucode) {
         data: "status="+$("#user" + user).val()+"&follow_id="+ucode,
         success: function (response) {
             var data=JSON.parse(response);
-            console.log(data.success);
             if (data.success==true){
-                console.log($("#user" + user).val());
                 if ($("#user" + user).val() == 'Unfollow') {
                     $("#user" + user).val('Follow');
                     $("#user" + user).removeClass('active');
                 } else {
-                    console.log("ganti unfollow");
                     $("#user" + user).val('Unfollow');
                     $("#user" + user).addClass('active');
                 }

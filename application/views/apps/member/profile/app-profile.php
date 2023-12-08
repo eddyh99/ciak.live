@@ -8,7 +8,7 @@
             <div class="profile mb-4">
                 <div class="d-flex flex-row position-relative user">
                     <div class="d-flex align-items-center">
-                        <a class="icon-profile shareit me-auto ms-2" style="cursor:pointer" onclick="setClipboard('<?=base_url()?>profile/user/<?=$_SESSION["ucode"]?>')">
+                        <a class="icon-profile shareit me-auto ms-2" style="cursor:pointer" onclick="setClipboard('<?=base_url()?>profile/user/<?=$_SESSION['ucode']?>')">
                             <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.59 12.51L13.42 16.49M13.41 5.51L6.59 9.49M19 4C19 5.65685 17.6569 7 16 7C14.3431 7 13 5.65685 13 4C13 2.34315 14.3431 1 16 1C17.6569 1 19 2.34315 19 4ZM7 11C7 12.6569 5.65685 14 4 14C2.34315 14 1 12.6569 1 11C1 9.34315 2.34315 8 4 8C5.65685 8 7 9.34315 7 11ZM19 18C19 19.6569 17.6569 21 16 21C14.3431 21 13 19.6569 13 18C13 16.3431 14.3431 15 16 15C17.6569 15 19 16.3431 19 18Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
@@ -78,7 +78,9 @@
                     <?php if (@$profile->is_emailshare=='yes'){?>
                         <a href="mailto:<?= @$profile->email?>" class="location mb-2"><?=@$profile->email?></a>
                     <?php }?>
-                    <p><a href="<?=(preg_match("/http/",@$profile->web)>0)?@$profile->web:"https://".@$profile->web?>" target="_blank"><?=@$profile->web?></a></a></p>
+                    <p>
+                        <a href="<?=(preg_match("/http/",@$profile->web)>0)?@$profile->web:"https://".@$profile->web?>" target="_blank"><?=@$profile->web?></a>
+                    </p>
                 </div>
             </div>
             
@@ -115,7 +117,7 @@
                         ?>
                                     <div class="apps-member">
                                         <div class="posts-member">
-                                            <div class="post-member px-4">
+                                            <div class="post-member <?php echo ($dt->content_type == 'explicit') ? 'explicit-border' : ''?> px-4">
                                                 <div class="post-header mb-3 d-flex flex-row align-items-center">
                                                     <div class="post-profile d-flex flex-row align-items-center me-auto">
                                                         <img src="<?=$profile->profile?>" alt="picture" class="picture rounded-circle">
@@ -303,7 +305,7 @@
                         ?>
                                     <div class="apps-member">
                                         <div class="posts-member">
-                                            <div class="post-member px-4">
+                                            <div class="post-member <?php echo ($dt->content_type == 'explicit') ? 'explicit-border' : ''?> px-4">
                                                 <div class="post-header mb-3 d-flex flex-row align-items-center">
                                                     <div class="post-profile d-flex flex-row align-items-center me-auto">
                                                         <img src="<?=$profile->profile?>" alt="picture" class="picture rounded-circle">
@@ -465,7 +467,7 @@
                                 
                                     <div class="apps-member">
                                         <div class="posts-member">
-                                            <div class="post-member px-4">
+                                            <div class="post-member <?php echo ($dt->content_type == 'explicit') ? 'explicit-border' : ''?> px-4">
                                                 <div class="post-header mb-3 d-flex flex-row align-items-center">
                                                     <div class="post-profile d-flex flex-row align-items-center me-auto">
                                                         <img src="<?=$profile->profile?>" alt="picture" class="picture rounded-circle">
@@ -577,7 +579,7 @@
                                     if($dt->type=="download"){ ?>
                                         <div class="apps-member">
                                             <div class="posts-member">
-                                                <div class="post-member px-4">
+                                                <div class="post-member <?php echo ($dt->content_type == 'explicit') ? 'explicit-border' : ''?> px-4">
                                                     <div class="post-header mb-3 d-flex flex-row align-items-center">
                                                         <div class="post-profile d-flex flex-row align-items-center me-auto">
                                                             <img src="<?=$profile->profile?>" alt="picture" class="picture rounded-circle">

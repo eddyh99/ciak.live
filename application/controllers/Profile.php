@@ -634,6 +634,19 @@ class Profile extends CI_Controller
         }
     }
     
+    public function get_content_type_guest($id)
+    {
+        $explicit = $_GET['type'];
+
+        if($explicit == 'explicit'){
+            setcookie('content', 'yes', time()+3600*24*365*10, '/');
+            redirect("profile/guest_profile/".$id);
+        }else{
+            setcookie('content', 'no', time()+3600*24*365*10, '/');
+            redirect("profile/guest_profile/".$id);
+        }
+    }
+    
     public function youtube_link(){
         $client = new Google\Client();
 

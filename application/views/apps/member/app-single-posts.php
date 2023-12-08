@@ -24,7 +24,7 @@
                         <a href="<?= base_url()?>homepage" class="back-single-post mt-5 ms-2 d-block">
                             <i class="fa-solid fa-arrow-left fs-5 "></i>
                         </a>
-                        <div class="post-member mt-3 px-4">
+                        <div class="post-member <?php echo ($posts->content_type == 'explicit') ? 'explicit-border' : ''?> mt-3 px-4">
                             <div class="post-header mb-3 mt-3 d-flex flex-row align-items-center">
                                 <div class="post-profile d-flex flex-row align-items-center me-auto">
                                     <!-- FIXED GO TO GUEST -->
@@ -713,7 +713,7 @@
                     }elseif ($posts->is_admin=='active' && empty($_SESSION["userid"])){
                         
             ?>
-                <div class="post-member mt-5 px-4">
+                <div class="post-member <?php echo ($posts->content_type == 'explicit') ? 'explicit-border' : ''?> mt-5 px-4">
                     <div class="post-header mt-5 mb-3 d-flex flex-row align-items-center">
                         <div class="post-profile d-flex flex-row align-items-center me-auto">
                             <!-- FIXED GO TO GUEST -->

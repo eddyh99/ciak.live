@@ -118,7 +118,6 @@ $.ajax({
     success: function (response) {
         var data=JSON.parse(response);
         console.log(data);
-        console.log(connection.extra.broadcastuser, "121");
         connection.extra.userFullName = data.username;
         meeting_type=data.meeting_type;
         purpose=data.purpose;
@@ -180,6 +179,12 @@ setInterval(()=>{
         }
     }, 58000
 );
+
+$(document).ready(function() {
+    if (!performer){
+        $('#confirmjoin').modal('show');
+    }
+});
 
 $("#btnopen").on("click",function(){
     $("#txt-chat-message").removeAttr("disabled");

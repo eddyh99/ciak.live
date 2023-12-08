@@ -68,7 +68,7 @@
             <div id="broadcast-viewers-counter" class="text-white d-flex justify-content-between pb-3">
                 <div>Online Viewers: <span class="count-viewer">0</span></div>
                 <div class="send-tips-livestream me-5">
-                   <a class="btn-main-green">
+                   <a class="btn-upload-image">
                         <i class="fa-solid fa-euro-sign"></i>
                    </a>
                 </div>

@@ -27,7 +27,7 @@
                             ) {
 
         ?>
-                        <div class="post-member px-4">
+                        <div class="post-member <?php echo ($dt->content_type == 'explicit') ? 'explicit-border' : ''?> px-4">
                             <div class="post-header mb-3 d-flex flex-row align-items-center">
                                 <div class="post-profile d-flex flex-row align-items-center me-auto">
                                     <!-- FIXED GO TO GUEST -->
