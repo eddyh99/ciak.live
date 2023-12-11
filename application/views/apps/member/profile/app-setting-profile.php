@@ -127,7 +127,7 @@
                         </div>
                         <div class="mb-3 ciak-data-input">
                             <label for="bio" class="form-label">Bio</label>
-                            <textarea name="bio" id="bio" class="form-control" cols="30" rows="10"><?=@$profile->bio?></textarea>
+                            <textarea name="bio" id="bio" class="form-control bio" cols="30" rows="10"><?=@$profile->bio?></textarea>
                             <span class="max">Max 300</span>
                         </div>
                         <div class="mb-3 ciak-data-input">

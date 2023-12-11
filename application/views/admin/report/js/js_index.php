@@ -106,7 +106,7 @@ var tblactive =
                                                                 <option value="explicit">Explicit</option>
                                                                 <option value="non explicit">Non Explicit</option>
                                                             </select>
-                                                            <button class="btn btn-main-green">Change Content</button>
+                                                            <button type="submit" class="btn btn-main-green">Change Content</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -268,9 +268,9 @@ var tblactive =
         ],
     });
 
-// $("#categoryReport").on("change",function(e){
-//     $('#table_post').ajax.reload();
-// })
+$("#category").on("change",function(e){
+    tblactive.ajax.reload();
+})
 
 
 

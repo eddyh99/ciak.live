@@ -634,6 +634,19 @@ class Profile extends CI_Controller
         }
     }
     
+    public function get_content_type_guest($id)
+    {
+        $explicit = $_GET['type'];
+
+        if($explicit == 'explicit'){
+            setcookie('content', 'yes', time()+3600*24*365*10, '/');
+            redirect("profile/guest_profile/".$id);
+        }else{
+            setcookie('content', 'no', time()+3600*24*365*10, '/');
+            redirect("profile/guest_profile/".$id);
+        }
+    }
+    
     public function youtube_link(){
         $client = new Google\Client();
 
@@ -812,11 +825,13 @@ class Profile extends CI_Controller
         if (TikTokLoginKit\Connector::receivingResponse()) { // Check if you're receiving the Authorisation Code
             try {
                 $token = $_TK->verifyCode($_GET[TikTokLoginKit\Connector::CODE_PARAM]); // Verify the Authorisation code and get the Access Token
-                echo "<pre>".print_r($token->getAccessToken(),true)."</pre>";
-                die;
                 /****  Your logic to store the access token goes here ****/
-        
+                
                 $user = $_TK->getUser(); // Retrieve the User Object
+                // echo "<pre>".print_r($token->getAccessToken(),true)."</pre>";
+                // echo "<br>";
+                // echo "<pre>".print_r($user->getOpenID(),true)."</pre>";
+                // die;
                 // echo "<pre>".print_r($user,true)."</pre>";
                 // die;
         
@@ -829,8 +844,8 @@ class Profile extends CI_Controller
                         <td with="200"><img src="{$user->getAvatar()}"></td>
                         <td>
                             <br />
-                            <strong>ID</strong>: {$user->getOpenID()}<br /><br />
-                            <strong>Name</strong>: {$user->getDisplayName()}<br /><br />
+                            <strong>ID</strong>: {$token->getOpenId()}<br /><br />
+                            <strong>ACCESS TOKEN</strong>: {$token->getAccessToken()}<br /><br />
                         </td>
                     </tr>
                 </table>

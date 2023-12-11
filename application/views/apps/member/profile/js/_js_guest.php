@@ -16,6 +16,8 @@
  * 5. Like Postingan
  * 6. Rating Postingan
  * 7. Bookmark Postingan
+ * 8. Follow Member
+ * 9. Toggle for Content Explicit 
  */
 /*----------------------------------------------------------
 1. Owl Carausel Start        
@@ -393,8 +395,56 @@ function actionBookmark(post) {
 7. Bookmark Postingan End 
 ------------------------------------------------------------*/ 
 
+/*----------------------------------------------------------
+8. Follow Member Start 
+------------------------------------------------------------*/ 
+function actionFollow(user, ucode) {
+    $.ajax({
+        url: "<?=base_url()?>profile/follow",
+        type: "post",
+        data: "status="+$("#user" + user).val()+"&follow_id="+ucode,
+        success: function (response) {
+            var data=JSON.parse(response);
+            if (data.success==true){
+                if ($("#user" + user).val() == 'Unfollow') {
+                    $("#user" + user).val('Follow');
+                    $("#user" + user).removeClass('active');
+                } else {
+                    $("#user" + user).val('Unfollow');
+                    $("#user" + user).addClass('active');
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+        }
+    });
+}
+/*----------------------------------------------------------
+8. Follow Member End 
+------------------------------------------------------------*/ 
 
+/*----------------------------------------------------------
+9. Toggle for Content Explicit Start
+------------------------------------------------------------*/
+const   bodyContentHome = document.querySelector("body"),
+modeToggleContentHome = body.querySelector(".mode-toggle-content");
+    
 
+modeToggleContentHome.addEventListener("click", () =>{
+    if(localStorage.getItem("explicit") === 'yes'){
+        // console.log('explicit')
+        window.location = '<?= base_url()?>profile/get_content_type_guest/<?= $profile['ucode']?>?type=explicit'
+        
+    }else if(localStorage.getItem("explicit") === 'no'){
+        // console.log('NON')
+        window.location = '<?= base_url()?>profile/get_content_type_guest/<?= $profile['ucode']?>?type=non'
+        
+    }
+});
+/*----------------------------------------------------------
+9. Toggle for Content Explicit End
+------------------------------------------------------------*/
 
 
 

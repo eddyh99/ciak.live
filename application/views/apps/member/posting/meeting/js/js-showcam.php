@@ -53,7 +53,7 @@ $.ajax({
     },
     error: function (request, status, error) {
         alert(request.responseText);
-        window.location.href="<?=base_url()?>homepage";
+        // window.location.href="<?=base_url()?>homepage";
     }
 });
 
