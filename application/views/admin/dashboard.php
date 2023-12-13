@@ -11,8 +11,8 @@
                             <span class="fw-bold text-green-freedy me-auto">Currency</span>
                             <span class="fw-bold text-green-freedy">Balance</span>
                         <?php } else {?>
-                                <span class="fw-bold text-green-freedy me-auto">Balance</span>
-                                <span class="fw-bold text-green-freedy">Bank Commission</span>
+                                <span class="fw-bold text-green-freedy me-auto">Manajemen</span>
+                                <span class="fw-bold text-green-freedy">Ciak Commission</span>
                         <?php } ?>
                         </div>
                         <div class="list-currency">
@@ -20,7 +20,7 @@
                                 foreach ($currency as $dt){
                             ?>
                                     <div class="my-3">
-                                        <a href="<?=base_url()?>m3rc4n73/mwallet?cur=<?=$dt?>">
+                                        <a href="<?=base_url()?>godmode/mwallet?cur=<?=$dt?>">
                                             <div class="box-list fw-bold d-flex flex-row py-4 px-4">
                                                 <span> <?=$dt?>&nbsp;</span>
                                                 <?php foreach($trackless as $tc){

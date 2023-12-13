@@ -133,6 +133,20 @@ class Member extends CI_Controller
         }
     }
 
+    public function delete($id)
+    {
+        $id = $this->security->xss_clean($id);
+        $result = ciakadmin(URLAPI . "/v1/admin/member/delMember?userid=" . $id);
+        if ($result->code != 200) {
+            $this->session->set_flashdata("failed", $result->message);
+            redirect('godmode/member?status=new');
+        } else {
+            $this->session->set_flashdata("success", $result->message);
+            redirect('godmode/member?status=new');
+        }
+    }
+
+
     public function disabled($id)
     {
         $id = $this->security->xss_clean($id);
@@ -145,6 +159,30 @@ class Member extends CI_Controller
             redirect('godmode/member?status=active');
         }
     }
+    
+    public function post()
+    {
+        $data = array(
+            "title"     => NAMETITLE." - Post",
+            "content"   => "admin/member/post",
+            "extra"     => "admin/member/js/js_search",
+            "mn_change" => "active",
+        );
+
+        $this->load->view('admin_template/wrapper', $data);
+    }
+
+    public function detail_post()
+    {
+        $id = $this->security->xss_clean($_GET["post_id"]);
+        $result = ciakadmin(URLAPI . "/v1/member/post/get_singlepost?post_id=".$id);
+        $data = array(
+            "post"      => $result->message
+        );
+    
+        $this->load->view('admin/member/detailpost', $data);
+        
+    }    
 
     function generateStrongPassword($length = 9, $add_dashes = false, $available_sets = 'luds')
     {
@@ -290,4 +328,5 @@ class Member extends CI_Controller
             redirect('godmode/member?status=new');
         }
     }
+    
 }

@@ -88,7 +88,8 @@ class Auth extends CI_Controller
     			$session_data = array(
     				'user_id'   => $result->message->id,
     				'email'     => $uname,
-    				'role'      => $result->message->role
+    				'role'      => $result->message->role,
+    				'time_location' => $result->message->time_location,
 				);
     			$this->session->set_userdata($session_data);
     			redirect('godmode/dashboard');
@@ -96,7 +97,9 @@ class Auth extends CI_Controller
     			$session_data = array(
     				'user_id'   => $result->message->id,
     				'email'     => $uname,
-    				'role'      => $result->message->role
+    				'role'      => $result->message->role,
+    				'time_location' => $result->message->time_location,
+
     				);
     			$this->session->set_userdata($session_data);
     			redirect('godmode/dashboard');

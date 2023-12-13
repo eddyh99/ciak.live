@@ -16,11 +16,7 @@
                         <thead class="table-primary">
                             <tr>
                                 <th>Description</th>
-                                <th>Trackless Cost</th>
-                                <th>Referral Sender</th>
-                                <th>Referral Receiver</th>
-                                <th><?= NAMETITLE ?> Sender Cost</th>
-                                <th><?= NAMETITLE ?> Receive Cost</th>
+                                <th>Management Cost</th>
                                 <th>Income</th>
                                 <th>Date</th>
                             </tr>

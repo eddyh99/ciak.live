@@ -165,7 +165,21 @@ var tblnew =
         {
             "targets": 5,
             "data"  : "status",
-        }],
+        },
+        {   
+            "targets":6,
+            "data"   : null,
+            "render" : function(data, type, full, meta) {
+                var button = '<a href="<?= base_url() ?>godmode/member/activate/' + full
+                        .id + '" class="m-1 btn btn-success btn-sm">Activate</a> ';
+                
+                button = button + '<a href="<?= base_url() ?>godmode/member/delete/' + full
+                    .id +
+                    '" class="m-1 btn btn-danger btn-sm">Delete</a> ';
+                return button;
+            }
+        }
+        ],
         'select': {
          'style': 'multi'
         },

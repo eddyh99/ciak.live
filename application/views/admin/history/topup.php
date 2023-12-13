@@ -16,10 +16,7 @@
                         <thead class="table-primary">
                             <tr>
                                 <th>Description</th>
-                                <th>Cost</th>
-                                <th>Referral Commission</th>
-                                <th><?= NAMETITLE ?> Cost</th>
-                                <th>Income</th>
+                                <th>Management Cost</th>
                                 <th>Date</th>
                             </tr>
                         </thead>

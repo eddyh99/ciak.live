@@ -41,6 +41,14 @@ function ciakadmin($url, $postData = NULL){
     return $result;
 }
 
+function balanceadmin($currency)
+{
+    $balance = ciakadmin(
+        URLAPI . "/v1/admin/mwallet/balance_ByCurrency?currency=" . $currency
+    )->message->balance->amount;
+    return $balance;
+}
+
 
 function sendmail($email, $subject, $message)
 {
