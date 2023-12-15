@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\application",
+    "\\application\\controllers",
+    "\\application\\views",
+    "\\application\\views\\admin",
+    "\\application\\views\\admin\\mwallet",
+    "\\application\\views\\admin\\mwallet\\js",
+    "\\assets",
+    "\\assets\\css",
+    "\\assets\\css\\adm"
+  ],
+  "SelectedNode": "\\application\\views\\admin\\mwallet\\js\\js_masterwallet.php",
+  "PreviewInSolutionExplorer": false
+}

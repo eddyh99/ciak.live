@@ -151,6 +151,7 @@ class Member extends CI_Controller
     {
         $id = $this->security->xss_clean($id);
         $result = ciakadmin(URLAPI . "/v1/admin/member/setMember?status=disabled&userid=" . $id);
+        
         if ($result->code != 200) {
             $this->session->set_flashdata("failed", $result->message);
             redirect('godmode/member?status=active');
@@ -162,13 +163,18 @@ class Member extends CI_Controller
     
     public function post()
     {
+        $result = ciakadmin(URLAPI . "/v1/member/post/get_singlepost?post_id=435");
+        
+        $decodedArticle = base64_decode($result->message->article);
         $data = array(
             "title"     => NAMETITLE." - Post",
             "content"   => "admin/member/post",
             "extra"     => "admin/member/js/js_search",
             "mn_change" => "active",
+            "post"      => $result->message,
+            "article"   => $decodedArticle
         );
-
+        
         $this->load->view('admin_template/wrapper', $data);
     }
 

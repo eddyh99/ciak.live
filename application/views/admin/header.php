@@ -19,5 +19,5 @@
             </div>
         <?php } ?>
     </div>
-    <img src="<?=base_url()?>assets/img/logo-only.svg" alt="logo" style="height: 75px;" class="me-5">
+    <img src="<?=base_url()?>assets/img/new-ciak/logo.png" alt="logo" style="height: 75px;" class="me-5">
 </div>
