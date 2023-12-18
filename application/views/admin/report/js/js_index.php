@@ -103,13 +103,14 @@ var tblactive =
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <form action="<?= base_url()?>godmode/reported/change_explicit/${full.id_post}" method="post">
+                                                        <form action="<?= base_url()?>godmode/reported/change_explicit" method="post">
+                                                            <input type="hidden" class="form-control" id="id" name="id" value="${full.id_post}">
                                                             <select name="content_type" class="form-select category-report">
                                                                 <option value="">--Choose Content--</option>
                                                                 <option value="explicit">Explicit</option>
                                                                 <option value="non explicit">Non Explicit</option>
                                                             </select>
-                                                            <button type="submit" class="btn btn-main-green">Change Content</button>
+                                                            <button type="submit" id="change_content_type" class="btn btn-main-green">Change Content</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -271,9 +272,32 @@ var tblactive =
         ],
     });
 
+
+// $("#change_content_type").on("click",function(e){
+//     e.preventDefault();
+//     $.ajax({
+//         url: "<?= base_url() ?>godmode/reported/change_explicit",
+//         type: "post",
+//         data: {
+//             "id": '443',
+//             "content_type": 'non explicit'
+//         },
+//         success: function (response) {
+//             var data=JSON.parse(response);
+//             console.log(data);
+//         },
+//         error: function(jqXHR, textStatus, errorThrown) {
+//             console.log(textStatus, errorThrown);
+//         }
+//     });
+// })
+
+
 $("#category").on("change",function(e){
     tblactive.ajax.reload();
 })
+
+
 
 
 
