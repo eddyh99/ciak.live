@@ -13,13 +13,10 @@
                 <div class="card-body">
                     <input class="datepicker-af" type="text" name="tgl" id="tgl" readonly>
                     <table id="tbl_history" class="table table-bordered">
-                        <thead class="table-primary">
+                        <thead class="table-ciak">
                             <tr>
                                 <th>Description</th>
-                                <th>Cost</th>
-                                <th>Referral Commission</th>
-                                <th><?= NAMETITLE ?> Cost</th>
-                                <th>Income</th>
+                                <th>Management Cost</th>
                                 <th>Date</th>
                             </tr>
                         </thead>

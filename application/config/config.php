@@ -29,7 +29,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 }
 $config['base_url'] = (@$_SERVER['HTTPS'] == 'on') ? 'https://'.$_SERVER['HTTP_HOST'].'/' : 'http://'.$_SERVER['HTTP_HOST'].$addurl;
 date_default_timezone_set('Asia/Singapore');
-
 /*
 |--------------------------------------------------------------------------
 | Index File

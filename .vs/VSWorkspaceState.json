@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\application",
+    "\\application\\views",
+    "\\application\\views\\admin",
+    "\\application\\views\\admin\\member",
+    "\\application\\views\\admin\\member\\js",
+    "\\application\\views\\admin\\report",
+    "\\application\\views\\admin_template",
+    "\\assets",
+    "\\assets\\css",
+    "\\assets\\css\\adm"
+  ],
+  "SelectedNode": "\\application\\views\\admin_template\\footer.php",
+  "PreviewInSolutionExplorer": false
+}

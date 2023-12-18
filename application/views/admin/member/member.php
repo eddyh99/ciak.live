@@ -56,9 +56,7 @@
                                     <th>UCode</th>
                                     <th>Referral</th>
                                     <th>Status</th>
-                                    <?php if($_GET['status'] != 'new'){ ?>
-                                        <th>Action</th>
-                                    <?php } ?>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody style="border-top: 0;">

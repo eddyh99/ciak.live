@@ -37,6 +37,10 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-exclamation-triangle"></i></div>
                             Reported Post
                         </a>
+                        <a class="nav-link <?= @$mn_change ?>" href="<?= base_url() ?>godmode/member/post">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-right-left"></i></div>
+                            Change Post Category
+                        </a>
                         <a class="nav-link" href="<?= base_url() ?>auth/logout">
                             <div class="sb-nav-link-icon"><i class="fas fa-sign-out"></i></div>
                             Logout

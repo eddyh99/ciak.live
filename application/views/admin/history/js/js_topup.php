@@ -30,32 +30,20 @@ $('#tgl').daterangepicker({
 var tblhistory =
     $('#tbl_history').DataTable({
         "order": [
-            [5, 'desc']
+            [2, 'desc']
         ],
         "scrollX": true,
         "responsive": true,
         "ajax": {
-            "url": "<?= base_url() ?>admin/transactions/historytopup",
+            "url": "<?= base_url() ?>godmode/transactions/historytopup",
             "type": "POST",
             "data": function(d) {
-                d.csrf_freedy = $("#token").val();
                 d.tgl = $("#tgl").val()
             },
             "dataSrc": function(data) {
-                $("#token").val(data["token"]);
                 return data["history"];
             },
         },
-        "aoColumnDefs": [{
-            "aTargets": [4],
-            "mRender": function(data, type, row) {
-                return "<?= $_SESSION['symbol']?> " + (parseFloat(row.fee) + parseFloat(row.referral))
-                    .toLocaleString(
-                        'en', {
-                            minimumFractionDigits: 2
-                        })
-            }
-        }],
         "pageLength": 100,
         "columns": [{
                 "data": "ket"
@@ -63,17 +51,6 @@ var tblhistory =
             {
                 "data": "cost",
                 render: $.fn.dataTable.render.number(',', '.', 2, '<?= $_SESSION['symbol']?> ')
-            },
-            {
-                "data": "referral",
-                render: $.fn.dataTable.render.number(',', '.', 2, '<?= $_SESSION['symbol']?> ')
-            },
-            {
-                "data": "fee",
-                render: $.fn.dataTable.render.number(',', '.', 2, '<?= $_SESSION['symbol']?> ')
-            },
-            {
-                "data": "fee"
             },
             {
                 "data": "date_created"
