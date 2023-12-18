@@ -83,6 +83,7 @@ function payperminutes(){
                 console.log("PAY");
             },
             error: function (request, status, error) {
+                //console.log(request.responseText);
                 alert(request.responseText);
                 window.location.href="<?=base_url()?>homepage"
             }
@@ -106,10 +107,28 @@ $("#btnconfirm").on("click",function(){
         if (isRoomExist === true) {
             console.log(isRoomExist);
             console.log("MASUK CAM");
-            $("#btnopen").attr("disabled","true");
-            $("#btncamera").removeAttr("disabled");
-            payperminutes();
-            statusPayperMinutes = true;
+            connection.join(room_id, function(isRoomJoined, roomid, error) {
+                if (error) {
+                    if (error === connection.errors.ROOM_NOT_AVAILABLE) {
+                        alert('This room does not exist. Please either create it or wait for moderator to enter in the room.');
+                        return;
+                    }
+                    if (error === connection.errors.ROOM_FULL) {
+                        alert('Room is full.');
+                        return;
+                    }
+                    alert(error);
+                }else{
+                    $("#btnopen").attr("disabled","true");
+                    $("#btncamera").removeAttr("disabled");
+                    payperminutes();
+                    statusPayperMinutes = true;
+                }
+        
+                connection.socket.on('disconnect', function() {
+                    location.reload();
+                });
+            });
         } else {
             alert("Performer not open the room");
         }

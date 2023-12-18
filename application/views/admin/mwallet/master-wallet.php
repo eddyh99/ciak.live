@@ -7,7 +7,7 @@
             <?php $this->load->view("admin/header"); ?>
             <div class="col-12 my-5">
                 <a href="<?= base_url() ?>admin/mwallet/withdraw"
-                    class="btn btn-freedy-green fw-bold px-5 py-3">Withdraw</a>
+                    class="btn btn-green-ciak fw-bold px-5 py-3">Withdraw</a>
             </div>
             <div class="col-12 card mb-5">
                 <div class="card-header fw-bold">
@@ -16,8 +16,8 @@
                 </div>
                 <div class="card-body">
                     <input class="datepicker-af" type="text" name="tgl" id="tgl" readonly>
-                    <table class="table table-bordered" id="tbl_history">
-                        <thead class="table-primary">
+                    <table class="table table-bordered" id="tbl_history" data-page="page1">
+                        <thead class="table-ciak">
                             <tr>
                                 <th>Description</th>
                                 <th>Trackless Cost</th>
@@ -27,7 +27,7 @@
                                 <th>Date</th>
                             </tr>
                         </thead>
-                        <tbody style="border-top: 0;">
+                        <tbody class="body-ciak" style="border-top: 0;">
                         </tbody>
                     </table>
                 </div>

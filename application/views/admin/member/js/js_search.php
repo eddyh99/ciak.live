@@ -15,4 +15,25 @@
             }
         });
     })
+    $(document).ready(function(){
+        $('.owl-posts').owlCarousel({
+                loop: false,
+                margin: 10,
+                dots: true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:1
+                    },
+                    1000:{
+                        items:1
+                    },
+                    1200:{
+                        items:1
+                    }
+                }
+            });
+    });
 </script>
