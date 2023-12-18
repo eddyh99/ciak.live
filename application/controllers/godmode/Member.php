@@ -163,16 +163,11 @@ class Member extends CI_Controller
     
     public function post()
     {
-        $result = ciakadmin(URLAPI . "/v1/member/post/get_singlepost?post_id=435");
-        
-        $decodedArticle = base64_decode($result->message->article);
         $data = array(
             "title"     => NAMETITLE." - Post",
             "content"   => "admin/member/post",
             "extra"     => "admin/member/js/js_search",
             "mn_change" => "active",
-            "post"      => $result->message,
-            "article"   => $decodedArticle
         );
         
         $this->load->view('admin_template/wrapper', $data);
@@ -182,12 +177,14 @@ class Member extends CI_Controller
     {
         $id = $this->security->xss_clean($_GET["post_id"]);
         $result = ciakadmin(URLAPI . "/v1/member/post/get_singlepost?post_id=".$id);
+        $decodedArticle = base64_decode($result->message->article);
+
         $data = array(
-            "post"      => $result->message
+            "post"      => $result->message,
+            "article"   => $decodedArticle,
         );
     
         $this->load->view('admin/member/detailpost', $data);
-        
     }    
 
     function generateStrongPassword($length = 9, $add_dashes = false, $available_sets = 'luds')

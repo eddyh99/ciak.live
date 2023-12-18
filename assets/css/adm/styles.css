@@ -13003,6 +13003,18 @@ body {
     background-color: #1A1B1C;
     color: white;
 }
+
+.card.change-post .card-header-explicit{
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    background-color: #F83B00;
+    border-bottom: 1px solid rgba(203, 0, 0, 0.125);
+    color: white;
+}
+body.explicit {
+    --publish-btn: #F83B00;
+    --a-readmore: #fe7247;
+}
 .dataTables_wrapper .dataTables_filter input:focus {
   color: #ffffff;
 }
@@ -13135,7 +13147,25 @@ table.dataTable tbody tr:hover{
   color: #ffffff;
   margin-top: 10px;
 }
+.btn-explicit-content {
+    text-decoration: none;
+    text-align: center;
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    color: #FFF !important;
+    border: none;
+}
 
+.btn-explicit-content:hover {
+    text-decoration: none;
+    text-align: center;
+    background: linear-gradient(90deg, #F8996A 47.56%, #F83B00 102.84%);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    color: #FFF !important;
+    border: none;
+}
 .btn-main-green:hover {
   background: linear-gradient(263deg, #03B115   0%, #03B115 50%, #03B115 100%);
   border: 1px solid #03B115;
