@@ -19,7 +19,6 @@
         hideLoadBtn : false,
     };
 
-    
     // Initialitation Config Tui Image Editor 
     var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
         includeUI: {
@@ -46,12 +45,23 @@
     }
 
 
+    function loadFileImg() {
+        $("input[type=file]").trigger("click");
+        // document.querySelector('.tui-image-editor-load-btn').click();
+    }
+
+    // setTimeout(function () {
+    //     $("input[type=file]").trigger("click");
+    // }, 2000);
+
     // For Custom When User Load Image default ratio 1:1
     window.onload = ()=> {
         imageEditor.setCropzoneRect(1);
         $('.tie-btn-crop').click(function(){
             imageEditor.setCropzoneRect(1);
         });
+
+   
 
     }    
 
@@ -99,6 +109,8 @@
     
     // For Save image multiple to localstorage
     $(document).ready(function () {
+          
+  
         // Initialitation Array 
         let = m_data = []
         $('.tui-image-editor-download-btn').on('click', function (e) {
