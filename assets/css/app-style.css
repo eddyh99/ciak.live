@@ -881,6 +881,29 @@ input[type=number] {
     /* overflow-x: hidden; */
 }
 
+.modal-body.body-post-setprice .price-input {
+    border: 1px solid var(--border-input-profile-setting);
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 12px;
+    background: transparent;
+    color: var(--text-white-color);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.modal-body.body-post-setprice select {
+    background-color: transparent;
+    border: 1px solid var(--text-white-color);
+    color: #ffffff;
+}
+
+.modal-body.body-post-setprice select option {
+    background-color: #000000;
+    border: 1px solid var(--text-white-color);
+    color: #ffffff;
+}
+
 /* Bot Bar */
 .apps-botbar .apps-member {
     margin: auto;

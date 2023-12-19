@@ -612,6 +612,7 @@ $(document).ready(function(){
             $("#postprice").attr("readonly",true);
             $("#forsubs-wrap").hide();
         }else if ($(this).val()=="private"){
+            $('#setprice_modal').modal('show');
             $("#postprice").hide();
             $("#forsubs-wrap").hide();
             $('.icon-upload-attach').show();

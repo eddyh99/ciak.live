@@ -38,7 +38,7 @@ class Profile extends CI_Controller
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost");
 
 
-        // echo "<pre>".print_r($post,true)."</pre>";
+        // echo "<pre>".print_r($result,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
@@ -337,7 +337,8 @@ class Profile extends CI_Controller
     {
     	$url = URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"];
 		$result = apiciaklive($url);
-
+        // echo "<pre>".print_r($result,true)."</pre>";
+		// die;
         $url_profile = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
 		$result_profile = apiciaklive($url_profile)->message;
 

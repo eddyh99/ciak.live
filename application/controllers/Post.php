@@ -44,9 +44,13 @@ class Post extends CI_Controller
         }
 
 
-		$result = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
-        $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
+		$result     = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        $following  = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
         $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
+        $get_price  = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
+        // echo "<pre>".print_r($get_price,true)."</pre>";
+        // print_r(json_encode($get_price));
+		// die;
         // $vsdata = $this->session->flashdata('vs_data');
 
         $data = array(
@@ -54,6 +58,7 @@ class Post extends CI_Controller
             'profile'       => $result,
             'following'     => @$following,
             'follower'      => @$follower,
+            'get_price'     => $get_price,
             // 'stitch'        => $vsdata,                 
             'content'       => 'apps/member/posting/app-posting',
             'cssextra'      => 'apps/member/posting/css/_css_index',
@@ -453,10 +458,13 @@ class Post extends CI_Controller
                 "amount"    => $amount
             );
             
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+        // die;
 
         $url = URLAPI . "/v1/member/post/post_tips";
         $result = @apiciaklive($url,json_encode($mdata));
         // echo "<pre>".print_r($result,true)."</pre>";
+        // print_r(json_encode($result));
         // die;
 
         if (@$result->code!=200||@$result->status==400){

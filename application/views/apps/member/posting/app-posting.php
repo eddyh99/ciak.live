@@ -364,6 +364,48 @@
     </div>
 </div>
 
+<!-- Modal for Set Price Subcription -->
+<div class="modal fade" id="setprice_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <form action="">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-white" id="setprice">Subscription Settings</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body body-post-setprice">
+                <label for="weekly" class="text-white">Weekly</label>
+                <input type="text" id="weekly" name="weekly" class="form-control price-input money-input" placeholder="0.00">
+                <br>
+                <label for="monthly" class="text-white">Monthly</label>
+                <input type="text" id="monthly" name="monthly" class="form-control price-input money-input" placeholder="0.00">
+                <br>
+                <label for="yearly" class="text-white">Yearly</label>
+                <input type="text" id="yearly" name="yearly" class="form-control price-input money-input" placeholder="0.00">
+                <br>
+                <label for="triallong" class="form-label text-white">Trial</label>
+                <select name="triallong" id="triallong" class="form-select">
+                    <option>--Trial Long--</option>
+                    <option value="1">1 day</option>
+                    <option value="2">2 days</option>
+                    <option value="3">3 days</option>
+                    <option value="4">4 days</option>
+                    <option value="5">5 days</option>
+                    <option value="6">6 days</option>
+                </select>
+                <br>
+                <label for="trialamount" class="text-white">Trial Amount</label>
+                <input type="text" id="trialamount" name="trialamount" class="form-control price-input money-input" placeholder="0.00">
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn-main-green">Set Price</button>
+            </div>
+        </form>            
+    </div>
+  </div>
+</div>
+
 <!-- Modal For Image Post -->
 <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
