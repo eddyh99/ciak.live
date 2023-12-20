@@ -6,13 +6,11 @@
                   pesan antara sesama Member
 
     Sub fungsi  : 
-    - index                 : Menampilkan serta dapat menghapus dafar member
-                              yang pernah chating
-    - message_detail        : Tampilan member melakukan interakasi
-                               dengan member lain
-    - history_chat          : Menampilkan History Chat
-    - follower_search       : Mencari member followers
-    - delete_message        : Menghapus chatigan yang ada di halaman list member chating
+    - index                 : Tampilan beranda chating
+    - message_detail        : Proses chating dengan member
+    - history_chat          : Proses History Chat
+    - follower_search       : Proses Mencari member followers
+    - delete_message        : Proses Menghapus delete chat
 ------------------------------------------------------------*/ 
 
 defined('BASEPATH') or exit('No direct script access allowed');

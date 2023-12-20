@@ -45,7 +45,7 @@
                                     </a>
                                     <!-- Hidden Icon -->
                                     <div class="position-absolute hidden-icon" style="z-index: 9999" id="hidden-iconpost">
-                                        <div class="d-flex gap-3 ">
+                                        <div class="d-flex flex-column gap-3 ">
                                             <div>
                                                 <a href="" data-bs-toggle="modal" data-bs-target="#postModal" >
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -365,13 +365,17 @@
 </div>
 
 <!-- Modal for Set Price Subcription -->
+<?php if(($get_price->sub7 == '0.00') && ($get_price->sub30 == '0.00') && 
+        ($get_price->sub365 == '0.00') && ($get_price->trial == '0.00') &&
+        ($get_price->trial_long == '0')){
+?>
 <div class="modal fade" id="setprice_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-        <form action="">
+        <form id="formSetSubs" method="POST">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 text-white" id="setprice">Subscription Settings</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body body-post-setprice">
                 <label for="weekly" class="text-white">Weekly</label>
@@ -405,6 +409,7 @@
     </div>
   </div>
 </div>
+<?php }?>
 
 <!-- Modal For Image Post -->
 <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

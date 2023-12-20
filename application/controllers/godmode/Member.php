@@ -192,6 +192,17 @@ class Member extends CI_Controller
         $this->load->view('admin/member/detailpost', $data);
     }    
 
+    public function change_explicit()
+    {
+         $input          = $this->input;
+         $id             = $this->security->xss_clean($input->post("id"));
+         $content_type   = urlencode($this->security->xss_clean($input->post("content_type")));
+         $result         = ciakadmin(URLAPI . "/v1/admin/post/changecategory?post_id=".$id."&category=".$content_type);
+         
+         $this->session->set_flashdata("success", $result->message);
+         redirect('godmode/member/post');
+    }
+
     function generateStrongPassword($length = 9, $add_dashes = false, $available_sets = 'luds')
     {
         $sets = array();

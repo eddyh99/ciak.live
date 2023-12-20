@@ -5,14 +5,15 @@
                   Cam2Cam, Meeting Room
                   
     Sub fungsi  : 
-    - showlive          : Menampilkan halaman sebelum dimulai live show
-    - cekroom           : Validasi live show
-    - showcam           : Menampilkan halaman sebelum dimulai Cam2Cam
-    - cekroomcam        : Validasi Cam2Cam
-    - showmeeting       : Menampilkan halaman sebelum dimulai Meeting Room
-    - cekroommeeting    : Validasi Meeting Room
-    - follower_search   : Searching member follower
-    - inviteuser        : Invite member
+    - showlive          : Tampilan halaman sebelum dimulai live show
+    - cekroom           : Proses Validasi live show
+    - showcam           : Tampilan halaman sebelum dimulai Cam2Cam
+    - cekroomcam        : Proses Validasi Cam2Cam
+    - showmeeting       : Tampilan halaman sebelum dimulai Meeting Room
+    - cekroommeeting    : Proses Validasi Meeting Room
+    - confirmjoin       : Proses Join 
+    - follower_search   : Proses Searching member follower
+    - inviteuser        : Proses Invite member
 ------------------------------------------------------------*/ 
 defined('BASEPATH') or exit('No direct script access allowed');
 

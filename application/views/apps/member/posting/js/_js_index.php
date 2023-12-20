@@ -32,6 +32,7 @@ Desc        : Modul ini di digunakan untuk melakukan
     * 12. Settings Cam2Cam
     * 13. Searching Invite Guest
     * 14. Class Explicit Content
+    * 15. Save Set Subscription
 */
 
 
@@ -79,10 +80,6 @@ $(document).ready(function(){
         });
     });
 
-    $(".icon-upload-attach").click(function() {
-        $("#hidden-iconpost").toggle();
-        $('select[name*="tipepost"] option[value="special"]').remove();
-    });
 
 });
 /*----------------------------------------------------------
@@ -605,7 +602,6 @@ $(document).ready(function(){
             $("#postprice").val("Free");
             $("#postprice").attr("readonly",true);
             $("#forsubs-wrap").hide();
-            $('.icon-upload-attach').show();
         }else if ($(this).val()=='vs'){
             $("#postprice").show();
             $("#postprice").val("Free");
@@ -615,19 +611,16 @@ $(document).ready(function(){
             $('#setprice_modal').modal('show');
             $("#postprice").hide();
             $("#forsubs-wrap").hide();
-            $('.icon-upload-attach').show();
         }else if ($(this).val()=="special"){
             $("#postprice").show();
             $("#postprice").val("0.5");
             $("#postprice").attr("readonly",false);
             $("#forsubs-wrap").hide();
-            $('.icon-upload-attach').hide();
         }else{
             $("#postprice").show();
             $("#postprice").val("0.5");
             $("#postprice").attr("readonly",false);
             $("#forsubs-wrap").show();
-            $('.icon-upload-attach').show();
         }
         
     })
@@ -825,6 +818,52 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 14.  Class Explicit Content End 
 ------------------------------------------------------------*/   
+
+/*----------------------------------------------------------
+15. Save Set Subscription Start 
+------------------------------------------------------------*/   
+$(document).ready(function(){
+    $('#formSetSubs').submit(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: '<?=base_url()?>post/savesubscription',
+            type: 'POST',
+            data: $("#formSetSubs").serialize(),
+            success: function (response) {
+                let ress = JSON.parse(response)
+                if(ress.code == '200'){
+                    $('#setprice_modal').modal('hide');
+                    Swal.fire({
+                        text: 'Set Subscription Successfully',
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                    });
+                }else{
+                    Swal.fire({
+                        text: 'Set Subscription Error',
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        })
+    })
+})
+/*----------------------------------------------------------
+15. Save Set Subscription End
+------------------------------------------------------------*/   
+
+
 
 
 </script>

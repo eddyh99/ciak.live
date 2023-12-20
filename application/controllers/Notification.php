@@ -6,9 +6,9 @@
                   pada Member 
 
     Sub fungsi  : 
-        - index    	        : Berfungsi Menampilkan semua notifikasi yang masuk
-        - clear_notif       : Menghapus semua notifikasi masuk
-        - delete_notif      : Menghapus secara spesifik notifikasi masuk
+        - index    	        : Tampilan semua notifikasi yang masuk
+        - clear_notif       : Proses menghapus semua notifikasi masuk
+        - delete_notif      : Proses menghapus secara spesifik notifikasi masuk
 ------------------------------------------------------------*/ 
 
 defined('BASEPATH') or exit('No direct script access allowed');

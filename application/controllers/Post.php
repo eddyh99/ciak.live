@@ -17,6 +17,7 @@
       - payspecial      : Proses untuk membeli Postingan type special
       - paydownload     : Proses untuk membeli Postingan type download
       - givetips        : Proses untuk memberikan tip kepada member lain
+      - savesubscription: Proses untuk mengatur subscription member
 
 
 
@@ -485,6 +486,35 @@ class Post extends CI_Controller
         }
     }
 
+    public function savesubscription()
+    {
+
+        $this->form_validation->set_rules('weekly', 'Weekly', 'trim');
+        $this->form_validation->set_rules('monthly', 'Monthly', 'trim');
+        $this->form_validation->set_rules('yearly', 'Yearly', 'trim');
+        $this->form_validation->set_rules('is_trial', 'Is Trial', 'trim');
+        $this->form_validation->set_rules('triallong', 'Trial long', 'trim');
+        $this->form_validation->set_rules('trialamount', 'Trial Amount', 'trim');
+
+
+        $input      = $this->input;
+        $weekly     = $this->security->xss_clean($this->input->post("weekly"));
+        $monthly    = $this->security->xss_clean($this->input->post("monthly"));
+        $yearly     = $this->security->xss_clean($this->input->post("yearly"));
+        $triallong  = $this->security->xss_clean($this->input->post("triallong"));
+        $trialamount= $this->security->xss_clean($this->input->post("trialamount"));
+
+        $mdata=array(
+            "userid"    => $_SESSION["user_id"],
+            "sub7"      => $weekly,
+            "sub30"     => $monthly,
+            "sub365"    => $yearly,
+            "trial"     => $trialamount,
+            "trial_long"=> $triallong,
+        );
+        $result =  apiciaklive(URLAPI . "/v1/member/subscription/setSubscription", json_encode($mdata));
+        echo json_encode($result);
+    }
 
 
     
