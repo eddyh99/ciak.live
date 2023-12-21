@@ -297,6 +297,9 @@ class Post extends CI_Controller
                 "guestcam"      => $guestcam
             );
 
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+		// die;
+
         $url = URLAPI . "/v1/member/post/performcam";
 		$result = apiciaklive($url,json_encode($mdata));
 
@@ -330,13 +333,14 @@ class Post extends CI_Controller
         }
 
         $mdata=array(
-                "start_time"    => $post_time,
-                "content_type"  => $_SESSION["content_type"],
-                "article"       => $message,
-                "guestcam"      => $guestcam,
-                "meeting_type"  => $meetingtype
-            );
-
+            "start_time"    => $post_time,
+            "content_type"  => $_SESSION["content_type"],
+            "article"       => $message,
+            "guestcam"      => $guestcam,
+            "meeting_type"  => $meetingtype
+        );
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+		// die;
             
         $url = URLAPI . "/v1/member/post/performmeeting";
         $result = apiciaklive($url,json_encode($mdata));

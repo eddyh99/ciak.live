@@ -33,6 +33,7 @@ Desc        : Modul ini di digunakan untuk melakukan
     * 13. Searching Invite Guest
     * 14. Class Explicit Content
     * 15. Save Set Subscription
+    * 16. Show Preview Invite Guest
 */
 
 
@@ -861,9 +862,41 @@ $(document).ready(function(){
 })
 /*----------------------------------------------------------
 15. Save Set Subscription End
-------------------------------------------------------------*/   
+------------------------------------------------------------*/  
 
 
+/*----------------------------------------------------------
+16. Show Preview Invite Guest Start
+------------------------------------------------------------*/  
+
+function invite_guest_active(id, img, username){
+    $('.people').removeClass('active');
+    $('#invite1').prop('checked', false);
+    $('#invite2').prop('checked', false);
+
+    $('.people-cam2cam'+id).addClass('active');
+    $('#guestcam').val(id);
+    $('#meetingcam').val(id);
+    $('#invite1').prop('checked', true);
+
+    $('.preview-cam2cam-guest').removeClass('d-none');
+    $('#img-preview-cam2cam-guest').attr('src', img);
+    $('#username-preview-cam2cam-guest').text(username);
+    $('#check-preview-cam2cam-guest').addClass('fa-check');
+
+    $('.preview-meeting-guest').removeClass('d-none');
+    $('#img-preview-meeting-guest').attr('src', img);
+    $('#username-preview-meeting-guest').text(username);
+    $('#check-preview-meeting-guest').addClass('fa-check');
+
+}
+
+$('#invite2').click(function(){
+    $('.preview-meeting-guest').addClass('d-none');
+})
+/*----------------------------------------------------------
+16. Show Preview Invite Guest End
+------------------------------------------------------------*/ 
 
 
 </script>

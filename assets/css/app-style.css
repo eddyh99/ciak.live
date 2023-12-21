@@ -2514,6 +2514,12 @@ input[type=number] {
 .apps-member .list-people .people .btn-orange.active {
     background: #323436;
 }
+
+.apps-member .list-people .people.active {
+    background-color: #03B115;
+}
+
+
 .form-control:focus {
     outline: none !important;
     box-shadow: none;
@@ -3097,6 +3103,18 @@ label#label-forsubs {
     justify-content: center;
     align-items: center;
     border: 1px solid #03B115;
+    color: var(--text-white-color);
+}
+
+.live-show-chating .input-live-show-chating.explicit {
+    background: var(--input-search-homepage);
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #F8996A;
     color: var(--text-white-color);
 }
 

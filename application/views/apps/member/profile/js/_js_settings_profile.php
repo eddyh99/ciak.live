@@ -22,6 +22,7 @@ Desc        : Modul ini di digunakan untuk melakukan
  * 8. Rating Profile
  * 9. GSAP Scroll Trigger
  * 10. Toggle for Content Explicit
+ * 11. Save Subscription
  */
 
 /*----------------------------------------------------------
@@ -569,6 +570,9 @@ $('.mode-toggle-content').click(function(){
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
 
+/*----------------------------------------------------------
+11. Save Subscription Start
+------------------------------------------------------------*/
 if ($("#is_trial").is(":checked")){
     $("#trial").show();        
 }else{
@@ -628,6 +632,9 @@ $(document).ready(function(){
         })
     })
 })
+/*----------------------------------------------------------
+11. Save Subscription End
+------------------------------------------------------------*/
 
 
 </script>
