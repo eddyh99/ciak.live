@@ -221,7 +221,7 @@
                                             <option value="minutes">Per Minutes</option>
                                         </select>
                                     </div>
-                                    <input type="number" name="priceshow" id="priceshow" class="form-control my-3" placeholder="price">
+                                    <input type="text" name="priceshow" id="priceshow" class="form-control my-3 money-input" placeholder="price">
                                 </div>
                             </div>
                             <div id="row_durasi" class="row live-duration mb-3">
@@ -267,7 +267,7 @@
                             <div class="live-price-minute">
                                 <div class="d-flex align-items-center wrap-live-price-minute col-12 col-md-4">
                                     <label class="pe-3 span-text-toogle-explicit">Price/minute</label>
-                                    <input type="text" class="form-control" name="priceshow" id="pricecam" placeholder="price">
+                                    <input type="text" class="form-control money-input" name="priceshow" id="pricecam" placeholder="price">
                                 </div>
                             </div>
                             <div class="my-4" style="cursor: pointer;">
