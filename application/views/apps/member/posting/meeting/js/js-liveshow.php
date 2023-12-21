@@ -88,6 +88,7 @@ var meeting_type;
 var purpose;
 var rtmpurl;
 var statusPayperMinutes = false;
+let id_has_room;
 
 var performer=false;
 var connection = new RTCMultiConnection();
@@ -118,6 +119,7 @@ $.ajax({
     success: function (response) {
         var data=JSON.parse(response);
         console.log(data);
+        id_has_room = data.id_has_room;
         connection.extra.userFullName = data.username;
         meeting_type=data.meeting_type;
         purpose=data.purpose;
@@ -151,6 +153,7 @@ $.ajax({
         window.location.href="<?=base_url()?>homepage";
     }
 });
+
 
 function payperminutes(){
     if(meeting_type=="minutes" && !performer){
@@ -551,6 +554,18 @@ connection.iceServers= [
 		state="ready";
 }
 
+connection.onstreamended = function(event) {
+    var mediaElement = document.getElementById(event.streamid);
+    if (mediaElement) {
+        mediaElement.parentNode.removeChild(mediaElement);
+
+        if(event.userid === connection.sessionid && !connection.isInitiator) {
+          alert('Broadcast is ended.');
+          console.log("KELUAR SEMUA");
+        }
+    }
+};
+
 
 function requestMedia(stream){
 	var constraints = {
@@ -604,7 +619,77 @@ function stopStream(){
 }
 
 
+
 $(document).ready(function(){
+
+    $("#frmsendtips").submit(function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        if (parseFloat($("#amount").val())<0.5){
+            alert("Minimum amount is 0.5");
+            return
+        }
+
+        $.ajax({
+            url: "<?=base_url()?>post/givetips",
+            type: "post",
+            data: $("#frmsendtips").serialize(),
+            success: function (response) {
+                let ress = JSON.parse(response)
+                if (ress.success == true){
+                    Swal.fire({
+                        html:  `<div class="d-flex justify-content-center">
+                                    <div>
+                                        <i class="fas fa-check text-success fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">${ress.message}</div>
+                                </div>`,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top',
+                        timer: 1500,
+                    });
+                    $("#sendTips").modal('hide');
+                }else{
+                    Swal.fire({
+                        html:  `<div class="d-flex justify-content-center">
+                                    <div>
+                                        <i class="fas fa-check text-success fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">${ress.message}</div>
+                                </div>`,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top',
+                        timer: 1500,
+                    });
+                    $("#sendTips").modal('hide');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire({
+                    html:  `<div class="d-flex justify-content-center">
+                                <div>
+                                <i class="fas fa-times fs-3 text-danger"></i>
+                                </div>
+                                <div class="ms-3">Send Tip Failed</div>
+                            </div>`,
+                    showConfirmButton: false,
+                    background: '#323436',
+                    color: '#ffffff',
+                    position: 'top',
+                    timer: 1500,
+                });
+                $(".offcanvas").offcanvas('hide');
+            }
+        });
+
+        return false;
+    })
+
     new EmojiPicker({
         trigger: [
             {

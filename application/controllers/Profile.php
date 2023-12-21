@@ -5,11 +5,25 @@
                   Member
 
     Sub fungsi  : 
-        - guest_profile     : berfungsi masuk ke dalam profile guest
-        - setting_profile   : berfungsi mengedit profile member
-        - saveprofile       : berfungsi menyimpan hasil edit profil
-        - setting_price     : berfungsi mengedit pada subcription member 
-        - setting_promotion : berfungsi mengedit promosi member
+        - index                     : Tampilan halaman profile
+        - load_more_profile_public  : Infinite load profile type public
+        - load_more_profile_private : Infinite load profile type private
+        - load_more_profile_special : Infinite load profile type special
+        - load_more_profile_download: Infinite load profile type download
+
+        - guest_profile             : berfungsi masuk ke dalam profile guest
+        - load_more_guest_public    : Infinite load guest type public
+        - load_more_guest_private   : Infinite load guest type private
+        - load_more_guest_special   : Infinite load guest type special
+        - load_more_guest_download  : Infinite load guest type download
+
+        - follow            : Proses follow atau unfollow pada guest 
+        - guest_note        : Tampilan halaman guest note
+        - savenote          : proses menyimpan note guest
+        - setting_profile   : Tampilan halaman Edit profile member
+        - saveprofile       : berfungsi proses menyimpan hasil edit profil
+        - setting_price     : berfungsi proses mengedit pada subcription member 
+        - setting_promotion : berfungsi proses mengedit promosi member
         
 ------------------------------------------------------------*/ 
 
@@ -38,7 +52,7 @@ class Profile extends CI_Controller
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost");
 
 
-        // echo "<pre>".print_r($post,true)."</pre>";
+        // echo "<pre>".print_r($result,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
@@ -85,8 +99,8 @@ class Profile extends CI_Controller
         $this->load->view('apps/member/loadcontent/profile/load-profile-download', $data);
     }
 
-    
-    public function user($ucode=NULL){
+    public function user($ucode=NULL)
+    {
         $url = URLAPI . "/auth/getmember_byucode?ucode=".$ucode;
 		$result = apiciaklive($url);
         //cek if failed arahin halaman 404 untuk login dan ada tombol untuk register/login
@@ -168,7 +182,6 @@ class Profile extends CI_Controller
         $this->load->view('apps/member/loadcontent/guest/load-guest-download', $data);
     }
 
-    
     public function follow(){
         $input      = $this->input;
         $status     = $this->security->xss_clean($this->input->post("status"));
@@ -200,8 +213,6 @@ class Profile extends CI_Controller
 
         $url = URLAPI . "/v1/member/profile/getguestNote?ucode=".$ucode;
 		$result = apiciaklive($url);
-		// print_r($result);
-		// die;
         $data = array(
             'title'         => NAMETITLE . ' - Guest Note',
             'content'       => 'apps/member/profile/guest-note',
@@ -244,14 +255,14 @@ class Profile extends CI_Controller
         
     	$profile = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"]);
         $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
-
-   	    // echo "<pre>".print_r($profile,true)."</pre>";
-        // die;
-        
+        $pricing = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
+        //    echo "<pre>".print_r($pricing,true)."</pre>";
+	    // 	die;
         $data = array(
             'title'         => NAMETITLE . ' - Setting Profile',
             'profile'       => $profile->message,
             'rtmp'          => $rtmp,
+            'pricing'       => $pricing,
             'content'       => 'apps/member/profile/app-setting-profile',
             'popup'         => 'apps/member/app-popup',
             'cssextra'      => 'apps/member/profile/css/_css_settings_profile',
@@ -337,7 +348,7 @@ class Profile extends CI_Controller
     {
     	$url = URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"];
 		$result = apiciaklive($url);
-
+ 
         $url_profile = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
 		$result_profile = apiciaklive($url_profile)->message;
 
@@ -373,11 +384,14 @@ class Profile extends CI_Controller
             );
     	$url = URLAPI . "/v1/member/subscription/setSubscription";
 		$result = apiciaklive($url,json_encode($mdata));
-		if (@$result->code!=200){
-		    $this->session->set_flashdata("failed","Failed update subscription, please try again later");
-		    redirect("profile/setting_price");
-		}
-        redirect("profile");
+        echo json_encode($result);
+        // echo "<pre>".print_r($result,true)."</pre>";
+		// die;
+		// if (@$result->code!=200){
+		//     $this->session->set_flashdata("failed","Failed update subscription, please try again later");
+		//     redirect("profile/setting_price");
+		// }
+        // redirect("profile");
     }
 
     public function setting_promotion()
@@ -805,8 +819,6 @@ class Profile extends CI_Controller
         }
 
     }
-
-
 
     public function tiktok_link()
     {

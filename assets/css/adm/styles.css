@@ -2052,8 +2052,8 @@ progress {
   --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
   --bs-table-active-color: #212529;
   --bs-table-active-bg: rgba(0, 0, 0, 0.1);
-  --bs-table-hover-color: #212529;
-  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  --bs-table-hover-color: #000000;
+  --bs-table-hover-bg: #ffffff;
   width: 100%;
   margin-bottom: 1rem;
   color: #212529;
@@ -2138,16 +2138,32 @@ progress {
   border-color: #bacbe6;
 }
 
+.table-ciak {
+    --bs-table-bg: #03B115;
+    --bs-table-striped-bg: #c5d7f2;
+    --bs-table-striped-color: #000;
+    --bs-table-active-bg: #bacbe6;
+    --bs-table-active-color: #000;
+    --bs-table-hover-bg: #bfd1ec;
+    --bs-table-hover-color: #000;
+    color: #000;
+    border-color: #bacbe6;
+    border: #005d0a;
+}
+.table-ciak th:hover {
+    background-color: #005d0a;
+    border: #4FF301;
+}
 .table-secondary {
-  --bs-table-bg: #e2e3e5;
-  --bs-table-striped-bg: #d7d8da;
-  --bs-table-striped-color: #000;
-  --bs-table-active-bg: #cbccce;
-  --bs-table-active-color: #000;
-  --bs-table-hover-bg: #d1d2d4;
-  --bs-table-hover-color: #000;
-  color: #000;
-  border-color: #cbccce;
+    --bs-table-bg: #e2e3e5;
+    --bs-table-striped-bg: #d7d8da;
+    --bs-table-striped-color: #000;
+    --bs-table-active-bg: #cbccce;
+    --bs-table-active-color: #000;
+    --bs-table-hover-bg: #d1d2d4;
+    --bs-table-hover-color: #000;
+    color: #000;
+    border-color: #cbccce;
 }
 
 .table-success {
@@ -5394,7 +5410,7 @@ fieldset:disabled .btn {
 .card-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: #0e616c;
+  background-color: #03B115;
   border-bottom: 1px solid rgba(203, 0, 0, 0.125);
   color: white;
 }
@@ -12972,7 +12988,33 @@ body {
 .card.member{
   background-color: #1A1B1C;
 }
+.card.change-post,
+.card.post{
+  background-color: #1A1B1C;
+}
+.card.change-post .card-header{
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  background-color: #03B115;
+  border-bottom: 1px solid rgba(203, 0, 0, 0.125);
+  color: white;
+}
+.card.change-post .card-body {
+    background-color: #1A1B1C;
+    color: white;
+}
 
+.card.change-post .card-header-explicit{
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    background-color: #F83B00;
+    border-bottom: 1px solid rgba(203, 0, 0, 0.125);
+    color: white;
+}
+body.explicit {
+    --publish-btn: #F83B00;
+    --a-readmore: #fe7247;
+}
 .dataTables_wrapper .dataTables_filter input:focus {
   color: #ffffff;
 }
@@ -12986,6 +13028,19 @@ table.dataTable tbody tr:hover{
   background-color: #a6a6a6;
   color: #ffffff;
 }
+
+#tbl_historey.page1 .table-ciak tbody tr {
+    color: #ffffff;
+    background-color: #03B115;
+    border: #005d0a;
+}
+
+#tbl_historey.page1 .table-ciak tbody tr:hover {
+    background-color: #005d0a;
+    color: #ffffff;
+    border: #03B115;
+}
+
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, 
@@ -13092,7 +13147,25 @@ table.dataTable tbody tr:hover{
   color: #ffffff;
   margin-top: 10px;
 }
+.btn-explicit-content {
+    text-decoration: none;
+    text-align: center;
+    background: linear-gradient(90deg, #F83B00 47.56%, #F8996A 102.84%);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    color: #FFF !important;
+    border: none;
+}
 
+.btn-explicit-content:hover {
+    text-decoration: none;
+    text-align: center;
+    background: linear-gradient(90deg, #F8996A 47.56%, #F83B00 102.84%);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    color: #FFF !important;
+    border: none;
+}
 .btn-main-green:hover {
   background: linear-gradient(263deg, #03B115   0%, #03B115 50%, #03B115 100%);
   border: 1px solid #03B115;

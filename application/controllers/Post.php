@@ -17,6 +17,7 @@
       - payspecial      : Proses untuk membeli Postingan type special
       - paydownload     : Proses untuk membeli Postingan type download
       - givetips        : Proses untuk memberikan tip kepada member lain
+      - savesubscription: Proses untuk mengatur subscription member
 
 
 
@@ -44,9 +45,13 @@ class Post extends CI_Controller
         }
 
 
-		$result = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
-        $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
+		$result     = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        $following  = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
         $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
+        $get_price  = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
+        // echo "<pre>".print_r($get_price,true)."</pre>";
+        // print_r(json_encode($get_price));
+		// die;
         // $vsdata = $this->session->flashdata('vs_data');
 
         $data = array(
@@ -54,6 +59,7 @@ class Post extends CI_Controller
             'profile'       => $result,
             'following'     => @$following,
             'follower'      => @$follower,
+            'get_price'     => $get_price,
             // 'stitch'        => $vsdata,                 
             'content'       => 'apps/member/posting/app-posting',
             'cssextra'      => 'apps/member/posting/css/_css_index',
@@ -291,6 +297,9 @@ class Post extends CI_Controller
                 "guestcam"      => $guestcam
             );
 
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+		// die;
+
         $url = URLAPI . "/v1/member/post/performcam";
 		$result = apiciaklive($url,json_encode($mdata));
 
@@ -324,13 +333,14 @@ class Post extends CI_Controller
         }
 
         $mdata=array(
-                "start_time"    => $post_time,
-                "content_type"  => $_SESSION["content_type"],
-                "article"       => $message,
-                "guestcam"      => $guestcam,
-                "meeting_type"  => $meetingtype
-            );
-
+            "start_time"    => $post_time,
+            "content_type"  => $_SESSION["content_type"],
+            "article"       => $message,
+            "guestcam"      => $guestcam,
+            "meeting_type"  => $meetingtype
+        );
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+		// die;
             
         $url = URLAPI . "/v1/member/post/performmeeting";
         $result = apiciaklive($url,json_encode($mdata));
@@ -453,10 +463,13 @@ class Post extends CI_Controller
                 "amount"    => $amount
             );
             
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+        // die;
 
         $url = URLAPI . "/v1/member/post/post_tips";
         $result = @apiciaklive($url,json_encode($mdata));
         // echo "<pre>".print_r($result,true)."</pre>";
+        // print_r(json_encode($result));
         // die;
 
         if (@$result->code!=200||@$result->status==400){
@@ -477,6 +490,35 @@ class Post extends CI_Controller
         }
     }
 
+    public function savesubscription()
+    {
+
+        $this->form_validation->set_rules('weekly', 'Weekly', 'trim');
+        $this->form_validation->set_rules('monthly', 'Monthly', 'trim');
+        $this->form_validation->set_rules('yearly', 'Yearly', 'trim');
+        $this->form_validation->set_rules('is_trial', 'Is Trial', 'trim');
+        $this->form_validation->set_rules('triallong', 'Trial long', 'trim');
+        $this->form_validation->set_rules('trialamount', 'Trial Amount', 'trim');
+
+
+        $input      = $this->input;
+        $weekly     = $this->security->xss_clean($this->input->post("weekly"));
+        $monthly    = $this->security->xss_clean($this->input->post("monthly"));
+        $yearly     = $this->security->xss_clean($this->input->post("yearly"));
+        $triallong  = $this->security->xss_clean($this->input->post("triallong"));
+        $trialamount= $this->security->xss_clean($this->input->post("trialamount"));
+
+        $mdata=array(
+            "userid"    => $_SESSION["user_id"],
+            "sub7"      => $weekly,
+            "sub30"     => $monthly,
+            "sub365"    => $yearly,
+            "trial"     => $trialamount,
+            "trial_long"=> $triallong,
+        );
+        $result =  apiciaklive(URLAPI . "/v1/member/subscription/setSubscription", json_encode($mdata));
+        echo json_encode($result);
+    }
 
 
     

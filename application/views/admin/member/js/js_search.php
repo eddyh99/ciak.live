@@ -14,6 +14,7 @@
                console.log(textStatus, errorThrown);
             }
         });
+
     })
     $(document).ready(function(){
         $('.owl-posts').owlCarousel({

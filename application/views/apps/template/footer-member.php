@@ -79,8 +79,10 @@ if (isset($extra)) {
     3. Send tips Start
     ------------------------------------------------------------*/ 
     function popupSendTip(id){
-        $("#btnsendtips"+id).on("click",function(e){
+        $("#frmsendtips"+id).submit(function(e){
             e.preventDefault();
+            e.stopImmediatePropagation();
+
             if (parseFloat($("#amount").val())<0.5){
                 alert("Minimum amount is 0.5");
                 return
@@ -109,6 +111,7 @@ if (isset($extra)) {
                             timer: 1500,
                         });
                         $(".offcanvas").offcanvas('hide');
+                        $("#frmsendtips"+id).trigger("reset");
                     }else{
                         Swal.fire({
                             html:  `<div class="d-flex justify-content-center">
@@ -143,6 +146,8 @@ if (isset($extra)) {
                     $(".offcanvas").offcanvas('hide');
                 }
             });
+
+            return false;
         })
     }
     //add swal alert if failed
@@ -155,7 +160,7 @@ if (isset($extra)) {
     4. Report Post Start
     ------------------------------------------------------------*/ 
     function reportpost(id, reason)  {
-         $("#settingMenus").offcanvas('hide');
+        $("#settingMenus").offcanvas('hide');
         $.ajax({
             url: "<?=base_url()?>profile/reportpost/"+id+"/"+reason,
             type: "post",

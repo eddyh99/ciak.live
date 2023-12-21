@@ -45,7 +45,7 @@
                                     </a>
                                     <!-- Hidden Icon -->
                                     <div class="position-absolute hidden-icon" style="z-index: 9999" id="hidden-iconpost">
-                                        <div class="d-flex gap-3 ">
+                                        <div class="d-flex flex-column gap-3 ">
                                             <div>
                                                 <a href="" data-bs-toggle="modal" data-bs-target="#postModal" >
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -221,7 +221,7 @@
                                             <option value="minutes">Per Minutes</option>
                                         </select>
                                     </div>
-                                    <input type="number" name="priceshow" id="priceshow" class="form-control my-3" placeholder="price">
+                                    <input type="text" name="priceshow" id="priceshow" class="form-control my-3 money-input" placeholder="price">
                                 </div>
                             </div>
                             <div id="row_durasi" class="row live-duration mb-3">
@@ -265,13 +265,18 @@
                                 <label class="span-text-toogle-explicit">Max 150</label>
                             </div>
                             <div class="live-price-minute">
-                                <div class="d-flex align-items-center wrap-live-price-minute col-4">
+                                <div class="d-flex align-items-center wrap-live-price-minute col-12 col-md-4">
                                     <label class="pe-3 span-text-toogle-explicit">Price/minute</label>
-                                    <input type="text" class="form-control" name="priceshow" id="pricecam" placeholder="price">
+                                    <input type="text" class="form-control money-input" name="priceshow" id="pricecam" placeholder="price">
                                 </div>
                             </div>
                             <div class="my-4" style="cursor: pointer;">
                                 <a data-bs-toggle="modal" data-bs-target="#guestModal" class="btn-leave-live" >Invite Guest</a>
+                            </div>
+                            <div class="my-5 d-flex align-items-center preview-cam2cam-guest d-none">
+                                <img id="img-preview-cam2cam-guest"  width="50" height="auto" class="rounded-circle me-3">
+                                <h5 id="username-preview-cam2cam-guest" class="my-auto"></h5>
+                                <i id="check-preview-cam2cam-guest" class="fas fs-3 ms-3 text-success me-auto"></i>
                             </div>
                             <div class="col-3 mt-3">
                                 <button class="btn-publish text-white px-3 py-2">Submit</button>
@@ -280,6 +285,7 @@
                     </div>
                     <!-- End Cam2cam section -->
 
+                    <!-- Start Meeting Room section -->
                     <div id="Meeting" class="wrap-posting tabcontent">
                         <form action="<?=base_url()?>post/simpanmeeting" method="post" id="showmeeting">
                             <input type="hidden" id="meetingcam" name="meetingcam">
@@ -296,15 +302,6 @@
                                     <option value="private">Private</option>
                                 </select>
                             </div>
-                            <!-- <div class="row mb-3">
-                                <div class="col-6">
-                                    <label class="pb-1">Content Type</label>
-                                    <select name="content_type" class="form-select select-live-duration" required>
-                                        <option value="non explicit" selected>Non Explicit Content</option>
-                                        <option value="explicit ">Explicit Content</option>
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="row my-4 d-flex align-items-center">
                                 <div class="col-7 col-md-4">
                                     <input type="radio" id="invite1" name="guestinvite" value="invite" required data-bs-toggle="modal" data-bs-target="#meetingModal">
@@ -319,11 +316,17 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="my-5 d-flex align-items-center preview-meeting-guest d-none">
+                                <img id="img-preview-meeting-guest"  width="50" height="auto" class="rounded-circle me-3">
+                                <h5 id="username-preview-meeting-guest" class="my-auto"></h5>
+                                <i id="check-preview-meeting-guest" class="fas fs-3 ms-3 text-success me-auto"></i>
+                            </div>
                             <div class="col-3">
                                 <button class="btn-publish text-white px-3 py-2">Submit</button>
                             </div>
                         </form>
                     </div>
+                    <!-- End Meeting Room section -->
                     <div id="progressbar-wrapper" class="fixed-top d-none">
                         <div class="progress" id="progressbar" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                             <div class="progress-bar progress-bar-striped bg-success" id="progress-bar" style="width: 00%"></div>
@@ -364,6 +367,53 @@
     </div>
 </div>
 
+<!-- Modal for Set Price Subcription -->
+<?php if(($get_price->sub7 == '0.00') && ($get_price->sub30 == '0.00') && 
+        ($get_price->sub365 == '0.00') && ($get_price->trial == '0.00') &&
+        ($get_price->trial_long == '0')){
+?>
+    <div class="modal fade" id="setprice_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formSetSubs" method="POST">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-white" id="setprice">Subscription Settings</h1>
+                    <!-- <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body body-post-setprice">
+                    <label for="weekly" class="text-white">Weekly</label>
+                    <input type="text" id="weekly" name="weekly" class="form-control price-input money-input" placeholder="0.00">
+                    <br>
+                    <label for="monthly" class="text-white">Monthly</label>
+                    <input type="text" id="monthly" name="monthly" class="form-control price-input money-input" placeholder="0.00">
+                    <br>
+                    <label for="yearly" class="text-white">Yearly</label>
+                    <input type="text" id="yearly" name="yearly" class="form-control price-input money-input" placeholder="0.00">
+                    <br>
+                    <label for="triallong" class="form-label text-white">Trial</label>
+                    <select name="triallong" id="triallong" class="form-select">
+                        <option>--Trial Long--</option>
+                        <option value="1">1 day</option>
+                        <option value="2">2 days</option>
+                        <option value="3">3 days</option>
+                        <option value="4">4 days</option>
+                        <option value="5">5 days</option>
+                        <option value="6">6 days</option>
+                    </select>
+                    <br>
+                    <label for="trialamount" class="text-white">Trial Amount</label>
+                    <input type="text" id="trialamount" name="trialamount" class="form-control price-input money-input" placeholder="0.00">
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn-main-green">Set Price</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+    </div>
+<?php }?>
+
 <!-- Modal For Image Post -->
 <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -376,7 +426,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Cam2cam Invite Guest-->
 <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -391,8 +441,8 @@
                         <?php 
                             $i=1;
                             foreach ($follower as $dt){?>
-                                <div class="people px-4">
-                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="$('#guestcam').val('<?=$dt->id?>')" data-bs-dismiss="modal">
+                                <div class="people people-cam2cam<?= $dt->id?> px-4">
+                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')" data-bs-dismiss="modal">
                                         <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
                                         <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
                                     </a>
@@ -406,7 +456,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Meeting Room Invite Guest-->
 <div class="modal fade" id="meetingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -422,8 +472,8 @@
                             $i=1;
                             foreach ($follower as $dt){?>
                                 
-                                <div class="people px-4">
-                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="$('#meetingcam').val('<?=$dt->id?>');$('#invite1').attr('checked','checked')" data-bs-dismiss="modal">
+                                <div class="people people-cam2cam<?= $dt->id?> px-4">
+                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')" data-bs-dismiss="modal">
                                         <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
                                         <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
                                     </a>

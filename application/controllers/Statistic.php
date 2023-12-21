@@ -5,12 +5,15 @@
                   List dari Subscriber dan lainnya
 
     Sub fungsi  : 
-        - subscription      : Untuk mengetahui subscription member
-        - subscriber        : Untuk mengetahui subscriber member
-        - following         : Untuk mengetahui siapa saja yang memfollow member
-        - followers         : Untuk mengetahui siapa saja yang member follow
-        - bookmarks         : Untuk mengetahui siapa saja yang member bookmarks
-        - blocked            : Untuk mengetahui siapa saja yang member Block
+        - index             : Tampilan beranda Statistic List
+        - category          : Tampilan category notes member
+        - subscription      : Tampilan subscription member
+        - subscriber        : Tampilan subscriber member
+        - following         : Tampilan Following
+        - followers         : Tampilan Followers
+        - bookmarks         : Tampilan bookmarks
+        - blocked            : Tampilan Member Block
+        - removenote        : Proses cancel category note member
 
         
 ------------------------------------------------------------*/ 
@@ -30,8 +33,6 @@ class Statistic extends CI_Controller
     public function index()
     {
         $statistik   = apiciaklive(URLAPI . "/v1/member/profile/getstatistik")->message;
-        //echo '<pre>'.print_r($statistik,true)."</pre>";
-        //die;
         $data = array(
             'title'         => NAMETITLE . ' - Statistic',
             'content'       => 'apps/member/statistic/app-statistic',
@@ -47,9 +48,6 @@ class Statistic extends CI_Controller
     public function category()
     {
         $category   = apiciaklive(URLAPI . "/v1/member/profile/getlist_category")->message;
-        // echo '<pre>'.print_r($category,true)."</pre>";
-        // print_r(json_encode($category));
-        // die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Category List',

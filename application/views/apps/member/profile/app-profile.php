@@ -36,7 +36,7 @@
                             <path d="M14.6667 15.7083L19.875 10.5M19.875 10.5L14.6667 5.29166M19.875 10.5H7.375M10.5 15.7083C10.5 16.0162 10.5 16.1702 10.4886 16.3035C10.3696 17.6895 9.34881 18.83 7.98441 19.1013C7.85315 19.1274 7.70002 19.1444 7.39412 19.1784L6.33015 19.2966C4.73175 19.4742 3.93251 19.563 3.29757 19.3599C2.45097 19.0889 1.75981 18.4703 1.39706 17.6588C1.125 17.0502 1.125 16.2461 1.125 14.6378V6.36218C1.125 4.75391 1.125 3.94978 1.39706 3.34116C1.75981 2.52966 2.45097 1.91104 3.29757 1.64013C3.93251 1.43694 4.73172 1.52574 6.33015 1.70334L7.39411 1.82156C7.70013 1.85556 7.85313 1.87256 7.98441 1.89867C9.34881 2.16995 10.3696 3.31045 10.4886 4.69646C10.5 4.82982 10.5 4.98377 10.5 5.29166" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
-                    <div class="pt-3 position-relative icon-posting">
+                    <div class="pt-3 px-2 position-relative icon-posting">
                         <a class="position-relative me-2 me-md-3 me-lg-2 me-xl-3 pt-1 d-block" id="toggle-iconpost" data-bs-toggle="offcanvas" href="#additionalProfile" role="button" aria-controls="additionalProfile">
                             <i class="fas fa-ellipsis-v fs-3"></i>
                         </a>
@@ -85,8 +85,8 @@
             </div>
             
             <div class="action-profile text-center mx-5">
-                <a class="mx-2" href="<?= base_url() ?>profile/setting_price">Edit Subscription</a>
-                <a id="edit-profile" href="<?= base_url() ?>profile/setting_profile" onclick="checkClassExists()">Edit Profile</a>
+                <!-- <a class="mx-2" href="<?= base_url() ?>profile/setting_price">Edit Subscription</a> -->
+                <a class="mx-5" id="edit-profile" href="<?= base_url() ?>profile/setting_profile" onclick="checkClassExists()">Edit Profile</a>
             </div>
 
             <!-- RILL DATA TABS BOTTOM -->
@@ -502,7 +502,56 @@
                                                 </div>
                                                 <div class="post-body">
                                                     <div class="text text-start">
-                                          
+                                                        <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
+                                                            <?= @$dt->title_article?>
+                                                        </h1>
+                                                        <article class="article">
+                                                            <?php 
+                                                                if (!empty($dt->post_media)){
+                                                                    foreach ($dt->post_media as $imgpost){
+                                                                        if ($imgpost->media_type=='attach'){
+                                                            ?>
+                                                                    <li class="post-list-attach">
+                                                                        <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#previewAttch<?= $imgpost->id?>" class="attachment article <?php echo ($dt->content_type == 'explicit') ? 'attachment-explicit' : ''?>" > 
+                                                                            <?= substr($imgpost->imgorg, 42)?>
+                                                                        </a>
+                                                                    </li>
+                                                                    <div class="modal fade" id="previewAttch<?= $imgpost->id?>" tabindex="-1" aria-labelledby="previewAttach" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h1 class="modal-title fs-5" id="previewAttach">Preview Attachment</h1>
+                                                                                    <button type="button" class="modal-close-ciak" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                                                                </div>
+                                                                                <div class="modal-body d-flex justify-content-center">
+                                                                                    <?php if ($imgpost->media_extension == "pdf"){?>
+                                                                                            <embed frameBorder="0" scrolling="auto" height="500" width="100%" src="<?= $imgpost->imgorg?>#toolbar=0" type="application/pdf">
+                                                                                    <?php } else if ($imgpost->media_extension == "audio") {?>
+                                                                                            <audio style="width: 80%;" controls controlsList="nodownload">>
+                                                                                                <source src="<?= $imgpost->imgorg?>" type="audio/mpeg">
+                                                                                                Your browser does not support the audio.
+                                                                                            </audio>
+                                                                                    <?php } else if($imgpost->media_extension == "video"){?>
+                                                                                            <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
+                                                                                                <source src="<?=@$imgpost->imgorg?>" type="video/mp4">
+                                                                                            </video>   
+                                                                                    <?php } else if($imgpost->media_extension == "image"){?>
+                                                                                            <div class="wrapper-attch-img">
+                                                                                                <img class="attch-img" src="<?= $imgpost->imgorg?>" alt="img">
+                                                                                            </div>
+                                                                                    <?php } else {?>
+                                                                                            <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
+                                                                                    <?php } ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php 
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                ?>
+                                                        </article>
                                                         <div class="owl-carousel owl-posts owl-theme" >
                                                             <?php 
                                                                 if (!empty($dt->post_media)){

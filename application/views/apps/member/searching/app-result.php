@@ -563,9 +563,6 @@
                                                                                                 <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<?= $imgpost->imgorg?>' width='100%' height='500' frameborder='0'></iframe>
                                                                                         <?php } ?>
                                                                                     </div>
-                                                                                    <div class="modal-footer justify-content-center">
-                                                                                        <button type="button" class="btn btn-main-green" onclick="window.location.href='<?php echo $imgpost->imgorg ?>'">Download</button>
-                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

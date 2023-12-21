@@ -2,6 +2,7 @@
 <script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
 
 <script>
+    
 /*----------------------------------------------------------
 Modul Name  : _js_settings_profile
 Desc        : Modul ini di digunakan untuk melakukan 
@@ -21,6 +22,7 @@ Desc        : Modul ini di digunakan untuk melakukan
  * 8. Rating Profile
  * 9. GSAP Scroll Trigger
  * 10. Toggle for Content Explicit
+ * 11. Save Subscription
  */
 
 /*----------------------------------------------------------
@@ -539,11 +541,10 @@ $(document).ready(function () {
 10. Toggle for Content Explicit Start
 ------------------------------------------------------------*/
 
-const   bodyContentHome = document.querySelector("body"),
-modeToggleContentHome = body.querySelector(".mode-toggle-content");
+const bodyContentHome = document.querySelector("body")
+const modeToggleContentHome = body.querySelector(".mode-toggle-content");
     
-
-modeToggleContentHome.addEventListener("click", () =>{
+$('.mode-toggle-content').click(function(){
     if(localStorage.getItem("explicit") === 'yes'){
         // console.log('explicit')
         window.location = '<?= base_url()?>profile/get_content_type?type=explicit'
@@ -553,11 +554,87 @@ modeToggleContentHome.addEventListener("click", () =>{
         window.location = '<?= base_url()?>profile/get_content_type?type=non'
         
     }
-});
+})
+// modeToggleContentHome.addEventListener("click", () =>{
+//     if(localStorage.getItem("explicit") === 'yes'){
+//         // console.log('explicit')
+//         window.location = '<?= base_url()?>profile/get_content_type?type=explicit'
+        
+//     }else if(localStorage.getItem("explicit") === 'no'){
+//         // console.log('NON')
+//         window.location = '<?= base_url()?>profile/get_content_type?type=non'
+        
+//     }
+// });
 /*----------------------------------------------------------
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
 
+/*----------------------------------------------------------
+11. Save Subscription Start
+------------------------------------------------------------*/
+if ($("#is_trial").is(":checked")){
+    $("#trial").show();        
+}else{
+    $("#trial").hide();
+}
+
+$("#is_trial").on("change",function(e){
+    if ($("#is_trial").is(":checked")){
+        $("#trial").show();        
+    }else{
+        $("#trial").hide();
+    }
+})
+
+$(document).ready(function(){
+    $('#btnSubs').click(function(e){
+        e.preventDefault();
+
+        var formData = {
+            weekly: $("#weekly").val(),
+            monthly: $("#monthly").val(),
+            yearly: $("#yearly").val(),
+            is_trial: $("#is_trial").val(),
+            triallong: $("#triallong").val(),
+            trialamount: $("#trialamount").val(),
+        };
+
+        $.ajax({
+            url: '<?=base_url()?>profile/savesubscription',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                let ress = JSON.parse(response)
+                if(ress.code == '200'){
+                    Swal.fire({
+                        text: 'Setting Subscription Successfully',
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                    });
+                }else{
+                    Swal.fire({
+                        text: 'Setting Subscription Error',
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        })
+    })
+})
+/*----------------------------------------------------------
+11. Save Subscription End
+------------------------------------------------------------*/
 
 
 </script>
