@@ -33,7 +33,7 @@ class Meeting extends CI_Controller
         $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
         $room_id = $_GET['room_id'];
         $room = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
-
+        $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
         $content_type = apiciaklive(URLAPI . "/v1/member/perform/getpublic_byroom?room_id=".$room_id)->message;
         // echo "<pre>".print_r($content_type,true)."</pre>";
 		// die;
@@ -42,6 +42,7 @@ class Meeting extends CI_Controller
             'rtmp'          => $rtmp,
             'room'          => $room,
             'content_type'  => $content_type,
+            'follower'      => $follower,
             'content'       => 'apps/member/posting/meeting/app-live-show',
             'extra'         => 'apps/member/posting/meeting/js/js-liveshow',
         );
@@ -82,8 +83,15 @@ class Meeting extends CI_Controller
     }
     
     public function showcam(){
-       $data = array(
+        $room_id = $_GET['room_id'];
+        $content_type = apiciaklive(URLAPI . "/v1/member/perform/getpublic_byroom?room_id=".$room_id)->message;
+        // echo "<pre>".print_r($content_type,true)."</pre>";
+		// die;
+
+
+        $data = array(
             'title'         => NAMETITLE . ' - Meeting',
+            'content_type'  => $content_type,
             'content'       => 'apps/member/posting/meeting/app-showcam',
             'extra'         => 'apps/member/posting/meeting/js/js-showcam',
         );

@@ -3141,6 +3141,18 @@ label#label-forsubs {
     color: var(--text-white-color);
 }
 
+.apps-member .search-input-guest .search_data_invtnon{
+    background: #323436;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #03B115;
+    color: #ffffff;
+}
+
 #attch-preview-post .text-preview-attch,
 .post-list-attach {
     list-style-type: disc !important;

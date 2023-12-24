@@ -789,6 +789,34 @@ class Profile extends CI_Controller
         }
     }    
 
+    public function instagram_link()
+    {
+
+        $adapter = new Hybridauth\Provider\Instagram( [
+            'callback' => base_url().'profile/instagram_link',
+            'keys'     => [
+                            'id' => '6971869409595981',
+                            'secret' => 'cc0e34d4588fda302daf7aa3b1310de3'
+                        ],
+        ]);
+
+        try {
+            $adapter->authenticate();
+            $token = $adapter->getAccessToken();
+            $userProfile = $adapter->getUserProfile();
+
+            // print_r(json_encode($userProfile));
+            echo "token : " . $token['access_token'];
+            echo "<br>";
+            echo "User Name : " . $userProfile->displayName;
+            die;
+        }
+        catch( Exception $e ){
+            echo "ERROR DISINI";
+            echo $e->getMessage() ;
+        }
+    }
+
     public function linkedin_link()
     {
         $adapter = new Hybridauth\Provider\LinkedIn( [
@@ -856,7 +884,7 @@ class Profile extends CI_Controller
                         <td with="200"><img src="{$user->getAvatar()}"></td>
                         <td>
                             <br />
-                            <strong>ID</strong>: {$token->getOpenId()}<br /><br />
+                            <strong>Open ID</strong>: {$token->getOpenId()}<br /><br />
                             <strong>ACCESS TOKEN</strong>: {$token->getAccessToken()}<br /><br />
                         </td>
                     </tr>

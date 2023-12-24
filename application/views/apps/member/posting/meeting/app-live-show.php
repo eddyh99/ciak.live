@@ -87,38 +87,8 @@
         <div class="row">
             <div class="col-12 ms-4 mb-5 d-flex">
                 <a href="<?=base_url()?>homepage" class="btn btn-leave-live">Leave</a>
+                <a data-bs-toggle="modal" data-bs-target="#addModerator" class="addModerator-class btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2  "> <i class="fa-solid fa-users me-2"></i>Add Moderator</a>
                 <button id="btnopen" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2">Start</button>
-                <!-- <div class="dropdown" id="connectlive">
-                    <button class="btn btn-main-green dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Connect Live
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item connect-live">
-                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
-                                <span>
-                                    Facebook
-                                </span>
-                            </div>
-                        </li>
-                        <li class="dropdown-item connect-live">
-                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
-                                <span>
-                                    Instagram
-                                </span>
-                            </div>
-                        </li>
-                        <li class="dropdown-item connect-live">
-                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
-                                <span>
-                                    Youtube
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
         </div>
     </div>
@@ -180,6 +150,36 @@
                 <button id="btnconfirm" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> col-lg-8 m-1 mt-2">Confirm</button>            
             </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Add Moderator-->
+<div class="modal fade" id="addModerator" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-white d-flex justify-content-center gap-2">
+            <div class="row col-10">
+                <div class="apps-member col-12 mx-auto ">
+                    <div class="d-flex justify-content-center mt-4 search-input-guest ">
+                        <input type="text" name="search_data_invt" id="search_data_invt" class="form-control <?php echo ($content_type == 'explicit') ? 'search_data_invtnon' : 'search_data_invtnon'?> " placeholder="Search minimun 3 character...">
+                    </div>
+                    <div id="suggestionslist"></div>
+                    <div class="list-people mt-5 mb-on-botbar">
+                        <?php 
+                            $i=1;
+                            foreach ($follower as $dt){?>
+                                <div class="people people-cam2cam<?= $dt->id?> px-4">
+                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')" data-bs-dismiss="modal">
+                                        <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
+                                        <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
+                                    </a>
+                                </div>
+                        <?php $i++;}?>
+                    </div>
+                </div>
+            </div>
       </div>
     </div>
   </div>
