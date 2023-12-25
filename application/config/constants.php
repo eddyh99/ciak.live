@@ -98,7 +98,7 @@ if (stripos($_SERVER['HTTP_HOST'], 'sandbox') === 0) {
     define('URLAPI', "https://api.sandbox.ciak.live");
     define('CHATMODE',"sb");
 } else {
-    define('URLAPI', "https://api.sandbox.ciak.live");
+    define('URLAPI', "https://api.ciak.live");
     define('CHATMODE',"lv");
 }
 
