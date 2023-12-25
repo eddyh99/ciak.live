@@ -155,6 +155,23 @@ $.ajax({
 });
 
 
+function payperjoin(){
+    if(meeting_type=="ticket" && !performer){
+        $.ajax({
+            url: "<?=base_url()?>meeting/confirmjoin",
+            type: "post",
+            data: "room="+broadcastId,
+            success: function (response) {
+                console.log(response);
+                console.log("PAY");
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+                window.location.href="<?=base_url()?>homepage"
+            }
+        });
+    }
+}
 function payperminutes(){
     if(meeting_type=="minutes" && !performer){
         $.ajax({
@@ -275,7 +292,11 @@ $("#btnconfirm").on("click",function(){
             connection.extra.broadcastuser +=1;
             $("#btnopen").attr("disabled","true");
             $('.please-click-join-live').hide();
-            payperminutes();
+            if (meeting_type=='ticket'){
+                payperjoin();
+            }else if (meeting_type=='minutes'){
+                payperminutes();
+            }
             statusPayperMinutes = true;
         }
 
@@ -291,6 +312,7 @@ $("#btnleave").on("click",function(){
 })
 
 connection.onmessage = function(event) {
+    alert(event);
     if(event.data.typing === true) {
         $('#key-press').show().find('span').html(event.extra.userFullName + ' is typing');
         return;
@@ -344,20 +366,7 @@ connection.onstream = function(event) {
     } 
 };
 
-connection.onstreamended = function(event) {
-    var video = document.querySelector('video[data-streamid="' + event.streamid + '"]');
-    if (!video) {
-        video = document.getElementById(event.streamid);
-        if (video) {
-            video.parentNode.removeChild(video);
-            return;
-        }
-    }
-    if (video) {
-        video.srcObject = null;
-        video.style.display = 'none';
-    }
-};
+
 
 var conversationPanel = document.getElementById('conversation-panel');
 
@@ -555,15 +564,9 @@ connection.iceServers= [
 }
 
 connection.onstreamended = function(event) {
-    var mediaElement = document.getElementById(event.streamid);
-    if (mediaElement) {
-        mediaElement.parentNode.removeChild(mediaElement);
-
-        if(event.userid === connection.sessionid && !connection.isInitiator) {
-          alert('Broadcast is ended.');
-          console.log("KELUAR SEMUA");
-        }
-    }
+    alert('Broadcast is ended.');
+    window.location.href="<?=base_url()?>homepage";
+  
 };
 
 
