@@ -18,12 +18,13 @@
         imgName : 'Image',
         hideLoadBtn : false,
     };
-
+    
+    var imageurl = localStorage.getItem("imageurl");
     // Initialitation Config Tui Image Editor 
     var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
         includeUI: {
             loadImage: {
-                path: '<?= base_url()?>assets/img/empty-img.png',
+                path: imageurl,
                 name: 'sample'
             },
             menu: ['text', 'crop', 'filter', 'shape', 'draw',],

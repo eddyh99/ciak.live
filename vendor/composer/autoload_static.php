@@ -36,6 +36,11 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Maestroerror\\' => 13,
+        ),
+        'I' => 
+        array (
+            'Instagram\\' => 10,
         ),
         'H' => 
         array (
@@ -90,6 +95,14 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Maestroerror\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/maestroerror/php-heic-to-jpg/src',
+        ),
+        'Instagram\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jstolpe/instagram-graph-api-php-sdk/src/Instagram',
         ),
         'Hybridauth\\' => 
         array (

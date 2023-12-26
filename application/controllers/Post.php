@@ -24,6 +24,7 @@
         
 ------------------------------------------------------------*/ 
 defined('BASEPATH') or exit('No direct script access allowed');
+use Maestroerror\HeicToJpg;
 
 class Post extends CI_Controller
 {
@@ -67,7 +68,13 @@ class Post extends CI_Controller
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }
-
+    
+    public function convert_heic(){
+        $image  = $_FILES["image"]["tmp_name"];
+        $heictojpg = new Maestroerror\HeicToJpg(); 
+        $jpg = $heictojpg->convert($image)->get();
+        echo 'data:image/jpg;base64,' . base64_encode($jpg);
+    }
 
     public function upload_images()
     {

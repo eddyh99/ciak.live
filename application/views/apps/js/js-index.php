@@ -216,6 +216,24 @@ function actionStar(post, star) {
     });
 };
 
+var url=new URL(window.location.href).split("/");
+if (url[1]=="homepage"){
+    setInterval(()=>{
+            $.ajax({
+                url: "<?=base_url()?>homepage/ceknotif",
+                success: function (response) {
+                    if (response.length>0){
+                        $(".fa-envelope").append('<span class="buble-red rounded-circle"></span>')                 
+                    }
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                    window.location.href="<?=base_url()?>homepage"
+                }
+            });
+    }, 1000);
+}
+
 function actionBookmark(post) {
     var status;
     if ($("#postbookmark" + post).hasClass('checked')) {

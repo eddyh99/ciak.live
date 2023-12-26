@@ -312,7 +312,6 @@ $("#btnleave").on("click",function(){
 })
 
 connection.onmessage = function(event) {
-    alert(event);
     if(event.data.typing === true) {
         $('#key-press').show().find('span').html(event.extra.userFullName + ' is typing');
         return;
@@ -376,7 +375,7 @@ function appendChatMessage(event, checkmark_id) {
     div.className = 'message mt-2';
 
     if (event.data) {
-        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> ${(performer == true) ? '<div><a class="btn btn-main-green">Kick</a></div>' : ''}  </div>`;
+        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> ${(performer == true) ? '<div><button class="btn btn-main-green" onclick="kickuser(\''+event.userid+'\')">Kick</button></div>' : ''}  </div>`;
 
         if (event.data.checkmark_id) {
             connection.send({
@@ -401,6 +400,10 @@ window.onkeyup = function(e) {
         $('#btn-chat-message').click();
     }
 };
+
+function kickuser(id){
+    connection.disconnectWith(id);
+}
 
 document.getElementById('btn-chat-message').onclick = function() {
     var chatMessage = $('#txt-chat-message').val();
@@ -564,9 +567,10 @@ connection.iceServers= [
 }
 
 connection.onstreamended = function(event) {
-    alert('Broadcast is ended.');
-    window.location.href="<?=base_url()?>homepage";
-  
+    if (performer!=true){
+        alert('Broadcast is ended.');
+        window.location.href="<?=base_url()?>homepage";
+    }
 };
 
 
