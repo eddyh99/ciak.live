@@ -143,7 +143,7 @@
                             <input type="text" class="form-control" id="phone" name="phone" value="<?=@$profile->contact?>">
                         </div>
                         
-                        <div class="biodata mt-5 pt-5 mb-5 pb-4">
+                        <div id="subcription" class="biodata mt-5 pt-5 mb-5 pb-4">
                             <div class="w-auto">
                                 <h3>Settings subscription prices</h3>
                                 <hr>
@@ -319,7 +319,7 @@
 
                             <!-- INSTAGRAM RTMP -->
                             <div class="bg-live-connect">
-                                <a href="" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                <a href="<?= base_url()?>profile/instagram_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
                                     <div class="ps-4">
                                         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_2655_14464)">

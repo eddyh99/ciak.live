@@ -212,20 +212,40 @@ class Post extends CI_Controller
     }
     
     public function simpanlive(){
-        /**tolong di isi validasi set rules
-        rule nya :
-            1. jika pilih_price = 'free' => priceshow = 0
-            2. jika pilih_price = 'ticket'  => durasi harus diisi dan priceshow >= 0.5
-            3. jika pilih_price = 'minutes' => durasi boleh kosong dan priceshow >=0.5
-        **/
+        $input          = $this->input;
+        $content_type   = $this->security->xss_clean($this->input->post("content_type"));
+
+        $this->form_validation->set_rules('time', 'Time', 'trim|required');
+        $this->form_validation->set_rules('selection', 'Post Type', 'trim|required');
+        $this->form_validation->set_rules('pilih_price', 'Price Type', 'trim|required');
+        $this->form_validation->set_rules('durasi', 'Duration', 'trim|required');
+        $this->form_validation->set_rules('deskripsi', 'Description', 'trim|required');
         
-        $time   = $this->security->xss_clean($this->input->post("time"));
+        if($this->security->xss_clean($this->input->post("time")) == 'schedule'){
+            $this->form_validation->set_rules('schedule', 'Schedule Live Show', 'trim|required');
+        }
+
+        if($this->security->xss_clean($this->input->post("pilih_price")) == 'ticket' || $this->security->xss_clean($this->input->post("pilih_price")) == 'minutes'){  
+            $this->form_validation->set_rules('priceshow', 'Price', 'trim|required');
+        }
+
+        if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', $this->response->error_msg(validation_errors()));
+            redirect("post?type=".$content_type);
+			return;
+		}
+
+        $time       = $this->security->xss_clean($this->input->post("time"));
         $schedule   = $this->security->xss_clean($this->input->post("schedule"));
         $selection  = $this->security->xss_clean($this->input->post("selection"));
         $pilih_price= $this->security->xss_clean($this->input->post("pilih_price"));
         $priceshow  = $this->security->xss_clean($this->input->post("priceshow"));
         $durasi     = $this->security->xss_clean($this->input->post("durasi"));
         $deskripsi  = $this->security->xss_clean($this->input->post("deskripsi"));
+
+        // echo "<pre>".print_r($debdata,true)."</pre>";
+		// die;
+        
 
         if (empty($schedule)){
             $post_time=date("Y-m-d H:i");
@@ -286,7 +306,19 @@ class Post extends CI_Controller
     
     public function simpancam(){
         /**tolong di isi validasi set rules**/
-        
+
+        $input      = $this->input;
+        $content_type   = $this->security->xss_clean($this->input->post("content_type"));
+
+        $this->form_validation->set_rules('guestcam', 'Guest Cam2Cam', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', $this->response->error_msg(validation_errors()));
+            redirect("post?type=".$content_type);
+			return;
+		}
+
+        $input      = $this->input;
         $priceshow  = $this->security->xss_clean($this->input->post("priceshow"));
         $deskripsi  = $this->security->xss_clean($this->input->post("deskripsi"));
         $guestcam   = $this->security->xss_clean($this->input->post("guestcam"));

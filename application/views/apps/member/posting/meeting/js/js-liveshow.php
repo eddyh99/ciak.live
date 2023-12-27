@@ -141,6 +141,7 @@ $.ajax({
                 $("#costjoin").html("This show will cost "+data.price+" XEUR/minutes");
                 $("#notifjoin").html("Balance will be deducted from your wallet each minutes");
             }
+            $('.addModerator-class').hide();
             $('#load-edit-profile').hide()
             $('.please-click-join-live').text('Please click join button');
             $("#btnopen").html("Join");
@@ -291,6 +292,10 @@ $("#btnconfirm").on("click",function(){
         }else{
             connection.extra.broadcastuser +=1;
             $("#btnopen").attr("disabled","true");
+            $("#txt-chat-message").removeAttr("disabled");
+            $("#btn-chat-message").removeAttr("disabled");
+ 
+            $("#btn-emoji-livestream").removeAttr("disabled");
             $('.please-click-join-live').hide();
             if (meeting_type=='ticket'){
                 payperjoin();
@@ -726,4 +731,9 @@ $(document).ready(function(){
         },
     });
 });
+
+function invite_guest_active(id, img, username){
+    console.log(id + img + username);
+
+}
 </script>

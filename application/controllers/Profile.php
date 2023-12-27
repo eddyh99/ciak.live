@@ -29,8 +29,14 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 use gimucco\TikTokLoginKit;
-use Instagram\User\Media;
+use Instagram\FacebookLogin\FacebookLogin;
+use Instagram\AccessToken\AccessToken;
 use Instagram\User\User;
+use Instagram\Page\Page;
+use Instagram\User\Media;
+use Instagram\User\MediaPublish;
+
+
 
 class Profile extends CI_Controller
 {
@@ -823,6 +829,189 @@ class Profile extends CI_Controller
                 redirect("profile/setting_profile");
         }
     }    
+    
+    public function instagram_link()
+    {
+
+        
+         $appId = '1000656337656715';
+         $appSecret = 'f116694de32707cbae9c56dc08496057';
+
+         $config = array( // instantiation config params
+            'app_id' => $appId, // facebook app id
+            'app_secret' => $appSecret, // facebook app secret
+        );
+
+
+        // uri facebook will send the user to after they login
+        $redirectUri = 'https://ciak.live.local/profile/instagram_link';
+
+        if(isset($_GET['code'])){
+            
+            // instantiate our access token class
+            $accessToken = new AccessToken( $config );
+            
+            // exchange our code for an access token
+            $newToken = $accessToken->getAccessTokenFromCode( $_GET['code'], $redirectUri );
+                    
+            if ( !$accessToken->isLongLived() ) { // check if our access token is short lived (expires in hours)
+                // exchange the short lived token for a long lived token which last about 60 days
+                $newToken = $accessToken->getLongLivedAccessToken( $newToken['access_token'] );
+            } 
+
+            // echo "<pre>".print_r($newToken,true)."</pre>";
+            // die;
+            $this->session->set_userdata('token_ig', $newToken['access_token']);
+   
+        } else {
+
+
+            
+            $permissions = array( // permissions to request from the user
+                'instagram_basic',
+                'instagram_content_publish', 
+                'instagram_manage_insights', 
+                'instagram_manage_comments',
+                'pages_show_list', 
+                'ads_management', 
+                'business_management', 
+                'pages_read_engagement'
+            );
+            
+            // instantiate new facebook login
+            $facebookLogin = new FacebookLogin( $config );
+            
+            // display login dialog link
+            echo '<a href="' . $facebookLogin->getLoginDialogUrl( $redirectUri, $permissions ) . '">' .
+                'Log in with Facebook' .
+            '</a>';
+        }
+    }
+
+    public function instagram_bussines_userid()
+    {
+        $config = array( // instantiation config params
+            'access_token' => $_SESSION['token_ig'],
+        );
+
+        // instantiate and get the users info
+        $user = new User( $config );
+
+        // get the users pages
+        $pages = $user->getUserPages();
+
+
+
+        $config = array( // instantiation config params
+            'page_id' => '105985289275436',
+            'access_token' => $_SESSION['token_ig'],
+        );
+
+        // instantiate page        
+        $page = new Page( $config );
+
+        // get info
+        $pageInfo = $page->getSelf();
+
+        echo "<pre>".print_r( $pageInfo ,true)."</pre>";
+        die;
+
+    }
+
+    public function instagram_userprofile()
+    {
+        $config = array( // instantiation config params
+            'user_id' => '17841460858921256',
+            'access_token' => $_SESSION['token_ig'],
+        );
+        
+        // instantiate user for use
+        $user = new User( $config );
+        
+        // get user info
+        $userInfo = $user->getSelf();
+
+        echo "<pre>".print_r( $userInfo ,true)."</pre>";
+        die;
+    }
+
+    public function instagram_post_container()
+    {
+
+        $config = array( // instantiation config params
+            'user_id' => '17841460858921256',
+            'access_token' => $_SESSION['token_ig'],
+        );
+
+        // instantiate user media
+        $media = new Media( $config );
+
+        $imageContainerParams = array( // container parameters for the image post
+            'caption' => 'First Post', // caption for the post
+            'image_url' => 'https://api.ciak.live/users/posts/8qm8k38-170247971701.jpg', // url to the image must be on a public server
+        );
+
+        // create image container
+        $imageContainer = $media->create( $imageContainerParams );
+
+        // get id of the image container
+        $imageContainerId = $imageContainer['id'];
+        echo "<pre>".print_r( $imageContainerId ,true)."</pre>";
+        die;
+    }
+
+    public function instagram_post_publish()
+    {
+        $config = array( // instantiation config params
+            'user_id' => '17841460858921256',
+            'access_token' => $_SESSION['token_ig'],
+        );
+
+        // instantiate media publish
+        $mediaPublish = new MediaPublish( $config );
+
+        // post our container with its contents to instagram
+        $publishedPost = $mediaPublish->create( '18017633344982291' );
+        echo "<pre>".print_r( $publishedPost ,true)."</pre>";
+        die;
+    }
+
+
+    // public function instagram_link()
+    // {
+
+    //     $adapter = new Hybridauth\Provider\Instagram( [
+    //         'callback' => base_url().'profile/instagram_link',
+    //         'keys'     => [
+    //                         'id' => '6971869409595981',
+    //                         'secret' => 'cc0e34d4588fda302daf7aa3b1310de3',
+    //                         'default_graph_version' => 'v5.0',
+    //                     ],
+    //     ]);
+
+    //     try {
+    //         $adapter->authenticate();
+    //         $token = $adapter->getAccessToken();
+    //         $userProfile = $adapter->getUserProfile();
+    //         // $userPage = $adapter->getUserPages();
+
+    //         // print_r(json_encode($userProfile));
+    //         echo "token : " . $token['access_token'];
+    //         echo "<br>";
+    //         echo "User Name : " . $userProfile->displayName;
+    //         echo "<br>";
+    //         echo "Photo URL : " . $userProfile->profileURL;
+    //         // echo "<br>";
+    //         // echo "USER ID : " . $userProfile->identifier;
+    //         // echo "<br>";
+    //         // echo "USER ID CONTACT : " . $userProfileContact->identifier;
+    //         die;
+    //     }
+    //     catch( Exception $e ){
+    //         echo "ERROR DISINI";
+    //         echo $e->getMessage() ;
+    //     }
+    // }
 
     public function linkedin_link()
     {
@@ -891,7 +1080,7 @@ class Profile extends CI_Controller
                         <td with="200"><img src="{$user->getAvatar()}"></td>
                         <td>
                             <br />
-                            <strong>ID</strong>: {$token->getOpenId()}<br /><br />
+                            <strong>Open ID</strong>: {$token->getOpenId()}<br /><br />
                             <strong>ACCESS TOKEN</strong>: {$token->getAccessToken()}<br /><br />
                         </td>
                     </tr>

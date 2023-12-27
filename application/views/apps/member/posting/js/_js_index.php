@@ -983,5 +983,11 @@ $('#invite2').click(function(){
 16. Show Preview Invite Guest End
 ------------------------------------------------------------*/ 
 
+$(document).ready(function() {
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 3000);
+});
+
 
 </script>

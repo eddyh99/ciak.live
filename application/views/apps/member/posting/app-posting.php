@@ -12,6 +12,12 @@
         <div class="apps-body ptop pbot">
             <div class="apps-topbar alerts fixed-top light row">
                 <div class="apps-member border-none mx-auto col-12 col-lg-5">
+                    <?php if (@isset($_SESSION["error"])) { ?>
+                        <div class="col-12 alert alert-danger alert-dismissible fade show" role="alert">
+                            <span class="notif-login f-poppins"><?= $_SESSION["error"] ?></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
                     <div class="alert-notif d-flex justify-content-between px-4 px-lg-0">
                         <div class="action-icon">
                             <a id="discard-post" href="<?= base_url()?>homepage" class="text-primary">
@@ -29,7 +35,7 @@
             </div>
             <div>
                 <div class="apps-member light w-100">
-
+               
                     <!-- Start Posting Section-->
                     <div id="Post" class="wrap-posting tabcontent">
                         <div class="d-flex">
@@ -199,6 +205,7 @@
                     <!-- Start Live Section-->
                     <div id="Live" class="wrap-posting tabcontent">
                         <form action="<?=base_url()?>post/simpanlive" method="post" id="liveshow" onsubmit="return validate()">
+                            <input type="hidden" name="content_type" value="<?= $_GET['type']?>">
                             <div class="row live-schedule-settings d-flex align-items-start">
                                 <div class="col-6 wrap-live-top d-block">
                                     <div class="d-flex align-items-center">
@@ -229,7 +236,7 @@
                                             <option value="minutes">Per Minutes</option>
                                         </select>
                                     </div>
-                                    <input type="text" name="priceshow" id="priceshow" class="form-control my-3 money-input" placeholder="price">
+                                    <input type="text" name="priceshow" id="priceshow" class="form-control my-3 money-input" value="0.5" placeholder="price">
                                 </div>
                             </div>
                             <div id="row_durasi" class="row live-duration mb-3">
@@ -265,6 +272,7 @@
                     <!-- Start Cam2cam Section -->
                     <div id="Cam2cam" class=" wrap-posting tabcontent">
                         <form action="<?=base_url()?>post/simpancam" method="post" id="showcam" onsubmit="return validatecam()">
+                            <input type="hidden" name="content_type" value="<?= $_GET['type']?>">
                             <input type="hidden" id="guestcam" name="guestcam">
                             <div class="row live-description mb-3">
                                 <div class="col-10 wrap-live-description">
@@ -414,7 +422,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?=base_url()?>profile/setting_profile" class="btn-main-green">Set Price</a>
+                    <a href="<?=base_url()?>profile/setting_profile#subcription" class="btn-main-green">Set Price</a>
                 </div>
         </div>
     </div>

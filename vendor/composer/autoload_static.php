@@ -42,6 +42,10 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         array (
             'Instagram\\' => 10,
         ),
+        'I' => 
+        array (
+            'Instagram\\' => 10,
+        ),
         'H' => 
         array (
             'Hybridauth\\' => 11,
