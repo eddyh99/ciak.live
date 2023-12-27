@@ -4,6 +4,7 @@
         "facebook/graph-sdk": "^5.7",
         "gimucco/tiktok-loginkit": "^0.5.3",
         "hybridauth/hybridauth": "^3.10",
-        "jstolpe/instagram-graph-api-php-sdk": "^1.0"
+        "jstolpe/instagram-graph-api-php-sdk": "^1.0",
+        "maestroerror/php-heic-to-jpg": "^1.0"
     }
 }

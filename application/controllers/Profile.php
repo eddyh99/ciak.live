@@ -37,6 +37,7 @@ use Instagram\User\Media;
 use Instagram\User\MediaPublish;
 
 
+
 class Profile extends CI_Controller
 {
     public function __construct()
@@ -742,6 +743,31 @@ class Profile extends CI_Controller
         }
     }
     
+    public function instagram_post(){
+        $token='EAAOOF3WMW4sBO34aM0igZB0MUoDBlpc7ZAZA75DOrWJZAado1UDMO5ZAeRceUsQuevir9DgtTmdquGZAKMRABAAh90KitQyzE5gLkK4hwDhZC1FpzkuiD0ebLpSIBhxSSXltZAURVJTtEWrKFOqWapxmeUwMf27AGG32mQOQUCwXE3QU1quPhWOk4jSgdEqNlvXw';
+        $config = array( // instantiation config params
+            'access_token' => $token,
+        );
+
+        // instantiate and get the users info
+        $user = new User( $config );
+        
+        // get the users pages
+        $pages = $user->getUserPages();
+        
+        $config = array( // instantiation config params
+            'user_id' => '105985289275436',
+            'access_token' => $token,
+        );
+        
+        // instantiate user for use
+        $user = new User( $config );
+        
+        // get user info
+        $userInfo = $user->getSelf();
+        echo "<pre>".print_r($userInfo,true)."</pre>";
+    }
+    
     public function facebook_link(){
         $fb = new Facebook\Facebook([
             'app_id' => '1000656337656715',
@@ -752,6 +778,14 @@ class Profile extends CI_Controller
         $permissions = [
                 'publish_video',
                 'public_profile',
+                'instagram_basic',
+                'instagram_content_publish', 
+                'instagram_manage_insights', 
+                'instagram_manage_comments',
+                'pages_show_list', 
+                'ads_management', 
+                'business_management', 
+                'pages_read_engagement'                
         ];    
         
         $helper = $fb->getRedirectLoginHelper();
@@ -774,6 +808,7 @@ class Profile extends CI_Controller
         		$oAuth2Client = $fb->getOAuth2Client();
         		$longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($token);
         		$newtoken= (string) $longLivedAccessToken;
+        		redirect(base_url()."profile/instagram_post/".$newtoken);
         		$fb->setDefaultAccessToken($newtoken);
 
                 $createLiveVideo = $fb->post('/me/live_videos?status=LIVE_NOW', ['title' => 'Ciak Live Streaming', 'description' => 'ciak live Streaming']);

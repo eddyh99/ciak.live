@@ -51,6 +51,11 @@ class Homepage extends CI_Controller
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }
+    
+    public function ceknotif(){
+        $notifmsg = apiciaklive(URLAPI . "/v1/member/notification/chat_notif");
+        echo $notifmsg;
+    }
 
     public function load_more($id)
     {

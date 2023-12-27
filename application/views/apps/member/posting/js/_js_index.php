@@ -5,6 +5,16 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+<!--trial tui-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.3.2/fabric.js"></script>
+<script src="https://nhn.github.io/tui.image-editor/latest/examples/js/theme/black-theme.js"></script>
+<script src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
+<script src="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+<script src="https://nhn.github.io/tui.image-editor/latest/examples/js/theme/white-theme.js"></script>
+<script src="https://uicdn.toast.com/tui-image-editor/latest/tui-image-editor.js"></script>
+
 <script>
 
 /*----------------------------------------------------------
@@ -253,6 +263,81 @@ $(document).ready(function(){
 ------------------------------------------------------------*/
 
 
+/*** trial tui ***/
+var settings = {
+    i18n: { 
+            Color: 'Color',
+            Bold: 'Bold',
+            'Text size': 'Font Size',
+            load : 'load',
+        },
+    imgName : 'Image',
+    hideLoadBtn : false,
+};
+    
+
+
+$("#upload_image").on("change",function (event){
+    files=event.target.files;
+    ext=$("#upload_image").val().split('.')[1];
+    //if (ext=="heic"){
+        formdata = new FormData();
+        formdata.append('image', files[0]); 
+         $.ajax({
+                url: "<?=base_url()?>post/convert_heic",
+                type: "post",
+                contentType: false,
+                processData:false,  
+                data: formdata,
+                success: function(data) {
+                     var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
+                        includeUI: {
+                            loadImage: {
+                                path: data,
+                                name: 'sample'
+                            },
+                            menu: ['text', 'crop', 'filter', 'shape', 'draw',],
+                            locale: { // override default English locale to your custom
+                                Color: 'Color',
+                                Bold: 'Bold',
+                                'Text size': 'Font Size'
+                            },
+                            theme: blackTheme, // or whiteTheme
+                            menuBarPosition: 'bottom',
+                        },
+                        cssMaxHeight: 500,
+                        cssMaxWidth: document.getElementById('tui-image-editor-container').clientWidth,
+                        usageStatistics: false,
+                    });      
+                }
+            });
+    // }else{
+    //     imageurl=URL.createObjectURL(files[0]);
+    //     // Initialitation Config Tui Image Editor 
+    //     var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
+    //         includeUI: {
+    //             loadImage: {
+    //                 path: imageurl,
+    //                 name: 'sample'
+    //             },
+    //             menu: ['text', 'crop', 'filter', 'shape', 'draw',],
+    //             locale: { // override default English locale to your custom
+    //                 Color: 'Color',
+    //                 Bold: 'Bold',
+    //                 'Text size': 'Font Size'
+    //             },
+    //             theme: blackTheme, // or whiteTheme
+    //             menuBarPosition: 'bottom',
+    //         },
+    //         cssMaxHeight: 500,
+    //         cssMaxWidth: document.getElementById('tui-image-editor-container').clientWidth,
+    //         usageStatistics: false,
+    //     });
+    // }
+    
+    $("#tuieditor").modal("show");
+    
+})
 
 /*----------------------------------------------------------
 7.  Preview Video Start

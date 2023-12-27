@@ -15,15 +15,16 @@
     <?php
         $path=explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         if (@$path[2]=='post') {
-            if (@$posts->type=="public"){
+            //if (@$posts->type=="public"){
     ?>
-              <meta property="og:image" content="<?=@$posts->post_media[0]->imgorg?>">
-              <meta property="og:image:secure_url" content="<?=@$posts->post_media[0]->imgorg?>">
-    <?php   }else{?>
-              <meta property="og:image" content="<?=@$posts->post_media[0]->imgblur?>">
-              <meta property="og:image:secure_url" content="<?=@$posts->post_media[0]->imgblur?>">
-    <?php   }?>
+              <meta property="og:image" content="<?=URLAPI?>/users/blur/defaultspeciallock.jpg">
+              <meta property="og:image:secure_url" content="<?=URLAPI?>/users/blur/defaultspeciallock.jpg">
+    <?php   //}else{?>
+              <!--<meta property="og:image" content="<?=@$posts->post_media[0]->imgblur?>">-->
+              <!--<meta property="og:image:secure_url" content="<?=@$posts->post_media[0]->imgblur?>">-->
+    <?php   //}?>
               <meta property="og:title" content="CIAK.live" />
+              <meta property="og:description" content="CIAK.LIVE is a new uncensored Social Network, designed to help you monetize your passions and skills." />
               <meta property="og:url" content="<?=base_url()."/".$_SERVER['REQUEST_URI']?>" />
               <meta property="og:type" content="website" />    
     <?php

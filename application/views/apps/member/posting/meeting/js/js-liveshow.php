@@ -156,6 +156,23 @@ $.ajax({
 });
 
 
+function payperjoin(){
+    if(meeting_type=="ticket" && !performer){
+        $.ajax({
+            url: "<?=base_url()?>meeting/confirmjoin",
+            type: "post",
+            data: "room="+broadcastId,
+            success: function (response) {
+                console.log(response);
+                console.log("PAY");
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+                window.location.href="<?=base_url()?>homepage"
+            }
+        });
+    }
+}
 function payperminutes(){
     if(meeting_type=="minutes" && !performer){
         $.ajax({
@@ -280,7 +297,11 @@ $("#btnconfirm").on("click",function(){
  
             $("#btn-emoji-livestream").removeAttr("disabled");
             $('.please-click-join-live').hide();
-            payperminutes();
+            if (meeting_type=='ticket'){
+                payperjoin();
+            }else if (meeting_type=='minutes'){
+                payperminutes();
+            }
             statusPayperMinutes = true;
         }
 
@@ -349,20 +370,7 @@ connection.onstream = function(event) {
     } 
 };
 
-connection.onstreamended = function(event) {
-    var video = document.querySelector('video[data-streamid="' + event.streamid + '"]');
-    if (!video) {
-        video = document.getElementById(event.streamid);
-        if (video) {
-            video.parentNode.removeChild(video);
-            return;
-        }
-    }
-    if (video) {
-        video.srcObject = null;
-        video.style.display = 'none';
-    }
-};
+
 
 var conversationPanel = document.getElementById('conversation-panel');
 
@@ -372,7 +380,7 @@ function appendChatMessage(event, checkmark_id) {
     div.className = 'message mt-2';
 
     if (event.data) {
-        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> ${(performer == true) ? '<div><a class="btn btn-main-green">Kick</a></div>' : ''}  </div>`;
+        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> ${(performer == true) ? '<div><button class="btn btn-main-green" onclick="kickuser(\''+event.userid+'\')">Kick</button></div>' : ''}  </div>`;
 
         if (event.data.checkmark_id) {
             connection.send({
@@ -397,6 +405,10 @@ window.onkeyup = function(e) {
         $('#btn-chat-message').click();
     }
 };
+
+function kickuser(id){
+    connection.disconnectWith(id);
+}
 
 document.getElementById('btn-chat-message').onclick = function() {
     var chatMessage = $('#txt-chat-message').val();
@@ -560,14 +572,9 @@ connection.iceServers= [
 }
 
 connection.onstreamended = function(event) {
-    var mediaElement = document.getElementById(event.streamid);
-    if (mediaElement) {
-        mediaElement.parentNode.removeChild(mediaElement);
-
-        if(event.userid === connection.sessionid && !connection.isInitiator) {
-          alert('Broadcast is ended.');
-          console.log("KELUAR SEMUA");
-        }
+    if (performer!=true){
+        alert('Broadcast is ended.');
+        window.location.href="<?=base_url()?>homepage";
     }
 };
 
