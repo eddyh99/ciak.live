@@ -393,7 +393,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?=base_url()?>profile/setting_profile" class="btn-main-green">Set Price</a>
+                    <a href="<?=base_url()?>profile/setting_profile#subcription" class="btn-main-green">Set Price</a>
                 </div>
         </div>
     </div>

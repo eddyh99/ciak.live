@@ -143,7 +143,7 @@
                             <input type="text" class="form-control" id="phone" name="phone" value="<?=@$profile->contact?>">
                         </div>
                         
-                        <div class="biodata mt-5 pt-5 mb-5 pb-4">
+                        <div id="subcription" class="biodata mt-5 pt-5 mb-5 pb-4">
                             <div class="w-auto">
                                 <h3>Settings subscription prices</h3>
                                 <hr>

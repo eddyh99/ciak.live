@@ -37,6 +37,10 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         array (
             'Monolog\\' => 8,
         ),
+        'I' => 
+        array (
+            'Instagram\\' => 10,
+        ),
         'H' => 
         array (
             'Hybridauth\\' => 11,
@@ -90,6 +94,10 @@ class ComposerStaticInitd928837d8191d4ecfcac42eb08d57779
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Instagram\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jstolpe/instagram-graph-api-php-sdk/src/Instagram',
         ),
         'Hybridauth\\' => 
         array (
