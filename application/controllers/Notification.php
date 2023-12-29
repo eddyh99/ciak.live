@@ -28,7 +28,6 @@ class Notification extends CI_Controller
     {
         $followers   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
         $result = apiciaklive(URLAPI . "/v1/member/notification/getnotif")->message;
-
         $data = array(
             'title'         => NAMETITLE . ' - Notification',
             'content'       => 'apps/member/app-notif',

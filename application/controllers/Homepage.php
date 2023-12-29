@@ -33,7 +33,7 @@ class Homepage extends CI_Controller
         $maxpage = apiciaklive(URLAPI . "/v1/member/post/getmax_page");
 
         //print_r(json_encode($post->message));
-        // echo "<pre>".print_r($post,true)."</pre>";
+        // echo "<pre>".print_r($nonfollow,true)."</pre>";
         // die;
         $data = array(
             'title'         => NAMETITLE . ' - Homepage',
@@ -52,9 +52,9 @@ class Homepage extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
     
-    public function ceknotif(){
+    public function ceknotif_chat(){
         $notifmsg = apiciaklive(URLAPI . "/v1/member/notification/chat_notif");
-        echo $notifmsg;
+        echo json_encode($notifmsg);
     }
 
     public function load_more($id)
