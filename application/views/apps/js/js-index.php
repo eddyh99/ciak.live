@@ -216,22 +216,22 @@ function actionStar(post, star) {
     });
 };
 
-var url=new URL(window.location.href).split("/");
-if (url[1]=="homepage"){
+var urlCeknotif = window.location.pathname.substring(1).split('/')[1];
+if (urlCeknotif == "homepage"){
     setInterval(()=>{
-            $.ajax({
-                url: "<?=base_url()?>homepage/ceknotif",
-                success: function (response) {
-                    if (response.length>0){
-                        $(".fa-envelope").append('<span class="buble-red rounded-circle"></span>')                 
-                    }
-                },
-                error: function (request, status, error) {
-                    alert(request.responseText);
-                    window.location.href="<?=base_url()?>homepage"
+        $.ajax({
+            url: "<?=base_url()?>homepage/ceknotif_chat",
+            success: function (response) {
+                console.log(response);
+                if (response.message == 1){
+                    $(".fa-envelope").append('<span class="buble-red rounded-circle"></span>')                 
                 }
-            });
-    }, 1000);
+            },
+            error: function (request, status, error) {
+                console.log(status);
+            }
+        });
+    }, 60000);
 }
 
 function actionBookmark(post) {

@@ -103,9 +103,9 @@
       cursor: pointer;
     }
 
-    .tui-image-editor-container .tui-image-editor-main {
+    /* .tui-image-editor-container .tui-image-editor-main {
         top: 160px
-    }
+    } */
 
     .tui-image-editor-header-buttons {
         display: flex !important;
@@ -120,7 +120,7 @@
         top: 0 !important;
     }
 
-    .tui-image-editor {
+    /* .tui-image-editor {
         width: 100% !important;
         overflow: hidden;
     }
@@ -128,7 +128,7 @@
     .tui-image-editor-canvas-container{
         max-width: 100% !important;
         max-height: auto !important;
-    }
+    } */
 
     .tui-image-editor-canvas-container .lower-canvas{
         left: 50% !important;
@@ -148,38 +148,50 @@
         
     @media (min-width: 375px) {
         .tui-image-editor-header-buttons {
-            margin-right: 160px !important;
+            margin-right: 172px !important;
+        }
+
+        .tui-image-editor-container .tui-image-editor-download-btn {
+            margin-top: 8px !important;
+            margin-left: 20px !important;
         }
         
     }
 
     @media (min-width: 425px) {
         .tui-image-editor-header-buttons {
-            margin-right: 119px !important;
+            margin-right: 165px !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .tui-image-editor-header-buttons {
+            margin-right: 90px !important;
         }
     }
 
     @media (min-width: 992px) {
         .tui-image-editor-header-buttons {
             display: block !important;
+            margin-right: 20px !important;
         }
     }
 
     @media (min-width: 1024px)  {
-        .tui-image-editor-wrap{
+        /* .tui-image-editor-wrap{
             top: 100px !important;
-        }
+        } */
     } 
 
     @media (min-width: 1200px) {
         .tui-image-editor-header-buttons {
             display: block !important;
-            margin-right: 0px !important;
+            /* margin-right: 0px !important; */
         }
 
-        .tui-image-editor-container .tui-image-editor-main {
+        /* .tui-image-editor-container .tui-image-editor-main {
             top: 60px
-        }
+        } */
     }
 
 
