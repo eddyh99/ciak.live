@@ -385,20 +385,23 @@
 
 
 
-<div class="modal fade" id="tuieditor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="tuieditor" tabindex="-1" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-white" id="setprice">Edit Image</h1>
-                    <!-- <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    <!-- <h1 class="modal-title fs-5 text-white" id="setprice">Edit Image</h1> -->
+                    <div>
+                        <img src="<?= base_url()?>assets/img/new-ciak/logo.png" width="70" class="img-fluid" alt="logo">
+                    </div>
+                    <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body body-post-setprice">
+                <div class="modal-body body-post-setprice" style="height: 80vh;">
                     <div class="h-100 col-12 col-xl-8 mx-auto">
                         <div id="tui-image-editor-container"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?=base_url()?>profile/setting_profile" class="btn-main-green">Set Price</a>
+                    <button class="tui-image-editor-download-btn">Finish</button>
                 </div>
         </div>
     </div>

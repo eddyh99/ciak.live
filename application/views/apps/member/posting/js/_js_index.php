@@ -15,6 +15,29 @@
 <script src="https://nhn.github.io/tui.image-editor/latest/examples/js/theme/white-theme.js"></script>
 <script src="https://uicdn.toast.com/tui-image-editor/latest/tui-image-editor.js"></script>
 
+<style>
+    .tui-image-editor-download-btn {
+        display: inline-block;
+        position: relative;
+        width: 120px;
+        height: 40px;
+        padding: 0;
+        line-height: 40px;
+        outline: none;
+        border-radius: 20px;
+        border: 1px solid #ddd;
+        font-family: 'Noto Sans',sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        vertical-align: middle;
+        letter-spacing: .3px;
+        text-align: center;
+        background-color: #03B115;
+        color: #ffffff;
+    }
+</style>
+
 <script>
 
 /*----------------------------------------------------------
@@ -102,22 +125,28 @@ $(document).ready(function(){
 3. Preview Image Start
 ------------------------------------------------------------*/ 
     $('#img-preview-post').hide();
-    localforage.getItem('gbr', function (err, value) {
+    localforage.getItem('img_save', function (err, value) {
         var dataImg=JSON.parse(value);
-        console.log(dataImg);
+        console.log(dataImg.length);
         if(dataImg == null) {
             console.log("");
         }else {
-            if(dataImg.length == '1'){
-                localStorage.setItem("is_video",true);
-                $('#img-preview-post').hide();
-            } else {
-                $('#img-preview-post').show();
-                localStorage.setItem("is_video",false);
+            // if(dataImg.length == '1'){
+            //     localStorage.setItem("is_video",true);
+            //     $('#img-preview-post').hide();
+            // } else {
+            //     $('#img-preview-post').show();
+            //     localStorage.setItem("is_video",false);
 
-                for(let i = 1; i < dataImg.length; i++){
-                    $('.carousel-inner').append('<div class="carousel-item  '+(i ===  1? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
-                }
+            //     for(let i = 0; i <= dataImg.length; i++){
+            //         $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
+            //     }
+            // }
+            $('#img-preview-post').show();
+            localStorage.setItem("is_video",false);
+
+            for(let i = 0; i < dataImg.length; i++){
+                $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
             }
         }
         
@@ -125,10 +154,10 @@ $(document).ready(function(){
     
     // Function for delete image in X button
     function del(index){
-        localforage.getItem('gbr', function (err, value) {
+        localforage.getItem('img_save', function (err, value) {
             var dataImg=JSON.parse(value);
             dataImg.splice(index, 1);
-            localforage.setItem("gbr", JSON.stringify(dataImg));
+            localforage.setItem("img_save", JSON.stringify(dataImg));
         });
         $('#myDiv').load('#myDiv')
             // location.replace(location.href.split('#')[0]);
@@ -261,83 +290,6 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 6.  Function Blob Image End
 ------------------------------------------------------------*/
-
-
-/*** trial tui ***/
-var settings = {
-    i18n: { 
-            Color: 'Color',
-            Bold: 'Bold',
-            'Text size': 'Font Size',
-            load : 'load',
-        },
-    imgName : 'Image',
-    hideLoadBtn : false,
-};
-    
-
-
-$("#upload_image").on("change",function (event){
-    files=event.target.files;
-    ext=$("#upload_image").val().split('.')[1];
-    //if (ext=="heic"){
-        formdata = new FormData();
-        formdata.append('image', files[0]); 
-         $.ajax({
-                url: "<?=base_url()?>post/convert_heic",
-                type: "post",
-                contentType: false,
-                processData:false,  
-                data: formdata,
-                success: function(data) {
-                     var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
-                        includeUI: {
-                            loadImage: {
-                                path: data,
-                                name: 'sample'
-                            },
-                            menu: ['text', 'crop', 'filter', 'shape', 'draw',],
-                            locale: { // override default English locale to your custom
-                                Color: 'Color',
-                                Bold: 'Bold',
-                                'Text size': 'Font Size'
-                            },
-                            theme: blackTheme, // or whiteTheme
-                            menuBarPosition: 'bottom',
-                        },
-                        cssMaxHeight: 500,
-                        cssMaxWidth: document.getElementById('tui-image-editor-container').clientWidth,
-                        usageStatistics: false,
-                    });      
-                }
-            });
-    // }else{
-    //     imageurl=URL.createObjectURL(files[0]);
-    //     // Initialitation Config Tui Image Editor 
-    //     var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
-    //         includeUI: {
-    //             loadImage: {
-    //                 path: imageurl,
-    //                 name: 'sample'
-    //             },
-    //             menu: ['text', 'crop', 'filter', 'shape', 'draw',],
-    //             locale: { // override default English locale to your custom
-    //                 Color: 'Color',
-    //                 Bold: 'Bold',
-    //                 'Text size': 'Font Size'
-    //             },
-    //             theme: blackTheme, // or whiteTheme
-    //             menuBarPosition: 'bottom',
-    //         },
-    //         cssMaxHeight: 500,
-    //         cssMaxWidth: document.getElementById('tui-image-editor-container').clientWidth,
-    //         usageStatistics: false,
-    //     });
-    // }
-    
-    $("#tuieditor").modal("show");
-    
-})
 
 /*----------------------------------------------------------
 7.  Preview Video Start
@@ -595,7 +547,7 @@ $(document).ready(function(){
                     }
                 });
             }else{
-                localforage.getItem('gbr', function (err, value) {
+                localforage.getItem('img_save', function (err, value) {
                     var dataImg=JSON.parse(value);
                     if(dataImg != null) {
                         dataImg.forEach(b64toblob);
@@ -988,6 +940,246 @@ $(document).ready(function() {
         $(".alert").alert('close');
     }, 3000);
 });
+
+
+/*** trial tui ***/
+var settings = {
+    i18n: { 
+            Color: 'Color',
+            Bold: 'Bold',
+            'Text size': 'Font Size',
+            load : 'load',
+        },
+    imgName : 'Image',
+    hideLoadBtn : false,
+};
+    
+
+
+$("#upload_image").on("change",function (event){
+    files=event.target.files;
+    ext=$("#upload_image").val().split('.')[1];
+    if (ext=="heic"){
+        formdata = new FormData();
+        formdata.append('image', files[0]); 
+         $.ajax({
+                url: "<?=base_url()?>post/convert_heic",
+                type: "post",
+                contentType: false,
+                processData:false,  
+                data: formdata,
+                success: function(data) {
+                    var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
+                        includeUI: {
+                            loadImage: {
+                                path: data,
+                                name: 'sample'
+                            },
+                            menu: ['text', 'crop', 'filter', 'shape', 'draw',],
+                            locale: { // override default English locale to your custom
+                                Color: 'Color',
+                                Bold: 'Bold',
+                                'Text size': 'Font Size'
+                            },
+                            theme: blackTheme, // or whiteTheme
+                            menuBarPosition: 'bottom',
+                        },
+                        cssMaxHeight: 400,
+                        cssMaxWidth: 500,
+                        usageStatistics: false,
+                    });      
+                    function loadFileImg() {
+                        $("input[type=file]").trigger("click");
+                        // document.querySelector('.tui-image-editor-load-btn').click();
+                    }
+
+                    // setTimeout(function () {
+                    //     $("input[type=file]").trigger("click");
+                    // }, 2000);
+
+                    // For Custom When User Load Image default ratio 1:1
+                    window.onload = ()=> {
+                        imageEditor.setCropzoneRect(1);
+                        $('.tie-btn-crop').click(function(){
+                            imageEditor.setCropzoneRect(1);
+                        });
+                    }   
+
+                    // Custom Button Load And Save
+                    // $('.tui-image-editor-header-buttons .tui-image-editor-download-btn').replaceWith('<a><button class="tui-image-editor-download-btn bg-warning">Finish</button></a>');
+                    $('.tui-image-editor-header-buttons div').prepend('<i class="fa-solid fa-camera fs-6 pe-1"></i>');
+                    // $('.tui-image-editor-header-logo').replaceWith('<a><button class="tui-image-editor-download-btn  bg-warning">Finish</button></a>');
+                    $('.tui-image-editor-header-logo').replaceWith('<span></span>');
+                    $(".tui-image-editor-header-buttons .tui-image-editor-download-btn").remove();
+                    $('.tui-image-editor-header-buttons div').addClass('btn-load-add-multiple');
+                    $(".tui-image-editor-load-btn").attr("accept",".jpg, .png, .jpeg, .gif .heic");
+                    $('.tui-image-editor-header-buttons .btn-load-add-multiple .fa-camera ').replaceWith('<span style="font-family: sans-serif;">Next </span>');
+
+                    // Check when 10 times max click
+                    $('.btn-load-add-multiple').each( function(){
+                        var counter = 0;
+                        $(this).click(function(){
+                            counter++;
+
+                            if(counter == 9){
+                                // $('.btn-add-img-multiple').hide();
+                                $('.btn-load-add-multiple').hide();
+                            } else {
+                                console.log('');
+                            }
+                        });
+                    });
+
+                    // For Save image multiple to localstorage
+                    $(document).ready(function () {
+                        // Initialitation Array 
+                        let = m_data = []
+
+                        // Click Load Button
+                        $('.btn-load-add-multiple').on('click', function (e) {
+
+                            // Get Encode IMAGE
+                            var imageUrl = imageEditor.toDataURL({
+                                format: 'jpeg',
+                                quality: 0.5
+                            });
+
+                            // For push last images
+                            m_data.push(imageUrl);
+
+
+                            console.log(m_data);
+                        })
+
+                        // Click Finish button
+                        $('.tui-image-editor-download-btn').on('click', function (e) {
+
+                            // Get Encode IMAGE
+                            var imageUrl = imageEditor.toDataURL({
+                                format: 'jpeg',
+                                quality: 0.5
+                            });
+                            // For Push Each Image
+                            m_data.push(imageUrl);
+
+                            // Save to Local Forage
+                            localforage.setItem("img_save", JSON.stringify(m_data));
+                            window.location.href = '<?= base_url()?>post?type=<?=$_SESSION["content_type"]?>';
+                        });
+
+        })
+                }
+            });
+    }else{
+        imageurl=URL.createObjectURL(files[0]);
+        // Initialitation Config Tui Image Editor 
+        var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
+            includeUI: {
+                loadImage: {
+                    path: imageurl,
+                    name: 'sample'
+                },
+                menu: ['text', 'crop', 'filter', 'shape', 'draw',],
+                locale: { // override default English locale to your custom
+                    Color: 'Color',
+                    Bold: 'Bold',
+                    'Text size': 'Font Size'
+                },
+                theme: blackTheme, // or whiteTheme
+                menuBarPosition: 'bottom',
+            },
+            cssMaxHeight: 400,
+            cssMaxWidth: 500,
+            // cssMaxWidth: document.getElementById('tui-image-editor-container').clientWidth,
+            usageStatistics: false,
+        });
+
+        function loadFileImg() {
+            $("input[type=file]").trigger("click");
+            // document.querySelector('.tui-image-editor-load-btn').click();
+        }
+
+        // setTimeout(function () {
+        //     $("input[type=file]").trigger("click");
+        // }, 2000);
+
+        // For Custom When User Load Image default ratio 1:1
+        window.onload = ()=> {
+            imageEditor.setCropzoneRect(1);
+            $('.tie-btn-crop').click(function(){
+                imageEditor.setCropzoneRect(1);
+            });
+        }   
+
+        // Custom Button Load And Save
+        // $('.tui-image-editor-header-buttons .tui-image-editor-download-btn').replaceWith('<a><button class="tui-image-editor-download-btn bg-warning">Finish</button></a>');
+        $('.tui-image-editor-header-buttons div').prepend('<i class="fa-solid fa-camera fs-6 pe-1"></i>');
+        // $('.tui-image-editor-header-logo').replaceWith('<a><button class="tui-image-editor-download-btn  bg-warning">Finish</button></a>');
+        $('.tui-image-editor-header-logo').replaceWith('<span></span>');
+        $(".tui-image-editor-header-buttons .tui-image-editor-download-btn").remove();
+        $('.tui-image-editor-header-buttons div').addClass('btn-load-add-multiple');
+        $(".tui-image-editor-load-btn").attr("accept",".jpg, .png, .jpeg, .gif .heic");
+        $('.tui-image-editor-header-buttons .btn-load-add-multiple .fa-camera ').replaceWith('<span style="font-family: sans-serif;">Next </span>');
+
+        // Check when 10 times max click
+        $('.btn-load-add-multiple').each( function(){
+            var counter = 0;
+            $(this).click(function(){
+                counter++;
+
+                if(counter == 9){
+                    // $('.btn-add-img-multiple').hide();
+                    $('.btn-load-add-multiple').hide();
+                } else {
+                    console.log('');
+                }
+            });
+        });
+
+        // For Save image multiple to localstorage
+        $(document).ready(function () {
+            // Initialitation Array 
+            let = m_data = []
+
+            // Click Load Button
+            $('.btn-load-add-multiple').on('click', function (e) {
+
+                // Get Encode IMAGE
+                var imageUrl = imageEditor.toDataURL({
+                    format: 'jpeg',
+                    quality: 0.5
+                });
+
+                // For push last images
+                m_data.push(imageUrl);
+
+
+                console.log(m_data);
+            })
+
+            // Click Finish button
+            $('.tui-image-editor-download-btn').on('click', function (e) {
+
+                // Get Encode IMAGE
+                var imageUrl = imageEditor.toDataURL({
+                    format: 'jpeg',
+                    quality: 0.5
+                });
+                // For Push Each Image
+                m_data.push(imageUrl);
+
+                // Save to Local Forage
+                localforage.setItem("img_save", JSON.stringify(m_data));
+                window.location.href = '<?= base_url()?>post?type=<?=$_SESSION["content_type"]?>';
+            });
+
+        })
+    }
+    
+    $("#tuieditor").modal("show");
+    
+})
+
 
 
 </script>
