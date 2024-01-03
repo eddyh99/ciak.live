@@ -23,12 +23,15 @@
     * 3. Preview Image
     * 4. Preview Attachment
 */
-var images = [];
+var images_edit = [];
 <?php foreach($edit->post_media as $dt){ ?>
     // alert('<?= $dt->id ?>');
-    images.push('<?= $dt->imgorg ?>');
-    localforage.setItem("gbr", JSON.stringify(images));
+    console.log('<?= $dt->id ?>');
+    images_edit.push('<?= $dt->imgorg ?>');
+    localforage.setItem("img_edit", JSON.stringify(images_edit));
 <?php } ?>
+
+console.log(images_edit);
 
 
 /*----------------------------------------------------------
@@ -87,41 +90,77 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 3. Preview Image Start
 ------------------------------------------------------------*/ 
-$('#img-preview-post').hide();
-localforage.getItem('gbr', function (err, value) {
-    var dataImg=JSON.parse(value);
-    console.log(typeof dataImg.length);
-    if(dataImg == null) {
-        console.log("");
-    }else {
-        if(dataImg.length < 1){
-            localStorage.setItem("is_video",true);
-            $('#img-preview-post').hide();
-            console.log("HIDE");
-        } else {
-            console.log("MASUK");
-            $('#img-preview-post').show();
-            localStorage.setItem("is_video",false);
 
-            for(let i = 0; i < dataImg.length; i++){
-                $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
-            }
-        }
+$('#img-preview-post').hide();
+$('#header-preview-text').hide();
+if(images_edit.length != 0){
+    $('#img-preview-post').show();
+    for(let i = 0; i < images_edit.length; i++){
+        $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
     }
-});
+}else {
+    console.log("HIDE ONLY");
+    $('#img-preview-post').hide();
+}
 
 // Function for delete image in X button
 function del(index){
-    localforage.getItem('gbr', function (err, value) {
-        var dataImg=JSON.parse(value);
-        dataImg.splice(index, 1);
-        localforage.setItem("gbr", JSON.stringify(dataImg));
-    });
-    $('#myDiv').load('#myDiv')
-        // location.replace(location.href.split('#')[0]);
-    // e.preventDefault()
-    location.reload();
+    
+    // Remove element HTML
+    $('.carousel-item').remove();
+    
+    images_edit.splice(index, 1);
+    if(images_edit.length != 0){
+        $('#img-preview-post').show();
+        for(let i = 0; i < images_edit.length; i++){
+            $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+        }
+    }else {
+        console.log("HIDE ONLY");
+        $('#img-preview-post').hide();
+    }
+    return false;
 }
+
+
+// $('#img-preview-post').hide();
+// localforage.getItem('img_edit', function (err, value) {
+//     var dataImg=JSON.parse(value);
+//     console.log(typeof dataImg.length);
+//     if(dataImg == null) {
+//         console.log("");
+//     }else {
+//         if(dataImg.length < 1){
+//             localStorage.setItem("is_video",true);
+//             $('#img-preview-post').hide();
+//             console.log("HIDE");
+//         } else {
+//             console.log("MASUK");
+//             $('#img-preview-post').show();
+//             localStorage.setItem("is_video",false);
+
+//             for(let i = 0; i < dataImg.length; i++){
+//                 $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
+//             }
+//         }
+//     }
+// });
+
+// Function for delete image in X button
+// function del(index){
+//     // index.preventDefault()
+//     localforage.getItem('img_edit', function (err, value) {
+//         var dataImg=JSON.parse(value);
+//         dataImg.splice(index, 1);
+//         localforage.setItem("img_edit", JSON.stringify(dataImg));
+//     });
+//     $('#myDiv').load('#myDiv')
+//         // location.replace(location.href.split('#')[0]);
+//     location.reload();
+// }
+
+
+
 /*----------------------------------------------------------
 3. Preview Image End
 ------------------------------------------------------------*/ 

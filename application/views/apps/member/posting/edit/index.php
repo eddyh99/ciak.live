@@ -22,7 +22,7 @@
                             <a class="span-text-toogle-explicit fs-5" id="title-post">Edit Post</a>
                         </div>
                         <div class="action">
-                            <button id="btnpublish" class="text-white btn-publish px-3 py-2">Publish</button>
+                            <button id="btnpublish" class="text-white btn-publish px-3 py-2">Update</button>
                         </div>
                     </div>
                 </div>
@@ -80,8 +80,8 @@
 
                             </div>
                             <div class="write-posting ps-3 pt-2 w-100">
-                                <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100" value="<?= $edit->title_article?>">
-                                <textarea id="edit-textarea-post"><?php echo base64_decode($edit->article)?></textarea>
+                                <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100" value="<?= @$edit->title_article?>">
+                                <textarea id="edit-textarea-post"><?php echo @base64_decode($edit->article)?></textarea>
                                 <h4 id="header-preview-text">Preview Attachment</h4>
                                 <div id="attch-preview-post"></div>
                                 <div id="img-preview-post" class="img-preview-post">

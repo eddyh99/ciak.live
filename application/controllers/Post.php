@@ -168,7 +168,8 @@ class Post extends CI_Controller
                 "content"       => @$blob,
                 "content_type"  => $_SESSION["content_type"]
             );
-        
+
+
             
         $url = URLAPI . "/v1/member/post/add";
         $result = apiciaklive($url,json_encode($mdata));
@@ -191,18 +192,16 @@ class Post extends CI_Controller
 
     public function editpost($id)
     {
-        $post_id   = $this->security->xss_clean($id);
-        $url        = URLAPI . "/v1/member/post/get_singlepost?post_id=".$id;
-	    $result     = apiciaklive($url)->message;
+        $post_id        = $this->security->xss_clean($id);
+        $result_post    = apiciaklive(URLAPI . "/v1/member/post/get_singlepost?post_id=".$id)->message;
+	    // $result     = apiciaklive($url)->message;
 
-        // echo "<pre>".print_r($result,true)."</pre>";
-        // die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Edit Post' ,
             'content'       => 'apps/member/posting/edit/index',
             // 'popup'         => 'apps/member/app-popup-single',
-            'edit'          => $result,
+            'edit'          => $result_post,
             'cssextra'      => 'apps/member/posting/css/_css_index',
             'extra'         => 'apps/member/posting/edit/js/_js_index',
         );

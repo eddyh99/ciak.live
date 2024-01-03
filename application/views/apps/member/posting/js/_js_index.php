@@ -106,8 +106,8 @@ $(document).ready(function(){
     $(".icon-upload-video").click(function() {
         $("#hidden-iconpost").toggle();
         localforage.clear().then(function() {
-                // Run this code once the database has been entirely deleted.
-            console.log('Database is now empty.');
+            // Run this code once the database has been entirely deleted.
+            console.log('');
         }).catch(function(err) {
             // This code runs if there were any errors
             console.log(err);
@@ -598,7 +598,7 @@ $(document).ready(function(){
                                     localStorage.removeItem('title-optional-post');
                                     localforage.clear();
                                     localStorage.removeItem('is_video');
-                                    location.replace('<?= base_url()?>homepage');
+                                    // location.replace('<?= base_url()?>homepage');
                                 }
     
                                 if(data.success == false){
@@ -958,11 +958,12 @@ var settings = {
 
 $("#upload_image").on("change",function (event){
     files=event.target.files;
-    ext=$("#upload_image").val().split('.')[1];
+    ext=$("#upload_image").val().split('.')[1].toLowerCase();
+    console.log(ext);
     if (ext=="heic"){
         formdata = new FormData();
         formdata.append('image', files[0]); 
-         $.ajax({
+        $.ajax({
                 url: "<?=base_url()?>post/convert_heic",
                 type: "post",
                 contentType: false,
@@ -990,12 +991,7 @@ $("#upload_image").on("change",function (event){
                     });      
                     function loadFileImg() {
                         $("input[type=file]").trigger("click");
-                        // document.querySelector('.tui-image-editor-load-btn').click();
                     }
-
-                    // setTimeout(function () {
-                    //     $("input[type=file]").trigger("click");
-                    // }, 2000);
 
                     // For Custom When User Load Image default ratio 1:1
                     window.onload = ()=> {
@@ -1006,9 +1002,7 @@ $("#upload_image").on("change",function (event){
                     }   
 
                     // Custom Button Load And Save
-                    // $('.tui-image-editor-header-buttons .tui-image-editor-download-btn').replaceWith('<a><button class="tui-image-editor-download-btn bg-warning">Finish</button></a>');
                     $('.tui-image-editor-header-buttons div').prepend('<i class="fa-solid fa-camera fs-6 pe-1"></i>');
-                    // $('.tui-image-editor-header-logo').replaceWith('<a><button class="tui-image-editor-download-btn  bg-warning">Finish</button></a>');
                     $('.tui-image-editor-header-logo').replaceWith('<span></span>');
                     $(".tui-image-editor-header-buttons .tui-image-editor-download-btn").remove();
                     $('.tui-image-editor-header-buttons div').addClass('btn-load-add-multiple');
@@ -1067,7 +1061,7 @@ $("#upload_image").on("change",function (event){
                             window.location.href = '<?= base_url()?>post?type=<?=$_SESSION["content_type"]?>';
                         });
 
-        })
+                    })
                 }
             });
     }else{
@@ -1179,6 +1173,11 @@ $("#upload_image").on("change",function (event){
     $("#tuieditor").modal("show");
     
 })
+
+// localforage.getItem('img_save', function (err, value) {
+//     var dataImg=JSON.parse(value);
+//     console.log(dataImg);
+// })
 
 
 
