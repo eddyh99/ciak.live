@@ -92,6 +92,18 @@
             </div>
         </div>
     </div>
+    <div>
+        <button id="adduser">adduser</button>
+        <table id="memberjoin" style="color:white">
+            <thead>
+                <tr>
+                    <th>asd</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Modal Confirm Join-->

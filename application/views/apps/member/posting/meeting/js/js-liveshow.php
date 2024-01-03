@@ -1,3 +1,13 @@
+<?php 
+$data=json_encode(
+    array(
+        array("satu"),
+        array("dua"),
+        array("tiga")
+    )
+);
+echo $data;
+?>
 <style>
 .modal-backdrop {
     z-index: 98 !important;
@@ -70,16 +80,18 @@ video::-webkit-media-controls {
     }
 }
 </style>
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 
 <script src="https://muazkhan.com:9001/dist/RTCMultiConnection.js"></script>
 <script src="https://muazkhan.com:9001/node_modules/webrtc-adapter/out/adapter.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
 <script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
-
+<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script>
 $("video").on("click",function(e){
     e.preventDefault();   
 })
+
 
 
 var url=new URL(window.location.href);
@@ -121,8 +133,10 @@ $.ajax({
         console.log(data);
         id_has_room = data.id_has_room;
         connection.extra.userFullName = data.username;
+        connection.extra.userJoin='';
         meeting_type=data.meeting_type;
         purpose=data.purpose;
+        
         if (data.performer===true){
             $('#load-edit-profile').hide()
             $('.please-click-join-live').text('Please start to live');
@@ -191,6 +205,8 @@ function payperminutes(){
     }
 }
 
+
+
 setInterval(()=>{
         console.log(statusPayperMinutes);
         if(statusPayperMinutes === true){
@@ -226,10 +242,8 @@ $("#btnopen").on("click",function(){
                     }
                     alert(error);
                 }else{
-                    
                     $("#btnopen").attr("disabled","true");
                     $('.please-click-join-live').hide();
-                    
                 }
     
                 connection.socket.on('disconnect', function() {
@@ -242,6 +256,7 @@ $("#btnopen").on("click",function(){
 
 
 $("#startlive").on("click",function(){
+    console.log('performer - start live');
         if ($("#pil_yt").is(":checked")){
             rtmpurl=$("#youtube").val();
             // rtmpurl.push($("#youtube").val());
@@ -256,6 +271,9 @@ $("#startlive").on("click",function(){
 
         $("#livemodal-connect").modal("hide");	
         connect_server();
+        
+        connection.extra.userJoin = "performer";
+
         connection.open(broadcastId, function(isRoomOpened, roomid, error) {
             if (error) {
                 if (error === connection.errors.ROOM_NOT_AVAILABLE) {
@@ -272,7 +290,6 @@ $("#startlive").on("click",function(){
                 location.reload();
             });
         });
-    
 });
 
 
@@ -291,12 +308,14 @@ $("#btnconfirm").on("click",function(){
             alert(error);
         }else{
             connection.extra.broadcastuser +=1;
+
             $("#btnopen").attr("disabled","true");
             $("#txt-chat-message").removeAttr("disabled");
             $("#btn-chat-message").removeAttr("disabled");
  
             $("#btn-emoji-livestream").removeAttr("disabled");
             $('.please-click-join-live').hide();
+
             if (meeting_type=='ticket'){
                 payperjoin();
             }else if (meeting_type=='minutes'){
@@ -304,12 +323,54 @@ $("#btnconfirm").on("click",function(){
             }
             statusPayperMinutes = true;
         }
+        connection.updateExtraData();
+
 
         connection.socket.on('disconnect', function() {
             location.reload();
         });
     });
 })
+
+connection.onopen = function(event) {
+    var data = event.extra.userJoin;
+
+    if (!performer){
+        if (data=='performer'){
+            var joined=[];
+            joined.push(connection.extra.userFullName);
+        }else{
+            joined=data;
+            joined.push(connection.extra.userFullName);
+        }
+    }
+    
+    connection.extra.userJoin = joined;
+    connection.updateExtraData();
+};
+
+var member = [];
+var tbl_user=$("#memberjoin").DataTable({
+    data: member
+});
+
+connection.onExtraDataUpdated = function(event) {
+    var data=event.extra.userJoin;
+    var pushmember=[];
+    if (data.length==1){
+         pushmember.push(data);
+    }
+    
+    $("#memberjoin").DataTable({
+        data: JSON.stringify(Array.from(new Set(pushmember)))
+    });
+    // //for (var i=0;i<count(data);i++){
+    // //    console.log(data[i]);
+    // //}
+    // member=JSON.Stringify(member);
+    // console.log(member);
+}
+
 
 $("#btnleave").on("click",function(){
     connection.closeSocket();
@@ -429,6 +490,7 @@ document.getElementById('btn-chat-message').onclick = function() {
         typing: false
     });
 };
+
 
 connection.onUserStatusChanged = function(event, dontWriteLogs) {
     if (!!connection.enableLogs && !dontWriteLogs) {
