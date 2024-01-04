@@ -127,21 +127,9 @@ $(document).ready(function(){
     $('#img-preview-post').hide();
     localforage.getItem('img_save', function (err, value) {
         var dataImg=JSON.parse(value);
-        console.log(dataImg.length);
         if(dataImg == null) {
             console.log("");
         }else {
-            // if(dataImg.length == '1'){
-            //     localStorage.setItem("is_video",true);
-            //     $('#img-preview-post').hide();
-            // } else {
-            //     $('#img-preview-post').show();
-            //     localStorage.setItem("is_video",false);
-
-            //     for(let i = 0; i <= dataImg.length; i++){
-            //         $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
-            //     }
-            // }
             $('#img-preview-post').show();
             localStorage.setItem("is_video",false);
 
@@ -364,10 +352,13 @@ $(document).ready(function(){
         formdata = new FormData();
         var jenis=$("#jenis").val();
         var tipepost=$("#tipepost").val();
-        var is_video= localStorage.getItem("is_video");
+        var is_video = localStorage.getItem("is_video");
         // var vs_data = $('#vs-preview').html();
         
         // $('#load-edit-profile').show();
+
+        console.log(jenis);
+        console.log(is_video);
         if (jenis=="Post"){
             if (tipepost=="special" || tipepost=="download"){
                 if (parseFloat($("#postprice").val())<0.5){
@@ -377,12 +368,15 @@ $(document).ready(function(){
             }
             
             if (is_video=="video" || is_video==null){
+                // console.log("MASUK VIDEO ");
                 if (typeof files !== 'undefined'){
                     for (var i = 0; i < files.length; i++) {
                         var f = files[i];
                         formdata.append("video[]",f);
                     }
                 }
+
+
                 
                 // if(id_stitch){
                 //     console.log("STITCH");
@@ -440,6 +434,7 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
+                        console.log(data);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
                             localStorage.removeItem('title-optional-post');
@@ -468,7 +463,7 @@ $(document).ready(function(){
                 });
 
             }else if (is_video=="attach"){
-                console.log("100-attach");
+                console.log("MASUK ATTACH ");
                 if (typeof files !== 'undefined'){
                     console.log("200");
                     for (var i = 0; i < files.length; i++) {
@@ -547,6 +542,7 @@ $(document).ready(function(){
                     }
                 });
             }else{
+                console.log("MASUK IMAGE");
                 localforage.getItem('img_save', function (err, value) {
                     var dataImg=JSON.parse(value);
                     if(dataImg != null) {

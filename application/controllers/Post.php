@@ -109,7 +109,9 @@ class Post extends CI_Controller
                 array_push($blob, $temp);
             }
         }
-        
+
+
+
         $is_attach_video="no";
         if (!empty($video)){
             $is_attach_video="yes";
@@ -169,11 +171,12 @@ class Post extends CI_Controller
                 "content_type"  => $_SESSION["content_type"]
             );
 
-
             
         $url = URLAPI . "/v1/member/post/add";
         $result = apiciaklive($url,json_encode($mdata));
             
+        // print_r(json_encode($result));
+        // die;
 
 		if (@$result->code!=200){
 		    $message=array(
@@ -194,7 +197,8 @@ class Post extends CI_Controller
     {
         $post_id        = $this->security->xss_clean($id);
         $result_post    = apiciaklive(URLAPI . "/v1/member/post/get_singlepost?post_id=".$id)->message;
-	    // $result     = apiciaklive($url)->message;
+        // print_r(json_encode($result_post));
+		// die;
 
 
         $data = array(
@@ -202,12 +206,42 @@ class Post extends CI_Controller
             'content'       => 'apps/member/posting/edit/index',
             // 'popup'         => 'apps/member/app-popup-single',
             'edit'          => $result_post,
+            'post_id'       => $post_id,
             'cssextra'      => 'apps/member/posting/css/_css_index',
             'extra'         => 'apps/member/posting/edit/js/_js_index',
         );
         
 
         $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function saveEdit()
+    {
+        $input      = $this->input;
+        $post_id    = $this->security->xss_clean($this->input->post("post_id"));
+        $title      = $this->security->xss_clean($this->input->post("title_article"));
+        $article    = $this->security->xss_clean($this->input->post("post"));
+        $type       = $this->security->xss_clean($this->input->post("tipe"));
+        $price      = $this->security->xss_clean($this->input->post("price"));
+        $content_type      = $this->security->xss_clean($this->input->post("content_type"));
+
+        $mdata=array(
+            "post_id"       => $post_id,
+            "title_article" => empty($title) ? null : $title,
+            "article"       => $article,
+            "type"          => $type,
+            "price"         => $price,
+            "attach_type"   => @$attach_type,
+            // "id_stitch"     => (!empty($id_stitch)) ? $id_stitch : null,
+            "content"       => @$blob,
+            "content_type"  => 'non explicit'
+        );
+
+        $url = URLAPI . "/v1/member/post/update";
+        $result = apiciaklive($url,json_encode($mdata));
+        
+        print_r(json_encode($result));
+		die;
     }
     
     public function simpanlive(){
