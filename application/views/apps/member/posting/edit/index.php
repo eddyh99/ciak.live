@@ -1,5 +1,11 @@
+<input type="text" id="postid" value="<?= @$post_id ?>">
 <input type="hidden" id="jenis" value="Post">
-<!-- <input type="hidden" id="id_stitch" value="<?= @$stitch->id?>"> -->
+<input type="hidden" id="tipepost" value="<?= @$edit->type ?>">
+<input type="hidden" id="postprice" value="<?= @$edit->price ?>">
+<input type="hidden" id="contentype" value="<?= @$edit->content_type?>">
+<input type="hidden" id="is_mediatype" value="<?= @$edit->post_media[0]->media_type?>">
+<input type="hidden" id="is_extension" value="<?= @$edit->post_media[0]->media_type?>">
+
 <div id="load-edit-profile" style="display: none;">
     <div class="img-load d-flex flex-column justify-content-center align-items-center">
         <div class="spinner-border fs-3" role="status">
@@ -22,7 +28,7 @@
                             <a class="span-text-toogle-explicit fs-5" id="title-post">Edit Post</a>
                         </div>
                         <div class="action">
-                            <button id="btnpublish" class="text-white btn-publish px-3 py-2">Publish</button>
+                            <button id="btnUpdate" class="text-white btn-publish px-3 py-2">Update</button>
                         </div>
                     </div>
                 </div>
@@ -45,14 +51,20 @@
                                     </a>
                                     <!-- Hidden Icon -->
                                     <div class="position-absolute hidden-icon" style="z-index: 9999" id="hidden-iconpost">
-                                        <div class="d-flex gap-3 ">
+                                        <div class="d-flex flex-column gap-3 ">
                                             <div>
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#postModal" >
+                                                <!-- <a href="" data-bs-toggle="modal" data-bs-target="#postModal" >
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3.33334 13.3335L7.155 9.51183C7.46755 9.19938 7.8914 9.02385 8.33334 9.02385C8.77528 9.02385 9.19912 9.19938 9.51167 9.51183L13.3333 13.3335M11.6667 11.6668L12.9883 10.3452C13.3009 10.0327 13.7247 9.85719 14.1667 9.85719C14.6086 9.85719 15.0325 10.0327 15.345 10.3452L16.6667 11.6668M11.6667 6.66683H11.675M5 16.6668H15C15.442 16.6668 15.866 16.4912 16.1785 16.1787C16.4911 15.8661 16.6667 15.4422 16.6667 15.0002V5.00016C16.6667 4.55814 16.4911 4.13421 16.1785 3.82165C15.866 3.50909 15.442 3.3335 15 3.3335H5C4.55798 3.3335 4.13405 3.50909 3.82149 3.82165C3.50893 4.13421 3.33334 4.55814 3.33334 5.00016V15.0002C3.33334 15.4422 3.50893 15.8661 3.82149 16.1787C4.13405 16.4912 4.55798 16.6668 5 16.6668Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
-                                                </a>
+                                                </a> -->
+                                                <label for="upload_image" class="icon-upload-video">
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3.33334 13.3335L7.155 9.51183C7.46755 9.19938 7.8914 9.02385 8.33334 9.02385C8.77528 9.02385 9.19912 9.19938 9.51167 9.51183L13.3333 13.3335M11.6667 11.6668L12.9883 10.3452C13.3009 10.0327 13.7247 9.85719 14.1667 9.85719C14.6086 9.85719 15.0325 10.0327 15.345 10.3452L16.6667 11.6668M11.6667 6.66683H11.675M5 16.6668H15C15.442 16.6668 15.866 16.4912 16.1785 16.1787C16.4911 15.8661 16.6667 15.4422 16.6667 15.0002V5.00016C16.6667 4.55814 16.4911 4.13421 16.1785 3.82165C15.866 3.50909 15.442 3.3335 15 3.3335H5C4.55798 3.3335 4.13405 3.50909 3.82149 3.82165C3.50893 4.13421 3.33334 4.55814 3.33334 5.00016V15.0002C3.33334 15.4422 3.50893 15.8661 3.82149 16.1787C4.13405 16.4912 4.55798 16.6668 5 16.6668Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </label>
                                             </div>
+                                            <input type="file" name="upload_image" id="upload_image" accept=".jpeg, .jpg, .png, .heic" hidden/>                                            
                                             <div>
                                                 <label for="upload_video" class="icon-upload-video">
                                                     <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,8 +92,8 @@
 
                             </div>
                             <div class="write-posting ps-3 pt-2 w-100">
-                                <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100" value="<?= $edit->title_article?>">
-                                <textarea id="edit-textarea-post"><?php echo base64_decode($edit->article)?></textarea>
+                                <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100" value="<?= @$edit->title_article?>">
+                                <textarea id="edit-textarea-post"><?php echo @base64_decode($edit->article)?></textarea>
                                 <h4 id="header-preview-text">Preview Attachment</h4>
                                 <div id="attch-preview-post"></div>
                                 <div id="img-preview-post" class="img-preview-post">
@@ -109,6 +121,28 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="tuieditor" tabindex="-1" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h1 class="modal-title fs-5 text-white" id="setprice">Edit Image</h1> -->
+                    <div>
+                        <img src="<?= base_url()?>assets/img/new-ciak/logo.png" width="70" class="img-fluid" alt="logo">
+                    </div>
+                    <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body body-post-setprice" style="height: 80vh;">
+                    <div class="h-100 col-12 col-xl-8 mx-auto">
+                        <div id="tui-image-editor-container"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="tui-image-editor-download-btn">Finish</button>
+                </div>
         </div>
     </div>
 </div>

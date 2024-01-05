@@ -61,7 +61,7 @@
                                     </defs>
                                 </svg>
                             </label>
-                            <input type="file" name="upload_banner" id="upload_banner" class="upload_banner" hidden accept=".png, .jpg, .jpeg">
+                            <input type="file" name="upload_banner" id="upload_banner" class="upload_banner" hidden accept=".png, .jpg, .jpeg, .heic">
                         </form>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                                     </label>
                                     <img src="<?=@$profile->profile ?>" class="rounded-circle img-pp-setting">
 
-                                    <input type="file" name="upload_image" class="upload_image" id="upload_image" hidden accept=".png, .jpg, .jpeg">
+                                    <input type="file" name="upload_image" class="upload_image" id="upload_image" hidden accept=".png, .jpg, .jpeg, .heic">
                                 </form>
                             </div>
                             <label id="text-change" for="upload_image" class="change-profile image">Change Picture</label>
@@ -142,7 +142,50 @@
                             <label for="phone" class="form-label">Contacts</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="<?=@$profile->contact?>">
                         </div>
-                        
+
+                        <!-- Start Settings -->
+                        <div class="w-auto">
+                            <h3>Settings</h3>
+                            <hr>
+                        </div>
+                        <div class="mb-3 ciak-check d-flex flex-row">
+                            <div class="d-flex flex-column col-8">
+                                <span>Enable Comment</span>
+                                <p>The platform has no moderators. By enabling the comments, you will accept everything that
+                                    will be written.</p>
+                            </div>
+                            <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
+                                <input class="form-check-input" name="comment" type="checkbox" role="switch" id="enableComment" value="yes" <?php echo (@$profile->is_comment=='yes') ? "checked":"" ?>>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 ciak-check d-flex flex-row">
+                            <div class="d-flex flex-column col-8">
+                                <span>Enable Share Profile</span>
+                            </div>
+                            <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
+                                <input class="form-check-input" name="shareprofile" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_share=='yes') ? "checked":"" ?>>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 ciak-check d-flex flex-row">
+                            <div class="d-flex flex-column col-8">
+                                <span>Enable Email Share</span>
+                            </div>
+                            <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
+                                <input class="form-check-input" name="shareemail" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_emailshare=='yes') ? "checked":"" ?>>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 ciak-check d-flex flex-row">
+                            <div class="d-flex flex-column col-8">
+                                <span>Enable Contact Share</span>
+                            </div>
+                            <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
+                                <input class="form-check-input" name="sharecontact" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_kontakshare=='yes') ? "checked":"" ?>>
+                            </div>
+                        </div>
+
                         <div id="subcription" class="biodata mt-5 pt-5 mb-5 pb-4">
                             <div class="w-auto">
                                 <h3>Settings subscription prices</h3>
@@ -188,54 +231,13 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 ciak-data-input d-grid gap-2 pt-3">
-                                    <!-- <button class="btn-orange">Confirm</button> -->
                                     <button id="btnSubs" class="btn-setsubs fw-bolder">Promote your subscription</button>
                                 </div>
                 
                             </form>
                         </div>
         
-                        <div class="w-auto">
-                            <h3>Settings</h3>
-                            <hr>
-                        </div>
-                        <div class="mb-3 ciak-check d-flex flex-row">
-                            <div class="d-flex flex-column col-8">
-                                <span>Enable Comment</span>
-                                <p>The platform has no moderators. By enabling the comments, you will accept everything that
-                                    will be written.</p>
-                            </div>
-                            <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
-                                <input class="form-check-input" name="comment" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_comment=='yes') ? "checked":"" ?>>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 ciak-check d-flex flex-row">
-                            <div class="d-flex flex-column col-8">
-                                <span>Enable Share Profile</span>
-                            </div>
-                            <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
-                                <input class="form-check-input" name="shareprofile" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_share=='yes') ? "checked":"" ?>>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 ciak-check d-flex flex-row">
-                            <div class="d-flex flex-column col-8">
-                                <span>Enable Email Share</span>
-                            </div>
-                            <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
-                                <input class="form-check-input" name="shareemail" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_emailshare=='yes') ? "checked":"" ?>>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 ciak-check d-flex flex-row">
-                            <div class="d-flex flex-column col-8">
-                                <span>Enable Contact Share</span>
-                            </div>
-                            <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
-                                <input class="form-check-input" name="sharecontact" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_kontakshare=='yes') ? "checked":"" ?>>
-                            </div>
-                        </div>
+               
         
                         <div class="mb-3 ciak-connect d-flex flex-row justify-content-center align-items-center">
                             <h4 class="text-center">Connect your social platform to start share live real time</h4>

@@ -106,8 +106,8 @@ $(document).ready(function(){
     $(".icon-upload-video").click(function() {
         $("#hidden-iconpost").toggle();
         localforage.clear().then(function() {
-                // Run this code once the database has been entirely deleted.
-            console.log('Database is now empty.');
+            // Run this code once the database has been entirely deleted.
+            console.log('');
         }).catch(function(err) {
             // This code runs if there were any errors
             console.log(err);
@@ -127,25 +127,13 @@ $(document).ready(function(){
     $('#img-preview-post').hide();
     localforage.getItem('img_save', function (err, value) {
         var dataImg=JSON.parse(value);
-        console.log(dataImg.length);
         if(dataImg == null) {
             console.log("");
         }else {
-            // if(dataImg.length == '1'){
-            //     localStorage.setItem("is_video",true);
-            //     $('#img-preview-post').hide();
-            // } else {
-            //     $('#img-preview-post').show();
-            //     localStorage.setItem("is_video",false);
-
-            //     for(let i = 0; i <= dataImg.length; i++){
-            //         $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
-            //     }
-            // }
             $('#img-preview-post').show();
             localStorage.setItem("is_video",false);
 
-            for(let i = 0; i < dataImg.length; i++){
+            for(let i = 0; i <= dataImg.length; i++){
                 $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
             }
         }
@@ -280,7 +268,7 @@ $(document).ready(function(){
     }
 
     function b64toblob(item, index){
-        if ((item.length!=0) && (index>0)){
+        if (item.length!=0){
             var base64ImageContent = item.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
             var mime = item.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
             var blob = base64ToBlob(base64ImageContent, mime[1]);
@@ -364,10 +352,13 @@ $(document).ready(function(){
         formdata = new FormData();
         var jenis=$("#jenis").val();
         var tipepost=$("#tipepost").val();
-        var is_video= localStorage.getItem("is_video");
+        var is_video = localStorage.getItem("is_video");
         // var vs_data = $('#vs-preview').html();
         
         // $('#load-edit-profile').show();
+
+        console.log(jenis);
+        console.log(is_video);
         if (jenis=="Post"){
             if (tipepost=="special" || tipepost=="download"){
                 if (parseFloat($("#postprice").val())<0.5){
@@ -377,12 +368,15 @@ $(document).ready(function(){
             }
             
             if (is_video=="video" || is_video==null){
+                // console.log("MASUK VIDEO ");
                 if (typeof files !== 'undefined'){
                     for (var i = 0; i < files.length; i++) {
                         var f = files[i];
                         formdata.append("video[]",f);
                     }
                 }
+
+
                 
                 // if(id_stitch){
                 //     console.log("STITCH");
@@ -440,6 +434,7 @@ $(document).ready(function(){
                     contentType: false,
                     success: function (response) {
                         var data=JSON.parse(response);
+                        console.log(data);
                         if(data.success == true){
                             localStorage.removeItem('textarea-post');
                             localStorage.removeItem('title-optional-post');
@@ -468,7 +463,7 @@ $(document).ready(function(){
                 });
 
             }else if (is_video=="attach"){
-                console.log("100-attach");
+                console.log("MASUK ATTACH ");
                 if (typeof files !== 'undefined'){
                     console.log("200");
                     for (var i = 0; i < files.length; i++) {
@@ -547,6 +542,7 @@ $(document).ready(function(){
                     }
                 });
             }else{
+                console.log("MASUK IMAGE");
                 localforage.getItem('img_save', function (err, value) {
                     var dataImg=JSON.parse(value);
                     if(dataImg != null) {
@@ -555,7 +551,9 @@ $(document).ready(function(){
                         formdata.append("post",$("#textarea-post").val());
                         formdata.append("tipe",$("#tipepost").val());
                         formdata.append("price",$("#postprice").val());
-                        
+
+                        console.log(...formdata);
+
                         $('#progressbar-wrapper').removeClass('d-none');
                         var progress = $('.progress-bar');
 
@@ -598,7 +596,7 @@ $(document).ready(function(){
                                     localStorage.removeItem('title-optional-post');
                                     localforage.clear();
                                     localStorage.removeItem('is_video');
-                                    location.replace('<?= base_url()?>homepage');
+                                    // location.replace('<?= base_url()?>homepage');
                                 }
     
                                 if(data.success == false){
@@ -958,11 +956,12 @@ var settings = {
 
 $("#upload_image").on("change",function (event){
     files=event.target.files;
-    ext=$("#upload_image").val().split('.')[1];
+    ext=$("#upload_image").val().split('.')[1].toLowerCase();
+    console.log(ext);
     if (ext=="heic"){
         formdata = new FormData();
         formdata.append('image', files[0]); 
-         $.ajax({
+        $.ajax({
                 url: "<?=base_url()?>post/convert_heic",
                 type: "post",
                 contentType: false,
@@ -990,12 +989,7 @@ $("#upload_image").on("change",function (event){
                     });      
                     function loadFileImg() {
                         $("input[type=file]").trigger("click");
-                        // document.querySelector('.tui-image-editor-load-btn').click();
                     }
-
-                    // setTimeout(function () {
-                    //     $("input[type=file]").trigger("click");
-                    // }, 2000);
 
                     // For Custom When User Load Image default ratio 1:1
                     window.onload = ()=> {
@@ -1006,9 +1000,7 @@ $("#upload_image").on("change",function (event){
                     }   
 
                     // Custom Button Load And Save
-                    // $('.tui-image-editor-header-buttons .tui-image-editor-download-btn').replaceWith('<a><button class="tui-image-editor-download-btn bg-warning">Finish</button></a>');
                     $('.tui-image-editor-header-buttons div').prepend('<i class="fa-solid fa-camera fs-6 pe-1"></i>');
-                    // $('.tui-image-editor-header-logo').replaceWith('<a><button class="tui-image-editor-download-btn  bg-warning">Finish</button></a>');
                     $('.tui-image-editor-header-logo').replaceWith('<span></span>');
                     $(".tui-image-editor-header-buttons .tui-image-editor-download-btn").remove();
                     $('.tui-image-editor-header-buttons div').addClass('btn-load-add-multiple');
@@ -1067,7 +1059,7 @@ $("#upload_image").on("change",function (event){
                             window.location.href = '<?= base_url()?>post?type=<?=$_SESSION["content_type"]?>';
                         });
 
-        })
+                    })
                 }
             });
     }else{
@@ -1179,6 +1171,11 @@ $("#upload_image").on("change",function (event){
     $("#tuieditor").modal("show");
     
 })
+
+// localforage.getItem('img_save', function (err, value) {
+//     var dataImg=JSON.parse(value);
+//     console.log(dataImg);
+// })
 
 
 

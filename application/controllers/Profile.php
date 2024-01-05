@@ -78,6 +78,13 @@ class Profile extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
+    public function convert_heic(){
+        $image  = $_FILES["image"]["tmp_name"];
+        $heictojpg = new Maestroerror\HeicToJpg(); 
+        $jpg = $heictojpg->convert($image)->get();
+        echo 'data:image/jpg;base64,' . base64_encode($jpg);
+    }
+
     public function load_more_profile_public($id)
     {
         $data['allpost'] = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?page=".$id)->message;
@@ -302,14 +309,17 @@ class Profile extends CI_Controller
             $web            = $this->security->xss_clean($this->input->post("web"));
             $email          = $this->security->xss_clean($this->input->post("email"));
             $phone          = $this->security->xss_clean($this->input->post("phone"));
-            $comment        = $this->security->xss_clean($this->input->post("comment"));
-            $shareprofile   = $this->security->xss_clean($this->input->post("shareprofile"));
-            $shareemail     = $this->security->xss_clean($this->input->post("shareemail"));
-            $sharecontact   = $this->security->xss_clean($this->input->post("sharecontact"));
+            $comment        = @$this->security->xss_clean($this->input->post("comment"));
+            $shareprofile   = @$this->security->xss_clean($this->input->post("shareprofile"));
+            $shareemail     = @$this->security->xss_clean($this->input->post("shareemail"));
+            $sharecontact   = @$this->security->xss_clean($this->input->post("sharecontact"));
             $imgpp          = $this->security->xss_clean($this->input->post("imgpp"));
             $imgbanner      = $this->security->xss_clean($this->input->post("imgbanner"));
 
         }
+
+    //   echo "INI COMMENT : " . $comment;
+
 
         $mdata=array(
                 "userid"    => $_SESSION["user_id"],
@@ -320,15 +330,17 @@ class Profile extends CI_Controller
                 "web"       => $web,
                 "email"     => $email,
                 "contact"   => $phone,
-                "is_comment"=> ($comment=="yes")?"yes":"no",
-                "is_share"  => ($shareprofile=="yes")?"yes":"no",
-                "is_emailshare"     => ($shareemail=="yes")?"yes":"no",
-                "is_kontakshare"    => ($sharecontact=="yes")?"yes":"no",
+                "is_comment"=> (@$comment=="yes")?"yes":"no",
+                "is_share"  => (@$shareprofile=="yes")?"yes":"no",
+                "is_emailshare"     => (@$shareemail=="yes")?"yes":"no",
+                "is_kontakshare"    => (@$sharecontact=="yes")?"yes":"no",
                 "profile"   => $imgpp,
-                "header"    => $imgbanner
+                "header"    => $imgbanner 
             );
             
         
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+        // die;
     	$url = URLAPI . "/v1/member/profile/setProfile";
 		$result = apiciaklive($url,json_encode($mdata));
 
@@ -377,7 +389,7 @@ class Profile extends CI_Controller
         $monthly    = $this->security->xss_clean($this->input->post("monthly"));
         $yearly     = $this->security->xss_clean($this->input->post("yearly"));
         $is_trial   = $this->security->xss_clean($this->input->post("is_trial"));
-        $triallong  = $this->security->xss_clean($this->input->post("triallong"));
+        $triallong  = @$this->security->xss_clean($this->input->post("triallong"));
         $trialamount= $this->security->xss_clean($this->input->post("trialamount"));
         
         

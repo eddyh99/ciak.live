@@ -5,7 +5,37 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!--trial tui-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.3.2/fabric.js"></script>
+<script src="https://nhn.github.io/tui.image-editor/latest/examples/js/theme/black-theme.js"></script>
+<script src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
+<script src="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+<script src="https://nhn.github.io/tui.image-editor/latest/examples/js/theme/white-theme.js"></script>
+<script src="https://uicdn.toast.com/tui-image-editor/latest/tui-image-editor.js"></script>
 
+<style>
+    .tui-image-editor-download-btn {
+        display: inline-block;
+        position: relative;
+        width: 120px;
+        height: 40px;
+        padding: 0;
+        line-height: 40px;
+        outline: none;
+        border-radius: 20px;
+        border: 1px solid #ddd;
+        font-family: 'Noto Sans',sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        vertical-align: middle;
+        letter-spacing: .3px;
+        text-align: center;
+        background-color: #03B115;
+        color: #ffffff;
+    }
+</style>
 
 <script>
 /*----------------------------------------------------------
@@ -23,12 +53,50 @@
     * 3. Preview Image
     * 4. Preview Attachment
 */
-var images = [];
+
+
+
+
+function toDataURL(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
+
+var images_edit = [];
+
 <?php foreach($edit->post_media as $dt){ ?>
-    // alert('<?= $dt->id ?>');
-    images.push('<?= $dt->imgorg ?>');
-    localforage.setItem("gbr", JSON.stringify(images));
+    console.log('<?= $dt->imgorg ?>');
+
+    toDataURL('<?= $dt->imgorg ?>', function(dataUrl) {
+    
+        images_edit.push(dataUrl)
+    
+        $('#img-preview-post').hide();
+        $('#header-preview-text').hide();
+        if(images_edit.length != 0){
+            $('#img-preview-post').show();
+            for(let i = 0; i < images_edit.length; i++){
+                $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+            }
+        }else {
+            $('#img-preview-post').hide();
+        }
+        
+    })
+
 <?php } ?>
+
+
+
 
 
 /*----------------------------------------------------------
@@ -87,41 +155,66 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 3. Preview Image Start
 ------------------------------------------------------------*/ 
-$('#img-preview-post').hide();
-localforage.getItem('gbr', function (err, value) {
-    var dataImg=JSON.parse(value);
-    console.log(typeof dataImg.length);
-    if(dataImg == null) {
-        console.log("");
-    }else {
-        if(dataImg.length < 1){
-            localStorage.setItem("is_video",true);
-            $('#img-preview-post').hide();
-            console.log("HIDE");
-        } else {
-            console.log("MASUK");
-            $('#img-preview-post').show();
-            localStorage.setItem("is_video",false);
 
-            for(let i = 0; i < dataImg.length; i++){
-                $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
-            }
-        }
-    }
-});
 
 // Function for delete image in X button
 function del(index){
-    localforage.getItem('gbr', function (err, value) {
-        var dataImg=JSON.parse(value);
-        dataImg.splice(index, 1);
-        localforage.setItem("gbr", JSON.stringify(dataImg));
-    });
-    $('#myDiv').load('#myDiv')
-        // location.replace(location.href.split('#')[0]);
-    // e.preventDefault()
-    location.reload();
+    
+    // Remove element HTML
+    $('.carousel-item').remove();
+    
+    images_edit.splice(index, 1);
+    if(images_edit.length != 0){
+        $('#img-preview-post').show();
+        for(let i = 0; i < images_edit.length; i++){
+            $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+        }
+    }else {
+        console.log("HIDE ONLY");
+        $('#img-preview-post').hide();
+    }
+    return false;
 }
+
+
+// $('#img-preview-post').hide();
+// localforage.getItem('img_edit', function (err, value) {
+//     var dataImg=JSON.parse(value);
+//     console.log(typeof dataImg.length);
+//     if(dataImg == null) {
+//         console.log("");
+//     }else {
+//         if(dataImg.length < 1){
+//             localStorage.setItem("is_video",true);
+//             $('#img-preview-post').hide();
+//             console.log("HIDE");
+//         } else {
+//             console.log("MASUK");
+//             $('#img-preview-post').show();
+//             localStorage.setItem("is_video",false);
+
+//             for(let i = 0; i < dataImg.length; i++){
+//                 $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
+//             }
+//         }
+//     }
+// });
+
+// Function for delete image in X button
+// function del(index){
+//     // index.preventDefault()
+//     localforage.getItem('img_edit', function (err, value) {
+//         var dataImg=JSON.parse(value);
+//         dataImg.splice(index, 1);
+//         localforage.setItem("img_edit", JSON.stringify(dataImg));
+//     });
+//     $('#myDiv').load('#myDiv')
+//         // location.replace(location.href.split('#')[0]);
+//     location.reload();
+// }
+
+
+
 /*----------------------------------------------------------
 3. Preview Image End
 ------------------------------------------------------------*/ 
@@ -158,5 +251,285 @@ $(function() {
 /*----------------------------------------------------------
 4.  Preview Attachment End
 ------------------------------------------------------------*/ 
+
+
+$(document).ready(function(){
+    $("#btnUpdate").on("click",function(){
+        var formdata = new FormData();
+        // console.log(pair[0] + " - " + pair[1]);
+        formdata.append("post_id", $("#postid").val());
+        formdata.append("title_article", $("#title-optional-post").val());
+        formdata.append("post", $("#edit-textarea-post").val());
+        formdata.append("tipe", $("#tipepost").val());
+        formdata.append("price", $("#postprice").val());
+        formdata.append("content_type", $("#contentype").val());
+
+        // for (var pair of formdata.entries()) {
+        //     console.log(pair[0] + " - " + pair[1]);
+        // }
+
+    })
+})
+
+function base64ToBlob(base64, mime) 
+    {
+        mime = mime || '';
+        var sliceSize = 1024;
+        var byteChars = window.atob(base64);
+        var byteArrays = [];
+    
+        for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+            var slice = byteChars.slice(offset, offset + sliceSize);
+    
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+    
+            var byteArray = new Uint8Array(byteNumbers);
+    
+            byteArrays.push(byteArray);
+        }
+    
+        return new Blob(byteArrays, {type: mime});
+    }
+
+
+function b64toblob(item, index){
+    // console.log("MASUK BLOB");
+    // console.log(item.length);
+    if (item.length!=0){
+        // console.log("MASUK SINI");
+        var base64ImageContent = item.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+        var mime = item.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+        var blob = base64ToBlob(base64ImageContent, mime[1]);
+        formdata.append("image[]",blob);
+    }
+}
+
+$("#upload_image").on("change",function (event){
+    files=event.target.files;
+    ext=$("#upload_image").val().split('.')[1].toLowerCase();
+    console.log(ext);
+    formdata = new FormData();
+
+    if (ext=="heic"){
+        formdata.append('image', files[0]); 
+        $.ajax({
+                url: "<?=base_url()?>post/convert_heic",
+                type: "post",
+                contentType: false,
+                processData:false,  
+                data: formdata,
+                success: function(data) {
+                    var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
+                        includeUI: {
+                            loadImage: {
+                                path: data,
+                                name: 'sample'
+                            },
+                            menu: ['text', 'crop', 'filter', 'shape', 'draw',],
+                            locale: { // override default English locale to your custom
+                                Color: 'Color',
+                                Bold: 'Bold',
+                                'Text size': 'Font Size'
+                            },
+                            theme: blackTheme, // or whiteTheme
+                            menuBarPosition: 'bottom',
+                        },
+                        cssMaxHeight: 400,
+                        cssMaxWidth: 500,
+                        usageStatistics: false,
+                    });      
+                    function loadFileImg() {
+                        $("input[type=file]").trigger("click");
+                    }
+
+                    // For Custom When User Load Image default ratio 1:1
+                    window.onload = ()=> {
+                        imageEditor.setCropzoneRect(1);
+                        $('.tie-btn-crop').click(function(){
+                            imageEditor.setCropzoneRect(1);
+                        });
+                    }   
+
+                    // Custom Button Load And Save
+                    $('.tui-image-editor-header-buttons div').prepend('<i class="fa-solid fa-camera fs-6 pe-1"></i>');
+                    $('.tui-image-editor-header-logo').replaceWith('<span></span>');
+                    $(".tui-image-editor-header-buttons .tui-image-editor-download-btn").remove();
+                    $('.tui-image-editor-header-buttons div').addClass('btn-load-add-multiple');
+                    $(".tui-image-editor-load-btn").attr("accept",".jpg, .png, .jpeg, .gif .heic");
+                    $('.tui-image-editor-header-buttons .btn-load-add-multiple .fa-camera ').replaceWith('<span style="font-family: sans-serif;">Next </span>');
+
+                    // Check when 10 times max click
+                    $('.btn-load-add-multiple').each( function(){
+                        var counter = 0;
+                        $(this).click(function(){
+                            counter++;
+
+                            if(counter == 9){
+                                // $('.btn-add-img-multiple').hide();
+                                $('.btn-load-add-multiple').hide();
+                            } else {
+                                console.log('');
+                            }
+                        });
+                    });
+
+                    // For Save image multiple to localstorage
+                    $(document).ready(function () {
+                        // Initialitation Array 
+                        let = m_data = []
+
+                        // Click Load Button
+                        $('.btn-load-add-multiple').on('click', function (e) {
+
+                            // Get Encode IMAGE
+                            var imageUrl = imageEditor.toDataURL({
+                                format: 'jpeg',
+                                quality: 0.5
+                            });
+
+                            // For push last images
+                            m_data.push(imageUrl);
+
+
+                            console.log(m_data);
+                        })
+
+                        // Click Finish button
+                        $('.tui-image-editor-download-btn').on('click', function (e) {
+
+                            // Get Encode IMAGE
+                            var imageUrl = imageEditor.toDataURL({
+                                format: 'jpeg',
+                                quality: 0.5
+                            });
+                            // For Push Each Image
+                            m_data.push(imageUrl);
+
+                            // Save to Local Forage
+                            localforage.setItem("img_save", JSON.stringify(m_data));
+                        });
+
+                    })
+                }
+            });
+    }else{
+        imageurl=URL.createObjectURL(files[0]);
+        // Initialitation Config Tui Image Editor 
+        var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
+            includeUI: {
+                loadImage: {
+                    path: imageurl,
+                    name: 'sample'
+                },
+                menu: ['text', 'crop', 'filter', 'shape', 'draw',],
+                locale: { // override default English locale to your custom
+                    Color: 'Color',
+                    Bold: 'Bold',
+                    'Text size': 'Font Size'
+                },
+                theme: blackTheme, // or whiteTheme
+                menuBarPosition: 'bottom',
+            },
+            cssMaxHeight: 400,
+            cssMaxWidth: 500,
+            // cssMaxWidth: document.getElementById('tui-image-editor-container').clientWidth,
+            usageStatistics: false,
+        });
+
+        function loadFileImg() {
+            $("input[type=file]").trigger("click");
+            // document.querySelector('.tui-image-editor-load-btn').click();
+        }
+
+        // setTimeout(function () {
+        //     $("input[type=file]").trigger("click");
+        // }, 2000);
+
+        // For Custom When User Load Image default ratio 1:1
+        window.onload = ()=> {
+            imageEditor.setCropzoneRect(1);
+            $('.tie-btn-crop').click(function(){
+                imageEditor.setCropzoneRect(1);
+            });
+        }   
+
+        // Custom Button Load And Save
+        // $('.tui-image-editor-header-buttons .tui-image-editor-download-btn').replaceWith('<a><button class="tui-image-editor-download-btn bg-warning">Finish</button></a>');
+        $('.tui-image-editor-header-buttons div').prepend('<i class="fa-solid fa-camera fs-6 pe-1"></i>');
+        // $('.tui-image-editor-header-logo').replaceWith('<a><button class="tui-image-editor-download-btn  bg-warning">Finish</button></a>');
+        $('.tui-image-editor-header-logo').replaceWith('<span></span>');
+        $(".tui-image-editor-header-buttons .tui-image-editor-download-btn").remove();
+        $('.tui-image-editor-header-buttons div').addClass('btn-load-add-multiple');
+        $(".tui-image-editor-load-btn").attr("accept",".jpg, .png, .jpeg, .gif .heic");
+        $('.tui-image-editor-header-buttons .btn-load-add-multiple .fa-camera ').replaceWith('<span style="font-family: sans-serif;">Next </span>');
+
+        // Check when 10 times max click
+        $('.btn-load-add-multiple').each( function(){
+            var counter = 0;
+            $(this).click(function(){
+                counter++;
+
+                if(counter == 9){
+                    // $('.btn-add-img-multiple').hide();
+                    $('.btn-load-add-multiple').hide();
+                } else {
+                    console.log('');
+                }
+            });
+        });
+
+        // For Save image multiple to localstorage
+        $(document).ready(function () {
+            // Initialitation Array 
+            let m_data = [];
+            
+
+            // Click Load Button
+            $('.btn-load-add-multiple').on('click', function (e) {
+
+                // Get Encode IMAGE
+                var imageUrl = imageEditor.toDataURL({
+                    format: 'jpeg',
+                    quality: 0.5
+                });
+
+                // For push last images
+                m_data.push(imageUrl);
+
+            })
+
+            // Click Finish button
+            $('.tui-image-editor-download-btn').on('click', function (e) {
+
+                // Get Encode IMAGE
+                var imageUrl = imageEditor.toDataURL({
+                    format: 'jpeg',
+                    quality: 0.5
+                });
+                // For Push Each Image
+                m_data.push(imageUrl);
+
+                m_data.forEach(b64toblob);
+
+
+                for(let i = 0; i < m_data.length; i++){
+                    $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+m_data[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+                }
+                $("#tuieditor").modal("hide");
+                // Save to Local Forage
+                // localforage.setItem("img_save", JSON.stringify(m_data));
+            });
+
+
+
+        })
+    }
+    
+    $("#tuieditor").modal("show");
+    
+})
 
 </script>

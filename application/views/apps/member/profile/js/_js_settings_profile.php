@@ -60,28 +60,45 @@ toDataURL("<?=$profile->profile?>", function(dataUrl) {
 
 $('#upload_image').change(function(event){
     let files = event.target.files;
-    let done = function(url){
-        crop_image.src = url;
-        $modal.modal('show');
-    }
-    
-    if(files && files.length > 0){
-        reader = new FileReader();
-        reader.onload = function(event){
-                done(reader.result);
+    var ext = $("#upload_image").val().split('.')[1].toLowerCase();
+    if (ext=="heic"){
+        formdata = new FormData();
+        formdata.append('image', files[0]); 
+        $.ajax({
+            url: "<?=base_url()?>profile/convert_heic",
+            type: "post",
+            contentType: false,
+            processData:false,  
+            data: formdata,
+            success: function(data) {
+                crop_image.src = data;
+                $modal.modal('show');
+            }
+        });
+    }else{
+        let done = function(url){
+            crop_image.src = url;
+            $modal.modal('show');
         }
-        reader.readAsDataURL(files[0]);
-    }        
+        
+        if(files && files.length > 0){
+            reader = new FileReader();
+            reader.onload = function(event){
+                done(reader.result);
+            }
+            reader.readAsDataURL(files[0]);
+        }        
+    }
 
 });
 
 
 $modal.on('shown.bs.modal', function(){
-        cropper = new Cropper(crop_image, {
-            aspectRatio: 1,
-            viewMode: 1,
-            preview: '.preview',
-        });
+    cropper = new Cropper(crop_image, {
+        aspectRatio: 1,
+        viewMode: 1,
+        preview: '.preview',
+    });
     }).on('hidden.bs.modal', function() {
         cropper.destroy();
         cropper = null;
@@ -127,19 +144,50 @@ toDataURL("<?=$profile->header?>", function(dataUrl) {
 
 
 $('#upload_banner').change(function(event){
-    let files = event.target.files;
-    let done = function(url){
-        crop_image_banner.src = url;
-        $modal_banner.modal('show');
-    }
+    // let files = event.target.files;
+    // let done = function(url){
+    //     crop_image_banner.src = url;
+    //     $modal_banner.modal('show');
+    // }
     
-    if(files && files.length > 0){
-        reader = new FileReader();
-        reader.onload = function(event){
-            done(reader.result);
+    // if(files && files.length > 0){
+    //     reader = new FileReader();
+    //     reader.onload = function(event){
+    //         done(reader.result);
+    //     }
+    //     reader.readAsDataURL(files[0]);
+    // }   
+    
+    let files = event.target.files;
+    var ext = $("#upload_banner").val().split('.')[1].toLowerCase();
+    if (ext=="heic"){
+        formdata = new FormData();
+        formdata.append('image', files[0]); 
+        $.ajax({
+            url: "<?=base_url()?>profile/convert_heic",
+            type: "post",
+            contentType: false,
+            processData:false,  
+            data: formdata,
+            success: function(data) {
+                crop_image_banner.src = data;
+                $modal_banner.modal('show');
+            }
+        });
+    }else{
+        let done = function(url){
+            crop_image_banner.src = url;
+            $modal_banner.modal('show');
         }
-        reader.readAsDataURL(files[0]);
-    }        
+        
+        if(files && files.length > 0){
+            reader = new FileReader();
+            reader.onload = function(event){
+                done(reader.result);
+            }
+            reader.readAsDataURL(files[0]);
+        }        
+    }
 
 });
 
@@ -192,14 +240,12 @@ $('#pp-crop-cancel-banner').click(function(){
 $("#confirmupdate").on("click",function(e){
     e.preventDefault();
     $('#load-edit-profile').show();
-    // console.log("CLICK");
     $.ajax({
         url: "<?= base_url() ?>profile/saveprofile",
         type: "post",
         data: "imgpp="+btoa(localStorage.getItem('image-pp'))+"&imgbanner="+btoa(localStorage.getItem('image-banner'))+"&"+$("#frmprofile").serialize(),
         success: function (response) {
             var data=JSON.parse(response);
-            console.log(data);
             if (data.success==true){
                 window.location.href = '<?=base_url()?>profile';
             }

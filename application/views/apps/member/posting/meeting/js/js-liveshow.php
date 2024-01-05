@@ -356,6 +356,7 @@ var tbl_user=$("#memberjoin").DataTable({
 
 connection.onExtraDataUpdated = function(event) {
     var data=event.extra.userJoin;
+    console.log(data);
     var pushmember=[];
     if (data.length==1){
          pushmember.push(data);
