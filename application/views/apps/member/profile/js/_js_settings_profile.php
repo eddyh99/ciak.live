@@ -78,7 +78,6 @@ $('#upload_image').change(function(event){
     }else{
         let done = function(url){
             crop_image.src = url;
-            console.log(url);
             $modal.modal('show');
         }
         
@@ -161,7 +160,6 @@ $('#upload_banner').change(function(event){
     
     let files = event.target.files;
     var ext = $("#upload_banner").val().split('.')[1].toLowerCase();
-    console.log(ext);
     if (ext=="heic"){
         formdata = new FormData();
         formdata.append('image', files[0]); 
@@ -242,14 +240,12 @@ $('#pp-crop-cancel-banner').click(function(){
 $("#confirmupdate").on("click",function(e){
     e.preventDefault();
     $('#load-edit-profile').show();
-    console.log($("#frmprofile").serialize());
     $.ajax({
         url: "<?= base_url() ?>profile/saveprofile",
         type: "post",
         data: "imgpp="+btoa(localStorage.getItem('image-pp'))+"&imgbanner="+btoa(localStorage.getItem('image-banner'))+"&"+$("#frmprofile").serialize(),
         success: function (response) {
             var data=JSON.parse(response);
-            console.log(data);
             if (data.success==true){
                 window.location.href = '<?=base_url()?>profile';
             }

@@ -55,15 +55,48 @@
 */
 
 
+
+
+function toDataURL(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
+
 var images_edit = [];
+
 <?php foreach($edit->post_media as $dt){ ?>
-    // alert('<?= $dt->id ?>');
-    console.log('<?= $dt->id ?>');
-    images_edit.push('<?= $dt->imgorg ?>');
-    localforage.setItem("img_edit", JSON.stringify(images_edit));
+    console.log('<?= $dt->imgorg ?>');
+
+    toDataURL('<?= $dt->imgorg ?>', function(dataUrl) {
+    
+        images_edit.push(dataUrl)
+    
+        $('#img-preview-post').hide();
+        $('#header-preview-text').hide();
+        if(images_edit.length != 0){
+            $('#img-preview-post').show();
+            for(let i = 0; i < images_edit.length; i++){
+                $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+            }
+        }else {
+            $('#img-preview-post').hide();
+        }
+        
+    })
+
 <?php } ?>
 
-console.log(images_edit);
+
+
 
 
 /*----------------------------------------------------------
@@ -123,17 +156,6 @@ $(document).ready(function(){
 3. Preview Image Start
 ------------------------------------------------------------*/ 
 
-$('#img-preview-post').hide();
-$('#header-preview-text').hide();
-if(images_edit.length != 0){
-    $('#img-preview-post').show();
-    for(let i = 0; i < images_edit.length; i++){
-        $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
-    }
-}else {
-    console.log("HIDE ONLY");
-    $('#img-preview-post').hide();
-}
 
 // Function for delete image in X button
 function del(index){
@@ -249,13 +271,49 @@ $(document).ready(function(){
     })
 })
 
+function base64ToBlob(base64, mime) 
+    {
+        mime = mime || '';
+        var sliceSize = 1024;
+        var byteChars = window.atob(base64);
+        var byteArrays = [];
+    
+        for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+            var slice = byteChars.slice(offset, offset + sliceSize);
+    
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+    
+            var byteArray = new Uint8Array(byteNumbers);
+    
+            byteArrays.push(byteArray);
+        }
+    
+        return new Blob(byteArrays, {type: mime});
+    }
+
+
+function b64toblob(item, index){
+    // console.log("MASUK BLOB");
+    // console.log(item.length);
+    if (item.length!=0){
+        // console.log("MASUK SINI");
+        var base64ImageContent = item.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+        var mime = item.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+        var blob = base64ToBlob(base64ImageContent, mime[1]);
+        formdata.append("image[]",blob);
+    }
+}
 
 $("#upload_image").on("change",function (event){
     files=event.target.files;
     ext=$("#upload_image").val().split('.')[1].toLowerCase();
     console.log(ext);
+    formdata = new FormData();
+
     if (ext=="heic"){
-        formdata = new FormData();
         formdata.append('image', files[0]); 
         $.ajax({
                 url: "<?=base_url()?>post/convert_heic",
@@ -426,7 +484,8 @@ $("#upload_image").on("change",function (event){
         // For Save image multiple to localstorage
         $(document).ready(function () {
             // Initialitation Array 
-            let = m_data = []
+            let m_data = [];
+            
 
             // Click Load Button
             $('.btn-load-add-multiple').on('click', function (e) {
@@ -440,8 +499,6 @@ $("#upload_image").on("change",function (event){
                 // For push last images
                 m_data.push(imageUrl);
 
-
-                console.log(m_data);
             })
 
             // Click Finish button
@@ -455,7 +512,8 @@ $("#upload_image").on("change",function (event){
                 // For Push Each Image
                 m_data.push(imageUrl);
 
-                console.log(m_data);
+                m_data.forEach(b64toblob);
+
 
                 for(let i = 0; i < m_data.length; i++){
                     $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+m_data[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
@@ -464,6 +522,8 @@ $("#upload_image").on("change",function (event){
                 // Save to Local Forage
                 // localforage.setItem("img_save", JSON.stringify(m_data));
             });
+
+
 
         })
     }

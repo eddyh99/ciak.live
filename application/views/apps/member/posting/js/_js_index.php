@@ -133,7 +133,7 @@ $(document).ready(function(){
             $('#img-preview-post').show();
             localStorage.setItem("is_video",false);
 
-            for(let i = 0; i < dataImg.length; i++){
+            for(let i = 0; i <= dataImg.length; i++){
                 $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
             }
         }
@@ -268,7 +268,7 @@ $(document).ready(function(){
     }
 
     function b64toblob(item, index){
-        if ((item.length!=0) && (index>0)){
+        if (item.length!=0){
             var base64ImageContent = item.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
             var mime = item.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
             var blob = base64ToBlob(base64ImageContent, mime[1]);
@@ -551,7 +551,9 @@ $(document).ready(function(){
                         formdata.append("post",$("#textarea-post").val());
                         formdata.append("tipe",$("#tipepost").val());
                         formdata.append("price",$("#postprice").val());
-                        
+
+                        console.log(...formdata);
+
                         $('#progressbar-wrapper').removeClass('d-none');
                         var progress = $('.progress-bar');
 
