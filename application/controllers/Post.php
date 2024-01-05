@@ -220,15 +220,83 @@ class Post extends CI_Controller
         $input      = $this->input;
         $post_id    = $this->security->xss_clean($this->input->post("post_id"));
         $title      = $this->security->xss_clean($this->input->post("title_article"));
-        $article    = $this->security->xss_clean($this->input->post("post"));
+        $post    = $this->security->xss_clean($this->input->post("post"));
         $type       = $this->security->xss_clean($this->input->post("tipe"));
         $price      = $this->security->xss_clean($this->input->post("price"));
         $content_type      = $this->security->xss_clean($this->input->post("content_type"));
 
+        $files  = @$_FILES['image'];
+        $video  = @$_FILES['video'];
+        $attach  = @$_FILES['attach'];
+        
+        // $id_stitch  = $this->security->xss_clean($this->input->post("stitch"));
+
+
+        $is_attach_gbr="no";
+        if (!empty($files)){
+            $is_attach_gbr="yes";
+            $attach_type="image";
+            $blob=array();
+            foreach ($files['name'] as $key => $image) {
+                $temp   = curl_file_create($files['tmp_name'][$key],$files['type'][$key]);
+                array_push($blob, $temp);
+            }
+        }
+
+
+
+        $is_attach_video="no";
+        if (!empty($video)){
+            $is_attach_video="yes";
+            $attach_type="video";
+            $blob=array();
+            foreach ($video['name'] as $key => $image) {
+                $temp   = curl_file_create($video['tmp_name'][$key],$video['type'][$key]);
+                array_push($blob, $temp);
+            }
+        }
+
+        $is_attach="no";
+        if (!empty($attach)){
+            $is_attach="yes";
+            $attach_type="attach";
+            $blob=array();
+            foreach ($attach['name'] as $key => $image) {
+                $temp   = curl_file_create($attach['tmp_name'][$key],$attach['type'][$key]);
+                array_push($blob, $temp);
+            }
+        }
+        
+
+        if ($is_attach=="no" && $is_attach_gbr=="no" && $is_attach_video=="no" && empty($post)){
+     	     $message=array(
+	            "success"   => false,
+	            "message"   => "No Post Content"
+	        );
+	        echo json_encode($message);
+	        return;
+        }
+
+        
+        //convert url to clickable       
+        $pattern = '/((ftp|http|https):\/\/)?([a-z_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/';
+        $post = preg_replace_callback($pattern, function($matches){
+                    if (!preg_match("~^(?:f|ht)tps?://~i", $matches[0])) {
+                        $url = "https://" . $matches[0];
+                    }else{
+                    	$url =$matches[0];
+                    }
+                    $link='<a href="'.$url.'" class="link" target="_blank" title="'.$url.'">'.$url.'</a>';
+                    return $link;
+                }, $post);
+
+        //$post=preg_replace('/((ftp|http|https):\/\/)?([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/', '<a href="$0" target="_blank" title="$0">$0</a>', $post);
+        
+
         $mdata=array(
             "post_id"       => $post_id,
             "title_article" => empty($title) ? null : $title,
-            "article"       => $article,
+            "article"       => $post,
             "type"          => $type,
             "price"         => $price,
             "attach_type"   => @$attach_type,
