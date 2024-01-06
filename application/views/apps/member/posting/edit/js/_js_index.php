@@ -72,6 +72,7 @@ function toDataURL(url, callback) {
 }
 
 var images_edit = [];
+var formdata = new FormData();
 
 <?php foreach($edit->post_media as $dt){ ?>
     console.log('<?= $dt->imgorg ?>');
@@ -85,7 +86,7 @@ var images_edit = [];
         if(images_edit.length != 0){
             $('#img-preview-post').show();
             for(let i = 0; i < images_edit.length; i++){
-                $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+                $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
             }
         }else {
             $('#img-preview-post').hide();
@@ -252,23 +253,91 @@ $(function() {
 ------------------------------------------------------------*/ 
 
 
-$(document).ready(function(){
-    $("#btnUpdate").on("click",function(){
-        var formdata = new FormData();
-        // console.log(pair[0] + " - " + pair[1]);
-        formdata.append("post_id", $("#postid").val());
-        formdata.append("title_article", $("#title-optional-post").val());
-        formdata.append("post", $("#edit-textarea-post").val());
-        formdata.append("tipe", $("#tipepost").val());
-        formdata.append("price", $("#postprice").val());
-        formdata.append("content_type", $("#contentype").val());
+$("#btnUpdate").on("click",function(){
+    // console.log(pair[0] + " - " + pair[1]);
+    formdata.append("post_id", $("#postid").val());
+    formdata.append("title_article", $("#title-optional-post").val());
+    formdata.append("post", $("#edit-textarea-post").val());
+    formdata.append("tipe", $("#tipepost").val());
+    formdata.append("price", $("#postprice").val());
+    formdata.append("content_type", $("#contentype").val());
+    
+    var imgTmp=[];
+    imgTmp = $(".img-edit").get().map(function(el) {
+    
+        return el.src;
+    
+    });
+    
+    imgTmp.forEach(b64toblob);
+    
+    console.log(formdata);
+    
+    $.ajax({
+        url: "<?=base_url()?>post/saveEdit",
+        type: "post",
+        data: formdata,
+        xhr: function(){
+            var xhr = $.ajaxSettings.xhr();
+            xhr.upload.addEventListener('progress', function(e){
 
-        // for (var pair of formdata.entries()) {
-        //     console.log(pair[0] + " - " + pair[1]);
-        // }
+                if(e.lengthComputable){
+                    var completed = e.loaded/e.total;
+                    var perc = Math.floor(completed * 100);
+               
+                    // progress.text(perc+'%');
+                    progress.attr('aria-valuenow',perc);
+                    progress.css('width', perc+'%');
+                }
+            }, false)
 
-    })
+            xhr.addEventListener('progress', function(e){
+                if(e.lengthComputable){
+                    var completed = e.loaded/e.total;
+                    var perc = Math.floor(completed * 100);
+                    
+                    // progress.text(perc+'%');
+                    progress.attr('aria-valuenow',perc);
+                    progress.css('width',perc+'%');
+                }
+            }, false)
+            return xhr;
+        },
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            var data=JSON.parse(response);
+            if(data.success == true){
+                console.log("sukses");
+            }
+
+            if(data.success == false){
+                $('#load-edit-profile').hide();
+                setTimeout(()=>{
+                    Swal.fire({
+                        text: "Something Error to upload, please try again",
+                        confirmButtonColor: '#03B115',
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                    });
+                    $('#progressbar-wrapper').addClass('d-none');
+                    progress.css('width', 0+'%');
+                }, 2000);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+        }
+    });
+    
+    
+    // for (var pair of formdata.entries()) {
+    //     console.log(pair[0] + " - " + pair[1]);
+    // }
+
 })
+
 
 function base64ToBlob(base64, mime) 
     {
@@ -295,8 +364,8 @@ function base64ToBlob(base64, mime)
 
 
 function b64toblob(item, index){
-    // console.log("MASUK BLOB");
-    // console.log(item.length);
+    console.log("MASUK BLOB");
+    //console.log(item.length);
     if (item.length!=0){
         // console.log("MASUK SINI");
         var base64ImageContent = item.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
@@ -310,10 +379,8 @@ $("#upload_image").on("change",function (event){
     files=event.target.files;
     ext=$("#upload_image").val().split('.')[1].toLowerCase();
     console.log(ext);
-    formdata = new FormData();
 
     if (ext=="heic"){
-        formdata.append('image', files[0]); 
         $.ajax({
                 url: "<?=base_url()?>post/convert_heic",
                 type: "post",
