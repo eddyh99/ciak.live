@@ -79,30 +79,55 @@
             <div class="d-flex align-items-center mx-4">
                 <input type="text" class="form-control input-live-show-chating <?php echo ($content_type == 'explicit') ? 'explicit' : ''?>"  id="txt-chat-message" disabled placeholder="live chat...">
                 <button class="btn btn-emoji ms-2" id="btn-emoji-livestream" disabled><i class="fas fa-icons"></i></button>
-                <button class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> ms-2" id="btn-chat-message" disabled>Send</button>
+                <button class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> ms-2" id="btn-chat-message" disabled><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
     <div class="col-12 mt-3">
         <div class="row">
-            <div class="col-12 ms-4 mb-5 d-flex">
-                <a href="<?=base_url()?>homepage" class="btn btn-leave-live">Leave</a>
-                <a data-bs-toggle="modal" data-bs-target="#addModerator" class="addModerator-class btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2  "> <i class="fa-solid fa-users me-2"></i>Add Moderator</a>
-                <button id="btnopen" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2">Start</button>
+            <div class="col-12 mx-4 mb-5 d-flex justify-content-between">
+                <div>
+                    <a href="<?=base_url()?>homepage" class="btn btn-leave-live">Leave</a>
+                    <a data-bs-toggle="modal" data-bs-target="#addModerator" class="addModerator-class btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2  "> <i class="fa-solid fa-users me-2"></i>Add Moderator</a>
+                    <button id="btnopen" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> me-2">Start</button>
+                    <button id="showviewer">ALERT</button>
+                </div>
+                <button id="allviewer" class="btn btn-main-green me-5" data-bs-toggle="modal" data-bs-target="#listviewer">
+                    <i class="fas fa-list pe-1"></i>
+                    List Viewer
+                </button>
             </div>
         </div>
     </div>
-    <div>
-        <button id="adduser">adduser</button>
-        <table id="memberjoin" style="color:white">
-            <thead>
-                <tr>
-                    <th>asd</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+  
+</div>
+
+
+<!-- Modal List Viewer-->
+<div class="modal" id="listviewer" style="z-index:99">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-body">
+                <table id="memberjoin" class="table table-striped" style="color:white">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- <tr>
+                            <td>Ari</td>
+                            <td><button class="btn btn-danger">KICK</button></td>
+                        </tr>
+                        <tr>
+                            <td>Dede</td>
+                            <td><button class="btn btn-danger">KICK</button></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

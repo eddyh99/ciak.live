@@ -1,14 +1,43 @@
-<?php 
-$data=json_encode(
-    array(
-        array("satu"),
-        array("dua"),
-        array("tiga")
-    )
-);
-echo $data;
-?>
 <style>
+
+.dataTables_wrapper .dataTables_length, 
+.dataTables_wrapper .dataTables_filter, 
+.dataTables_wrapper .dataTables_info, 
+.dataTables_wrapper .dataTables_processing, 
+.dataTables_wrapper .dataTables_paginate {
+  color: #ffffff !important;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+  color: #ffffff;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    color: #ffffff !important;
+}
+
+table.dataTable tbody tr {
+  color: #ffffff;
+  background-color: #1A1B1C;
+  border-bottom: 0.5px solid #ffffff;
+}
+
+table.dataTable thead tr {
+    border-bottom: 0.5px solid #ffffff !important;
+}
+
+table.dataTable tbody tr:hover{
+  background-color: #a6a6a6;
+  color: #ffffff;
+}
+
+
+#memberjoin_wrapper {
+    /* background-color: #846832; */
+    margin: 10px 10px;
+    padding: 20px;
+}
+
 .modal-backdrop {
     z-index: 98 !important;
 }
@@ -87,6 +116,7 @@ video::-webkit-media-controls {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
 <script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
 <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
 <script>
 $("video").on("click",function(e){
     e.preventDefault();   
@@ -177,7 +207,6 @@ function payperjoin(){
             type: "post",
             data: "room="+broadcastId,
             success: function (response) {
-                console.log(response);
                 console.log("PAY");
             },
             error: function (request, status, error) {
@@ -194,8 +223,7 @@ function payperminutes(){
             type: "post",
             data: "room="+broadcastId,
             success: function (response) {
-                console.log(response);
-                console.log("PAY");
+                console.log("PAY MINUTES");
             },
             error: function (request, status, error) {
                 alert(request.responseText);
@@ -208,7 +236,6 @@ function payperminutes(){
 
 
 setInterval(()=>{
-        console.log(statusPayperMinutes);
         if(statusPayperMinutes === true){
             payperminutes()
         }else{
@@ -256,7 +283,6 @@ $("#btnopen").on("click",function(){
 
 
 $("#startlive").on("click",function(){
-    console.log('performer - start live');
         if ($("#pil_yt").is(":checked")){
             rtmpurl=$("#youtube").val();
             // rtmpurl.push($("#youtube").val());
@@ -295,6 +321,7 @@ $("#startlive").on("click",function(){
 
 $("#btnconfirm").on("click",function(){
     $("#confirmjoin").modal("hide");
+    // connection.extra.userJoin = "memmber join";
     connection.join(broadcastId, function(isRoomJoined, roomid, error) {
         if (error) {
             if (error === connection.errors.ROOM_NOT_AVAILABLE) {
@@ -333,44 +360,97 @@ $("#btnconfirm").on("click",function(){
 })
 
 connection.onopen = function(event) {
-    var data = event.extra.userJoin;
 
-    if (!performer){
-        if (data=='performer'){
-            var joined=[];
-            joined.push(connection.extra.userFullName);
-        }else{
-            joined=data;
-            joined.push(connection.extra.userFullName);
-        }
-    }
+    var remoteUserId = event.userid;
+    var remoteUserFullName = event.extra.userFullName;
+    var userjoin = event.extra.userJoin;
+
+    var pushmember=[];
     
-    connection.extra.userJoin = joined;
-    connection.updateExtraData();
+    if(userjoin != 'performer'){
+        pushmember.push({'username': remoteUserFullName, 'btnkick': 'button kick'});
+    }
+    console.log(pushmember);
+    
+    var listmember = $('#memberjoin').DataTable();
+
+    pushmember.forEach((push) => {
+        listmember.row.add([
+            push.username,
+            push.btnkick                                                                               
+        ]).draw();
+    })
+    
+
+    // for(let i = 0; i < pushmember.length; i++){
+    //     listmember.row.add([
+    //         pushmember[i]                                                                                 
+    //     ]).draw();
+    // }
+
+    // for (i in pushmember) {
+    //     // console.log(pushmember[i]);
+    //     listmember.row.add([
+    //         pushmember[i]                                                                                 
+    //     ]).draw();
+    // }
+
+
+    // alert('data connection opened with ' + remoteUserFullName + userjoin);
+
+    // var data = event.extra.userJoin;
+    // console.log("365 - " + performer);
+    // console.log("366 - " + data);
+    // var joined=[];
+
+    // // if (!performer){
+    //     console.log("masuk on open");
+    //     if (data=='performer'){
+    //         console.log("performance");
+    //         joined.push(connection.extra.userFullName);
+    //     }else{
+    //         console.log("bukan performance");
+    //         // joined=data;
+    //         joined.push(connection.extra.userFullName);
+    //     }
+    // // }
+    
+    // connection.extra.userJoin = joined;
+    // connection.updateExtraData();
 };
 
 var member = [];
-var tbl_user=$("#memberjoin").DataTable({
-    data: member
-});
+var listmember = $("#memberjoin").DataTable();
 
-connection.onExtraDataUpdated = function(event) {
-    var data=event.extra.userJoin;
-    console.log(data);
-    var pushmember=[];
-    if (data.length==1){
-         pushmember.push(data);
-    }
+// connection.onExtraDataUpdated = function(event) {
+    // console.log("UPDATE NOW");
+    // var data = event.extra.userJoin;
+    // console.log("386 - " + data);
+    // var pushmember=[];
+    // pushmember.push(event.extra.userJoin);
+    // console.log(pushmember);
+
+    // var listmember = $('#memberjoin').DataTable();
+
+    // for (i in pushmember) {
+    //     // console.log(pushmember[i]);
+    //     listmember.row.add([
+    //         pushmember[i]                                                                                 
+    //     ]).draw();
+    // }
+
+    // if (data.length==1){
+    // }
     
-    $("#memberjoin").DataTable({
-        data: JSON.stringify(Array.from(new Set(pushmember)))
-    });
+    // $("#memberjoin").DataTable({
+    //     data: JSON.stringify(Array.from(new Set(pushmember)))
+    // });
     // //for (var i=0;i<count(data);i++){
     // //    console.log(data[i]);
     // //}
     // member=JSON.Stringify(member);
     // console.log(member);
-}
+// }
 
 
 $("#btnleave").on("click",function(){
@@ -431,8 +511,6 @@ connection.onstream = function(event) {
         $('#main-video').show();
     } 
 };
-
-
 
 var conversationPanel = document.getElementById('conversation-panel');
 
@@ -795,8 +873,8 @@ $(document).ready(function(){
     });
 });
 
-function invite_guest_active(id, img, username){
-    console.log(id + img + username);
+// function invite_guest_active(id, img, username){
+//     console.log(id + img + username);
 
-}
+// }
 </script>
