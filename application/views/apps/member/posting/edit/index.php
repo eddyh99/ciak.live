@@ -31,10 +31,17 @@
                 </div>
             </div>
             <div>
-                <div class="apps-member light w-100 mt-5">
-
+                <div class="apps-member light w-100 mt-2">
+                
                     <!-- Start Posting Section-->
                     <div id="Post" class="wrap-posting">
+                        <div class="mb-3 ms-5">
+                            <select name="contentype" id="contentype" value="<?= @$edit->content_type?>" class="form-select select-posting-type">
+                                <option value="<?= @$edit->content_type?>" disabled selected><?= @$edit->content_type?></option>
+                                <option value="explicit">Explicit</option>
+                                <option value="non explicit">Non Explicit</option>
+                            </select>
+                        </div>
                         <div class="d-flex">
                             <div class="write-img d-flex flex-column justify-content-start align-items-center">
                                 <img class="img-fluid" src="<?=$edit->profile?>" height="50" width="50" alt="mp">
@@ -116,13 +123,7 @@
             <div class="apps-botbar fixed-bottom row">
                 <?php if(empty($stitch)){?>
                 <div class="row mx-auto d-flex justify-content-between col-12 col-lg-5 px-3" id="post-type">
-                    <div>
-                        <select name="contentype" id="contentype" value="<?= @$edit->content_type?>" class="form-select select-posting-type">
-                            <option value="<?= @$edit->content_type?>" disabled selected><?= @$edit->content_type?></option>
-                            <option value="explicit">Explicit</option>
-                            <option value="non explicit">Non Explicit</option>
-                        </select>
-                    </div>
+                    
                     <div class="py-4">
                         <div class="d-flex justify-content-between">
                             <div>

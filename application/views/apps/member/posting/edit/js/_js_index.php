@@ -239,32 +239,7 @@ function del(index){
 /*----------------------------------------------------------
 4.  Preview Attachment Start
 ------------------------------------------------------------*/   
-$(function() {
-    $('#header-preview-text').hide();
-    $('#upload_attch').on('change', function(){
-        var input = document.getElementById('upload_attch');
-        var children = "";
-        if(this.files[0].size > 50097152){
-            Swal.fire({
-                text: "File is too big! max 50MB",
-                showCloseButton: true,
-                showConfirmButton: false,
-                background: '#323436',
-                color: '#ffffff',
-                position: 'top'
-            });
-            this.value = "";
-        }else{
-            files = input.files;
-            localStorage.setItem("is_video","attach");
-            for (var i = 0; i < input.files.length; ++i) {
-                children += '<li class="text-preview-attch">' + input.files.item(i).name + '</li>';
-            }
-            $('#header-preview-text').show();
-            $('#attch-preview-post').append('<ul>'+children+'</ul>');
-        }
-    })
-});
+
 /*----------------------------------------------------------
 4.  Preview Attachment End
 ------------------------------------------------------------*/ 
@@ -272,7 +247,7 @@ $(function() {
 5.  Preview Video Start
 ------------------------------------------------------------*/   
     var files
-    $("#upload_video").on("change", function(event){
+    $("#img_preview_post").on("change", function(event){
         files = event.target.files;
         for (var i = 0; i < files.length; i++) {
             var f = files[i];
@@ -332,6 +307,7 @@ $(function() {
         }
         
     })
+
 /*----------------------------------------------------------
 6.  Change Type Post on Image, Video, Attachment End
 ------------------------------------------------------------*/   
