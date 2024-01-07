@@ -12,6 +12,12 @@
         <div class="apps-body ptop pbot">
             <div class="apps-topbar alerts fixed-top light row">
                 <div class="apps-member border-none mx-auto col-12 col-lg-5">
+                    <?php if (@isset($_SESSION["error"])) { ?>
+                        <div class="col-12 alert alert-danger alert-dismissible fade show" role="alert">
+                            <span class="notif-login f-poppins"><?= $_SESSION["error"] ?></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
                     <div class="alert-notif d-flex justify-content-between px-4 px-lg-0">
                         <div class="action-icon">
                             <a id="discard-post" href="<?= base_url()?>homepage" class="text-primary">
@@ -29,7 +35,7 @@
             </div>
             <div>
                 <div class="apps-member light w-100">
-
+               
                     <!-- Start Posting Section-->
                     <div id="Post" class="wrap-posting tabcontent">
                         <div class="d-flex">
@@ -45,14 +51,22 @@
                                     </a>
                                     <!-- Hidden Icon -->
                                     <div class="position-absolute hidden-icon" style="z-index: 9999" id="hidden-iconpost">
-                                        <div class="d-flex gap-3 ">
+                                        <div class="d-flex flex-column gap-3 ">
+                                            <!--<div>-->
+                                            <!--    <a href="" data-bs-toggle="modal" data-bs-target="#postModal" >-->
+                                            <!--        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+                                            <!--            <path d="M3.33334 13.3335L7.155 9.51183C7.46755 9.19938 7.8914 9.02385 8.33334 9.02385C8.77528 9.02385 9.19912 9.19938 9.51167 9.51183L13.3333 13.3335M11.6667 11.6668L12.9883 10.3452C13.3009 10.0327 13.7247 9.85719 14.1667 9.85719C14.6086 9.85719 15.0325 10.0327 15.345 10.3452L16.6667 11.6668M11.6667 6.66683H11.675M5 16.6668H15C15.442 16.6668 15.866 16.4912 16.1785 16.1787C16.4911 15.8661 16.6667 15.4422 16.6667 15.0002V5.00016C16.6667 4.55814 16.4911 4.13421 16.1785 3.82165C15.866 3.50909 15.442 3.3335 15 3.3335H5C4.55798 3.3335 4.13405 3.50909 3.82149 3.82165C3.50893 4.13421 3.33334 4.55814 3.33334 5.00016V15.0002C3.33334 15.4422 3.50893 15.8661 3.82149 16.1787C4.13405 16.4912 4.55798 16.6668 5 16.6668Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>-->
+                                            <!--        </svg>-->
+                                            <!--    </a>-->
+                                            <!--</div>-->
                                             <div>
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#postModal" >
+                                                <label for="upload_image" class="icon-upload-video">
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3.33334 13.3335L7.155 9.51183C7.46755 9.19938 7.8914 9.02385 8.33334 9.02385C8.77528 9.02385 9.19912 9.19938 9.51167 9.51183L13.3333 13.3335M11.6667 11.6668L12.9883 10.3452C13.3009 10.0327 13.7247 9.85719 14.1667 9.85719C14.6086 9.85719 15.0325 10.0327 15.345 10.3452L16.6667 11.6668M11.6667 6.66683H11.675M5 16.6668H15C15.442 16.6668 15.866 16.4912 16.1785 16.1787C16.4911 15.8661 16.6667 15.4422 16.6667 15.0002V5.00016C16.6667 4.55814 16.4911 4.13421 16.1785 3.82165C15.866 3.50909 15.442 3.3335 15 3.3335H5C4.55798 3.3335 4.13405 3.50909 3.82149 3.82165C3.50893 4.13421 3.33334 4.55814 3.33334 5.00016V15.0002C3.33334 15.4422 3.50893 15.8661 3.82149 16.1787C4.13405 16.4912 4.55798 16.6668 5 16.6668Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
-                                                </a>
+                                                </label>
                                             </div>
+                                            <input type="file" name="upload_image" id="upload_image" accept=".jpeg, .jpg, .png, .heic" hidden/>                                            
                                             <div>
                                                 <label for="upload_video" class="icon-upload-video">
                                                     <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -191,6 +205,7 @@
                     <!-- Start Live Section-->
                     <div id="Live" class="wrap-posting tabcontent">
                         <form action="<?=base_url()?>post/simpanlive" method="post" id="liveshow" onsubmit="return validate()">
+                            <input type="hidden" name="content_type" value="<?= $_GET['type']?>">
                             <div class="row live-schedule-settings d-flex align-items-start">
                                 <div class="col-6 wrap-live-top d-block">
                                     <div class="d-flex align-items-center">
@@ -221,7 +236,7 @@
                                             <option value="minutes">Per Minutes</option>
                                         </select>
                                     </div>
-                                    <input type="number" name="priceshow" id="priceshow" class="form-control my-3" placeholder="price">
+                                    <input type="text" name="priceshow" id="priceshow" class="form-control my-3 money-input" value="0.5" placeholder="price">
                                 </div>
                             </div>
                             <div id="row_durasi" class="row live-duration mb-3">
@@ -257,6 +272,7 @@
                     <!-- Start Cam2cam Section -->
                     <div id="Cam2cam" class=" wrap-posting tabcontent">
                         <form action="<?=base_url()?>post/simpancam" method="post" id="showcam" onsubmit="return validatecam()">
+                            <input type="hidden" name="content_type" value="<?= $_GET['type']?>">
                             <input type="hidden" id="guestcam" name="guestcam">
                             <div class="row live-description mb-3">
                                 <div class="col-10 wrap-live-description">
@@ -265,13 +281,18 @@
                                 <label class="span-text-toogle-explicit">Max 150</label>
                             </div>
                             <div class="live-price-minute">
-                                <div class="d-flex align-items-center wrap-live-price-minute col-4">
+                                <div class="d-flex align-items-center wrap-live-price-minute col-12 col-md-4">
                                     <label class="pe-3 span-text-toogle-explicit">Price/minute</label>
-                                    <input type="text" class="form-control" name="priceshow" id="pricecam" placeholder="price">
+                                    <input type="text" class="form-control money-input" name="priceshow" id="pricecam" placeholder="price">
                                 </div>
                             </div>
                             <div class="my-4" style="cursor: pointer;">
                                 <a data-bs-toggle="modal" data-bs-target="#guestModal" class="btn-leave-live" >Invite Guest</a>
+                            </div>
+                            <div class="my-5 d-flex align-items-center preview-cam2cam-guest d-none">
+                                <img id="img-preview-cam2cam-guest"  width="50" height="auto" class="rounded-circle me-3">
+                                <h5 id="username-preview-cam2cam-guest" class="my-auto"></h5>
+                                <i id="check-preview-cam2cam-guest" class="fas fs-3 ms-3 text-success me-auto"></i>
                             </div>
                             <div class="col-3 mt-3">
                                 <button class="btn-publish text-white px-3 py-2">Submit</button>
@@ -280,6 +301,7 @@
                     </div>
                     <!-- End Cam2cam section -->
 
+                    <!-- Start Meeting Room section -->
                     <div id="Meeting" class="wrap-posting tabcontent">
                         <form action="<?=base_url()?>post/simpanmeeting" method="post" id="showmeeting">
                             <input type="hidden" id="meetingcam" name="meetingcam">
@@ -296,15 +318,6 @@
                                     <option value="private">Private</option>
                                 </select>
                             </div>
-                            <!-- <div class="row mb-3">
-                                <div class="col-6">
-                                    <label class="pb-1">Content Type</label>
-                                    <select name="content_type" class="form-select select-live-duration" required>
-                                        <option value="non explicit" selected>Non Explicit Content</option>
-                                        <option value="explicit ">Explicit Content</option>
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="row my-4 d-flex align-items-center">
                                 <div class="col-7 col-md-4">
                                     <input type="radio" id="invite1" name="guestinvite" value="invite" required data-bs-toggle="modal" data-bs-target="#meetingModal">
@@ -319,11 +332,17 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="my-5 d-flex align-items-center preview-meeting-guest d-none">
+                                <img id="img-preview-meeting-guest"  width="50" height="auto" class="rounded-circle me-3">
+                                <h5 id="username-preview-meeting-guest" class="my-auto"></h5>
+                                <i id="check-preview-meeting-guest" class="fas fs-3 ms-3 text-success me-auto"></i>
+                            </div>
                             <div class="col-3">
                                 <button class="btn-publish text-white px-3 py-2">Submit</button>
                             </div>
                         </form>
                     </div>
+                    <!-- End Meeting Room section -->
                     <div id="progressbar-wrapper" class="fixed-top d-none">
                         <div class="progress" id="progressbar" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                             <div class="progress-bar progress-bar-striped bg-success" id="progress-bar" style="width: 00%"></div>
@@ -364,6 +383,55 @@
     </div>
 </div>
 
+
+
+<div class="modal fade" id="tuieditor" tabindex="-1" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h1 class="modal-title fs-5 text-white" id="setprice">Edit Image</h1> -->
+                    <div>
+                        <img src="<?= base_url()?>assets/img/new-ciak/logo.png" width="70" class="img-fluid" alt="logo">
+                    </div>
+                    <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body body-post-setprice" style="height: 80vh;">
+                    <div class="h-100 col-12 col-xl-8 mx-auto">
+                        <div id="tui-image-editor-container"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="tui-image-editor-download-btn">Finish</button>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Set Price Subcription -->
+<?php if(($get_price->sub7 == '0.00') && ($get_price->sub30 == '0.00') && 
+        ($get_price->sub365 == '0.00') && ($get_price->trial == '0.00') &&
+        ($get_price->trial_long == '0')){
+?>
+    <div class="modal fade" id="setprice_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-white" id="setprice">Warning</h1>
+                    <!-- <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body body-post-setprice">
+                    <div class="col-12 text-center text-white">
+                        You must set subscription pricing before you post a private post.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="<?=base_url()?>profile/setting_profile#subcription" class="btn-main-green">Set Price</a>
+                </div>
+        </div>
+    </div>
+    </div>
+<?php }?>
+
 <!-- Modal For Image Post -->
 <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -376,7 +444,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Cam2cam Invite Guest-->
 <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -391,8 +459,8 @@
                         <?php 
                             $i=1;
                             foreach ($follower as $dt){?>
-                                <div class="people px-4">
-                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="$('#guestcam').val('<?=$dt->id?>')" data-bs-dismiss="modal">
+                                <div class="people people-cam2cam<?= $dt->id?> px-4">
+                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')" data-bs-dismiss="modal">
                                         <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
                                         <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
                                     </a>
@@ -406,7 +474,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Meeting Room Invite Guest-->
 <div class="modal fade" id="meetingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -422,8 +490,8 @@
                             $i=1;
                             foreach ($follower as $dt){?>
                                 
-                                <div class="people px-4">
-                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="$('#meetingcam').val('<?=$dt->id?>');$('#invite1').attr('checked','checked')" data-bs-dismiss="modal">
+                                <div class="people people-cam2cam<?= $dt->id?> px-4">
+                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')" data-bs-dismiss="modal">
                                         <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
                                         <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
                                     </a>

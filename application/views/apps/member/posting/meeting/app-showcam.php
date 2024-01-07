@@ -17,8 +17,8 @@
     <div class="col-12">
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
-                <button id="btnopen" class="btn btn-main-green mx-2">Start</button>
-                <button id="btncamera" class="btn btn-main-green mx-2">
+                <button id="btnopen" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2">Start</button>
+                <button id="btncamera" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2">
                     <i id="offonvid" class="fas fa-video-slash"></i>
                     Hide Camera
                 </button>
@@ -46,7 +46,7 @@
                 <hr>
                 <strong>Do You Want to join?</strong>
             </div>
-            <button id="btnconfirm" class="btn btn-main-green col-lg-8 m-1 mt-">Confirm</button>            
+            <button id="btnconfirm" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> col-lg-8 m-1 mt-">Confirm</button>            
         </div>
       </div>
       <div class="modal-footer">

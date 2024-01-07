@@ -26,15 +26,15 @@
                 <form action="<?=base_url()?>profile/savesubscription" method="post">
                     <div class="mb-3 ciak-data-input">
                         <label for="weekly" class="form-label">Weekly</label>
-                        <input type="text" class="form-control" name="weekly" id="weekly" value="<?=(empty($pricing->sub7)) ? 0 :$pricing->sub7; ?>">
+                        <input type="text" class="form-control money-input" name="weekly" id="weekly" value="<?=(empty($pricing->sub7)) ? 0 :$pricing->sub7; ?>">
                     </div>
                     <div class="mb-3 ciak-data-input">
                         <label for="monthly" class="form-label">Monthly</label>
-                        <input type="text" class="form-control" name="monthly" id="monthly" value="<?=(empty($pricing->sub30)) ? 0 :$pricing->sub30; ?>">
+                        <input type="text" class="form-control money-input" name="monthly" id="monthly" value="<?=(empty($pricing->sub30)) ? 0 :$pricing->sub30; ?>">
                     </div>
                     <div class="mb-3 ciak-data-input">
                         <label for="yearly" class="form-label">Yearly</label>
-                        <input type="text" class="form-control" name="yearly" id="yearly" value="<?=(empty($pricing->sub365)) ? 0 :$pricing->sub365; ?>">
+                        <input type="text" class="form-control money-input" name="yearly" id="yearly" value="<?=(empty($pricing->sub365)) ? 0 :$pricing->sub365; ?>">
                     </div>
     
                     <div class="mb-3 ciak-check d-flex flex-row">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="mb-3 ciak-data-input">
                             <label for="yearly" class="form-label">Trial Amount</label>
-                            <input type="text" class="form-control" id="trialamount" name="trialamount" value="<?=(empty($pricing->trial)) ? 0 :$pricing->trial; ?>">
+                            <input type="text" class="form-control money-input" id="trialamount" name="trialamount" value="<?=(empty($pricing->trial)) ? 0 :$pricing->trial; ?>">
                         </div>
                     </div>
                     <div class="mb-3 ciak-data-input d-grid gap-2 pt-3">

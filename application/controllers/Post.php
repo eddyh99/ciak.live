@@ -17,12 +17,14 @@
       - payspecial      : Proses untuk membeli Postingan type special
       - paydownload     : Proses untuk membeli Postingan type download
       - givetips        : Proses untuk memberikan tip kepada member lain
+      - savesubscription: Proses untuk mengatur subscription member
 
 
 
         
 ------------------------------------------------------------*/ 
 defined('BASEPATH') or exit('No direct script access allowed');
+use Maestroerror\HeicToJpg;
 
 class Post extends CI_Controller
 {
@@ -44,9 +46,13 @@ class Post extends CI_Controller
         }
 
 
-		$result = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
-        $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
+		$result     = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        $following  = apiciaklive(URLAPI . "/v1/member/follow/getlist_following")->message;
         $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
+        $get_price  = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
+        // echo "<pre>".print_r($get_price,true)."</pre>";
+        // print_r(json_encode($get_price));
+		// die;
         // $vsdata = $this->session->flashdata('vs_data');
 
         $data = array(
@@ -54,6 +60,7 @@ class Post extends CI_Controller
             'profile'       => $result,
             'following'     => @$following,
             'follower'      => @$follower,
+            'get_price'     => $get_price,
             // 'stitch'        => $vsdata,                 
             'content'       => 'apps/member/posting/app-posting',
             'cssextra'      => 'apps/member/posting/css/_css_index',
@@ -61,7 +68,13 @@ class Post extends CI_Controller
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }
-
+    
+    public function convert_heic(){
+        $image  = $_FILES["image"]["tmp_name"];
+        $heictojpg = new Maestroerror\HeicToJpg(); 
+        $jpg = $heictojpg->convert($image)->get();
+        echo 'data:image/jpg;base64,' . base64_encode($jpg);
+    }
 
     public function upload_images()
     {
@@ -96,7 +109,9 @@ class Post extends CI_Controller
                 array_push($blob, $temp);
             }
         }
-        
+
+
+
         $is_attach_video="no";
         if (!empty($video)){
             $is_attach_video="yes";
@@ -155,11 +170,13 @@ class Post extends CI_Controller
                 "content"       => @$blob,
                 "content_type"  => $_SESSION["content_type"]
             );
-        
+
             
         $url = URLAPI . "/v1/member/post/add";
         $result = apiciaklive($url,json_encode($mdata));
             
+        // print_r(json_encode($result));
+        // die;
 
 		if (@$result->code!=200){
 		    $message=array(
@@ -178,18 +195,18 @@ class Post extends CI_Controller
 
     public function editpost($id)
     {
-        $post_id   = $this->security->xss_clean($id);
-        $url        = URLAPI . "/v1/member/post/get_singlepost?post_id=".$id;
-	    $result     = apiciaklive($url)->message;
+        $post_id        = $this->security->xss_clean($id);
+        $result_post    = apiciaklive(URLAPI . "/v1/member/post/get_singlepost?post_id=".$id)->message;
+        // print_r(json_encode($result_post));
+		// die;
 
-        // echo "<pre>".print_r($result,true)."</pre>";
-        // die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Edit Post' ,
             'content'       => 'apps/member/posting/edit/index',
             // 'popup'         => 'apps/member/app-popup-single',
-            'edit'          => $result,
+            'edit'          => $result_post,
+            'post_id'       => $post_id,
             'cssextra'      => 'apps/member/posting/css/_css_index',
             'extra'         => 'apps/member/posting/edit/js/_js_index',
         );
@@ -197,22 +214,139 @@ class Post extends CI_Controller
 
         $this->load->view('apps/template/wrapper-member', $data);
     }
+
+    public function saveEdit()
+    {
+        $input      = $this->input;
+        $post_id    = $this->security->xss_clean($this->input->post("post_id"));
+        $title      = $this->security->xss_clean($this->input->post("title_article"));
+        $post    = $this->security->xss_clean($this->input->post("post"));
+        $type       = $this->security->xss_clean($this->input->post("tipe"));
+        $price      = $this->security->xss_clean($this->input->post("price"));
+        $content_type      = $this->security->xss_clean($this->input->post("content_type"));
+
+        $files  = @$_FILES['image'];
+        $video  = @$_FILES['video'];
+        $attach  = @$_FILES['attach'];
+        
+        // $id_stitch  = $this->security->xss_clean($this->input->post("stitch"));
+
+
+        $is_attach_gbr="no";
+        if (!empty($files)){
+            $is_attach_gbr="yes";
+            $attach_type="image";
+            $blob=array();
+            foreach ($files['name'] as $key => $image) {
+                $temp   = curl_file_create($files['tmp_name'][$key],$files['type'][$key]);
+                array_push($blob, $temp);
+            }
+        }
+
+
+
+        $is_attach_video="no";
+        if (!empty($video)){
+            $is_attach_video="yes";
+            $attach_type="video";
+            $blob=array();
+            foreach ($video['name'] as $key => $image) {
+                $temp   = curl_file_create($video['tmp_name'][$key],$video['type'][$key]);
+                array_push($blob, $temp);
+            }
+        }
+
+        $is_attach="no";
+        if (!empty($attach)){
+            $is_attach="yes";
+            $attach_type="attach";
+            $blob=array();
+            foreach ($attach['name'] as $key => $image) {
+                $temp   = curl_file_create($attach['tmp_name'][$key],$attach['type'][$key]);
+                array_push($blob, $temp);
+            }
+        }
+        
+
+        if ($is_attach=="no" && $is_attach_gbr=="no" && $is_attach_video=="no" && empty($post)){
+     	     $message=array(
+	            "success"   => false,
+	            "message"   => "No Post Content"
+	        );
+	        echo json_encode($message);
+	        return;
+        }
+
+        
+        //convert url to clickable       
+        $pattern = '/((ftp|http|https):\/\/)?([a-z_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/';
+        $post = preg_replace_callback($pattern, function($matches){
+                    if (!preg_match("~^(?:f|ht)tps?://~i", $matches[0])) {
+                        $url = "https://" . $matches[0];
+                    }else{
+                    	$url =$matches[0];
+                    }
+                    $link='<a href="'.$url.'" class="link" target="_blank" title="'.$url.'">'.$url.'</a>';
+                    return $link;
+                }, $post);
+
+        //$post=preg_replace('/((ftp|http|https):\/\/)?([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/', '<a href="$0" target="_blank" title="$0">$0</a>', $post);
+        
+
+        $mdata=array(
+            "post_id"       => $post_id,
+            "title_article" => empty($title) ? null : $title,
+            "article"       => $post,
+            "type"          => $type,
+            "price"         => $price,
+            "attach_type"   => @$attach_type,
+            // "id_stitch"     => (!empty($id_stitch)) ? $id_stitch : null,
+            "content"       => @$blob,
+            "content_type"  => 'non explicit'
+        );
+
+        $url = URLAPI . "/v1/member/post/update";
+        $result = apiciaklive($url,json_encode($mdata));
+        
+        print_r(json_encode($result));
+		die;
+    }
     
     public function simpanlive(){
-        /**tolong di isi validasi set rules
-        rule nya :
-            1. jika pilih_price = 'free' => priceshow = 0
-            2. jika pilih_price = 'ticket'  => durasi harus diisi dan priceshow >= 0.5
-            3. jika pilih_price = 'minutes' => durasi boleh kosong dan priceshow >=0.5
-        **/
+        $input          = $this->input;
+        $content_type   = $this->security->xss_clean($this->input->post("content_type"));
+
+        $this->form_validation->set_rules('time', 'Time', 'trim|required');
+        $this->form_validation->set_rules('selection', 'Post Type', 'trim|required');
+        $this->form_validation->set_rules('pilih_price', 'Price Type', 'trim|required');
+        $this->form_validation->set_rules('durasi', 'Duration', 'trim|required');
+        $this->form_validation->set_rules('deskripsi', 'Description', 'trim|required');
         
-        $time   = $this->security->xss_clean($this->input->post("time"));
+        if($this->security->xss_clean($this->input->post("time")) == 'schedule'){
+            $this->form_validation->set_rules('schedule', 'Schedule Live Show', 'trim|required');
+        }
+
+        if($this->security->xss_clean($this->input->post("pilih_price")) == 'ticket' || $this->security->xss_clean($this->input->post("pilih_price")) == 'minutes'){  
+            $this->form_validation->set_rules('priceshow', 'Price', 'trim|required');
+        }
+
+        if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', $this->response->error_msg(validation_errors()));
+            redirect("post?type=".$content_type);
+			return;
+		}
+
+        $time       = $this->security->xss_clean($this->input->post("time"));
         $schedule   = $this->security->xss_clean($this->input->post("schedule"));
         $selection  = $this->security->xss_clean($this->input->post("selection"));
         $pilih_price= $this->security->xss_clean($this->input->post("pilih_price"));
         $priceshow  = $this->security->xss_clean($this->input->post("priceshow"));
         $durasi     = $this->security->xss_clean($this->input->post("durasi"));
         $deskripsi  = $this->security->xss_clean($this->input->post("deskripsi"));
+
+        // echo "<pre>".print_r($debdata,true)."</pre>";
+		// die;
+        
 
         if (empty($schedule)){
             $post_time=date("Y-m-d H:i");
@@ -273,7 +407,19 @@ class Post extends CI_Controller
     
     public function simpancam(){
         /**tolong di isi validasi set rules**/
-        
+
+        $input      = $this->input;
+        $content_type   = $this->security->xss_clean($this->input->post("content_type"));
+
+        $this->form_validation->set_rules('guestcam', 'Guest Cam2Cam', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', $this->response->error_msg(validation_errors()));
+            redirect("post?type=".$content_type);
+			return;
+		}
+
+        $input      = $this->input;
         $priceshow  = $this->security->xss_clean($this->input->post("priceshow"));
         $deskripsi  = $this->security->xss_clean($this->input->post("deskripsi"));
         $guestcam   = $this->security->xss_clean($this->input->post("guestcam"));
@@ -290,6 +436,9 @@ class Post extends CI_Controller
                 "article"       => $message,
                 "guestcam"      => $guestcam
             );
+
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+		// die;
 
         $url = URLAPI . "/v1/member/post/performcam";
 		$result = apiciaklive($url,json_encode($mdata));
@@ -324,13 +473,14 @@ class Post extends CI_Controller
         }
 
         $mdata=array(
-                "start_time"    => $post_time,
-                "content_type"  => $_SESSION["content_type"],
-                "article"       => $message,
-                "guestcam"      => $guestcam,
-                "meeting_type"  => $meetingtype
-            );
-
+            "start_time"    => $post_time,
+            "content_type"  => $_SESSION["content_type"],
+            "article"       => $message,
+            "guestcam"      => $guestcam,
+            "meeting_type"  => $meetingtype
+        );
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+		// die;
             
         $url = URLAPI . "/v1/member/post/performmeeting";
         $result = apiciaklive($url,json_encode($mdata));
@@ -453,10 +603,13 @@ class Post extends CI_Controller
                 "amount"    => $amount
             );
             
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+        // die;
 
         $url = URLAPI . "/v1/member/post/post_tips";
         $result = @apiciaklive($url,json_encode($mdata));
         // echo "<pre>".print_r($result,true)."</pre>";
+        // print_r(json_encode($result));
         // die;
 
         if (@$result->code!=200||@$result->status==400){
@@ -477,6 +630,35 @@ class Post extends CI_Controller
         }
     }
 
+    public function savesubscription()
+    {
+
+        $this->form_validation->set_rules('weekly', 'Weekly', 'trim');
+        $this->form_validation->set_rules('monthly', 'Monthly', 'trim');
+        $this->form_validation->set_rules('yearly', 'Yearly', 'trim');
+        $this->form_validation->set_rules('is_trial', 'Is Trial', 'trim');
+        $this->form_validation->set_rules('triallong', 'Trial long', 'trim');
+        $this->form_validation->set_rules('trialamount', 'Trial Amount', 'trim');
+
+
+        $input      = $this->input;
+        $weekly     = $this->security->xss_clean($this->input->post("weekly"));
+        $monthly    = $this->security->xss_clean($this->input->post("monthly"));
+        $yearly     = $this->security->xss_clean($this->input->post("yearly"));
+        $triallong  = $this->security->xss_clean($this->input->post("triallong"));
+        $trialamount= $this->security->xss_clean($this->input->post("trialamount"));
+
+        $mdata=array(
+            "userid"    => $_SESSION["user_id"],
+            "sub7"      => $weekly,
+            "sub30"     => $monthly,
+            "sub365"    => $yearly,
+            "trial"     => $trialamount,
+            "trial_long"=> $triallong,
+        );
+        $result =  apiciaklive(URLAPI . "/v1/member/subscription/setSubscription", json_encode($mdata));
+        echo json_encode($result);
+    }
 
 
     

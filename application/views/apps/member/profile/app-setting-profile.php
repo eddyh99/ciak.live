@@ -61,7 +61,7 @@
                                     </defs>
                                 </svg>
                             </label>
-                            <input type="file" name="upload_banner" id="upload_banner" class="upload_banner" hidden accept=".png, .jpg, .jpeg">
+                            <input type="file" name="upload_banner" id="upload_banner" class="upload_banner" hidden accept=".png, .jpg, .jpeg, .heic">
                         </form>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                                     </label>
                                     <img src="<?=@$profile->profile ?>" class="rounded-circle img-pp-setting">
 
-                                    <input type="file" name="upload_image" class="upload_image" id="upload_image" hidden accept=".png, .jpg, .jpeg">
+                                    <input type="file" name="upload_image" class="upload_image" id="upload_image" hidden accept=".png, .jpg, .jpeg, .heic">
                                 </form>
                             </div>
                             <label id="text-change" for="upload_image" class="change-profile image">Change Picture</label>
@@ -142,7 +142,12 @@
                             <label for="phone" class="form-label">Contacts</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="<?=@$profile->contact?>">
                         </div>
-        
+
+                        <!-- Start Settings -->
+                        <div class="w-auto">
+                            <h3>Settings</h3>
+                            <hr>
+                        </div>
                         <div class="mb-3 ciak-check d-flex flex-row">
                             <div class="d-flex flex-column col-8">
                                 <span>Enable Comment</span>
@@ -150,7 +155,7 @@
                                     will be written.</p>
                             </div>
                             <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
-                                <input class="form-check-input" name="comment" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_comment=='yes') ? "checked":"" ?>>
+                                <input class="form-check-input" name="comment" type="checkbox" role="switch" id="enableComment" value="yes" <?php echo (@$profile->is_comment=='yes') ? "checked":"" ?>>
                             </div>
                         </div>
 
@@ -180,6 +185,59 @@
                                 <input class="form-check-input" name="sharecontact" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$profile->is_kontakshare=='yes') ? "checked":"" ?>>
                             </div>
                         </div>
+
+                        <div id="subcription" class="biodata mt-5 pt-5 mb-5 pb-4">
+                            <div class="w-auto">
+                                <h3>Settings subscription prices</h3>
+                                <hr>
+                            </div>
+                            <form id="formsetsubs" method="POST">
+                                <div class="mb-3 ciak-data-input">
+                                    <label for="weekly" class="form-label">Weekly</label>
+                                    <input type="text" class="form-control" name="weekly" id="weekly" value="<?=(empty($pricing->sub7)) ? 0 :$pricing->sub7; ?>">
+                                </div>
+                                <div class="mb-3 ciak-data-input">
+                                    <label for="monthly" class="form-label">Monthly</label>
+                                    <input type="text" class="form-control" name="monthly" id="monthly" value="<?=(empty($pricing->sub30)) ? 0 :$pricing->sub30; ?>">
+                                </div>
+                                <div class="mb-3 ciak-data-input">
+                                    <label for="yearly" class="form-label">Yearly</label>
+                                    <input type="text" class="form-control" name="yearly" id="yearly" value="<?=(empty($pricing->sub365)) ? 0 :$pricing->sub365; ?>">
+                                </div>
+                
+                                <div class="mb-3 ciak-check d-flex flex-row">
+                                    <div class="d-flex flex-column col-8">
+                                        <span>Trial Subscription</span>
+                                    </div>
+                                    <div class="form-check form-switch col p-0 d-flex justify-content-end align-items-center">
+                                        <input class="form-check-input" id="is_trial" name="is_trial" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes" <?php echo (@$pricing->trial_long>0) ? "checked":"" ?>>
+                                    </div>
+                                </div>
+                                <div id="trial">
+                                    <div class="mb-3 ciak-data-input">
+                                        <label for="yearly" class="form-label">Trial</label>
+                                        <select name="triallong" class="form-select">
+                                            <option value="1">1 day</option>
+                                            <option value="2">2 days</option>
+                                            <option value="3">3 days</option>
+                                            <option value="4">4 days</option>
+                                            <option value="5">5 days</option>
+                                            <option value="6">6 days</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 ciak-data-input">
+                                        <label for="yearly" class="form-label">Trial Amount</label>
+                                        <input type="text" class="form-control" id="trialamount" name="trialamount" value="<?=(empty($pricing->trial)) ? 0 :$pricing->trial; ?>">
+                                    </div>
+                                </div>
+                                <div class="mb-3 ciak-data-input d-grid gap-2 pt-3">
+                                    <button id="btnSubs" class="btn-setsubs fw-bolder">Promote your subscription</button>
+                                </div>
+                
+                            </form>
+                        </div>
+        
+               
         
                         <div class="mb-3 ciak-connect d-flex flex-row justify-content-center align-items-center">
                             <h4 class="text-center">Connect your social platform to start share live real time</h4>
@@ -263,7 +321,7 @@
 
                             <!-- INSTAGRAM RTMP -->
                             <div class="bg-live-connect">
-                                <a href="" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                <a href="<?= base_url()?>profile/instagram_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
                                     <div class="ps-4">
                                         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_2655_14464)">

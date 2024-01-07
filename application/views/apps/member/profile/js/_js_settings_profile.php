@@ -2,6 +2,7 @@
 <script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
 
 <script>
+    
 /*----------------------------------------------------------
 Modul Name  : _js_settings_profile
 Desc        : Modul ini di digunakan untuk melakukan 
@@ -21,6 +22,7 @@ Desc        : Modul ini di digunakan untuk melakukan
  * 8. Rating Profile
  * 9. GSAP Scroll Trigger
  * 10. Toggle for Content Explicit
+ * 11. Save Subscription
  */
 
 /*----------------------------------------------------------
@@ -58,28 +60,45 @@ toDataURL("<?=$profile->profile?>", function(dataUrl) {
 
 $('#upload_image').change(function(event){
     let files = event.target.files;
-    let done = function(url){
-        crop_image.src = url;
-        $modal.modal('show');
-    }
-    
-    if(files && files.length > 0){
-        reader = new FileReader();
-        reader.onload = function(event){
-                done(reader.result);
+    var ext = $("#upload_image").val().split('.')[1].toLowerCase();
+    if (ext=="heic"){
+        formdata = new FormData();
+        formdata.append('image', files[0]); 
+        $.ajax({
+            url: "<?=base_url()?>profile/convert_heic",
+            type: "post",
+            contentType: false,
+            processData:false,  
+            data: formdata,
+            success: function(data) {
+                crop_image.src = data;
+                $modal.modal('show');
+            }
+        });
+    }else{
+        let done = function(url){
+            crop_image.src = url;
+            $modal.modal('show');
         }
-        reader.readAsDataURL(files[0]);
-    }        
+        
+        if(files && files.length > 0){
+            reader = new FileReader();
+            reader.onload = function(event){
+                done(reader.result);
+            }
+            reader.readAsDataURL(files[0]);
+        }        
+    }
 
 });
 
 
 $modal.on('shown.bs.modal', function(){
-        cropper = new Cropper(crop_image, {
-            aspectRatio: 1,
-            viewMode: 1,
-            preview: '.preview',
-        });
+    cropper = new Cropper(crop_image, {
+        aspectRatio: 1,
+        viewMode: 1,
+        preview: '.preview',
+    });
     }).on('hidden.bs.modal', function() {
         cropper.destroy();
         cropper = null;
@@ -125,19 +144,50 @@ toDataURL("<?=$profile->header?>", function(dataUrl) {
 
 
 $('#upload_banner').change(function(event){
-    let files = event.target.files;
-    let done = function(url){
-        crop_image_banner.src = url;
-        $modal_banner.modal('show');
-    }
+    // let files = event.target.files;
+    // let done = function(url){
+    //     crop_image_banner.src = url;
+    //     $modal_banner.modal('show');
+    // }
     
-    if(files && files.length > 0){
-        reader = new FileReader();
-        reader.onload = function(event){
-            done(reader.result);
+    // if(files && files.length > 0){
+    //     reader = new FileReader();
+    //     reader.onload = function(event){
+    //         done(reader.result);
+    //     }
+    //     reader.readAsDataURL(files[0]);
+    // }   
+    
+    let files = event.target.files;
+    var ext = $("#upload_banner").val().split('.')[1].toLowerCase();
+    if (ext=="heic"){
+        formdata = new FormData();
+        formdata.append('image', files[0]); 
+        $.ajax({
+            url: "<?=base_url()?>profile/convert_heic",
+            type: "post",
+            contentType: false,
+            processData:false,  
+            data: formdata,
+            success: function(data) {
+                crop_image_banner.src = data;
+                $modal_banner.modal('show');
+            }
+        });
+    }else{
+        let done = function(url){
+            crop_image_banner.src = url;
+            $modal_banner.modal('show');
         }
-        reader.readAsDataURL(files[0]);
-    }        
+        
+        if(files && files.length > 0){
+            reader = new FileReader();
+            reader.onload = function(event){
+                done(reader.result);
+            }
+            reader.readAsDataURL(files[0]);
+        }        
+    }
 
 });
 
@@ -190,14 +240,12 @@ $('#pp-crop-cancel-banner').click(function(){
 $("#confirmupdate").on("click",function(e){
     e.preventDefault();
     $('#load-edit-profile').show();
-    // console.log("CLICK");
     $.ajax({
         url: "<?= base_url() ?>profile/saveprofile",
         type: "post",
         data: "imgpp="+btoa(localStorage.getItem('image-pp'))+"&imgbanner="+btoa(localStorage.getItem('image-banner'))+"&"+$("#frmprofile").serialize(),
         success: function (response) {
             var data=JSON.parse(response);
-            console.log(data);
             if (data.success==true){
                 window.location.href = '<?=base_url()?>profile';
             }
@@ -539,11 +587,10 @@ $(document).ready(function () {
 10. Toggle for Content Explicit Start
 ------------------------------------------------------------*/
 
-const   bodyContentHome = document.querySelector("body"),
-modeToggleContentHome = body.querySelector(".mode-toggle-content");
+const bodyContentHome = document.querySelector("body")
+const modeToggleContentHome = body.querySelector(".mode-toggle-content");
     
-
-modeToggleContentHome.addEventListener("click", () =>{
+$('.mode-toggle-content').click(function(){
     if(localStorage.getItem("explicit") === 'yes'){
         // console.log('explicit')
         window.location = '<?= base_url()?>profile/get_content_type?type=explicit'
@@ -553,11 +600,87 @@ modeToggleContentHome.addEventListener("click", () =>{
         window.location = '<?= base_url()?>profile/get_content_type?type=non'
         
     }
-});
+})
+// modeToggleContentHome.addEventListener("click", () =>{
+//     if(localStorage.getItem("explicit") === 'yes'){
+//         // console.log('explicit')
+//         window.location = '<?= base_url()?>profile/get_content_type?type=explicit'
+        
+//     }else if(localStorage.getItem("explicit") === 'no'){
+//         // console.log('NON')
+//         window.location = '<?= base_url()?>profile/get_content_type?type=non'
+        
+//     }
+// });
 /*----------------------------------------------------------
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
 
+/*----------------------------------------------------------
+11. Save Subscription Start
+------------------------------------------------------------*/
+if ($("#is_trial").is(":checked")){
+    $("#trial").show();        
+}else{
+    $("#trial").hide();
+}
+
+$("#is_trial").on("change",function(e){
+    if ($("#is_trial").is(":checked")){
+        $("#trial").show();        
+    }else{
+        $("#trial").hide();
+    }
+})
+
+$(document).ready(function(){
+    $('#btnSubs').click(function(e){
+        e.preventDefault();
+
+        var formData = {
+            weekly: $("#weekly").val(),
+            monthly: $("#monthly").val(),
+            yearly: $("#yearly").val(),
+            is_trial: $("#is_trial").val(),
+            triallong: $("#triallong").val(),
+            trialamount: $("#trialamount").val(),
+        };
+
+        $.ajax({
+            url: '<?=base_url()?>profile/savesubscription',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                let ress = JSON.parse(response)
+                if(ress.code == '200'){
+                    Swal.fire({
+                        text: 'Setting Subscription Successfully',
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                    });
+                }else{
+                    Swal.fire({
+                        text: 'Setting Subscription Error',
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top'
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        })
+    })
+})
+/*----------------------------------------------------------
+11. Save Subscription End
+------------------------------------------------------------*/
 
 
 </script>

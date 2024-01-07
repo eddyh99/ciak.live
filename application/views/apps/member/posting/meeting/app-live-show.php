@@ -47,7 +47,7 @@
             </ul>
         </div>
         <div class="modal-footer ">
-            <button type="button" id="startlive" class="btn-main-green">Start Stream</button>
+            <button type="button" id="startlive" class="<?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?>">Start Stream</button>
         </div>
         </div>
     </div>
@@ -67,17 +67,19 @@
             <!--<div id="onUserStatusChanged"></div>-->
             <div id="broadcast-viewers-counter" class="text-white d-flex justify-content-between pb-3">
                 <div>Online Viewers: <span class="count-viewer">0</span></div>
-                <div class="send-tips-livestream me-5">
-                   <a class="btn-upload-image">
-                        <i class="fa-solid fa-euro-sign"></i>
-                   </a>
-                </div>
+                <?php if($room->id_member != $_SESSION['user_id']){?>
+                    <div class="send-tips-livestream me-5" style="cursor: pointer;">
+                        <a class="<?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?>" data-bs-toggle="modal" data-bs-target="#sendTips">
+                                <i class="fa-solid fa-euro-sign"></i>
+                        </a>
+                    </div>
+                <?php }?>
             </div>
             <div id="conversation-panel" class="col-lg-12 main-live-chating"></div>
             <div class="d-flex align-items-center mx-4">
-                <input type="text" class="form-control input-live-show-chating"  id="txt-chat-message" disabled placeholder="live chat...">
+                <input type="text" class="form-control input-live-show-chating <?php echo ($content_type == 'explicit') ? 'explicit' : ''?>"  id="txt-chat-message" disabled placeholder="live chat...">
                 <button class="btn btn-emoji ms-2" id="btn-emoji-livestream" disabled><i class="fas fa-icons"></i></button>
-                <button class="btn btn-main-green ms-2" id="btn-chat-message" disabled>Send</button>
+                <button class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> ms-2" id="btn-chat-message" disabled>Send</button>
             </div>
         </div>
     </div>
@@ -85,44 +87,27 @@
         <div class="row">
             <div class="col-12 ms-4 mb-5 d-flex">
                 <a href="<?=base_url()?>homepage" class="btn btn-leave-live">Leave</a>
-                <button id="btnopen" class="btn btn-main-green mx-2">Start</button>
-                <!-- <div class="dropdown" id="connectlive">
-                    <button class="btn btn-main-green dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Connect Live
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item connect-live">
-                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
-                                <span>
-                                    Facebook
-                                </span>
-                            </div>
-                        </li>
-                        <li class="dropdown-item connect-live">
-                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
-                                <span>
-                                    Instagram
-                                </span>
-                            </div>
-                        </li>
-                        <li class="dropdown-item connect-live">
-                            <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                                <input class="form-check-input" name="livefacebook" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="yes">
-                                <span>
-                                    Youtube
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div> -->
+                <a data-bs-toggle="modal" data-bs-target="#addModerator" class="addModerator-class btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2  "> <i class="fa-solid fa-users me-2"></i>Add Moderator</a>
+                <button id="btnopen" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2">Start</button>
             </div>
         </div>
     </div>
+    <div>
+        <button id="adduser">adduser</button>
+        <table id="memberjoin" style="color:white">
+            <thead>
+                <tr>
+                    <th>asd</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Confirm Join-->
+<?php if($room->id_member != $_SESSION['user_id']){?>
 <div class="modal" id="confirmjoin" style="z-index:99">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -140,11 +125,73 @@
                 <hr>
                 <strong>Do You Want to join?</strong>
             </div>
-            <button id="btnconfirm" class="btn btn-main-green col-lg-8 m-1 mt-2">Confirm</button>            
+            <button id="btnconfirm" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> col-lg-8 m-1 mt-2">Confirm</button>            
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php }?>
+
+<!-- Modal Send Tips-->
+<div class="modal" id="sendTips" style="z-index:99">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <!-- <h1 class="modal-title fs-5 text-white" id="setprice">Subscription Settings</h1> -->
+            <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      <div class="modal-body">
+        <div class="row p-2 d-flex justify-content-center text-center">
+            <div class="col-4">
+                <img src="<?= base_url()?>assets/img/new-ciak/logo.png" id="imgprofilep" height="100px" width="100px" style="object-fit:cover">
+            </div>
+        </div>
+        <hr>
+        <div class="row mt-5 mb-3 ms-2 me-2 d-flex justify-content-center">
+            <form id="frmsendtips" method="POST" class="d-flex flex-column" onsubmit="return false;">
+                <div class="row col-lg-12 justify-content-center text-center text-white">
+                    <h4>Send Tips</h4>
+                    <input type="hidden" name="owner_post" value="<?= $room->id_member?>">
+                    <label for="amount">Amount</label>
+                    <input type="text" name="amount" id="amount" placeholder="0.00 XEUR" value="0.5" class="rounded border-1 border-white bg-transparent text-white form-control money-input">
+                </div>
+                <button id="btnconfirm" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> col-lg-8 m-1 mt-2">Confirm</button>            
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Add Moderator-->
+<div class="modal fade" id="addModerator" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-white d-flex justify-content-center gap-2">
+            <div class="row col-10">
+                <div class="apps-member col-12 mx-auto ">
+                    <div class="d-flex justify-content-center mt-4 search-input-guest ">
+                        <input type="text" name="search_data_invt" id="search_data_invt" class="form-control <?php echo ($content_type == 'explicit') ? 'search_data_invtnon' : 'search_data_invtnon'?> " placeholder="Search minimun 3 character...">
+                    </div>
+                    <div id="suggestionslist"></div>
+                    <div class="list-people mt-5 mb-on-botbar">
+                        <?php 
+                            $i=1;
+                            foreach ($follower as $dt){?>
+                                <div class="people people-cam2cam<?= $dt->id?> px-4">
+                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')" data-bs-dismiss="modal">
+                                        <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
+                                        <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
+                                    </a>
+                                </div>
+                        <?php $i++;}?>
+                    </div>
+                </div>
+            </div>
       </div>
     </div>
   </div>

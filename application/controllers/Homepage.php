@@ -6,14 +6,10 @@
                   atau halaman beranda
 
     Sub fungsi  : 
-    - index    	        :   Menampikan semua postingan yang ada, 
-                            melakukan follow kepada member lain di header beranda
-                            menampilkan notification terkait follow,like,love,dll,
-                            menampilkan notifikasi chating.
-    - load_more         :   Infite Scroll max page post.
-    - recomend_friends  :   Recomend member ketika pertama kali login.
-    - get_content_type  :   Direct segment dengan cookie 
-                            untuk mendapatkan content explicit dan non 
+    - index    	        : Tampilan halaman beranda member ciak
+    - load_more         : Proses Infite Scroll load page.
+    - recomend_friends  : Tampilan Recomend member ketika pertama kali login.
+    - get_content_type  : Proses Direct segment dengan cookie untuk mendapatkan content explicit dan non 
 ------------------------------------------------------------*/ 
 
 
@@ -37,7 +33,7 @@ class Homepage extends CI_Controller
         $maxpage = apiciaklive(URLAPI . "/v1/member/post/getmax_page");
 
         //print_r(json_encode($post->message));
-        // echo "<pre>".print_r($post,true)."</pre>";
+        // echo "<pre>".print_r($nonfollow,true)."</pre>";
         // die;
         $data = array(
             'title'         => NAMETITLE . ' - Homepage',
@@ -55,6 +51,11 @@ class Homepage extends CI_Controller
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }
+    
+    public function ceknotif_chat(){
+        $notifmsg = apiciaklive(URLAPI . "/v1/member/notification/chat_notif");
+        echo json_encode($notifmsg);
+    }
 
     public function load_more($id)
     {
@@ -69,34 +70,6 @@ class Homepage extends CI_Controller
             'content' => 'apps/member/app-recomend-friends',
             'popup' => 'apps/member/app-popup',
             'extra' => 'apps/js/js-index',
-        ];
-        $this->load->view('apps/template/wrapper-member', $data);
-    }
-
-    // Dimana berfungsinya ?
-    public function search()
-    {
-        $data = [
-            'title' => NAMETITLE . ' - Search',
-            'content' => 'apps/member/app-search',
-            'botbar' => 'apps/member/app-botbar',
-            'popup' => 'apps/member/app-popup',
-            'post' => 'apps/member/app-posts',
-            'mn_search' => 'active',
-        ];
-        $this->load->view('apps/template/wrapper-member', $data);
-    }
-
-    // Dimana berfungsinya ?
-    public function chat()
-    {
-        $data = [
-            'title' => NAMETITLE . ' - Chats',
-            'content' => 'apps/member/app-chat',
-            'botbar' => 'apps/member/app-botbar',
-            'popup' => 'apps/member/app-popup',
-            'post' => 'apps/member/app-posts',
-            'mn_search' => 'active',
         ];
         $this->load->view('apps/template/wrapper-member', $data);
     }

@@ -5,16 +5,37 @@
                   Member
 
     Sub fungsi  : 
-        - guest_profile     : berfungsi masuk ke dalam profile guest
-        - setting_profile   : berfungsi mengedit profile member
-        - saveprofile       : berfungsi menyimpan hasil edit profil
-        - setting_price     : berfungsi mengedit pada subcription member 
-        - setting_promotion : berfungsi mengedit promosi member
+        - index                     : Tampilan halaman profile
+        - load_more_profile_public  : Infinite load profile type public
+        - load_more_profile_private : Infinite load profile type private
+        - load_more_profile_special : Infinite load profile type special
+        - load_more_profile_download: Infinite load profile type download
+
+        - guest_profile             : berfungsi masuk ke dalam profile guest
+        - load_more_guest_public    : Infinite load guest type public
+        - load_more_guest_private   : Infinite load guest type private
+        - load_more_guest_special   : Infinite load guest type special
+        - load_more_guest_download  : Infinite load guest type download
+
+        - follow            : Proses follow atau unfollow pada guest 
+        - guest_note        : Tampilan halaman guest note
+        - savenote          : proses menyimpan note guest
+        - setting_profile   : Tampilan halaman Edit profile member
+        - saveprofile       : berfungsi proses menyimpan hasil edit profil
+        - setting_price     : berfungsi proses mengedit pada subcription member 
+        - setting_promotion : berfungsi proses mengedit promosi member
         
 ------------------------------------------------------------*/ 
 
 defined('BASEPATH') or exit('No direct script access allowed');
 use gimucco\TikTokLoginKit;
+use Instagram\FacebookLogin\FacebookLogin;
+use Instagram\AccessToken\AccessToken;
+use Instagram\User\User;
+use Instagram\Page\Page;
+use Instagram\User\Media;
+use Instagram\User\MediaPublish;
+
 
 
 class Profile extends CI_Controller
@@ -38,7 +59,7 @@ class Profile extends CI_Controller
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost");
 
 
-        // echo "<pre>".print_r($post,true)."</pre>";
+        // echo "<pre>".print_r($result,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
@@ -55,6 +76,13 @@ class Profile extends CI_Controller
         );
 
         $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function convert_heic(){
+        $image  = $_FILES["image"]["tmp_name"];
+        $heictojpg = new Maestroerror\HeicToJpg(); 
+        $jpg = $heictojpg->convert($image)->get();
+        echo 'data:image/jpg;base64,' . base64_encode($jpg);
     }
 
     public function load_more_profile_public($id)
@@ -85,8 +113,8 @@ class Profile extends CI_Controller
         $this->load->view('apps/member/loadcontent/profile/load-profile-download', $data);
     }
 
-    
-    public function user($ucode=NULL){
+    public function user($ucode=NULL)
+    {
         $url = URLAPI . "/auth/getmember_byucode?ucode=".$ucode;
 		$result = apiciaklive($url);
         //cek if failed arahin halaman 404 untuk login dan ada tombol untuk register/login
@@ -168,7 +196,6 @@ class Profile extends CI_Controller
         $this->load->view('apps/member/loadcontent/guest/load-guest-download', $data);
     }
 
-    
     public function follow(){
         $input      = $this->input;
         $status     = $this->security->xss_clean($this->input->post("status"));
@@ -200,8 +227,6 @@ class Profile extends CI_Controller
 
         $url = URLAPI . "/v1/member/profile/getguestNote?ucode=".$ucode;
 		$result = apiciaklive($url);
-		// print_r($result);
-		// die;
         $data = array(
             'title'         => NAMETITLE . ' - Guest Note',
             'content'       => 'apps/member/profile/guest-note',
@@ -244,14 +269,14 @@ class Profile extends CI_Controller
         
     	$profile = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"]);
         $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
-
-   	    // echo "<pre>".print_r($profile,true)."</pre>";
-        // die;
-        
+        $pricing = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
+        //    echo "<pre>".print_r($pricing,true)."</pre>";
+	    // 	die;
         $data = array(
             'title'         => NAMETITLE . ' - Setting Profile',
             'profile'       => $profile->message,
             'rtmp'          => $rtmp,
+            'pricing'       => $pricing,
             'content'       => 'apps/member/profile/app-setting-profile',
             'popup'         => 'apps/member/app-popup',
             'cssextra'      => 'apps/member/profile/css/_css_settings_profile',
@@ -284,14 +309,17 @@ class Profile extends CI_Controller
             $web            = $this->security->xss_clean($this->input->post("web"));
             $email          = $this->security->xss_clean($this->input->post("email"));
             $phone          = $this->security->xss_clean($this->input->post("phone"));
-            $comment        = $this->security->xss_clean($this->input->post("comment"));
-            $shareprofile   = $this->security->xss_clean($this->input->post("shareprofile"));
-            $shareemail     = $this->security->xss_clean($this->input->post("shareemail"));
-            $sharecontact   = $this->security->xss_clean($this->input->post("sharecontact"));
+            $comment        = @$this->security->xss_clean($this->input->post("comment"));
+            $shareprofile   = @$this->security->xss_clean($this->input->post("shareprofile"));
+            $shareemail     = @$this->security->xss_clean($this->input->post("shareemail"));
+            $sharecontact   = @$this->security->xss_clean($this->input->post("sharecontact"));
             $imgpp          = $this->security->xss_clean($this->input->post("imgpp"));
             $imgbanner      = $this->security->xss_clean($this->input->post("imgbanner"));
 
         }
+
+    //   echo "INI COMMENT : " . $comment;
+
 
         $mdata=array(
                 "userid"    => $_SESSION["user_id"],
@@ -302,15 +330,17 @@ class Profile extends CI_Controller
                 "web"       => $web,
                 "email"     => $email,
                 "contact"   => $phone,
-                "is_comment"=> ($comment=="yes")?"yes":"no",
-                "is_share"  => ($shareprofile=="yes")?"yes":"no",
-                "is_emailshare"     => ($shareemail=="yes")?"yes":"no",
-                "is_kontakshare"    => ($sharecontact=="yes")?"yes":"no",
+                "is_comment"=> (@$comment=="yes")?"yes":"no",
+                "is_share"  => (@$shareprofile=="yes")?"yes":"no",
+                "is_emailshare"     => (@$shareemail=="yes")?"yes":"no",
+                "is_kontakshare"    => (@$sharecontact=="yes")?"yes":"no",
                 "profile"   => $imgpp,
-                "header"    => $imgbanner
+                "header"    => $imgbanner 
             );
             
         
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+        // die;
     	$url = URLAPI . "/v1/member/profile/setProfile";
 		$result = apiciaklive($url,json_encode($mdata));
 
@@ -337,7 +367,7 @@ class Profile extends CI_Controller
     {
     	$url = URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"];
 		$result = apiciaklive($url);
-
+ 
         $url_profile = URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"];
 		$result_profile = apiciaklive($url_profile)->message;
 
@@ -359,7 +389,7 @@ class Profile extends CI_Controller
         $monthly    = $this->security->xss_clean($this->input->post("monthly"));
         $yearly     = $this->security->xss_clean($this->input->post("yearly"));
         $is_trial   = $this->security->xss_clean($this->input->post("is_trial"));
-        $triallong  = $this->security->xss_clean($this->input->post("triallong"));
+        $triallong  = @$this->security->xss_clean($this->input->post("triallong"));
         $trialamount= $this->security->xss_clean($this->input->post("trialamount"));
         
         
@@ -373,11 +403,14 @@ class Profile extends CI_Controller
             );
     	$url = URLAPI . "/v1/member/subscription/setSubscription";
 		$result = apiciaklive($url,json_encode($mdata));
-		if (@$result->code!=200){
-		    $this->session->set_flashdata("failed","Failed update subscription, please try again later");
-		    redirect("profile/setting_price");
-		}
-        redirect("profile");
+        echo json_encode($result);
+        // echo "<pre>".print_r($result,true)."</pre>";
+		// die;
+		// if (@$result->code!=200){
+		//     $this->session->set_flashdata("failed","Failed update subscription, please try again later");
+		//     redirect("profile/setting_price");
+		// }
+        // redirect("profile");
     }
 
     public function setting_promotion()
@@ -722,6 +755,31 @@ class Profile extends CI_Controller
         }
     }
     
+    public function instagram_post(){
+        $token='EAAOOF3WMW4sBO34aM0igZB0MUoDBlpc7ZAZA75DOrWJZAado1UDMO5ZAeRceUsQuevir9DgtTmdquGZAKMRABAAh90KitQyzE5gLkK4hwDhZC1FpzkuiD0ebLpSIBhxSSXltZAURVJTtEWrKFOqWapxmeUwMf27AGG32mQOQUCwXE3QU1quPhWOk4jSgdEqNlvXw';
+        $config = array( // instantiation config params
+            'access_token' => $token,
+        );
+
+        // instantiate and get the users info
+        $user = new User( $config );
+        
+        // get the users pages
+        $pages = $user->getUserPages();
+        
+        $config = array( // instantiation config params
+            'user_id' => '105985289275436',
+            'access_token' => $token,
+        );
+        
+        // instantiate user for use
+        $user = new User( $config );
+        
+        // get user info
+        $userInfo = $user->getSelf();
+        echo "<pre>".print_r($userInfo,true)."</pre>";
+    }
+    
     public function facebook_link(){
         $fb = new Facebook\Facebook([
             'app_id' => '1000656337656715',
@@ -732,6 +790,14 @@ class Profile extends CI_Controller
         $permissions = [
                 'publish_video',
                 'public_profile',
+                'instagram_basic',
+                'instagram_content_publish', 
+                'instagram_manage_insights', 
+                'instagram_manage_comments',
+                'pages_show_list', 
+                'ads_management', 
+                'business_management', 
+                'pages_read_engagement'                
         ];    
         
         $helper = $fb->getRedirectLoginHelper();
@@ -754,6 +820,7 @@ class Profile extends CI_Controller
         		$oAuth2Client = $fb->getOAuth2Client();
         		$longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($token);
         		$newtoken= (string) $longLivedAccessToken;
+        		redirect(base_url()."profile/instagram_post/".$newtoken);
         		$fb->setDefaultAccessToken($newtoken);
 
                 $createLiveVideo = $fb->post('/me/live_videos?status=LIVE_NOW', ['title' => 'Ciak Live Streaming', 'description' => 'ciak live Streaming']);
@@ -774,6 +841,189 @@ class Profile extends CI_Controller
                 redirect("profile/setting_profile");
         }
     }    
+    
+    public function instagram_link()
+    {
+
+        
+         $appId = '1000656337656715';
+         $appSecret = 'f116694de32707cbae9c56dc08496057';
+
+         $config = array( // instantiation config params
+            'app_id' => $appId, // facebook app id
+            'app_secret' => $appSecret, // facebook app secret
+        );
+
+
+        // uri facebook will send the user to after they login
+        $redirectUri = 'https://ciak.live.local/profile/instagram_link';
+
+        if(isset($_GET['code'])){
+            
+            // instantiate our access token class
+            $accessToken = new AccessToken( $config );
+            
+            // exchange our code for an access token
+            $newToken = $accessToken->getAccessTokenFromCode( $_GET['code'], $redirectUri );
+                    
+            if ( !$accessToken->isLongLived() ) { // check if our access token is short lived (expires in hours)
+                // exchange the short lived token for a long lived token which last about 60 days
+                $newToken = $accessToken->getLongLivedAccessToken( $newToken['access_token'] );
+            } 
+
+            // echo "<pre>".print_r($newToken,true)."</pre>";
+            // die;
+            $this->session->set_userdata('token_ig', $newToken['access_token']);
+   
+        } else {
+
+
+            
+            $permissions = array( // permissions to request from the user
+                'instagram_basic',
+                'instagram_content_publish', 
+                'instagram_manage_insights', 
+                'instagram_manage_comments',
+                'pages_show_list', 
+                'ads_management', 
+                'business_management', 
+                'pages_read_engagement'
+            );
+            
+            // instantiate new facebook login
+            $facebookLogin = new FacebookLogin( $config );
+            
+            // display login dialog link
+            echo '<a href="' . $facebookLogin->getLoginDialogUrl( $redirectUri, $permissions ) . '">' .
+                'Log in with Facebook' .
+            '</a>';
+        }
+    }
+
+    public function instagram_bussines_userid()
+    {
+        $config = array( // instantiation config params
+            'access_token' => $_SESSION['token_ig'],
+        );
+
+        // instantiate and get the users info
+        $user = new User( $config );
+
+        // get the users pages
+        $pages = $user->getUserPages();
+
+
+
+        $config = array( // instantiation config params
+            'page_id' => '105985289275436',
+            'access_token' => $_SESSION['token_ig'],
+        );
+
+        // instantiate page        
+        $page = new Page( $config );
+
+        // get info
+        $pageInfo = $page->getSelf();
+
+        echo "<pre>".print_r( $pageInfo ,true)."</pre>";
+        die;
+
+    }
+
+    public function instagram_userprofile()
+    {
+        $config = array( // instantiation config params
+            'user_id' => '17841460858921256',
+            'access_token' => $_SESSION['token_ig'],
+        );
+        
+        // instantiate user for use
+        $user = new User( $config );
+        
+        // get user info
+        $userInfo = $user->getSelf();
+
+        echo "<pre>".print_r( $userInfo ,true)."</pre>";
+        die;
+    }
+
+    public function instagram_post_container()
+    {
+
+        $config = array( // instantiation config params
+            'user_id' => '17841460858921256',
+            'access_token' => $_SESSION['token_ig'],
+        );
+
+        // instantiate user media
+        $media = new Media( $config );
+
+        $imageContainerParams = array( // container parameters for the image post
+            'caption' => 'First Post', // caption for the post
+            'image_url' => 'https://api.ciak.live/users/posts/8qm8k38-170247971701.jpg', // url to the image must be on a public server
+        );
+
+        // create image container
+        $imageContainer = $media->create( $imageContainerParams );
+
+        // get id of the image container
+        $imageContainerId = $imageContainer['id'];
+        echo "<pre>".print_r( $imageContainerId ,true)."</pre>";
+        die;
+    }
+
+    public function instagram_post_publish()
+    {
+        $config = array( // instantiation config params
+            'user_id' => '17841460858921256',
+            'access_token' => $_SESSION['token_ig'],
+        );
+
+        // instantiate media publish
+        $mediaPublish = new MediaPublish( $config );
+
+        // post our container with its contents to instagram
+        $publishedPost = $mediaPublish->create( '18017633344982291' );
+        echo "<pre>".print_r( $publishedPost ,true)."</pre>";
+        die;
+    }
+
+
+    // public function instagram_link()
+    // {
+
+    //     $adapter = new Hybridauth\Provider\Instagram( [
+    //         'callback' => base_url().'profile/instagram_link',
+    //         'keys'     => [
+    //                         'id' => '6971869409595981',
+    //                         'secret' => 'cc0e34d4588fda302daf7aa3b1310de3',
+    //                         'default_graph_version' => 'v5.0',
+    //                     ],
+    //     ]);
+
+    //     try {
+    //         $adapter->authenticate();
+    //         $token = $adapter->getAccessToken();
+    //         $userProfile = $adapter->getUserProfile();
+    //         // $userPage = $adapter->getUserPages();
+
+    //         // print_r(json_encode($userProfile));
+    //         echo "token : " . $token['access_token'];
+    //         echo "<br>";
+    //         echo "User Name : " . $userProfile->displayName;
+    //         echo "<br>";
+    //         echo "Photo URL : " . $userProfile->profileURL;
+    //         // echo "<br>";
+    //         // echo "USER ID : " . $userProfile->identifier;
+    //         // echo "<br>";
+    //         // echo "USER ID CONTACT : " . $userProfileContact->identifier;
+    //         die;
+    //     }
+    //     catch( Exception $e ){
+    //         echo "ERROR DISINI";
+    //         echo $e->getMessage() ;
+    //     }
+    // }
 
     public function linkedin_link()
     {
@@ -805,8 +1055,6 @@ class Profile extends CI_Controller
         }
 
     }
-
-
 
     public function tiktok_link()
     {
@@ -844,7 +1092,7 @@ class Profile extends CI_Controller
                         <td with="200"><img src="{$user->getAvatar()}"></td>
                         <td>
                             <br />
-                            <strong>ID</strong>: {$token->getOpenId()}<br /><br />
+                            <strong>Open ID</strong>: {$token->getOpenId()}<br /><br />
                             <strong>ACCESS TOKEN</strong>: {$token->getAccessToken()}<br /><br />
                         </td>
                     </tr>

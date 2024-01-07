@@ -85,8 +85,9 @@
                                                 ?>
                                                     <input type="button" value="<?=($fd->is_follow=="yes"?"Unfollow":"Follow")?>" id="user<?=$i?>" class="btn-main-green py-1 px-3 rounded <?=($fd->is_follow=="yes"?"active":"")?>" onclick="actionFollow('<?=$i?>','<?=$fd->id?>')">
                                                 <?php 
-                                                        $i++;
-                                                    }}
+                                                        }
+                                                    $i++;
+                                                }
                                                 ?> 
                                                 <a class="d-block ms-3 fs-4 text-decoration-none text-danger" href="<?=base_url()?>notification/delete_notif/<?=$dt->id?>/follow">x</a>
                                             </div>

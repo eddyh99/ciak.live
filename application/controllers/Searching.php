@@ -5,8 +5,8 @@
                   member secara random
 
     Sub fungsi  : 
-
-
+    - index             : Tampilan halaman Searching
+    - member_search     : Proses searching post, member, email, contact, surename
         
 ------------------------------------------------------------*/ 
 

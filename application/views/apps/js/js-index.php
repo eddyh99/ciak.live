@@ -216,6 +216,24 @@ function actionStar(post, star) {
     });
 };
 
+var urlCeknotif = window.location.pathname.substring(1).split('/')[1];
+if (urlCeknotif == "homepage"){
+    setInterval(()=>{
+        $.ajax({
+            url: "<?=base_url()?>homepage/ceknotif_chat",
+            success: function (response) {
+                console.log(response);
+                if (response.message == 1){
+                    $(".fa-envelope").append('<span class="buble-red rounded-circle"></span>')                 
+                }
+            },
+            error: function (request, status, error) {
+                console.log(status);
+            }
+        });
+    }, 60000);
+}
+
 function actionBookmark(post) {
     var status;
     if ($("#postbookmark" + post).hasClass('checked')) {

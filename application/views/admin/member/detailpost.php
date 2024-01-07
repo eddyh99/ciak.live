@@ -17,13 +17,14 @@
             </div>
         </div>
         <div>
-        <form action="<?= base_url()?>godmode/reported/change_explicit/<?=$post->id?>" method="post">
+        <form action="<?= base_url()?>godmode/member/change_explicit" method="post">
+                <input type="hidden" class="form-control" id="id" name="id" value="<?=$post->id?>">
                 <select name="content_type" class="form-select category-report">
                     <option value="">--Choose Content--</option>
                     <option value="explicit">Explicit</option>
                     <option value="non explicit">Non Explicit</option>
                 </select>
-                <button type="submit" class="btn <?php echo ($post->content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'; ?>">Change Content</button>
+                <button type="submit" class="btn mt-3 <?php echo ($post->content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'; ?>">Change Content</button>
             </form>
         </div>
     </div>
