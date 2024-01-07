@@ -114,36 +114,37 @@
                 </div>
             </div>
             <div class="apps-botbar fixed-bottom row">
-                <div class="row" id="post-type">
-                    <?php if(empty($stitch)){?>
-                    <div class="mx-auto d-flex justify-content-between col-12 col-lg-5  px-3 ">
-                        <div class="ms-1">
-                            <select name="contentype" id="contentype" value="<?= @$edit->content_type?>" class="form-select select-posting-type">
-                                <option value="<?= @$edit->content_type?>" disabled selected><?= @$edit->content_type?></option>
-                                <option value="explicit">Explicit</option>
-                                <option value="non explicit">Non Explicit</option>
-                            </select>
+                <?php if(empty($stitch)){?>
+                <div class="row mx-auto d-flex justify-content-between col-12 col-lg-5 px-3" id="post-type">
+                    <div>
+                        <select name="contentype" id="contentype" value="<?= @$edit->content_type?>" class="form-select select-posting-type">
+                            <option value="<?= @$edit->content_type?>" disabled selected><?= @$edit->content_type?></option>
+                            <option value="explicit">Explicit</option>
+                            <option value="non explicit">Non Explicit</option>
+                        </select>
+                    </div>
+                    <div class="py-4">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <select id="tipepost" name="tipepost" value="<?= @$edit->type ?>" class="form-select select-posting-type">
+                                    <option value="none" disabled selected><?= @$edit->type ?></option>
+                                    <option value="public">Public</option>
+                                    <option value="private">Private</option>
+                                    <option value="special">Special</option>
+                                    <option value="download">Download</option>
+                                </select>
+                            </div>
+                            <span id="forsubs-wrap" style="display: none;">
+                                <input type="checkbox" id="forsubs" value="Free">
+                                <label for="forsubs" id="label-forsubs" class="span-text-toogle-explicit">Free For Subscriber</label>
+                            </span>
+                            <input type="text" id="postprice" name="postprice" value="<?= @$edit->price ?>" class="selected-posting-type"> 
                         </div>
                     </div>
                 </div>
-                <div class="mx-auto d-flex justify-content-between col-12 col-lg-5 py-4" id="post-type">
-                        <div>
-                            <select id="tipepost" name="tipepost" value="<?= @$edit->type ?>" class="form-select select-posting-type">
-                                <option value="<?= @$edit->type ?>" disabled selected><?= @$edit->type ?></option>
-                                <option value="public">Public</option>
-                                <option value="private">Private</option>
-                                <option value="special">Special</option>
-                                <option value="download">Download</option>
-                            </select>
-                        </div>
-                        <span id="forsubs-wrap" style="display: none;">
-                            <input type="checkbox" id="forsubs" value="Free">
-                            <label for="forsubs" id="label-forsubs" class="span-text-toogle-explicit">Free For Subscriber</label>
-                        </span>
-                        <input type="text" id="postprice" name="postprice" value="<?= @$edit->price ?>" class="selected-posting-type"> 
-                </div>
                 <?php }?>
             </div>
+
         </div>
     </div>
 </div>
@@ -182,27 +183,28 @@
   </div>
 </div>
 
-<!-- Modal for Set Price Subcription -->
+<!-- Modal for Set Price Subcription 
 <?php if(($get_price->sub7 == '0.00') && ($get_price->sub30 == '0.00') && 
         ($get_price->sub365 == '0.00') && ($get_price->trial == '0.00') &&
         ($get_price->trial_long == '0')){
-            ?> 
+            ?> -->
     <div class="modal fade" id="setprice_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 text-white" id="setprice">Warning</h1>
-                        <!-- <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button> -->
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-white" id="setprice">Warning</h1>
+                    <!-- <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body body-post-setprice">
+                    <div class="col-12 text-center text-white">
+                        You must set subscription pricing before you post a private post.
                     </div>
-                    <div class="modal-body body-post-setprice">
-                        <div class="col-12 text-center text-white">
-                            You must set subscription pricing before you post a private post.
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="<?=base_url()?>profile/setting_profile#subcription" class="btn-main-green">Set Price</a>
-                    </div>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="<?=base_url()?>profile/setting_profile#subcription" class="btn-main-green">Set Price</a>
+                </div>
         </div>
     </div>
+    </div>
 <?php }?>
+

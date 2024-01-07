@@ -52,6 +52,8 @@
     * 2. Hide Show Icon Post Img, Vid, Attch
     * 3. Preview Image
     * 4. Preview Attachment
+    * 5. Preview Video
+    * 6. Change Type Post on Image, Video, Attachment
 */
 
 
@@ -266,9 +268,36 @@ $(function() {
 /*----------------------------------------------------------
 4.  Preview Attachment End
 ------------------------------------------------------------*/ 
+/*----------------------------------------------------------
+5.  Preview Video Start
+------------------------------------------------------------*/   
+    var files
+    $("#upload_video").on("change", function(event){
+        files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var f = files[i];
+            // Only process video files.
+            if (!f.type.match('video.*')) {
+                continue;
+            }
+            var source = document.createElement('video');
+            source.width = 280;
+            source.height = 240;
+            source.controls = true;
+            source.classList.add('d-block');
+            source.src = URL.createObjectURL(files[i]);
+            localStorage.setItem("is_video","video");
+            
+            $('#img-preview-post').show();
+            $('.carousel-inner').append('<div class="carousel-item '+(i ==  1? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+        }
+    }) ;
 
 /*----------------------------------------------------------
-10.  Change Type Post on Image, Video, Attachment Start
+5.  Preview Video End
+------------------------------------------------------------*/   
+/*----------------------------------------------------------
+6.  Change Type Post on Image, Video, Attachment Start
 ------------------------------------------------------------*/     
     $("#tipepost").on("change",function(){
         if ($(this).val()=='public'){
@@ -290,7 +319,12 @@ $(function() {
             $("#postprice").val("0.5");
             $("#postprice").attr("readonly",false);
             $("#forsubs-wrap").hide();
-        }else{
+        }else if ($(this).val()=="<?= @$edit->type ?>"){
+            $("#postprice").show();
+            $("#postprice").val("<?= @$edit->price ?>");
+            $("#postprice").attr("readonly",true);
+            $("#forsubs-wrap").hide();
+        }else {
             $("#postprice").show();
             $("#postprice").val("0.5");
             $("#postprice").attr("readonly",false);
@@ -299,11 +333,11 @@ $(function() {
         
     })
 /*----------------------------------------------------------
-10.  Change Type Post on Image, Video, Attachment End
+6.  Change Type Post on Image, Video, Attachment End
 ------------------------------------------------------------*/   
 
 /*----------------------------------------------------------
-14.  Class Explicit Content Start 
+7.  Class Explicit Content Start 
 ------------------------------------------------------------*/   
 <?php if($_SESSION['content_type'] == 'explicit'){?>
     document.body.classList.add('explicit');
@@ -312,8 +346,9 @@ $(function() {
 <?php } ?>
         
 /*----------------------------------------------------------
-14.  Class Explicit Content End 
+=7.  Class Explicit Content End 
 ------------------------------------------------------------*/   
+
 
 $("#btnUpdate").on("click",function(){
     // console.log(pair[0] + " - " + pair[1]);
