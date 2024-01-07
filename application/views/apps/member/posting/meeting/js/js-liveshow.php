@@ -133,6 +133,7 @@ var statusPayperMinutes = false;
 let id_has_room;
 
 var performer=false;
+var unique_id = '';
 var connection = new RTCMultiConnection();
 connection.socketURL = 'https://muazkhan.com:9001/';
 connection.socketMessageEvent = 'ciak-liveshow';
@@ -361,14 +362,14 @@ $("#btnconfirm").on("click",function(){
 
 connection.onopen = function(event) {
 
-    var remoteUserId = event.userid;
+    unique_id = event.userid;
     var remoteUserFullName = event.extra.userFullName;
     var userjoin = event.extra.userJoin;
 
     var pushmember=[];
     
     if(userjoin != 'performer'){
-        pushmember.push({'username': remoteUserFullName, 'btnkick': 'button kick'});
+        pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger" onclick="kickuser('${event.userid}')">Kick</button>`});
     }
     console.log(pushmember);
     
@@ -547,7 +548,27 @@ window.onkeyup = function(e) {
 };
 
 function kickuser(id){
+    
     connection.disconnectWith(id);
+    // connection.disconnectWith(id);
+    // if((unique_id == id)){
+    //     window.location.href="<?=base_url()?>homepage";
+    // }
+
+    // console.log("557 - " + id);
+    // console.log("558 - " + unique_id);
+
+
+    // connection.getAllParticipants().forEach(function(id) {
+    //     if(performer != true){
+    //         connection.disconnectWith(id);
+    //         window.location.href="<?=base_url()?>homepage";
+    //     }
+    // });
+    // if(performer != true){
+    //     connection.disconnectWith(id);
+    //     window.location.href="<?=base_url()?>homepage";
+    // }
 }
 
 document.getElementById('btn-chat-message').onclick = function() {
@@ -572,12 +593,19 @@ document.getElementById('btn-chat-message').onclick = function() {
 
 
 connection.onUserStatusChanged = function(event, dontWriteLogs) {
+    console.log();
     if (!!connection.enableLogs && !dontWriteLogs) {
         console.info(event.userid, event.status, connection.extra.broadcastuser,  "HALLO 404");
         var countViewer = $(`.count-viewer`).text();
         if(event.status == 'online'){
             countViewer++
             $(`.count-viewer`).text(countViewer);
+        }else if(event.status == 'offline' && event.userid == unique_id){
+            console.log("INI MERUPAKAN : " + event.userid);
+            // if(performer != true){
+                // window.location.href="<?=base_url()?>homepage";
+                // connection.disconnectWith(event.userid);
+            // }
         }
     }
 };
@@ -713,9 +741,9 @@ connection.iceServers= [
 }
 
 connection.onstreamended = function(event) {
-    if (performer!=true){
+    if (performer!=true && event.userid == unique_id){
         alert('Broadcast is ended.');
-        window.location.href="<?=base_url()?>homepage";
+        // window.location.href="<?=base_url()?>homepage";
     }
 };
 

@@ -90,7 +90,6 @@
                     <a href="<?=base_url()?>homepage" class="btn btn-leave-live">Leave</a>
                     <a data-bs-toggle="modal" data-bs-target="#addModerator" class="addModerator-class btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> mx-2  "> <i class="fa-solid fa-users me-2"></i>Add Moderator</a>
                     <button id="btnopen" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> me-2">Start</button>
-                    <button id="showviewer">ALERT</button>
                 </div>
                 <button id="allviewer" class="btn btn-main-green me-5" data-bs-toggle="modal" data-bs-target="#listviewer">
                     <i class="fas fa-list pe-1"></i>
