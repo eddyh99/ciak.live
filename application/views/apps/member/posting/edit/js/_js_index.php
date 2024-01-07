@@ -52,6 +52,8 @@
     * 2. Hide Show Icon Post Img, Vid, Attch
     * 3. Preview Image
     * 4. Preview Attachment
+    * 5. Preview Video
+    * 6. Change Type Post on Image, Video, Attachment
 */
 
 
@@ -156,7 +158,21 @@ $(document).ready(function(){
 3. Preview Image Start
 ------------------------------------------------------------*/ 
 
+$('#img-preview-post').hide();
+    localforage.getItem('img_save', function (err, value) {
+        var dataImg=JSON.parse(value);
+        if(dataImg == null) {
+            console.log("");
+        }else {
+            $('#img-preview-post').show();
+            localStorage.setItem("is_video",false);
 
+            for(let i = 0; i <= dataImg.length; i++){
+                $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
+            }
+        }
+        
+    });
 // Function for delete image in X button
 function del(index){
     
@@ -222,35 +238,71 @@ function del(index){
 /*----------------------------------------------------------
 4.  Preview Attachment Start
 ------------------------------------------------------------*/   
-$(function() {
-    $('#header-preview-text').hide();
-    $('#upload_attch').on('change', function(){
-        var input = document.getElementById('upload_attch');
-        var children = "";
-        if(this.files[0].size > 50097152){
-            Swal.fire({
-                text: "File is too big! max 50MB",
-                showCloseButton: true,
-                showConfirmButton: false,
-                background: '#323436',
-                color: '#ffffff',
-                position: 'top'
-            });
-            this.value = "";
-        }else{
-            files = input.files;
-            localStorage.setItem("is_video","attach");
-            for (var i = 0; i < input.files.length; ++i) {
-                children += '<li class="text-preview-attch">' + input.files.item(i).name + '</li>';
-            }
-            $('#header-preview-text').show();
-            $('#attch-preview-post').append('<ul>'+children+'</ul>');
-        }
-    })
-});
+
 /*----------------------------------------------------------
 4.  Preview Attachment End
 ------------------------------------------------------------*/ 
+/*----------------------------------------------------------
+5.  Preview Video Start
+------------------------------------------------------------*/   
+
+
+/*----------------------------------------------------------
+5.  Preview Video End
+------------------------------------------------------------*/   
+/*----------------------------------------------------------
+6.  Change Type Post on Image, Video, Attachment Start
+------------------------------------------------------------*/     
+    $("#tipepost").on("change",function(){
+        if ($(this).val()=='public'){
+            $("#postprice").show();
+            $("#postprice").val("Free");
+            $("#postprice").attr("readonly",true);
+            $("#forsubs-wrap").hide();
+        }else if ($(this).val()=='vs'){
+            $("#postprice").show();
+            $("#postprice").val("Free");
+            $("#postprice").attr("readonly",true);
+            $("#forsubs-wrap").hide();
+        }else if ($(this).val()=="private"){
+            $('#setprice_modal').modal('show');
+            $("#postprice").hide();
+            $("#forsubs-wrap").hide();
+        }else if ($(this).val()=="special"){
+            $("#postprice").show();
+            $("#postprice").val("0.5");
+            $("#postprice").attr("readonly",false);
+            $("#forsubs-wrap").hide();
+        }else if ($(this).val()=="<?= @$edit->type ?>"){
+            $("#postprice").show();
+            $("#postprice").val("<?= @$edit->price ?>");
+            $("#postprice").attr("readonly",true);
+            $("#forsubs-wrap").hide();
+        }else {
+            $("#postprice").show();
+            $("#postprice").val("0.5");
+            $("#postprice").attr("readonly",false);
+            $("#forsubs-wrap").show();
+        }
+        
+    })
+
+/*----------------------------------------------------------
+6.  Change Type Post on Image, Video, Attachment End
+------------------------------------------------------------*/   
+
+/*----------------------------------------------------------
+7.  Class Explicit Content Start 
+------------------------------------------------------------*/   
+<?php if($_SESSION['content_type'] == 'explicit'){?>
+    document.body.classList.add('explicit');
+<?php } else {?>
+    document.body.classList.remove('explicit');
+<?php } ?>
+        
+/*----------------------------------------------------------
+=7.  Class Explicit Content End 
+------------------------------------------------------------*/   
 
 
 $("#btnUpdate").on("click",function(){
