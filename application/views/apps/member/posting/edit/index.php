@@ -123,12 +123,11 @@
             <div class="apps-botbar fixed-bottom row">
                 <?php if(empty($stitch)){?>
                 <div class="row mx-auto d-flex justify-content-between col-12 col-lg-5 px-3" id="post-type">
-                    
                     <div class="py-4">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <select id="tipepost" name="tipepost" value="<?= @$edit->type ?>" class="form-select select-posting-type">
-                                    <option value="none" disabled selected><?= @$edit->type ?></option>
+                                    <option value="<?= @$edit->type ?>" selected><?= @$edit->type ?></option>
                                     <option value="public">Public</option>
                                     <option value="private">Private</option>
                                     <option value="special">Special</option>
@@ -139,7 +138,7 @@
                                 <input type="checkbox" id="forsubs" value="Free">
                                 <label for="forsubs" id="label-forsubs" class="span-text-toogle-explicit">Free For Subscriber</label>
                             </span>
-                            <input type="text" id="postprice" name="postprice" value="<?= @$edit->price ?>" class="selected-posting-type"> 
+                            <input type="text" id="postprice" name="postprice" value="<?= ($edit->price == '0.00') ? 'Free' : $edit->price ?>" class="selected-posting-type"> 
                         </div>
                     </div>
                 </div>
