@@ -267,6 +267,53 @@ $(function() {
 4.  Preview Attachment End
 ------------------------------------------------------------*/ 
 
+/*----------------------------------------------------------
+10.  Change Type Post on Image, Video, Attachment Start
+------------------------------------------------------------*/     
+    $("#tipepost").on("change",function(){
+        if ($(this).val()=='public'){
+            $("#postprice").show();
+            $("#postprice").val("Free");
+            $("#postprice").attr("readonly",true);
+            $("#forsubs-wrap").hide();
+        }else if ($(this).val()=='vs'){
+            $("#postprice").show();
+            $("#postprice").val("Free");
+            $("#postprice").attr("readonly",true);
+            $("#forsubs-wrap").hide();
+        }else if ($(this).val()=="private"){
+            $('#setprice_modal').modal('show');
+            $("#postprice").hide();
+            $("#forsubs-wrap").hide();
+        }else if ($(this).val()=="special"){
+            $("#postprice").show();
+            $("#postprice").val("0.5");
+            $("#postprice").attr("readonly",false);
+            $("#forsubs-wrap").hide();
+        }else{
+            $("#postprice").show();
+            $("#postprice").val("0.5");
+            $("#postprice").attr("readonly",false);
+            $("#forsubs-wrap").show();
+        }
+        
+    })
+/*----------------------------------------------------------
+10.  Change Type Post on Image, Video, Attachment End
+------------------------------------------------------------*/   
+
+/*----------------------------------------------------------
+14.  Class Explicit Content Start 
+------------------------------------------------------------*/   
+<?php if($_SESSION['content_type'] == 'explicit'){?>
+    document.body.classList.add('explicit');
+<?php } else {?>
+    document.body.classList.remove('explicit');
+<?php } ?>
+        
+/*----------------------------------------------------------
+14.  Class Explicit Content End 
+------------------------------------------------------------*/   
 
 $("#btnUpdate").on("click",function(){
     // console.log(pair[0] + " - " + pair[1]);

@@ -197,15 +197,16 @@ class Post extends CI_Controller
     {
         $post_id        = $this->security->xss_clean($id);
         $result_post    = apiciaklive(URLAPI . "/v1/member/post/get_singlepost?post_id=".$id)->message;
+        $get_price  = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
         // print_r(json_encode($result_post));
 		// die;
-
 
         $data = array(
             'title'         => NAMETITLE . ' - Edit Post' ,
             'content'       => 'apps/member/posting/edit/index',
             // 'popup'         => 'apps/member/app-popup-single',
             'edit'          => $result_post,
+            'get_price'     => $get_price,
             'post_id'       => $post_id,
             'cssextra'      => 'apps/member/posting/css/_css_index',
             'extra'         => 'apps/member/posting/edit/js/_js_index',
@@ -220,7 +221,7 @@ class Post extends CI_Controller
         $input      = $this->input;
         $post_id    = $this->security->xss_clean($this->input->post("post_id"));
         $title      = $this->security->xss_clean($this->input->post("title_article"));
-        $post    = $this->security->xss_clean($this->input->post("post"));
+        $post       = $this->security->xss_clean($this->input->post("post"));
         $type       = $this->security->xss_clean($this->input->post("tipe"));
         $price      = $this->security->xss_clean($this->input->post("price"));
         $content_type      = $this->security->xss_clean($this->input->post("content_type"));
