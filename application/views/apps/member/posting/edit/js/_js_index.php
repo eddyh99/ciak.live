@@ -157,7 +157,21 @@ $(document).ready(function(){
 3. Preview Image Start
 ------------------------------------------------------------*/ 
 
+$('#img-preview-post').hide();
+    localforage.getItem('img_save', function (err, value) {
+        var dataImg=JSON.parse(value);
+        if(dataImg == null) {
+            console.log("");
+        }else {
+            $('#img-preview-post').show();
+            localStorage.setItem("is_video",false);
 
+            for(let i = 0; i <= dataImg.length; i++){
+                $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
+            }
+        }
+        
+    });
 // Function for delete image in X button
 function del(index){
     
