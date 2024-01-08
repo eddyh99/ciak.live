@@ -374,10 +374,7 @@ $(document).ready(function(){
                         var f = files[i];
                         formdata.append("video[]",f);
                     }
-                }
-
-
-                
+                }            
                 // if(id_stitch){
                 //     console.log("STITCH");
                 //     formdata.append("post", $("#textarea-post").val());

@@ -303,7 +303,7 @@ class Post extends CI_Controller
             "attach_type"   => @$attach_type,
             // "id_stitch"     => (!empty($id_stitch)) ? $id_stitch : null,
             "content"       => @$blob,
-            "content_type"  => 'non explicit'
+            "content_type"  => $content_type
         );
 
         $url = URLAPI . "/v1/member/post/update";

@@ -36,10 +36,9 @@
                     <!-- Start Posting Section-->
                     <div id="Post" class="wrap-posting">
                         <div class="mb-3 ms-5">
-                            <select name="contentype" id="contentype" value="<?= @$edit->content_type?>" class="form-select select-posting-type">
-                                <option value="<?= @$edit->content_type?>" disabled selected><?= @$edit->content_type?></option>
-                                <option value="explicit">Explicit</option>
-                                <option value="non explicit">Non Explicit</option>
+                            <select name="contentype" id="contentype" class="form-select select-posting-type">
+                                <option value="explicit" <?= ($edit->content_type == "explicit") ? "selected" : "" ?> >Explicit</option>
+                                <option value="non explicit" <?= ($edit->content_type == "non explicit") ? "selected" : "" ?>>Non Explicit</option>
                             </select>
                         </div>
                         <div class="d-flex">
@@ -94,7 +93,9 @@
                                 <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100" value="<?= @$edit->title_article?>">
                                 <textarea id="edit-textarea-post"><?php echo @base64_decode($edit->article)?></textarea>
                                 <h4 id="header-preview-text">Preview Attachment</h4>
-                                <div id="attch-preview-post"></div>
+                                <div id="attch-preview-post">
+                                    <ul class="attch-preview-post"></ul>
+                                </div>
                                 <div id="img-preview-post" class="img-preview-post">
                                     <div id="carouselPreviewImg" class="carousel slide" data-bs-interval="false">
                                         <div class="carousel-inner">
@@ -126,19 +127,18 @@
                     <div class="py-4">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <select id="tipepost" name="tipepost" value="<?= @$edit->type ?>" class="form-select select-posting-type">
-                                    <option value="<?= @$edit->type ?>" selected><?= @$edit->type ?></option>
-                                    <option value="public">Public</option>
-                                    <option value="private">Private</option>
-                                    <option value="special">Special</option>
-                                    <option value="download">Download</option>
+                                <select id="tipepost" name="tipepost" class="form-select select-posting-type">
+                                    <option value="public" <?= ($edit->type == "public") ? "selected" : "" ?>>Public</option>
+                                    <option value="private" <?= ($edit->type == "private") ? "selected" : "" ?>>Private</option>
+                                    <option value="special" <?= ($edit->type == "special") ? "selected" : "" ?>>Special</option>
+                                    <option value="download" <?= ($edit->type == "download") ? "selected" : "" ?>>Download</option>
                                 </select>
                             </div>
                             <span id="forsubs-wrap" style="display: none;">
                                 <input type="checkbox" id="forsubs" value="Free">
                                 <label for="forsubs" id="label-forsubs" class="span-text-toogle-explicit">Free For Subscriber</label>
                             </span>
-                            <input type="text" id="postprice" name="postprice" value="<?= ($edit->price == '0.00') ? 'Free' : $edit->price ?>" class="selected-posting-type"> 
+                            <input type="text" id="postprice" name="postprice" value="<?= ($edit->price == '0.00') ? 'Free' : $edit->price ?>" class="selected-posting-type <?= ($edit->type == 'private') ? 'd-none' : '' ?> "> 
                         </div>
                     </div>
                 </div>
