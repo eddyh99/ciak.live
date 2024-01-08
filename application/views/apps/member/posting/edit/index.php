@@ -1,8 +1,5 @@
 <input type="text" id="postid" value="<?= @$post_id ?>">
 <input type="hidden" id="jenis" value="Post">
-<input type="hidden" id="tipepost" value="<?= @$edit->type ?>">
-<input type="hidden" id="postprice" value="<?= @$edit->price ?>">
-<input type="hidden" id="contentype" value="<?= @$edit->content_type?>">
 <input type="hidden" id="is_mediatype" value="<?= @$edit->post_media[0]->media_type?>">
 <input type="hidden" id="is_extension" value="<?= @$edit->post_media[0]->media_type?>">
 
@@ -34,10 +31,16 @@
                 </div>
             </div>
             <div>
-                <div class="apps-member light w-100 mt-5">
-
+                <div class="apps-member light w-100 mt-2">
+                
                     <!-- Start Posting Section-->
                     <div id="Post" class="wrap-posting">
+                        <div class="mb-3 ms-5">
+                            <select name="contentype" id="contentype" class="form-select select-posting-type">
+                                <option value="explicit" <?= ($edit->content_type == "explicit") ? "selected" : "" ?> >Explicit</option>
+                                <option value="non explicit" <?= ($edit->content_type == "non explicit") ? "selected" : "" ?>>Non Explicit</option>
+                            </select>
+                        </div>
                         <div class="d-flex">
                             <div class="write-img d-flex flex-column justify-content-start align-items-center">
                                 <img class="img-fluid" src="<?=$edit->profile?>" height="50" width="50" alt="mp">
@@ -53,11 +56,6 @@
                                     <div class="position-absolute hidden-icon" style="z-index: 9999" id="hidden-iconpost">
                                         <div class="d-flex flex-column gap-3 ">
                                             <div>
-                                                <!-- <a href="" data-bs-toggle="modal" data-bs-target="#postModal" >
-                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M3.33334 13.3335L7.155 9.51183C7.46755 9.19938 7.8914 9.02385 8.33334 9.02385C8.77528 9.02385 9.19912 9.19938 9.51167 9.51183L13.3333 13.3335M11.6667 11.6668L12.9883 10.3452C13.3009 10.0327 13.7247 9.85719 14.1667 9.85719C14.6086 9.85719 15.0325 10.0327 15.345 10.3452L16.6667 11.6668M11.6667 6.66683H11.675M5 16.6668H15C15.442 16.6668 15.866 16.4912 16.1785 16.1787C16.4911 15.8661 16.6667 15.4422 16.6667 15.0002V5.00016C16.6667 4.55814 16.4911 4.13421 16.1785 3.82165C15.866 3.50909 15.442 3.3335 15 3.3335H5C4.55798 3.3335 4.13405 3.50909 3.82149 3.82165C3.50893 4.13421 3.33334 4.55814 3.33334 5.00016V15.0002C3.33334 15.4422 3.50893 15.8661 3.82149 16.1787C4.13405 16.4912 4.55798 16.6668 5 16.6668Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </a> -->
                                                 <label for="upload_image" class="icon-upload-video">
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3.33334 13.3335L7.155 9.51183C7.46755 9.19938 7.8914 9.02385 8.33334 9.02385C8.77528 9.02385 9.19912 9.19938 9.51167 9.51183L13.3333 13.3335M11.6667 11.6668L12.9883 10.3452C13.3009 10.0327 13.7247 9.85719 14.1667 9.85719C14.6086 9.85719 15.0325 10.0327 15.345 10.3452L16.6667 11.6668M11.6667 6.66683H11.675M5 16.6668H15C15.442 16.6668 15.866 16.4912 16.1785 16.1787C16.4911 15.8661 16.6667 15.4422 16.6667 15.0002V5.00016C16.6667 4.55814 16.4911 4.13421 16.1785 3.82165C15.866 3.50909 15.442 3.3335 15 3.3335H5C4.55798 3.3335 4.13405 3.50909 3.82149 3.82165C3.50893 4.13421 3.33334 4.55814 3.33334 5.00016V15.0002C3.33334 15.4422 3.50893 15.8661 3.82149 16.1787C4.13405 16.4912 4.55798 16.6668 5 16.6668Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -95,7 +93,9 @@
                                 <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100" value="<?= @$edit->title_article?>">
                                 <textarea id="edit-textarea-post"><?php echo @base64_decode($edit->article)?></textarea>
                                 <h4 id="header-preview-text">Preview Attachment</h4>
-                                <div id="attch-preview-post"></div>
+                                <div id="attch-preview-post">
+                                    <ul class="attch-preview-post"></ul>
+                                </div>
                                 <div id="img-preview-post" class="img-preview-post">
                                     <div id="carouselPreviewImg" class="carousel slide" data-bs-interval="false">
                                         <div class="carousel-inner">
@@ -121,6 +121,30 @@
                     </div>
                 </div>
             </div>
+            <div class="apps-botbar fixed-bottom row">
+                <?php if(empty($stitch)){?>
+                <div class="row mx-auto d-flex justify-content-between col-12 col-lg-5 px-3" id="post-type">
+                    <div class="py-4">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <select id="tipepost" name="tipepost" class="form-select select-posting-type">
+                                    <option value="public" <?= ($edit->type == "public") ? "selected" : "" ?>>Public</option>
+                                    <option value="private" <?= ($edit->type == "private") ? "selected" : "" ?>>Private</option>
+                                    <option value="special" <?= ($edit->type == "special") ? "selected" : "" ?>>Special</option>
+                                    <option value="download" <?= ($edit->type == "download") ? "selected" : "" ?>>Download</option>
+                                </select>
+                            </div>
+                            <span id="forsubs-wrap" style="display: none;">
+                                <input type="checkbox" id="forsubs" value="Free">
+                                <label for="forsubs" id="label-forsubs" class="span-text-toogle-explicit">Free For Subscriber</label>
+                            </span>
+                            <input type="text" id="postprice" name="postprice" value="<?= ($edit->price == '0.00') ? 'Free' : $edit->price ?>" class="selected-posting-type <?= ($edit->type == 'private') ? 'd-none' : '' ?> "> 
+                        </div>
+                    </div>
+                </div>
+                <?php }?>
+            </div>
+
         </div>
     </div>
 </div>
@@ -158,3 +182,29 @@
     </div>
   </div>
 </div>
+
+<!-- Modal for Set Price Subcription 
+<?php if(($get_price->sub7 == '0.00') && ($get_price->sub30 == '0.00') && 
+        ($get_price->sub365 == '0.00') && ($get_price->trial == '0.00') &&
+        ($get_price->trial_long == '0')){
+            ?> -->
+    <div class="modal fade" id="setprice_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-white" id="setprice">Warning</h1>
+                    <!-- <button type="button" class="btn-close text-white" style="filter: brightness(0) invert(1);" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body body-post-setprice">
+                    <div class="col-12 text-center text-white">
+                        You must set subscription pricing before you post a private post.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="<?=base_url()?>profile/setting_profile#subcription" class="btn-main-green">Set Price</a>
+                </div>
+        </div>
+    </div>
+    </div>
+<?php }?>
+

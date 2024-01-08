@@ -52,10 +52,13 @@
     * 2. Hide Show Icon Post Img, Vid, Attch
     * 3. Preview Image
     * 4. Preview Attachment
+    * 5. Preview Video
+    * 6. Change Type Post on Image, Video, Attachment
 */
 
 
 
+$('#header-preview-text').hide();
 
 function toDataURL(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -77,25 +80,31 @@ var formdata = new FormData();
 <?php foreach($edit->post_media as $dt){ ?>
     console.log('<?= $dt->imgorg ?>');
 
-    toDataURL('<?= $dt->imgorg ?>', function(dataUrl) {
-    
-        images_edit.push(dataUrl)
-    
-        $('#img-preview-post').hide();
-        $('#header-preview-text').hide();
-        if(images_edit.length != 0){
-            $('#img-preview-post').show();
-            for(let i = 0; i < images_edit.length; i++){
-                $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
-            }
-        }else {
+    <?php if($dt->media_type == 'attach'){?>
+        $('.attch-preview-post').append(`<li class="text-preview-attch"><?= $dt->imgorg?></li>`);
+    <?php }else{?>
+        toDataURL('<?= $dt->imgorg ?>', function(dataUrl) {      
+            images_edit.push(dataUrl)
             $('#img-preview-post').hide();
-        }
-        
-    })
+            $('#header-preview-text').hide();
+            if(images_edit.length != 0){
+                $('#img-preview-post').show();
+                for(let i = 0; i < images_edit.length; i++){
+                    if('<?= $dt->media_extension?>' == 'video'){
+                        $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+images_edit[i]+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+                    }else if('<?= $dt->media_extension?>' == 'image'){
+                        $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+                    }
+                }
+            }else {
+                $('#img-preview-post').hide();
+            }
+            
+        })
+    <?php }?>
+
 
 <?php } ?>
-
 
 
 
@@ -157,10 +166,25 @@ $(document).ready(function(){
 3. Preview Image Start
 ------------------------------------------------------------*/ 
 
+$('#img-preview-post').hide();
+localforage.getItem('img_save', function (err, value) {
+    var dataImg=JSON.parse(value);
+    if(dataImg == null) {
+        console.log("");
+    }else {
+        $('#img-preview-post').show();
+        localStorage.setItem("is_video",false);
+
+        for(let i = 0; i <= dataImg.length; i++){
+            $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
+        }
+    }
+    
+});
+
 
 // Function for delete image in X button
 function del(index){
-    
     // Remove element HTML
     $('.carousel-item').remove();
     
@@ -178,51 +202,56 @@ function del(index){
 }
 
 
-// $('#img-preview-post').hide();
-// localforage.getItem('img_edit', function (err, value) {
-//     var dataImg=JSON.parse(value);
-//     console.log(typeof dataImg.length);
-//     if(dataImg == null) {
-//         console.log("");
-//     }else {
-//         if(dataImg.length < 1){
-//             localStorage.setItem("is_video",true);
-//             $('#img-preview-post').hide();
-//             console.log("HIDE");
-//         } else {
-//             console.log("MASUK");
-//             $('#img-preview-post').show();
-//             localStorage.setItem("is_video",false);
-
-//             for(let i = 0; i < dataImg.length; i++){
-//                 $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
-//             }
-//         }
-//     }
-// });
-
-// Function for delete image in X button
-// function del(index){
-//     // index.preventDefault()
-//     localforage.getItem('img_edit', function (err, value) {
-//         var dataImg=JSON.parse(value);
-//         dataImg.splice(index, 1);
-//         localforage.setItem("img_edit", JSON.stringify(dataImg));
-//     });
-//     $('#myDiv').load('#myDiv')
-//         // location.replace(location.href.split('#')[0]);
-//     location.reload();
-// }
-
-
-
 /*----------------------------------------------------------
 3. Preview Image End
 ------------------------------------------------------------*/ 
 
 /*----------------------------------------------------------
-4.  Preview Attachment Start
+5.  Preview Video Start
 ------------------------------------------------------------*/   
+var files
+$("#img_preview_post").on("change", function(event){
+    files = event.target.files;
+    for (var i = 0; i < files.length; i++) {
+        var f = files[i];
+        // Only process video files.
+        if (!f.type.match('video.*')) {
+            continue;
+        }
+        var source = document.createElement('video');
+        source.width = 280;
+        source.height = 240;
+        source.controls = true;
+        source.classList.add('d-block');
+        source.src = URL.createObjectURL(files[i]);
+        localStorage.setItem("is_video","video");
+
+        $('#img-preview-post').show();
+        $('.carousel-inner').append('<div class="carousel-item '+(i ==  1? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+    }
+}) ;
+
+$("#upload_video").on("change", function(event){
+    files = event.target.files;
+    for (var i = 0; i < files.length; i++) {
+        var f = files[i];
+        // Only process video files.
+        if (!f.type.match('video.*')) {
+            continue;
+        }
+        var source = document.createElement('video');
+        source.width = 280;
+        source.height = 240;
+        source.controls = true;
+        source.classList.add('d-block');
+        source.src = URL.createObjectURL(files[i]);
+        localStorage.setItem("is_video","video");
+
+        $('#img-preview-post').show();
+        $('.carousel-inner').append('<div class="carousel-item '+(i ==  1? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+    }
+});
+
 $(function() {
     $('#header-preview-text').hide();
     $('#upload_attch').on('change', function(){
@@ -249,9 +278,52 @@ $(function() {
         }
     })
 });
+
+
 /*----------------------------------------------------------
-4.  Preview Attachment End
-------------------------------------------------------------*/ 
+5.  Preview Video End
+------------------------------------------------------------*/   
+/*----------------------------------------------------------
+6.  Change Type Post on Image, Video, Attachment Start
+------------------------------------------------------------*/     
+$("#tipepost").on("change",function(){
+    if ($(this).val()=='public'){
+        $("#postprice").show();
+        $("#postprice").val("Free");
+        $("#postprice").attr("readonly",true);
+        $("#forsubs-wrap").hide();
+    }else if ($(this).val()=='vs'){
+        $("#postprice").show();
+        $("#postprice").val("Free");
+        $("#postprice").attr("readonly",true);
+        $("#forsubs-wrap").hide();
+    }else if ($(this).val()=="private"){
+        $('#setprice_modal').modal('show');
+        $("#postprice").hide();
+        $("#forsubs-wrap").hide();
+    }else if ($(this).val()=="special"){
+        $("#postprice").show();
+        $("#postprice").val("0.5");
+        $("#postprice").attr("readonly",false);
+        $("#forsubs-wrap").hide();
+    }else if ($(this).val()=="<?= @$edit->type ?>"){
+        $("#postprice").show();
+        $("#postprice").val("<?= @$edit->price ?>");
+        $("#postprice").attr("readonly",true);
+        $("#forsubs-wrap").hide();
+    }else {
+        $("#postprice").show();
+        $("#postprice").val("0.5");
+        $("#postprice").attr("readonly",false);
+        $("#forsubs-wrap").show();
+    }
+    
+})
+
+/*----------------------------------------------------------
+6.  Change Type Post on Image, Video, Attachment End
+------------------------------------------------------------*/   
+
 
 
 $("#btnUpdate").on("click",function(){
@@ -262,6 +334,14 @@ $("#btnUpdate").on("click",function(){
     formdata.append("tipe", $("#tipepost").val());
     formdata.append("price", $("#postprice").val());
     formdata.append("content_type", $("#contentype").val());
+    if (typeof files !== 'undefined'){
+        console.log("200");
+        for (var i = 0; i < files.length; i++) {
+            var f = files[i];
+            console.log(f);
+            formdata.append("video[]",f);
+        }
+    }
     
     var imgTmp=[];
     imgTmp = $(".img-edit").get().map(function(el) {
@@ -271,9 +351,11 @@ $("#btnUpdate").on("click",function(){
     });
     
     imgTmp.forEach(b64toblob);
-    
-    console.log(formdata);
-    
+
+
+    $('#progressbar-wrapper').removeClass('d-none');
+    var progress = $('.progress-bar');
+
     $.ajax({
         url: "<?=base_url()?>post/saveEdit",
         type: "post",
@@ -308,11 +390,11 @@ $("#btnUpdate").on("click",function(){
         contentType: false,
         success: function (response) {
             var data=JSON.parse(response);
-            if(data.success == true){
+            console.log(data);
+            if(data.code == 200){
                 console.log("sukses");
-            }
-
-            if(data.success == false){
+                location.replace('<?= base_url()?>homepage');
+            }else {
                 $('#load-edit-profile').hide();
                 setTimeout(()=>{
                     Swal.fire({
