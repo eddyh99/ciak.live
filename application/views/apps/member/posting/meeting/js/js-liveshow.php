@@ -454,10 +454,6 @@ var listmember = $("#memberjoin").DataTable();
 // }
 
 
-$("#btnleave").on("click",function(){
-    connection.closeSocket();
-    window.location.href="<?=base_url()?>homepage"
-})
 
 connection.onmessage = function(event) {
     if(event.data.typing === true) {
@@ -740,10 +736,19 @@ connection.iceServers= [
 		state="ready";
 }
 
+$("#btnleave").on("click",function(e){
+    e.preventDefault();
+    connection.getAllParticipants().forEach(function(participantId) {
+        connection.disconnectWith( participantId );
+    });
+    connection.closeSocket();
+    window.location.href="<?=base_url()?>homepage"
+})
+
 connection.onstreamended = function(event) {
-    if (performer!=true && event.userid == unique_id){
-        alert('Broadcast is ended.');
-        // window.location.href="<?=base_url()?>homepage";
+    if (performer!=true){
+        alert("You've been kick or Broadcast ended");
+        window.location.href="<?=base_url()?>homepage"
     }
 };
 
