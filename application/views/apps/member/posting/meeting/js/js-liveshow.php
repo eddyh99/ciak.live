@@ -546,6 +546,7 @@ window.onkeyup = function(e) {
 function kickuser(id){
     
     connection.disconnectWith(id);
+    connection.deletePeer(id);
     // connection.disconnectWith(id);
     // if((unique_id == id)){
     //     window.location.href="<?=base_url()?>homepage";
@@ -587,9 +588,15 @@ document.getElementById('btn-chat-message').onclick = function() {
     });
 };
 
+connection.onerror = function(event) {
+    var remoteUserId = event.userid;
+    if (event.extra.userJoin=="performer"){
+        alert("broadcast ended or you've been kicked");
+        window.location.href="<?=base_url()?>homepage";
+    }
+};
 
 connection.onUserStatusChanged = function(event, dontWriteLogs) {
-    console.log();
     if (!!connection.enableLogs && !dontWriteLogs) {
         console.info(event.userid, event.status, connection.extra.broadcastuser,  "HALLO 404");
         var countViewer = $(`.count-viewer`).text();
@@ -745,12 +752,6 @@ $("#btnleave").on("click",function(e){
     window.location.href="<?=base_url()?>homepage"
 })
 
-connection.onstreamended = function(event) {
-    if (performer!=true){
-        alert("You've been kick or Broadcast ended");
-        window.location.href="<?=base_url()?>homepage"
-    }
-};
 
 
 function requestMedia(stream){
