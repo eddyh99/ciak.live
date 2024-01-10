@@ -1,3 +1,4 @@
+
 <style>
 
 .dataTables_wrapper .dataTables_length, 
@@ -140,7 +141,7 @@ connection.socketMessageEvent = 'ciak-liveshow';
 connection.extra.broadcastuser = 0;
 
 // keep room opened even if owner leaves
-connection.autoCloseEntireSession = true;
+connection.autoCloseEntireSession = false;
 connection.maxParticipantsAllowed = 1000;
 
 // here goes RTCMultiConnection
@@ -153,6 +154,8 @@ connection.sdpConstraints.mandatory = {
     OfferToReceiveAudio: true,
     OfferToReceiveVideo: true
 };
+
+$("#allviewer").hide();
 
 
 $.ajax({
@@ -245,6 +248,7 @@ setInterval(()=>{
     }, 58000
 );
 
+
 $(document).ready(function() {
     if (!performer){
         $('#confirmjoin').modal('show');
@@ -310,6 +314,7 @@ $("#startlive").on("click",function(){
                 alert(error);
             }else{
                 $("#btnopen").attr("disabled","true");
+                $("#allviewer").show();
                 $('.please-click-join-live').hide();
             }
 
@@ -343,13 +348,6 @@ $("#btnconfirm").on("click",function(){
  
             $("#btn-emoji-livestream").removeAttr("disabled");
             $('.please-click-join-live').hide();
-
-            if (meeting_type=='ticket'){
-                payperjoin();
-            }else if (meeting_type=='minutes'){
-                payperminutes();
-            }
-            statusPayperMinutes = true;
         }
         connection.updateExtraData();
 
@@ -359,6 +357,12 @@ $("#btnconfirm").on("click",function(){
         });
     });
 })
+
+function invite_moderator(uname){
+    connection.extra.moderator = uname;
+    connection.updateExtraData();
+}
+
 
 connection.onopen = function(event) {
 
@@ -381,6 +385,17 @@ connection.onopen = function(event) {
             push.btnkick                                                                               
         ]).draw();
     })
+
+    if (event.extra.moderator==connection.userFullName){
+        $("#allviewer").show();
+    }else{
+        if (meeting_type=='ticket'){
+            payperjoin();
+        }else if (meeting_type=='minutes'){
+            payperminutes();
+        }
+        statusPayperMinutes = true;
+    }
     
 
     // for(let i = 0; i < pushmember.length; i++){
@@ -485,6 +500,10 @@ connection.onmessage = function(event) {
 
 
 connection.onstream = function(event) {
+    if (event.extra.moderator==connection.userFullName){
+        $("#allviewer").show();
+    }
+    
     if (event.extra.roomOwner === true) {
         if (connection.extra.broadcastuser>1){
             console.log(connection.extra.broadcastuser, "315");

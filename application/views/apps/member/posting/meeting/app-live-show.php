@@ -207,7 +207,7 @@
                             $i=1;
                             foreach ($follower as $dt){?>
                                 <div class="people people-cam2cam<?= $dt->id?> px-4">
-                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')" data-bs-dismiss="modal">
+                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_moderator('<?= $dt->username?>')" data-bs-dismiss="modal">
                                         <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
                                         <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
                                     </a>
