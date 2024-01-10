@@ -373,7 +373,7 @@ connection.onopen = function(event) {
     var pushmember=[];
     
     if(userjoin != 'performer'){
-        pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger" onclick="kickuser('${event.userid}')">Kick</button>`});
+        pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger btn-kickmember" onclick="kickuser('${event.userid}'); $(this).parent().parent().remove();">Kick</button>`});
     }
     console.log(pushmember);
     
@@ -383,7 +383,8 @@ connection.onopen = function(event) {
         listmember.row.add([
             push.username,
             push.btnkick                                                                               
-        ]).draw();
+        ]).node().id = `id_${event.userid}`;
+        listmember.draw(false);
     })
 
     if (event.extra.moderator==connection.userFullName){
@@ -436,37 +437,9 @@ connection.onopen = function(event) {
 };
 
 var member = [];
-var listmember = $("#memberjoin").DataTable();
-
-// connection.onExtraDataUpdated = function(event) {
-    // console.log("UPDATE NOW");
-    // var data = event.extra.userJoin;
-    // console.log("386 - " + data);
-    // var pushmember=[];
-    // pushmember.push(event.extra.userJoin);
-    // console.log(pushmember);
-
-    // var listmember = $('#memberjoin').DataTable();
-
-    // for (i in pushmember) {
-    //     // console.log(pushmember[i]);
-    //     listmember.row.add([
-    //         pushmember[i]                                                                                 
-    //     ]).draw();
-    // }
-
-    // if (data.length==1){
-    // }
-    
-    // $("#memberjoin").DataTable({
-    //     data: JSON.stringify(Array.from(new Set(pushmember)))
-    // });
-    // //for (var i=0;i<count(data);i++){
-    // //    console.log(data[i]);
-    // //}
-    // member=JSON.Stringify(member);
-    // console.log(member);
-// }
+var listmember = $("#memberjoin").DataTable({
+    ordering: false,
+});
 
 
 
@@ -566,25 +539,10 @@ function kickuser(id){
     
     connection.disconnectWith(id);
     connection.deletePeer(id);
-    // connection.disconnectWith(id);
-    // if((unique_id == id)){
-    //     window.location.href="<?=base_url()?>homepage";
-    // }
-
-    // console.log("557 - " + id);
-    // console.log("558 - " + unique_id);
-
-
-    // connection.getAllParticipants().forEach(function(id) {
-    //     if(performer != true){
-    //         connection.disconnectWith(id);
-    //         window.location.href="<?=base_url()?>homepage";
-    //     }
-    // });
-    // if(performer != true){
-    //     connection.disconnectWith(id);
-    //     window.location.href="<?=base_url()?>homepage";
-    // }
+    var rows = listmember
+        .rows(`#id_${id}`)
+        .remove()
+        .draw();
 }
 
 document.getElementById('btn-chat-message').onclick = function() {

@@ -474,9 +474,21 @@ $("#upload_image").on("change",function (event){
                             // For Push Each Image
                             m_data.push(imageUrl);
 
-                            // Save to Local Forage
-                            localforage.setItem("img_save", JSON.stringify(m_data));
+                            m_data.forEach(b64toblob);
+                            
+                            var carousel_active = $(".carousel-item").hasClass("active");
+                            if(carousel_active == false){
+                                $('#img-preview-post').show();
+                            }
+
+                            for(let i = 0; i < m_data.length; i++){
+                                $('.carousel-inner').append(`<div class="carousel-item ${(carousel_active == false) ? 'active' : ''}"><img class="d-block w-100" src="${m_data[i]}"/><span class="close-img-post fs-5" onClick="del('${Math.floor((Math.random() * 1000) + 1)}');">X</span></div>`);
+                            }
+
+                            $("#tuieditor").modal("hide");
                             localStorage.setItem("is_type", 'image');
+                            $('#header-preview-text').hide();
+                            $('#attch-preview-post').hide();
                         });
 
                     })
