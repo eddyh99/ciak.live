@@ -546,7 +546,6 @@ $(document).ready(function(){
                         formdata.append("tipe",$("#tipepost").val());
                         formdata.append("price",$("#postprice").val());
 
-                        console.log(...formdata);
 
                         $('#progressbar-wrapper').removeClass('d-none');
                         var progress = $('.progress-bar');

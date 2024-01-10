@@ -1,7 +1,5 @@
 <input type="text" id="postid" value="<?= @$post_id ?>">
 <input type="hidden" id="jenis" value="Post">
-<input type="hidden" id="is_mediatype" value="<?= @$edit->post_media[0]->media_type?>">
-<input type="hidden" id="is_extension" value="<?= @$edit->post_media[0]->media_type?>">
 
 <div id="load-edit-profile" style="display: none;">
     <div class="img-load d-flex flex-column justify-content-center align-items-center">
@@ -56,7 +54,7 @@
                                     <div class="position-absolute hidden-icon" style="z-index: 9999" id="hidden-iconpost">
                                         <div class="d-flex flex-column gap-3 ">
                                             <div>
-                                                <label for="upload_image" class="icon-upload-video">
+                                                <label for="upload_image" class="icon-upload-video" id="icon-edit-img">
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3.33334 13.3335L7.155 9.51183C7.46755 9.19938 7.8914 9.02385 8.33334 9.02385C8.77528 9.02385 9.19912 9.19938 9.51167 9.51183L13.3333 13.3335M11.6667 11.6668L12.9883 10.3452C13.3009 10.0327 13.7247 9.85719 14.1667 9.85719C14.6086 9.85719 15.0325 10.0327 15.345 10.3452L16.6667 11.6668M11.6667 6.66683H11.675M5 16.6668H15C15.442 16.6668 15.866 16.4912 16.1785 16.1787C16.4911 15.8661 16.6667 15.4422 16.6667 15.0002V5.00016C16.6667 4.55814 16.4911 4.13421 16.1785 3.82165C15.866 3.50909 15.442 3.3335 15 3.3335H5C4.55798 3.3335 4.13405 3.50909 3.82149 3.82165C3.50893 4.13421 3.33334 4.55814 3.33334 5.00016V15.0002C3.33334 15.4422 3.50893 15.8661 3.82149 16.1787C4.13405 16.4912 4.55798 16.6668 5 16.6668Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
@@ -99,6 +97,16 @@
                                 <div id="img-preview-post" class="img-preview-post">
                                     <div id="carouselPreviewImg" class="carousel slide" data-bs-interval="false">
                                         <div class="carousel-inner">
+                                            <!-- <div class="carousel-item active">
+                                                <div class="d-flex justify-content-center">
+                                                    <video class="d-block" width="280" height="240" controls src="<?= base_url()?>assets/img/new-ciak/holiday.mp4"></video>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="d-flex justify-content-center">
+                                                    <video class="d-block" width="280" height="240" controls src="<?= base_url()?>assets/img/new-ciak/kumparanmov.mov"></video>
+                                                </div>
+                                            </div> -->
                                         </div>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselPreviewImg" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
