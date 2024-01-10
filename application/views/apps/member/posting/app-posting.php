@@ -100,12 +100,7 @@
                                 <div id="attch-preview-post"></div>
                                 <div id="img-preview-post" class="img-preview-post">
                                     <div id="carouselPreviewImg" class="carousel slide" data-bs-interval="false">
-                                        <div class="carousel-inner">
-                                            <!-- <div class="carousel-item active d-flex justify-content-center">
-                                                <video src="<?= base_url()?>assets/img/new-ciak/ip.mp4" class="d-block" controls width="280" height="300"></video>
-                                                <span class="close-img-post fs-5">X</span>
-                                            </div> -->
-                                        </div>
+                                        <div class="carousel-inner"></div>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselPreviewImg" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>

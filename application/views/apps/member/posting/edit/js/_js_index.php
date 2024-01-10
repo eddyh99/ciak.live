@@ -673,7 +673,6 @@ $("#upload_image").on("change",function (event){
             });
 
 
-
         })
     }
     

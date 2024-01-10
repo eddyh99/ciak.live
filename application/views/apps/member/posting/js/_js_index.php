@@ -103,13 +103,14 @@ $(document).ready(function(){
         $("#hidden-iconpost").toggle();
     });
 
+
     $(".icon-upload-video").click(function() {
         $("#hidden-iconpost").toggle();
+        localStorage.setItem("temp_title_post",$('#title-optional-post').val());
+        localStorage.setItem("temp_desc_post",$('#textarea-post').val());
         localforage.clear().then(function() {
-            // Run this code once the database has been entirely deleted.
             console.log('');
         }).catch(function(err) {
-            // This code runs if there were any errors
             console.log(err);
         });
     });
@@ -127,13 +128,13 @@ $(document).ready(function(){
     $('#img-preview-post').hide();
     localforage.getItem('img_save', function (err, value) {
         var dataImg=JSON.parse(value);
-        if(dataImg == null) {
+        if(dataImg == null || dataImg.length == 0) {
             console.log("");
         }else {
             $('#img-preview-post').show();
             localStorage.setItem("is_video",false);
 
-            for(let i = 0; i <= dataImg.length; i++){
+            for(let i = 0; i < dataImg.length; i++){
                 $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
             }
         }
@@ -158,34 +159,25 @@ $(document).ready(function(){
 ------------------------------------------------------------*/ 
 
 
-
 /*----------------------------------------------------------
-4.  Set Localstorage Textare & Discard Pos Start
+4.  Localstorage Title Post, Description & Discard Pos Start
 ------------------------------------------------------------*/ 
-    let textarea_post = localStorage.getItem('textarea-post');
-    let title_optional_post = localStorage.getItem('title-optional-post');
+    let temp_title_post = localStorage.getItem('temp_title_post');
+    let temp_desc_post = localStorage.getItem('temp_desc_post');
  
-    // Set Local storage for text area
-    $('.add-textarea-local').click(function() {
-        let textarea_input = $("#textarea-post").val();
-        let title_optional_input = $("#title-optional-post").val();
-        localStorage.setItem('textarea-post', textarea_input);
-        localStorage.setItem('title-optional-post', title_optional_input);
-    });
-    $("#textarea-post").val(textarea_post);
-    $("#title-optional-post").val(title_optional_post);
+
+    $("#title-optional-post").val(temp_title_post);
+    $("#textarea-post").val(temp_desc_post);
+
 
     // Discard All localstorage if already in localstorage
     $('#discard-post').click(function(){
-        localStorage.removeItem('textarea-post');
-        localStorage.removeItem('title-optional-post');
+        localStorage.removeItem('temp_desc_post');
+        localStorage.removeItem('temp_title_post');
         localStorage.removeItem('is_video');
-        // localforage.clear();
         localforage.clear().then(function() {
-            // Run this code once the database has been entirely deleted.
             console.log('Database is now empty.');
         }).catch(function(err) {
-            // This code runs if there were any errors
             console.log(err);
         });
     })
@@ -285,6 +277,7 @@ $(document).ready(function(){
     var files
     $("#upload_video").on("change", function(event){
         files = event.target.files;
+        var m_video = [];
         for (var i = 0; i < files.length; i++) {
             var f = files[i];
             // Only process video files.
@@ -299,9 +292,13 @@ $(document).ready(function(){
             source.src = URL.createObjectURL(files[i]);
             localStorage.setItem("is_video","video");
             
+            m_video.push(URL.createObjectURL(files[i]));
+
             $('#img-preview-post').show();
-            $('.carousel-inner').append('<div class="carousel-item '+(i ==  1? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+            $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+' d-block"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
         }
+        localforage.setItem("video_save", JSON.stringify(m_video));
+        window.location.href = '<?= base_url()?>post?type=<?=$_SESSION["content_type"]?>';
     }) ;
 
 /*----------------------------------------------------------
