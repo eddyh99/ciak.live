@@ -48,17 +48,12 @@
 /*
     * TABLE OF CONTENTS
     *
-    * 1. Summer Note
-    * 2. Hide Show Icon Post Img, Vid, Attch
-    * 3. Preview Image
-    * 4. Preview Attachment
-    * 5. Preview Video
-    * 6. Change Type Post on Image, Video, Attachment
 */
 
 
 
 $('#header-preview-text').hide();
+localStorage.setItem("is_type",false);
 
 function toDataURL(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -75,13 +70,16 @@ function toDataURL(url, callback) {
 }
 
 var images_edit = [];
+var video_edit = [];
+var attach_edit = [];
 var formdata = new FormData();
 
 <?php foreach($edit->post_media as $dt){ ?>
-    console.log('<?= $dt->imgorg ?>');
 
     <?php if($dt->media_type == 'attach'){?>
-        $('.attch-preview-post').append(`<li class="text-preview-attch"><?= $dt->imgorg?></li>`);
+        $('#header-preview-text').show();
+        $('#img-preview-post').hide();
+        attach_edit.push('<?= $dt->imgorg ?>')
     <?php }else{?>
         toDataURL('<?= $dt->imgorg ?>', function(dataUrl) {      
             images_edit.push(dataUrl)
@@ -91,20 +89,29 @@ var formdata = new FormData();
                 $('#img-preview-post').show();
                 for(let i = 0; i < images_edit.length; i++){
                     if('<?= $dt->media_extension?>' == 'video'){
-                        $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+images_edit[i]+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+                        localStorage.setItem("is_type", 'video');
+                        video_edit.push(images_edit[i]);
+                        $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+'"><div class="d-flex justify-content-center"><video src="'+images_edit[i]+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
                     }else if('<?= $dt->media_extension?>' == 'image'){
+                        localStorage.setItem("is_type", 'image');
                         $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
                     }
                 }
             }else {
                 $('#img-preview-post').hide();
             }
+
             
         })
     <?php }?>
 
-
 <?php } ?>
+
+for(let i = 0; i < attach_edit.length; i++){
+    localStorage.setItem("is_type", 'attach');
+    $('.attch-preview-post').append(`<li class="text-preview-attch"><span>${attach_edit[i].substring(42)}</span><span class="ps-4 text-danger" style="" onClick="delAttch('${i}')">X</span></li>`);
+}
+
 
 
 
@@ -144,13 +151,17 @@ $(document).ready(function(){
     $(".icon-upload-video").click(function() {
         $("#hidden-iconpost").toggle();
         localforage.clear().then(function() {
-                // Run this code once the database has been entirely deleted.
-            console.log('Database is now empty.');
+            // Run this code once the database has been entirely deleted.
+            console.log("");
         }).catch(function(err) {
             // This code runs if there were any errors
             console.log(err);
         });
     });
+
+    $("#icon-edit-img").click(function() {
+        $('#icon-edit-img').css({ 'opacity': 0.2,'pointer-events': 'none'});
+    })
 
     $(".icon-upload-attach").click(function() {
         $("#hidden-iconpost").toggle();
@@ -166,28 +177,28 @@ $(document).ready(function(){
 3. Preview Image Start
 ------------------------------------------------------------*/ 
 
-$('#img-preview-post').hide();
-localforage.getItem('img_save', function (err, value) {
-    var dataImg=JSON.parse(value);
-    if(dataImg == null) {
-        console.log("");
-    }else {
-        $('#img-preview-post').show();
-        localStorage.setItem("is_video",false);
+// $('#img-preview-post').hide();
+// localforage.getItem('img_save', function (err, value) {
+//     var dataImg=JSON.parse(value);
+//     if(dataImg == null) {
+//         console.log("");
+//     }else {
+//         $('#img-preview-post').show();
 
-        for(let i = 0; i <= dataImg.length; i++){
-            $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
-        }
-    }
+
+//         for(let i = 0; i <= dataImg.length; i++){
+//             $('.carousel-inner').append('<div class="carousel-item  '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+dataImg[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
+//         }
+//     }
     
-});
+// });
 
 
 // Function for delete image in X button
 function del(index){
     // Remove element HTML
     $('.carousel-item').remove();
-    
+
     images_edit.splice(index, 1);
     if(images_edit.length != 0){
         $('#img-preview-post').show();
@@ -195,9 +206,26 @@ function del(index){
             $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
         }
     }else {
-        console.log("HIDE ONLY");
         $('#img-preview-post').hide();
+        localStorage.setItem("is_type",false);
     }
+
+    return false;
+}
+
+
+function delAttch(index){
+    attach_edit.splice(index, 1);
+    $('.text-preview-attch').remove();
+    if(attach_edit.length != 0){
+        for(let i = 0; i < attach_edit.length; i++){
+            $('.attch-preview-post').append(`<li class="text-preview-attch"><span>${attach_edit[i].substring(42)}</span><span class="ps-4" onClick="delAttch('${i}')">CLOSE</span></li>`);
+        }
+    }else {
+        $('#header-preview-text').hide();
+        localStorage.setItem("is_type",false);
+    }
+
     return false;
 }
 
@@ -209,32 +237,14 @@ function del(index){
 /*----------------------------------------------------------
 5.  Preview Video Start
 ------------------------------------------------------------*/   
-var files
-$("#img_preview_post").on("change", function(event){
-    files = event.target.files;
-    for (var i = 0; i < files.length; i++) {
-        var f = files[i];
-        // Only process video files.
-        if (!f.type.match('video.*')) {
-            continue;
-        }
-        var source = document.createElement('video');
-        source.width = 280;
-        source.height = 240;
-        source.controls = true;
-        source.classList.add('d-block');
-        source.src = URL.createObjectURL(files[i]);
-        localStorage.setItem("is_video","video");
-
-        $('#img-preview-post').show();
-        $('.carousel-inner').append('<div class="carousel-item '+(i ==  1? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
-    }
-}) ;
+var video_files;
+var attach_files;
 
 $("#upload_video").on("change", function(event){
-    files = event.target.files;
-    for (var i = 0; i < files.length; i++) {
-        var f = files[i];
+    video_files = event.target.files;
+    video_edit.push(video_files);
+    for (var i = 0; i < video_files.length; i++) {
+        var f = video_files[i];
         // Only process video files.
         if (!f.type.match('video.*')) {
             continue;
@@ -244,16 +254,20 @@ $("#upload_video").on("change", function(event){
         source.height = 240;
         source.controls = true;
         source.classList.add('d-block');
-        source.src = URL.createObjectURL(files[i]);
-        localStorage.setItem("is_video","video");
+        source.src = URL.createObjectURL(video_files[i]);
+        localStorage.setItem("is_type", 'video');
 
+        $('#header-preview-text').hide();
+        $('#attch-preview-post').hide();
         $('#img-preview-post').show();
-        $('.carousel-inner').append('<div class="carousel-item '+(i ==  1? "active" : "")+' d-block"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+        var carousel_active = $(".carousel-item").hasClass("active");
+
+        $('.carousel-inner').append('<div class="carousel-item '+(carousel_active ==  false? "active" : "")+'"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(video_files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
     }
 });
 
 $(function() {
-    $('#header-preview-text').hide();
+    // $('#header-preview-text').hide();
     $('#upload_attch').on('change', function(){
         var input = document.getElementById('upload_attch');
         var children = "";
@@ -268,12 +282,15 @@ $(function() {
             });
             this.value = "";
         }else{
-            files = input.files;
-            localStorage.setItem("is_video","attach");
-            for (var i = 0; i < input.files.length; ++i) {
-                children += '<li class="text-preview-attch">' + input.files.item(i).name + '</li>';
+            attach_files = input.files;
+            attach_edit.push(attach_files)
+            localStorage.setItem("is_type", 'attach');
+            for (var i = 0; i < attach_files.length; ++i) {
+                children += `<li class="new-text-preview-attch"><span>${attach_files.item(i).name}</span></li>`;
             }
+            $('#img-preview-post').hide();
             $('#header-preview-text').show();
+            $('#attch-preview-post').show();
             $('#attch-preview-post').append('<ul>'+children+'</ul>');
         }
     })
@@ -325,129 +342,30 @@ $("#tipepost").on("change",function(){
 ------------------------------------------------------------*/   
 
 
+function base64ToBlob(base64, mime){
+    mime = mime || '';
+    var sliceSize = 1024;
+    var byteChars = window.atob(base64);
+    var byteArrays = [];
 
-$("#btnUpdate").on("click",function(){
-    // console.log(pair[0] + " - " + pair[1]);
-    formdata.append("post_id", $("#postid").val());
-    formdata.append("title_article", $("#title-optional-post").val());
-    formdata.append("post", $("#edit-textarea-post").val());
-    formdata.append("tipe", $("#tipepost").val());
-    formdata.append("price", $("#postprice").val());
-    formdata.append("content_type", $("#contentype").val());
-    if (typeof files !== 'undefined'){
-        console.log("200");
-        for (var i = 0; i < files.length; i++) {
-            var f = files[i];
-            console.log(f);
-            formdata.append("video[]",f);
+    for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+        var slice = byteChars.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
         }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
     }
-    
-    var imgTmp=[];
-    imgTmp = $(".img-edit").get().map(function(el) {
-    
-        return el.src;
-    
-    });
-    
-    imgTmp.forEach(b64toblob);
 
-
-    $('#progressbar-wrapper').removeClass('d-none');
-    var progress = $('.progress-bar');
-
-    $.ajax({
-        url: "<?=base_url()?>post/saveEdit",
-        type: "post",
-        data: formdata,
-        xhr: function(){
-            var xhr = $.ajaxSettings.xhr();
-            xhr.upload.addEventListener('progress', function(e){
-
-                if(e.lengthComputable){
-                    var completed = e.loaded/e.total;
-                    var perc = Math.floor(completed * 100);
-               
-                    // progress.text(perc+'%');
-                    progress.attr('aria-valuenow',perc);
-                    progress.css('width', perc+'%');
-                }
-            }, false)
-
-            xhr.addEventListener('progress', function(e){
-                if(e.lengthComputable){
-                    var completed = e.loaded/e.total;
-                    var perc = Math.floor(completed * 100);
-                    
-                    // progress.text(perc+'%');
-                    progress.attr('aria-valuenow',perc);
-                    progress.css('width',perc+'%');
-                }
-            }, false)
-            return xhr;
-        },
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            var data=JSON.parse(response);
-            console.log(data);
-            if(data.code == 200){
-                console.log("sukses");
-                location.replace('<?= base_url()?>homepage');
-            }else {
-                $('#load-edit-profile').hide();
-                setTimeout(()=>{
-                    Swal.fire({
-                        text: "Something Error to upload, please try again",
-                        confirmButtonColor: '#03B115',
-                        background: '#323436',
-                        color: '#ffffff',
-                        position: 'top'
-                    });
-                    $('#progressbar-wrapper').addClass('d-none');
-                    progress.css('width', 0+'%');
-                }, 2000);
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-           console.log(textStatus, errorThrown);
-        }
-    });
-    
-    
-    // for (var pair of formdata.entries()) {
-    //     console.log(pair[0] + " - " + pair[1]);
-    // }
-
-})
-
-
-function base64ToBlob(base64, mime) 
-    {
-        mime = mime || '';
-        var sliceSize = 1024;
-        var byteChars = window.atob(base64);
-        var byteArrays = [];
-    
-        for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
-            var slice = byteChars.slice(offset, offset + sliceSize);
-    
-            var byteNumbers = new Array(slice.length);
-            for (var i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-    
-            var byteArray = new Uint8Array(byteNumbers);
-    
-            byteArrays.push(byteArray);
-        }
-    
-        return new Blob(byteArrays, {type: mime});
-    }
+    return new Blob(byteArrays, {type: mime});
+}
 
 
 function b64toblob(item, index){
-    console.log("MASUK BLOB");
     //console.log(item.length);
     if (item.length!=0){
         // console.log("MASUK SINI");
@@ -461,7 +379,6 @@ function b64toblob(item, index){
 $("#upload_image").on("change",function (event){
     files=event.target.files;
     ext=$("#upload_image").val().split('.')[1].toLowerCase();
-    console.log(ext);
 
     if (ext=="heic"){
         $.ajax({
@@ -557,8 +474,21 @@ $("#upload_image").on("change",function (event){
                             // For Push Each Image
                             m_data.push(imageUrl);
 
-                            // Save to Local Forage
-                            localforage.setItem("img_save", JSON.stringify(m_data));
+                            m_data.forEach(b64toblob);
+                            
+                            var carousel_active = $(".carousel-item").hasClass("active");
+                            if(carousel_active == false){
+                                $('#img-preview-post').show();
+                            }
+
+                            for(let i = 0; i < m_data.length; i++){
+                                $('.carousel-inner').append(`<div class="carousel-item ${(carousel_active == false) ? 'active' : ''}"><img class="d-block w-100" src="${m_data[i]}"/><span class="close-img-post fs-5" onClick="del('${Math.floor((Math.random() * 1000) + 1)}');">X</span></div>`);
+                            }
+
+                            $("#tuieditor").modal("hide");
+                            localStorage.setItem("is_type", 'image');
+                            $('#header-preview-text').hide();
+                            $('#attch-preview-post').hide();
                         });
 
                     })
@@ -590,12 +520,7 @@ $("#upload_image").on("change",function (event){
 
         function loadFileImg() {
             $("input[type=file]").trigger("click");
-            // document.querySelector('.tui-image-editor-load-btn').click();
         }
-
-        // setTimeout(function () {
-        //     $("input[type=file]").trigger("click");
-        // }, 2000);
 
         // For Custom When User Load Image default ratio 1:1
         window.onload = ()=> {
@@ -662,16 +587,23 @@ $("#upload_image").on("change",function (event){
                 m_data.push(imageUrl);
 
                 m_data.forEach(b64toblob);
-
+                
+                var carousel_active = $(".carousel-item").hasClass("active");
+                if(carousel_active == false){
+                    $('#img-preview-post').show();
+                }
 
                 for(let i = 0; i < m_data.length; i++){
-                    $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100" src="'+m_data[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+                    $('.carousel-inner').append(`<div class="carousel-item ${(carousel_active == false) ? 'active' : ''}"><img class="d-block w-100" src="${m_data[i]}"/><span class="close-img-post fs-5" onClick="del('${Math.floor((Math.random() * 1000) + 1)}');">X</span></div>`);
                 }
+
                 $("#tuieditor").modal("hide");
+                localStorage.setItem("is_type", 'image');
+                $('#header-preview-text').hide();
+                $('#attch-preview-post').hide();
                 // Save to Local Forage
                 // localforage.setItem("img_save", JSON.stringify(m_data));
             });
-
 
 
         })
@@ -680,5 +612,245 @@ $("#upload_image").on("change",function (event){
     $("#tuieditor").modal("show");
     
 })
+
+
+
+$("#btnUpdate").on("click",function(){
+    var is_type = localStorage.getItem("is_type");
+    $('#progressbar-wrapper').removeClass('d-none');
+    var progress = $('.progress-bar');
+
+    if(is_type == 'image'){
+        console.log("MASUK IMAGE");
+        formdata.append("post_id", $("#postid").val());
+        formdata.append("title_article", $("#title-optional-post").val());
+        formdata.append("post", $("#edit-textarea-post").val());
+        formdata.append("tipe", $("#tipepost").val());
+        formdata.append("price", $("#postprice").val());
+        formdata.append("content_type", $("#contentype").val());
+        var imgTmp=[];
+        imgTmp = $(".img-edit").get().map(function(el) {
+            return el.src;
+        });
+        
+        imgTmp.forEach(b64toblob);
+        $.ajax({
+            url: "<?=base_url()?>post/saveEdit",
+            type: "post",
+            data: formdata,
+            xhr: function(){
+                var xhr = $.ajaxSettings.xhr();
+                xhr.upload.addEventListener('progress', function(e){
+    
+                    if(e.lengthComputable){
+                        var completed = e.loaded/e.total;
+                        var perc = Math.floor(completed * 100);
+                   
+                        // progress.text(perc+'%');
+                        progress.attr('aria-valuenow',perc);
+                        progress.css('width', perc+'%');
+                    }
+                }, false)
+    
+                xhr.addEventListener('progress', function(e){
+                    if(e.lengthComputable){
+                        var completed = e.loaded/e.total;
+                        var perc = Math.floor(completed * 100);
+                        
+                        // progress.text(perc+'%');
+                        progress.attr('aria-valuenow',perc);
+                        progress.css('width',perc+'%');
+                    }
+                }, false)
+                return xhr;
+            },
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                var data=JSON.parse(response);
+                console.log(data);
+                if(data.code == 200){
+                    console.log("sukses");
+                    location.replace('<?= base_url()?>homepage');
+                }else {
+                    $('#load-edit-profile').hide();
+                    setTimeout(()=>{
+                        Swal.fire({
+                            text: "Something Error to upload, please try again",
+                            confirmButtonColor: '#03B115',
+                            background: '#323436',
+                            color: '#ffffff',
+                            position: 'top'
+                        });
+                        $('#progressbar-wrapper').addClass('d-none');
+                        progress.css('width', 0+'%');
+                    }, 2000);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+               console.log(textStatus, errorThrown);
+            }
+        });
+
+    }else if(is_type == 'video' || is_type == false){
+        console.log("MASUK VIDEO ATAU KOSONG");
+        if (typeof video_edit !== 'undefined'){
+            for (var i = 0; i < video_edit.length; i++) {
+                var f = video_edit[i];
+                formdata.append("video[]", f);
+            }
+        }  
+
+        formdata.append("post_id", $("#postid").val());
+        formdata.append("title_article", $("#title-optional-post").val());
+        formdata.append("post", $("#edit-textarea-post").val());
+        formdata.append("tipe", $("#tipepost").val());
+        formdata.append("price", $("#postprice").val());
+        formdata.append("content_type", $("#contentype").val());
+
+        $.ajax({         
+            url: "<?=base_url()?>post/saveEdit",
+            type: "post",
+            data: formdata,
+            xhr: function(){
+                var xhr = $.ajaxSettings.xhr();
+                xhr.upload.addEventListener('progress', function(e){
+                    if(e.lengthComputable){
+                        var completed = e.loaded/e.total;
+                        var perc = Math.floor(completed * 100);
+                
+                        // progress.text(perc+'%');
+                        progress.attr('aria-valuenow',perc);
+                        progress.css('width', perc+'%');
+                    }
+                }, false)
+
+                xhr.addEventListener('progress', function(e){
+                    if(e.lengthComputable){
+                        var completed = e.loaded/e.total;
+                        var perc = Math.floor(completed * 100);
+                        
+                        // progress.text(perc+'%');
+                        progress.attr('aria-valuenow',perc);
+                        progress.css('width',perc+'%');
+                    }
+                }, false)
+                return xhr;
+            },
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                var data=JSON.parse(response);
+                console.log(data);
+                if(data.success == true){
+                    console.log("sukses");
+                    location.replace('<?= base_url()?>homepage');
+                }
+
+                if(data.success == false){
+                    $('#load-edit-profile').hide();
+                    setTimeout(()=>{
+                        Swal.fire({
+                            text: "Something Error to upload, please try again",
+                            confirmButtonColor: '#03B115',
+                            background: '#323436',
+                            color: '#ffffff',
+                            position: 'top'
+                        });
+                        $('#progressbar-wrapper').addClass('d-none');
+                        progress.css('width', 0+'%');
+                    }, 2000);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }else if(is_type == 'attach'){
+        console.log("MASUK ATTACH");
+        if (typeof attach_edit !== 'undefined'){
+            console.log("200");
+            for (var i = 0; i < attach_edit.length; i++) {
+                var f = attach_edit[i];
+                console.log(f);
+                formdata.append("attach[]",f);
+            }
+        }
+
+        formdata.append("post_id", $("#postid").val());
+        formdata.append("title_article", $("#title-optional-post").val());
+        formdata.append("post", $("#edit-textarea-post").val());
+        formdata.append("tipe", $("#tipepost").val());
+        formdata.append("price", $("#postprice").val());
+        formdata.append("content_type", $("#contentype").val());
+
+        $.ajax({         
+            url: "<?=base_url()?>post/saveEdit",
+            type: "post",
+            data: formdata,
+            xhr: function(){
+                var xhr = $.ajaxSettings.xhr();
+                xhr.upload.addEventListener('progress', function(e){
+                    if(e.lengthComputable){
+                        var completed = e.loaded/e.total;
+                        var perc = Math.floor(completed * 100);
+                
+                        // progress.text(perc+'%');
+                        progress.attr('aria-valuenow',perc);
+                        progress.css('width', perc+'%');
+                    }
+                }, false)
+
+                xhr.addEventListener('progress', function(e){
+                    if(e.lengthComputable){
+                        var completed = e.loaded/e.total;
+                        var perc = Math.floor(completed * 100);
+                        
+                        // progress.text(perc+'%');
+                        progress.attr('aria-valuenow',perc);
+                        progress.css('width',perc+'%');
+                    }
+                }, false)
+                return xhr;
+            },
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                var data=JSON.parse(response);
+                console.log(data);
+                if(data.success == true){
+                    console.log("sukses");
+                    location.replace('<?= base_url()?>homepage');
+                }
+
+                if(data.success == false){
+                    $('#load-edit-profile').hide();
+                    setTimeout(()=>{
+                        Swal.fire({
+                            text: "Something Error to upload, please try again",
+                            confirmButtonColor: '#03B115',
+                            background: '#323436',
+                            color: '#ffffff',
+                            position: 'top'
+                        });
+                        $('#progressbar-wrapper').addClass('d-none');
+                        progress.css('width', 0+'%');
+                    }, 2000);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+    
+    
+    // for (var pair of formdata.entries()) {
+    //     console.log(pair[0] + " - " + pair[1]);
+    // }
+
+})
+
+// $('#img-preview-post').show(); 
 
 </script>

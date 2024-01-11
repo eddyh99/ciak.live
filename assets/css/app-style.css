@@ -3159,6 +3159,11 @@ label#label-forsubs {
     color: var(--text-white-color) !important;
 }
 
+#attch-preview-post .new-text-preview-attch{
+    list-style-type: disc !important;
+    color: var(--text-white-color) !important;
+}
+
 .span-text-toogle-explicit {
     color: var(--text-white-color);
 }
