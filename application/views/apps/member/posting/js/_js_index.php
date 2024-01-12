@@ -345,7 +345,6 @@ $(function() {
 9.  Process Upload Button Start
 ------------------------------------------------------------*/ 
 // var id_stitch = $('#id_stitch').val();
-$(document).ready(function(){
     $("#btnpublish").on("click",function(){
         formdata = new FormData();
         var jenis=$("#jenis").val();
@@ -428,32 +427,24 @@ $(document).ready(function(){
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        var data=JSON.parse(response);
-                        console.log(data);
-                        if(data.success == true){
-                            localStorage.removeItem('textarea-post');
-                            localStorage.removeItem('title-optional-post');
-                            localStorage.removeItem('is_video');
-                            location.replace('<?= base_url()?>homepage');
-                        }
-
-                        if(data.success == false){
-                            $('#load-edit-profile').hide();
-                            setTimeout(()=>{
-                                Swal.fire({
-                                    text: "Something Error to upload, please try again",
-                                    confirmButtonColor: '#03B115',
-                                    background: '#323436',
-                                    color: '#ffffff',
-                                    position: 'top'
-                                });
-                                $('#progressbar-wrapper').addClass('d-none');
-                                progress.css('width', 0+'%');
-                            }, 2000);
-                        }
+                        localStorage.removeItem('textarea-post');
+                        localStorage.removeItem('title-optional-post');
+                        localStorage.removeItem('is_video');
+                        location.replace('<?= base_url()?>homepage');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
+                        $('#load-edit-profile').hide();
+                        setTimeout(()=>{
+                            Swal.fire({
+                                text: "Something Error to upload, please try again",
+                                confirmButtonColor: '#03B115',
+                                background: '#323436',
+                                color: '#ffffff',
+                                position: 'top'
+                            });
+                            $('#progressbar-wrapper').addClass('d-none');
+                            progress.css('width', 0+'%');
+                        }, 2000);
                     }
                 });
 
@@ -508,32 +499,24 @@ $(document).ready(function(){
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        var data=JSON.parse(response);
-                        if(data.success == true){
                             localStorage.removeItem('textarea-post');
                             localStorage.removeItem('title-optional-post');
                             localStorage.removeItem('is_video');
                             location.replace('<?= base_url()?>homepage');
-                        }
-
-                        if(data.success == false){
-                            $('#load-edit-profile').hide();
-                            setTimeout(()=>{
-                                Swal.fire({
-                                    text: "Something Error to upload, please try again",
-                                    confirmButtonColor: '#03B115',
-                                    background: '#323436',
-                                    color: '#ffffff',
-                                    position: 'top'
-                                });
-                                $('#progressbar-wrapper').addClass('d-none');
-                                progress.css('width', 0+'%');
-                            }, 2000);
-                        }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                       console.log(textStatus, errorThrown);
-                       alert(errorThrown);
+                        $('#load-edit-profile').hide();
+                        setTimeout(()=>{
+                            Swal.fire({
+                                text: "Something Error to upload, please try again",
+                                confirmButtonColor: '#03B115',
+                                background: '#323436',
+                                color: '#ffffff',
+                                position: 'top'
+                            });
+                            $('#progressbar-wrapper').addClass('d-none');
+                            progress.css('width', 0+'%');
+                        }, 2000);
                     }
                 });
             }else{
@@ -584,17 +567,13 @@ $(document).ready(function(){
                             processData: false,
                             contentType: false,
                             success: function (response) {
-                                var data=JSON.parse(response);
-                                console.log(data);
-                                if(data.success == true){
                                     localStorage.removeItem('textarea-post');
                                     localStorage.removeItem('title-optional-post');
                                     localforage.clear();
                                     localStorage.removeItem('is_video');
-                                    // location.replace('<?= base_url()?>homepage');
-                                }
-    
-                                if(data.success == false){
+                                    location.replace('<?= base_url()?>homepage');
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
                                     $('#load-edit-profile').hide();
                                     setTimeout(()=>{
                                         Swal.fire({
@@ -607,10 +586,6 @@ $(document).ready(function(){
                                         $('#progressbar-wrapper').addClass('d-none');
                                         progress.css('width', 0+'%');
                                     }, 2000);
-                                }
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-                               console.log(textStatus, errorThrown);
                             }
                         });
                     }
@@ -618,7 +593,6 @@ $(document).ready(function(){
             }
         }
     })
-})
 /*----------------------------------------------------------
 9.  Process Upload Button End
 ------------------------------------------------------------*/ 
