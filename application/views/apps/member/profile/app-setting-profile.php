@@ -243,42 +243,7 @@
                             <h4 class="text-center">Connect your social platform to start share live real time</h4>
                         </div>
                         <div class="mb-3 ciak-connect d-flex flex-row flex-wrap justify-content-center">
-                            <!-- FACEBOOK RTMP -->
-                            <?php if(!empty($rtmp->facebook)) {?>
-                                <div class="bg-live-connect">
-                                    <div class="wrapper-border d-flex justify-content-between">
-                                        <div class="ps-4 d-flex align-items-center">
-                                            <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M13.7008 15.1553L14.4559 10.3616H9.80422V7.24576C9.80422 5.93499 10.4536 4.65418 12.5303 4.65418H14.6749V0.572075C13.426 0.373093 12.164 0.265445 10.8992 0.25C7.07059 0.25 4.57106 2.54946 4.57106 6.70647V10.3616H0.327148V15.1553H4.57106V26.75H9.80422V15.1553H13.7008Z" fill="#337FFF"/>
-                                            </svg>
-                                            <span class="ps-2">
-                                                CONNECTED
-                                            </span>
-                                        </div>
-                                        <div class="pe-4">
-                                            <a href="<?= base_url()?>profile/facebook_link" class="btn-main-green py-2" target="_blank">
-                                                Revoke
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php }else{?>
-                                <div class="bg-live-connect">
-                                    <a href="<?= base_url()?>profile/facebook_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
-                                        <div class="ps-4">
-                                            <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M13.7008 15.1553L14.4559 10.3616H9.80422V7.24576C9.80422 5.93499 10.4536 4.65418 12.5303 4.65418H14.6749V0.572075C13.426 0.373093 12.164 0.265445 10.8992 0.25C7.07059 0.25 4.57106 2.54946 4.57106 6.70647V10.3616H0.327148V15.1553H4.57106V26.75H9.80422V15.1553H13.7008Z" fill="#337FFF"/>
-                                            </svg>
-                                        </div>
-                                        <div class="pe-4">
-                                            +
-                                            <span>
-                                                CONNECT YOUR ACCOUNT
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php }?>
+           
 
                             <!-- YOUTUBE RTMP -->
                             <?php if(!empty($rtmp->youtube)) {?>
@@ -319,9 +284,91 @@
                                 </div>
                             <?php }?>
 
+                            <!-- TIKTOK RTMP -->
+                            <div class="bg-live-connect">
+                                <a style="cursor: default;" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                    <div class="ps-4">
+                                    <svg width="25" height="28" viewBox="0 0 25 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_2655_14472)">
+                                        <path d="M18.5274 10.082C20.3515 11.3705 22.586 12.1286 24.9994 12.1286V7.53952C24.5426 7.53961 24.0871 7.4925 23.6402 7.39894V11.0112C21.227 11.0112 18.9928 10.2532 17.1684 8.96481V18.3299C17.1684 23.0149 13.325 26.8125 8.58437 26.8125C6.81553 26.8125 5.17139 26.2841 3.80566 25.3777C5.36445 26.9528 7.53828 27.9298 9.94316 27.9298C14.6842 27.9298 18.5276 24.1322 18.5276 19.447V10.082H18.5274ZM20.2042 5.45217C19.272 4.44581 18.6599 3.14526 18.5274 1.70741V1.11719H17.2395C17.5637 2.94462 18.6696 4.50586 20.2042 5.45217ZM6.8041 21.7827C6.28329 21.108 6.00176 20.2824 6.00303 19.4336C6.00303 17.291 7.76094 15.5536 9.92979 15.5536C10.3339 15.5534 10.7357 15.6147 11.1209 15.7354V11.0437C10.6707 10.9827 10.2164 10.9568 9.7623 10.9663V14.6181C9.37688 14.4973 8.97492 14.436 8.57061 14.4364C6.40186 14.4364 4.64404 16.1736 4.64404 18.3165C4.64404 19.8318 5.52266 21.1437 6.8041 21.7827Z" fill="#FF004F"/>
+                                        <path d="M17.1686 8.96472C18.9931 10.2531 21.2271 11.0111 23.6404 11.0111V7.39884C22.2934 7.11527 21.1009 6.41971 20.2043 5.45217C18.6696 4.50577 17.5639 2.94453 17.2396 1.11719H13.8565V19.4469C13.8488 21.5837 12.0939 23.3139 9.92978 23.3139C8.65459 23.3139 7.52158 22.7133 6.8041 21.7826C5.52285 21.1437 4.64414 19.8317 4.64414 18.3166C4.64414 16.1738 6.40195 14.4365 8.5707 14.4365C8.98623 14.4365 9.38672 14.5004 9.7624 14.6182V10.9664C5.10498 11.0615 1.35938 14.822 1.35938 19.447C1.35938 21.7557 2.29209 23.8486 3.80596 25.3779C5.17168 26.2841 6.81572 26.8127 8.58467 26.8127C13.3254 26.8127 17.1687 23.0148 17.1687 18.3299V8.96481L17.1686 8.96472Z" fill="black"/>
+                                        <path d="M23.6401 7.39876V6.42223C22.4254 6.42405 21.2346 6.08789 20.204 5.45218C21.1163 6.43914 22.3176 7.11975 23.6401 7.39895V7.39876ZM17.2393 1.1171C17.2084 0.9425 17.1846 0.766728 17.1682 0.590221V0H12.4969V18.3299C12.4895 20.4666 10.7346 22.1968 8.57031 22.1968C7.95676 22.1977 7.3516 22.0559 6.80371 21.7828C7.52119 22.7133 8.6542 23.3139 9.92939 23.3139C12.0935 23.3139 13.8485 21.5838 13.8562 19.447V1.1172H17.2393V1.1171ZM9.76231 10.9663V9.92658C9.37197 9.87383 8.97844 9.84744 8.58447 9.8476C3.84326 9.8476 0 13.6454 0 18.3299C0 21.2669 1.51045 23.8552 3.80576 25.3778C2.29189 23.8486 1.35918 21.7555 1.35918 19.4469C1.35918 14.822 5.10469 11.0614 9.76231 10.9663Z" fill="#00F2EA"/>
+                                        </g>
+                                        <defs>
+                                        <clipPath id="clip0_2655_14472">
+                                        <rect width="25" height="28" fill="white"/>
+                                        </clipPath>
+                                        </defs>
+                                    </svg>
+                                    </div>
+                                    <div class="pe-4">
+                                        <!-- + -->
+                                        <span>
+                                            <!-- CONNECT YOUR ACCOUNT -->
+                                            COMING SOON 
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+
+
+                            <!-- FACEBOOK RTMP -->
+                            <!-- <?php if(!empty($rtmp->facebook)) {?>
+                                <div class="bg-live-connect">
+                                    <div class="wrapper-border d-flex justify-content-between">
+                                        <div class="ps-4 d-flex align-items-center">
+                                            <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.7008 15.1553L14.4559 10.3616H9.80422V7.24576C9.80422 5.93499 10.4536 4.65418 12.5303 4.65418H14.6749V0.572075C13.426 0.373093 12.164 0.265445 10.8992 0.25C7.07059 0.25 4.57106 2.54946 4.57106 6.70647V10.3616H0.327148V15.1553H4.57106V26.75H9.80422V15.1553H13.7008Z" fill="#337FFF"/>
+                                            </svg>
+                                            <span class="ps-2">
+                                                CONNECTED
+                                            </span>
+                                        </div>
+                                        <div class="pe-4">
+                                            <a href="<?= base_url()?>profile/facebook_link" class="btn-main-green py-2" target="_blank">
+                                                Revoke
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php }else{?>
+                                <div class="bg-live-connect">
+                                    <a href="<?= base_url()?>profile/facebook_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                        <div class="ps-4">
+                                            <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.7008 15.1553L14.4559 10.3616H9.80422V7.24576C9.80422 5.93499 10.4536 4.65418 12.5303 4.65418H14.6749V0.572075C13.426 0.373093 12.164 0.265445 10.8992 0.25C7.07059 0.25 4.57106 2.54946 4.57106 6.70647V10.3616H0.327148V15.1553H4.57106V26.75H9.80422V15.1553H13.7008Z" fill="#337FFF"/>
+                                            </svg>
+                                        </div>
+                                        <div class="pe-4">
+                                            +
+                                            <span>
+                                                CONNECT YOUR ACCOUNT
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php }?> -->
+
+                            <div class="bg-live-connect">
+                                <a href="<?= base_url()?>profile/facebook_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                    <div class="ps-4">
+                                        <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.7008 15.1553L14.4559 10.3616H9.80422V7.24576C9.80422 5.93499 10.4536 4.65418 12.5303 4.65418H14.6749V0.572075C13.426 0.373093 12.164 0.265445 10.8992 0.25C7.07059 0.25 4.57106 2.54946 4.57106 6.70647V10.3616H0.327148V15.1553H4.57106V26.75H9.80422V15.1553H13.7008Z" fill="#337FFF"/>
+                                        </svg>
+                                    </div>
+                                    <div class="pe-4">
+                                        <!-- + -->
+                                        <span>
+                                            <!-- CONNECT YOUR ACCOUNT -->
+                                            COMING SOON
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+
                             <!-- INSTAGRAM RTMP -->
                             <div class="bg-live-connect">
-                                <a href="<?= base_url()?>profile/instagram_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                <a class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
                                     <div class="ps-4">
                                         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_2655_14464)">
@@ -348,35 +395,10 @@
                                         </svg>
                                     </div>
                                     <div class="pe-4">
-                                        +
+                                        <!-- + -->
                                         <span>
-                                            CONNECT YOUR ACCOUNT
-                                        </span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- TIKTOK RTMP -->
-                            <div class="bg-live-connect">
-                                <a href="<?= base_url()?>profile/tiktok_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
-                                    <div class="ps-4">
-                                    <svg width="25" height="28" viewBox="0 0 25 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_2655_14472)">
-                                        <path d="M18.5274 10.082C20.3515 11.3705 22.586 12.1286 24.9994 12.1286V7.53952C24.5426 7.53961 24.0871 7.4925 23.6402 7.39894V11.0112C21.227 11.0112 18.9928 10.2532 17.1684 8.96481V18.3299C17.1684 23.0149 13.325 26.8125 8.58437 26.8125C6.81553 26.8125 5.17139 26.2841 3.80566 25.3777C5.36445 26.9528 7.53828 27.9298 9.94316 27.9298C14.6842 27.9298 18.5276 24.1322 18.5276 19.447V10.082H18.5274ZM20.2042 5.45217C19.272 4.44581 18.6599 3.14526 18.5274 1.70741V1.11719H17.2395C17.5637 2.94462 18.6696 4.50586 20.2042 5.45217ZM6.8041 21.7827C6.28329 21.108 6.00176 20.2824 6.00303 19.4336C6.00303 17.291 7.76094 15.5536 9.92979 15.5536C10.3339 15.5534 10.7357 15.6147 11.1209 15.7354V11.0437C10.6707 10.9827 10.2164 10.9568 9.7623 10.9663V14.6181C9.37688 14.4973 8.97492 14.436 8.57061 14.4364C6.40186 14.4364 4.64404 16.1736 4.64404 18.3165C4.64404 19.8318 5.52266 21.1437 6.8041 21.7827Z" fill="#FF004F"/>
-                                        <path d="M17.1686 8.96472C18.9931 10.2531 21.2271 11.0111 23.6404 11.0111V7.39884C22.2934 7.11527 21.1009 6.41971 20.2043 5.45217C18.6696 4.50577 17.5639 2.94453 17.2396 1.11719H13.8565V19.4469C13.8488 21.5837 12.0939 23.3139 9.92978 23.3139C8.65459 23.3139 7.52158 22.7133 6.8041 21.7826C5.52285 21.1437 4.64414 19.8317 4.64414 18.3166C4.64414 16.1738 6.40195 14.4365 8.5707 14.4365C8.98623 14.4365 9.38672 14.5004 9.7624 14.6182V10.9664C5.10498 11.0615 1.35938 14.822 1.35938 19.447C1.35938 21.7557 2.29209 23.8486 3.80596 25.3779C5.17168 26.2841 6.81572 26.8127 8.58467 26.8127C13.3254 26.8127 17.1687 23.0148 17.1687 18.3299V8.96481L17.1686 8.96472Z" fill="black"/>
-                                        <path d="M23.6401 7.39876V6.42223C22.4254 6.42405 21.2346 6.08789 20.204 5.45218C21.1163 6.43914 22.3176 7.11975 23.6401 7.39895V7.39876ZM17.2393 1.1171C17.2084 0.9425 17.1846 0.766728 17.1682 0.590221V0H12.4969V18.3299C12.4895 20.4666 10.7346 22.1968 8.57031 22.1968C7.95676 22.1977 7.3516 22.0559 6.80371 21.7828C7.52119 22.7133 8.6542 23.3139 9.92939 23.3139C12.0935 23.3139 13.8485 21.5838 13.8562 19.447V1.1172H17.2393V1.1171ZM9.76231 10.9663V9.92658C9.37197 9.87383 8.97844 9.84744 8.58447 9.8476C3.84326 9.8476 0 13.6454 0 18.3299C0 21.2669 1.51045 23.8552 3.80576 25.3778C2.29189 23.8486 1.35918 21.7555 1.35918 19.4469C1.35918 14.822 5.10469 11.0614 9.76231 10.9663Z" fill="#00F2EA"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0_2655_14472">
-                                        <rect width="25" height="28" fill="white"/>
-                                        </clipPath>
-                                        </defs>
-                                    </svg>
-                                    </div>
-                                    <div class="pe-4">
-                                        +
-                                        <span>
-                                            CONNECT YOUR ACCOUNT
+                                            <!-- CONNECT YOUR ACCOUNT -->
+                                            COMING SOON 
                                         </span>
                                     </div>
                                 </a>
@@ -384,7 +406,7 @@
 
                             <!-- LINKEDIN RTMP -->
                             <div class="bg-live-connect">
-                                <a href="<?= base_url()?>profile/linkedin_link" class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
+                                <a  class="wrapper-border d-flex justify-content-between align-items-center" target="_blank">
                                     <div class="ps-4">
                                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_2655_14469)">
@@ -399,9 +421,10 @@
                                         </svg>
                                     </div>
                                     <div class="pe-4">
-                                        +
+                                        <!-- + -->
                                         <span>
-                                            CONNECT YOUR ACCOUNT
+                                            <!-- CONNECT YOUR ACCOUNT -->
+                                            COMING SOON 
                                         </span>
                                     </div>
                                 </a>

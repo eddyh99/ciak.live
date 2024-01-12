@@ -428,7 +428,7 @@
                                                         
                                                                 <div class="item">
                                                                     <div class="img">
-                                                                        <img src="https://api.sandbox.ciak.live/users/blur/defaultspeciallock.jpg" alt="image" class="image-post rounded">
+                                                                        <img src="https://api.ciak.live/users/blur/defaultspeciallock.jpg" alt="image" class="image-post rounded">
                                                                     </div>
                                                                 </div>
                                                                 

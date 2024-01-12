@@ -198,13 +198,33 @@ class Post extends CI_Controller
         $post_id        = $this->security->xss_clean($id);
         $result_post    = apiciaklive(URLAPI . "/v1/member/post/get_singlepost?post_id=".$id)->message;
         $get_price  = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
-        // print_r(json_encode($result_post));
+
+        $new_media_image = array();
+        $new_media_video = array();
+
+        foreach($result_post->post_media as $dt){
+            if($dt->media_extension == 'image'){
+                $temp_media = 'data:image/jpg;base64,'.base64_encode(file_get_contents($dt->imgorg));;
+                array_push($new_media_image, $temp_media);
+            }else if($dt->media_extension == 'video'){
+                $temp_media = $dt->imgorg;
+                array_push($new_media_video, $temp_media);
+            }
+        }
+
+        $new_media_image = json_encode($new_media_image);
+        $new_media_video = json_encode($new_media_video);
+        // print_r(json_encode($new_media));
+        // die;
+
 		// die;
 
         $data = array(
             'title'         => NAMETITLE . ' - Edit Post' ,
             'content'       => 'apps/member/posting/edit/index',
             // 'popup'         => 'apps/member/app-popup-single',
+            'media_image'   => $new_media_image,
+            'media_video'   => $new_media_video,
             'edit'          => $result_post,
             'get_price'     => $get_price,
             'post_id'       => $post_id,
