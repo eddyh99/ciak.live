@@ -591,7 +591,7 @@ $(document).ready(function(){
                                     localStorage.removeItem('title-optional-post');
                                     localforage.clear();
                                     localStorage.removeItem('is_video');
-                                    // location.replace('<?= base_url()?>homepage');
+                                    location.replace('<?= base_url()?>homepage');
                                 }
     
                                 if(data.success == false){
