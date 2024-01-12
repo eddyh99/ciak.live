@@ -216,7 +216,7 @@ class Post extends CI_Controller
 
         $new_media_image = json_encode($new_media_image);
         $new_media_video = json_encode($new_media_video);
-        // print_r(json_encode($new_media));
+        // echo $new_media_image;
         // die;
 
 		// die;

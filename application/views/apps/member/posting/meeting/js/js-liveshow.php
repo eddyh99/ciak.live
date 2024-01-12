@@ -134,7 +134,7 @@ var statusPayperMinutes = false;
 let id_has_room;
 
 var performer=false;
-var unique_id = '';
+var username_moderator = '';
 var connection = new RTCMultiConnection();
 connection.socketURL = 'https://muazkhan.com:9001/';
 connection.socketMessageEvent = 'ciak-liveshow';
@@ -167,6 +167,7 @@ $.ajax({
         console.log(data);
         id_has_room = data.id_has_room;
         connection.extra.userFullName = data.username;
+        username_moderator = data.username;
         connection.extra.userJoin='';
         meeting_type=data.meeting_type;
         purpose=data.purpose;
@@ -313,8 +314,8 @@ $("#startlive").on("click",function(){
                 }
                 alert(error);
             }else{
-                $("#btnopen").attr("disabled","true");
                 $("#allviewer").show();
+                $("#btnopen").attr("disabled","true");
                 $('.please-click-join-live').hide();
             }
 
@@ -328,7 +329,7 @@ $("#startlive").on("click",function(){
 $("#btnconfirm").on("click",function(){
     $("#confirmjoin").modal("hide");
     // connection.extra.userJoin = "memmber join";
-    connection.join(broadcastId, function(isRoomJoined, roomid, error) {
+    connection.join(broadcastId, function(isRoomJoined, roomid, error, event) {
         if (error) {
             if (error === connection.errors.ROOM_NOT_AVAILABLE) {
                 alert('This room does not exist. Please either create it or wait for moderator to enter in the room.');
@@ -374,19 +375,11 @@ function invite_moderator(uname, profile){
             </div>`)
     }
 
-    // $('.preview-moderator').removeClass('d-none');
-    // $('.img-preview-moderator').attr('src', profile);
-    // $('.username-preview-moderator').text(uname);
-    // $('.check-preview-moderator').addClass('fa-check');
-
+    connection.extra.ismoderator = "moderator";
     connection.extra.moderator = uname;
     connection.updateExtraData();
 }
 
-connection.onExtraDataUpdated = function(event) {
-    var moderator1 = event.extra.moderator;
-    console.log("MODERATOR ON UPDATE - " + moderator1);
-};
 
 connection.onopen = function(event) {
 
@@ -399,7 +392,7 @@ connection.onopen = function(event) {
     if(userjoin != 'performer'){
         pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger btn-kickmember" onclick="kickuser('${event.userid}'); $(this).parent().parent().remove();">Kick</button>`});
     }
-    console.log(pushmember);
+
     
     var listmember = $('#memberjoin').DataTable();
 
@@ -411,10 +404,14 @@ connection.onopen = function(event) {
         listmember.draw(false);
     })
 
-    console.log("INI MODE - " + event.extra.moderator);
-    console.log("INI CONNECTION - " + event.extra.userFullName);
 
-    if (event.extra.moderator==connection.userFullName){
+
+    console.log("++++++++ ON OPEN USERJOIN - " + event.extra.userJoin);
+    console.log("++++++++ ON OPEN MODE - " + event.extra.moderator);
+    console.log("+++++++++ ON OPEN USERNAME - " + username_moderator);
+    console.log("+++++++++ ON OPEN IS MODE - " + event.extra.ismoderator);
+
+    if (event.extra.moderator == username_moderator){
         $("#allviewer").show();
     }else{
         if (meeting_type=='ticket'){
@@ -425,42 +422,6 @@ connection.onopen = function(event) {
         statusPayperMinutes = true;
     }
     
-
-    // for(let i = 0; i < pushmember.length; i++){
-    //     listmember.row.add([
-    //         pushmember[i]                                                                                 
-    //     ]).draw();
-    // }
-
-    // for (i in pushmember) {
-    //     // console.log(pushmember[i]);
-    //     listmember.row.add([
-    //         pushmember[i]                                                                                 
-    //     ]).draw();
-    // }
-
-
-    // alert('data connection opened with ' + remoteUserFullName + userjoin);
-
-    // var data = event.extra.userJoin;
-    // console.log("365 - " + performer);
-    // console.log("366 - " + data);
-    // var joined=[];
-
-    // // if (!performer){
-    //     console.log("masuk on open");
-    //     if (data=='performer'){
-    //         console.log("performance");
-    //         joined.push(connection.extra.userFullName);
-    //     }else{
-    //         console.log("bukan performance");
-    //         // joined=data;
-    //         joined.push(connection.extra.userFullName);
-    //     }
-    // // }
-    
-    // connection.extra.userJoin = joined;
-    // connection.updateExtraData();
 };
 
 var member = [];
@@ -499,11 +460,34 @@ connection.onmessage = function(event) {
 // extra code
 
 
-connection.onstream = function(event) {
-    if (event.extra.moderator==connection.userFullName){
+connection.onExtraDataUpdated = function(event) {
+    // var moderator1 = event.extra.moderator;
+
+    console.log("**************ON DATAUPDATE USERJOIN - " + event.extra.userJoin);
+    console.log("**************ON DATAUPDATE MODE - " + event.extra.moderator);
+    console.log("**************ON DATAUPDATE USRNAME- " + username_moderator);
+    console.log("**************ON DATAUPDATE IS MODE- " + event.extra.ismoderator);
+
+    if (event.extra.moderator == username_moderator){
         $("#allviewer").show();
+    }else{
+        if (meeting_type=='ticket'){
+            payperjoin();
+        }else if (meeting_type=='minutes'){
+            payperminutes();
+        }
+        statusPayperMinutes = true;
     }
     
+};
+
+
+connection.onstream = function(event) {
+    // if (event.extra.moderator==connection.userFullName){
+    //     $("#allviewer").show();
+    // }
+
+
     if (event.extra.roomOwner === true) {
         if (connection.extra.broadcastuser>1){
             console.log(connection.extra.broadcastuser, "315");
@@ -592,11 +576,13 @@ document.getElementById('btn-chat-message').onclick = function() {
     });
 };
 
+
 connection.onerror = function(event) {
     var remoteUserId = event.userid;
-    if (event.extra.userJoin=="performer"){
-        alert("broadcast ended or you've been kicked");
-        window.location.href="<?=base_url()?>homepage";
+    console.log("#######SAYA " + event.extra.userJoin);
+    if (event.extra.userJoin=="performer" || event.extra.ismoderator=="moderator"){
+        alert("broadcast ended or you've been kicked" + event.extra.userJoin);
+        // window.location.href="<?=base_url()?>homepage";
     }
 };
 
