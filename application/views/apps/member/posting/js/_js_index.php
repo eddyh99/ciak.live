@@ -128,6 +128,7 @@ $(document).ready(function(){
     $('#img-preview-post').hide();
     localforage.getItem('img_save', function (err, value) {
         var dataImg=JSON.parse(value);
+        console.log(dataImg);
         if(dataImg == null || dataImg.length == 0) {
             console.log("");
         }else {
@@ -584,6 +585,7 @@ $(document).ready(function(){
                             contentType: false,
                             success: function (response) {
                                 var data=JSON.parse(response);
+                                console.log(data);
                                 if(data.success == true){
                                     localStorage.removeItem('textarea-post');
                                     localStorage.removeItem('title-optional-post');

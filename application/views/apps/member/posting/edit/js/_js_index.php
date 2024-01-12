@@ -74,38 +74,37 @@ var video_edit = [];
 var attach_edit = [];
 var formdata = new FormData();
 
-<?php foreach($edit->post_media as $dt){ ?>
+var media_image = JSON.parse('<?= $media_image?>');
+var media_video = JSON.parse('<?= $media_video?>');
 
-    <?php if($dt->media_type == 'attach'){?>
-        $('#header-preview-text').show();
-        $('#img-preview-post').hide();
-        attach_edit.push('<?= $dt->imgorg ?>')
-    <?php }else{?>
-        toDataURL('<?= $dt->imgorg ?>', function(dataUrl) {      
-            images_edit.push(dataUrl)
-            $('#img-preview-post').hide();
-            $('#header-preview-text').hide();
-            if(images_edit.length != 0){
-                $('#img-preview-post').show();
-                for(let i = 0; i < images_edit.length; i++){
-                    if('<?= $dt->media_extension?>' == 'video'){
-                        localStorage.setItem("is_type", 'video');
-                        video_edit.push(images_edit[i]);
-                        $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+'"><div class="d-flex justify-content-center"><video src="'+images_edit[i]+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
-                    }else if('<?= $dt->media_extension?>' == 'image'){
-                        localStorage.setItem("is_type", 'image');
-                        $('.carousel-inner').append('<div class="carousel-item '+(i ===  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+images_edit[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
-                    }
-                }
-            }else {
-                $('#img-preview-post').hide();
-            }
+console.log(media_video);
 
-            
-        })
-    <?php }?>
+if(media_image.length != 0){
+    $('#img-preview-post').show();
+    for(let i = 0; i < media_image.length; i++){
+        console.log("MASUK CAROUSEL");
+        localStorage.setItem("is_type", 'image');
+        $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+media_image[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+    }
+}else {
+    $('#img-preview-post').hide();
+}
 
-<?php } ?>
+if(media_video.length != 0){
+    $('#img-preview-post').show();
+    for(let i = 0; i < media_video.length; i++){
+        console.log("MASUK CAROUSEL VIDEO");
+        localStorage.setItem("is_type", 'video');
+        $('.carousel-inner').append('<div class="carousel-item '+(i ==  0 ? "active" : "")+'"><div class="d-flex justify-content-center"><video src="'+media_video[i]+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+        // $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+media_video[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+    }
+}else {
+    $('#img-preview-post').hide();
+}
+
+
+
+
 
 for(let i = 0; i < attach_edit.length; i++){
     localStorage.setItem("is_type", 'attach');
@@ -692,7 +691,7 @@ $("#btnUpdate").on("click",function(){
             }
         });
 
-    }else if(is_type == 'video' || is_type == false){
+    }else if(is_type == 'video' || is_type == 'false'){
         console.log("MASUK VIDEO ATAU KOSONG");
         if (typeof video_edit !== 'undefined'){
             for (var i = 0; i < video_edit.length; i++) {
@@ -742,7 +741,7 @@ $("#btnUpdate").on("click",function(){
             success: function (response) {
                 var data=JSON.parse(response);
                 console.log(data);
-                if(data.success == true){
+                if(data.code == 200){
                     console.log("sukses");
                     location.replace('<?= base_url()?>homepage');
                 }
@@ -818,7 +817,7 @@ $("#btnUpdate").on("click",function(){
             success: function (response) {
                 var data=JSON.parse(response);
                 console.log(data);
-                if(data.success == true){
+                if(data.code == 200){
                     console.log("sukses");
                     location.replace('<?= base_url()?>homepage');
                 }

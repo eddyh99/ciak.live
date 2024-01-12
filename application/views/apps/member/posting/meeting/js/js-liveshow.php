@@ -358,11 +358,35 @@ $("#btnconfirm").on("click",function(){
     });
 })
 
-function invite_moderator(uname){
+var max_moderator = 0;
+function invite_moderator(uname, profile){
+
+    if(max_moderator >= 2){
+        alert("MAXIMAL 2 MODERATOR");
+    }else{
+        max_moderator += 1;
+        console.log(max_moderator);
+        $('#wrap-preview-moderator').append(
+            `<div class="my-3 mb-3 px-4 d-flex align-items-center preview-moderator">
+                <img width="50" src="${profile}" height="auto" class="img-preview-moderator rounded-circle me-3">
+                <h6 class="username-preview-moderator my-auto">${uname}</h6>
+                <i class="fas fa-check fs-3 ms-3 text-success me-auto check-preview-moderator"></i>
+            </div>`)
+    }
+
+    // $('.preview-moderator').removeClass('d-none');
+    // $('.img-preview-moderator').attr('src', profile);
+    // $('.username-preview-moderator').text(uname);
+    // $('.check-preview-moderator').addClass('fa-check');
+
     connection.extra.moderator = uname;
     connection.updateExtraData();
 }
 
+connection.onExtraDataUpdated = function(event) {
+    var moderator1 = event.extra.moderator;
+    console.log("MODERATOR ON UPDATE - " + moderator1);
+};
 
 connection.onopen = function(event) {
 
@@ -386,6 +410,9 @@ connection.onopen = function(event) {
         ]).node().id = `id_${event.userid}`;
         listmember.draw(false);
     })
+
+    console.log("INI MODE - " + event.extra.moderator);
+    console.log("INI CONNECTION - " + event.extra.userFullName);
 
     if (event.extra.moderator==connection.userFullName){
         $("#allviewer").show();

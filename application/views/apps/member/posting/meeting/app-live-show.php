@@ -202,12 +202,13 @@
                         <input type="text" name="search_data_invt" id="search_data_invt" class="form-control <?php echo ($content_type == 'explicit') ? 'search_data_invtnon' : 'search_data_invtnon'?> " placeholder="Search minimun 3 character...">
                     </div>
                     <div id="suggestionslist"></div>
+                    <div id="wrap-preview-moderator"></div>
                     <div class="list-people mt-5 mb-on-botbar">
                         <?php 
                             $i=1;
                             foreach ($follower as $dt){?>
                                 <div class="people people-cam2cam<?= $dt->id?> px-4">
-                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_moderator('<?= $dt->username?>')" data-bs-dismiss="modal">
+                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_moderator('<?= $dt->username?>', '<?= $dt->profile?>')" data-bs-dismiss="modal">
                                         <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
                                         <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
                                     </a>
