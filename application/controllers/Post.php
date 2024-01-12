@@ -136,12 +136,13 @@ class Post extends CI_Controller
         
 
         if ($is_attach=="no" && $is_attach_gbr=="no" && $is_attach_video=="no" && empty($post)){
-     	     $message=array(
-	            "success"   => false,
-	            "message"   => "No Post Content"
-	        );
-	        echo json_encode($message);
-	        return;
+            header("HTTP/1.0 406 Not Acceptable");
+            $message=array(
+		            "success"   => false,
+		            "message"   => "No Post Content"
+		        );
+		    echo json_encode($message);
+		    die;
         }
 
         
@@ -177,20 +178,21 @@ class Post extends CI_Controller
             
         // print_r(json_encode($result));
         // die;
-
 		if (@$result->code!=200){
-		    $message=array(
-	            "success"   => false,
-	            "message"   => $result
-	        );
-	        echo json_encode($message);
-	        return;
+            header("HTTP/1.0 406 Not Acceptable");
+            $message=array(
+		            "success"   => false,
+		            "message"   => $result
+		        );
+		    echo json_encode($message);
+		    die;
 		}
 		 $message=array(
 	            "success"   => true,
 	            "message"   => ""
 	        );
 	    echo json_encode($message);
+        die;
     }
 
     public function editpost($id)
