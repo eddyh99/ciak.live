@@ -245,6 +245,14 @@ if (isset($extra)) {
         vMax: '99999999999.99',
         vMin: '0.00'
     });
+
+    $(".usdx-input").autoNumeric('init', {
+        aSep: ',',
+        aDec: '.',
+        aForm: true,
+        vMax: '99999999999.999',
+        vMin: '0.000'
+    });
     
     
     function onReady(callback) {

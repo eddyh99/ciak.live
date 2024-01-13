@@ -2592,6 +2592,15 @@ input[type=number] {
     text-decoration: none;
 }
 
+.apps-member .wallet-history {
+    background-color: #22283A;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
 .form-select.select-currency {
     background-color: #4D4D4D;
     border: none;
