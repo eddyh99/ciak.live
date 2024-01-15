@@ -57,7 +57,7 @@
                                         $dt->currency != 'CRC' && $dt->currency != 'CHF' &&
                                         $dt->currency != 'RUB' && $dt->currency != 'UYU' &&
                                         $dt->currency != 'XEUR' && $dt->currency != 'XOF' &&
-                                        $dt->currency != 'ZMW' 
+                                        $dt->currency != 'ZMW' && $dt->currency != 'USDX'
                                     ){
                                 ?>    
                                     <option value="<?=$dt->currency?>"><?=$dt->currency?></option>

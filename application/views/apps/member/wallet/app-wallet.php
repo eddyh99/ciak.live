@@ -51,7 +51,7 @@
                     <div class="col-12 d-flex flex-column justify-content-start align-items-center">
                         <span class="text-start">USDX balance</span>
                         <?php foreach ($currency as $dt){
-                            if ($dt->currency=='XEUR'){
+                            if ($dt->currency=='USDX'){
                         ?>
                         <h4 class="text-start">USDX <?=number_format($dt->balance,3)?></h4>
                         <?php }
@@ -89,13 +89,13 @@
             <div class="row my-3">
                 <div class="col-10 mx-auto">
                     <p class="text-start">
-                        <span translate="no"> CIAK.LIVE </span> use <span translate="no"> XEUR </span> for all payments on the platform. You have to top up your FIAT wallet and swap into <span translate="no"> XEUR. </span>
+                        <span translate="no"> CIAK.LIVE </span> use <span translate="no"> USDX </span> for all payments on the platform. You have to top up your FIAT wallet and swap into <span translate="no"> USDX. </span>
                     </p>
                 </div>
             </div>
             <div class="card-currency row mt-2">
                 <?php foreach($currency as $dt) {?>
-                    <?php if($dt->currency!='XEUR'){?>
+                    <?php if($dt->currency!='USDX'){?>
                         <?php if($dt->currency == 'EUR' || $dt->currency == 'USD'){?>
                             <div class="detail-currency d-flex justify-content-between align-items-center col-10 mx-auto py-3 my-2">                   
                                 <div class="ps-3">
@@ -116,7 +116,7 @@
                 <?php }?>
 
                 <?php foreach ($currency as $dt){ ?>
-                    <?php if ($dt->currency!='XEUR'){?>
+                    <?php if ($dt->currency!='USDX'){?>
                         <?php if($dt->currency != 'EUR' && $dt->currency != 'USD') {?>
                             <div class="detail-currency d-flex justify-content-between align-items-center col-10 mx-auto py-3 my-2">                   
                                 <div class="ps-3">

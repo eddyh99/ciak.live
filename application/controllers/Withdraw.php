@@ -27,11 +27,9 @@ class Withdraw extends CI_Controller
     public function index()
     {
 
-        $balance = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance;
+        $balance = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=USDX&userid=" . $_SESSION["user_id"])->message->balance;
         $currency = apiciaklive(URLAPI . "/v1/member/currency/getall")->message;
 
-        // print_r(json_encode($currency));
-        // die;
 
 
         $data = array(
@@ -62,7 +60,7 @@ class Withdraw extends CI_Controller
         $xeur               = $this->security->xss_clean($input->post("xeur"));
 
         $mdata = array(
-            "xeur"          => $xeur,
+            "usdx"          => $xeur,
             "currencycode"  => $currencycode
         );
 

@@ -41,7 +41,8 @@ class Swap extends CI_Controller
         }
 
         $currency = (object)$data;
-
+    //    echo "<pre>".print_r($currency,true)."</pre>";
+    //     die;
         $data = array(
             'title'         => NAMETITLE . ' - Swap ',
             'content'       => 'apps/member/wallet/swap/app-swap',
@@ -83,7 +84,7 @@ class Swap extends CI_Controller
         }
 
         $input        = $this->input;
-        $target        = "XEUR";
+        $target        = "USDX";
         $amount        = $this->security->xss_clean($input->post("amount"));
 
         if ($amount > 0) {
@@ -93,7 +94,12 @@ class Swap extends CI_Controller
                 "amount"    => $amount,
                 "userid"    => $_SESSION["user_id"]
             );
+            // echo "<pre>".print_r($mdata,true)."</pre>";
+            
             $result = apiciaklive(URLAPI . "/v1/member/swap/getSummary", json_encode($mdata));
+            // echo "<pre>".print_r($result,true)."</pre>";
+            // die;
+
 
             if (@$result->code != 200) {
                 header("HTTP/1.1 500 Internal Server Error");
@@ -144,7 +150,7 @@ class Swap extends CI_Controller
 
         $input      = $this->input;
         $amount     = $this->security->xss_clean($this->input->post("amount"));
-        $target     = 'XEUR';
+        $target     = 'USDX';
         
         $mdata  = array(
             "source"    => $_SESSION["currency"],
@@ -183,7 +189,7 @@ class Swap extends CI_Controller
         }
 
         $input    = $this->input;
-        $target = 'XEUR';
+        $target = 'USDX';
         $amount = $this->security->xss_clean($input->post("amount"));
         $quoteid = $this->security->xss_clean($input->post("quoteid"));
 
@@ -197,8 +203,9 @@ class Swap extends CI_Controller
             );
 
             $result = apiciaklive(URLAPI . "/v1/member/swap/swapCurrency", json_encode($mdata));
+            print_r(json_encode($mdata));
             // print_r(json_encode($result));
-            // die;
+            die;
             if (@$result->code != 200) {
                 $this->session->set_flashdata("failed", $result->message);
                 redirect('swap');
