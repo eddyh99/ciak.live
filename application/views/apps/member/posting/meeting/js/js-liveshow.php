@@ -390,7 +390,7 @@ connection.onopen = function(event) {
     var pushmember=[];
     
     if(userjoin != 'performer'){
-        pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger btn-kickmember" onclick="kickuser('${event.userid}'); $(this).parent().parent().remove();">Kick</button>`});
+        pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger btn-kickmember" onclick="kickuser('${event.userid}','${remoteUserFullName}'); $(this).parent().parent().remove();">Kick</button>`});
     }
 
     
@@ -461,12 +461,22 @@ connection.onmessage = function(event) {
 
 
 connection.onExtraDataUpdated = function(event) {
-    // var moderator1 = event.extra.moderator;
-
+    
+    console.log("**************ON DATAUPDATE IS USERNAME - " + connection.extra.userFullName);
+    console.log("**************ON DATAUPDATE KICKUSERNAME - " + event.extra.kickusername);
     console.log("**************ON DATAUPDATE USERJOIN - " + event.extra.userJoin);
     console.log("**************ON DATAUPDATE MODE - " + event.extra.moderator);
     console.log("**************ON DATAUPDATE USRNAME- " + username_moderator);
     console.log("**************ON DATAUPDATE IS MODE- " + event.extra.ismoderator);
+
+    if(event.extra.kickusername == connection.extra.userFullName){
+        window.location.href="<?=base_url()?>homepage";
+    }
+
+    var rows = listmember
+        .rows(`#id_${event.extra.idrow_listmember}`)
+        .remove()
+        .draw();
 
     if (event.extra.moderator == username_moderator){
         $("#allviewer").show();
@@ -546,14 +556,19 @@ window.onkeyup = function(e) {
     }
 };
 
-function kickuser(id){
-    
-    connection.disconnectWith(id);
-    connection.deletePeer(id);
+function kickuser(id, username){
+    connection.extra.kickusername = username;
+    connection.extra.idrow_listmember = id;
+    console.log("&&&&CHECK USER : " + connection.extra.userFullName);
+    console.log("&&&&CHECK KICKUSER : " + connection.extra.userFullName);
+
+    // connection.disconnectWith(id);
+    // connection.deletePeer(id);
     var rows = listmember
         .rows(`#id_${id}`)
         .remove()
         .draw();
+    connection.updateExtraData();
 }
 
 document.getElementById('btn-chat-message').onclick = function() {
@@ -602,7 +617,6 @@ connection.onUserStatusChanged = function(event, dontWriteLogs) {
         }
     }
 };
-
 
 connection.onleave = function(event) {
     var countViewer = $(`.count-viewer`).text();

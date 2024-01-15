@@ -4,17 +4,35 @@
             <h5 class="pb-2">My Wallet</h5>
             <div class="wallet-header">
                 <div class="row">
-                    <div class="col-12 d-flex">
-                        <span>Unique code : </span>
-                        <div>
-                            <input type="text" class="ucodecopy-wallet" id="ucode" value="<?= $_SESSION['ucode']?>">
-                            <a id="btnucode">
-                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18.6663 9.33301V9.33301C18.6663 7.44739 18.6663 6.50458 18.0806 5.91879C18.0806 5.91879 18.0806 5.91879 18.0806 5.91879C17.4948 5.33301 16.552 5.33301 14.6663 5.33301H9.33301C7.44739 5.33301 6.50458 5.33301 5.91879 5.91879C5.33301 6.50458 5.33301 7.44739 5.33301 9.333V14.6663C5.33301 16.552 5.33301 17.4948 5.91879 18.0806C5.91879 18.0806 5.91879 18.0806 5.91879 18.0806C6.50458 18.6663 7.44739 18.6663 9.33301 18.6663V18.6663" stroke="#03B115" stroke-width="2"/>
-                                    <rect x="13.333" y="13.333" width="13.3333" height="13.3333" rx="2" stroke="#03B115" stroke-width="2"/>
-                                </svg>
-                            </a>
+                    <div class="col-12 d-flex justify-content-between">
+                        <div class="d-flex">
+                            <span>Unique code : </span>
+                            <div>
+                                <input type="text" class="ucodecopy-wallet" id="ucode" value="<?= $_SESSION['ucode']?>">
+                                <a id="btnucode">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.6663 9.33301V9.33301C18.6663 7.44739 18.6663 6.50458 18.0806 5.91879C18.0806 5.91879 18.0806 5.91879 18.0806 5.91879C17.4948 5.33301 16.552 5.33301 14.6663 5.33301H9.33301C7.44739 5.33301 6.50458 5.33301 5.91879 5.91879C5.33301 6.50458 5.33301 7.44739 5.33301 9.333V14.6663C5.33301 16.552 5.33301 17.4948 5.91879 18.0806C5.91879 18.0806 5.91879 18.0806 5.91879 18.0806C6.50458 18.6663 7.44739 18.6663 9.33301 18.6663V18.6663" stroke="#03B115" stroke-width="2"/>
+                                        <rect x="13.333" y="13.333" width="13.3333" height="13.3333" rx="2" stroke="#03B115" stroke-width="2"/>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
+                        <a href="<?= base_url()?>wallet/history_transaction" class="d-flex align-items-center text-white">
+                            <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_2688_15256)">
+                                <path d="M10.5697 6.45061H9.71369V9.1649L12.1563 10.5438L12.5672 9.8869L10.5697 8.75776V6.45061ZM10.2844 3.73633C8.92216 3.73633 7.61574 4.25107 6.6525 5.16732C5.68926 6.08357 5.14812 7.32627 5.14812 8.62204H3.43604L5.69599 10.8098L8.0016 8.62204H6.28951C6.28951 7.61422 6.7104 6.64767 7.45959 5.93504C8.20877 5.2224 9.22488 4.82204 10.2844 4.82204C11.3439 4.82204 12.36 5.2224 13.1092 5.93504C13.8584 6.64767 14.2793 7.61422 14.2793 8.62204C14.2793 9.62986 13.8584 10.5964 13.1092 11.309C12.36 12.0217 11.3439 12.422 10.2844 12.422C9.18294 12.422 8.18423 11.9932 7.46515 11.3038L6.65476 12.0746C7.58499 12.9649 8.85765 13.5078 10.2844 13.5078C11.6466 13.5078 12.953 12.993 13.9163 12.0768C14.8795 11.1605 15.4206 9.91781 15.4206 8.62204C15.4206 7.32627 14.8795 6.08357 13.9163 5.16732C12.953 4.25107 11.6466 3.73633 10.2844 3.73633Z" fill="white"/>
+                                </g>
+                                <circle cx="9.85059" cy="9" r="8.5" stroke="white"/>
+                                <defs>
+                                <clipPath id="clip0_2688_15256">
+                                <rect width="14.4" height="14.4" fill="white" transform="translate(3.55078 0.900391)"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                            <span class="ms-1 text-decoration-underline">
+                                History
+                            </span>
+                        </a>
                     </div>
                 </div>
                 <div class="d-flex flex-column">
@@ -31,11 +49,11 @@
                 </div>
                 <div class="row mt-5">
                     <div class="col-12 d-flex flex-column justify-content-start align-items-center">
-                        <span class="text-start">XEUR balance</span>
+                        <span class="text-start">USDX balance</span>
                         <?php foreach ($currency as $dt){
                             if ($dt->currency=='XEUR'){
                         ?>
-                        <h4 class="text-start">XEUR <?=number_format($dt->balance,2)?></h4>
+                        <h4 class="text-start">USDX <?=number_format($dt->balance,3)?></h4>
                         <?php }
                             } 
                         ?>
