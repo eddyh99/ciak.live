@@ -33,7 +33,7 @@
                     </div>
                     <div class="card-currency row mt-2">
                         <?php foreach ($currency as $dt){
-                            if ($dt->currency!='XEUR'){
+                            if ($dt->currency!='XEUR' && $dt->currency!='USDX'){
                         ?>
                         <a href="<?= base_url()?>swap/swap_receive?cur=<?=$dt->currency?>" class="href-detail-currency">
                             <div class="detail-currency d-flex justify-content-between align-items-center col-10 mx-auto py-3 px-3 my-2">                   

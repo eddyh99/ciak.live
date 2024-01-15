@@ -553,7 +553,7 @@ function appendChatMessage(event, checkmark_id) {
     div.className = 'message mt-2';
 
     if (event.data) {
-        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> ${(performer == true) ? '<div><button class="btn btn-main-green" onclick="kickuser(\''+event.userid+'\')">Kick</button></div>' : ''}  </div>`;
+        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> </div>`;
 
         if (event.data.checkmark_id) {
             connection.send({
