@@ -83,7 +83,7 @@ class Swap extends CI_Controller
         }
 
         $input        = $this->input;
-        $target        = "XEUR";
+        $target        = "USDX";
         $amount        = $this->security->xss_clean($input->post("amount"));
 
         if ($amount > 0) {

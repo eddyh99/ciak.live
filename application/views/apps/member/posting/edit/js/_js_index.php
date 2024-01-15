@@ -77,39 +77,42 @@ var formdata = new FormData();
 var media_image = JSON.parse('<?= $media_image?>');
 var media_video = JSON.parse('<?= $media_video?>');
 
-console.log(media_image);
 console.log(media_video);
 
-
-if((media_image.length != 0) || (media_video.length != 0)){
+if(media_image.length != 0){
     $('#img-preview-post').show();
-
-    if((media_image.length != 0)){
-        for(let i = 0; i < media_image.length; i++){
-            console.log("MASUK CAROUSEL");
-            localStorage.setItem("is_type", 'image');
-            $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+media_image[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
-        }
+    for(let i = 0; i < media_image.length; i++){
+        console.log("MASUK CAROUSEL");
+        localStorage.setItem("is_type", 'image');
+        $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+media_image[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
     }
-
-    if(media_video.length != 0){
-        for(let i = 0; i < media_video.length; i++){
-            console.log("MASUK CAROUSEL VIDEO");
-            localStorage.setItem("is_type", 'video');
-            $('.carousel-inner').append('<div class="carousel-item '+(i ==  0 ? "active" : "")+'"><div class="d-flex justify-content-center"><video src="'+media_video[i]+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
-            // $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+media_video[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
-        }
-    }
-    
 }else {
     $('#img-preview-post').hide();
 }
+
+if(media_video.length != 0){
+    $('#img-preview-post').show();
+    for(let i = 0; i < media_video.length; i++){
+        console.log("MASUK CAROUSEL VIDEO");
+        localStorage.setItem("is_type", 'video');
+        $('.carousel-inner').append('<div class="carousel-item '+(i ==  0 ? "active" : "")+'"><div class="d-flex justify-content-center"><video src="'+media_video[i]+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+        // $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+'"><img class="d-block w-100 img-edit" src="'+media_video[i]+'"/><span class="close-img-post fs-5" onClick="del('+i+');">X</span></div>');
+    }
+}else {
+    $('#img-preview-post').hide();
+}
+
+
+
 
 
 for(let i = 0; i < attach_edit.length; i++){
     localStorage.setItem("is_type", 'attach');
     $('.attch-preview-post').append(`<li class="text-preview-attch"><span>${attach_edit[i].substring(42)}</span><span class="ps-4 text-danger" style="" onClick="delAttch('${i}')">X</span></li>`);
 }
+
+
+
 
 
 /*----------------------------------------------------------

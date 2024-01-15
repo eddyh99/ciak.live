@@ -258,17 +258,4 @@ class Wallet extends CI_Controller
         $this->load->view('apps/template/wrapper-member', $data);
     }
 
-    public function history_transaction()
-    {
-        $data = array(
-            'title'         => NAMETITLE . ' - History Transaction',
-            'content'       => 'apps/member/wallet/history_transaction/app-history',
-            'botbar'        => 'apps/member/app-botbar',
-            'popup'         => 'apps/member/app-popup',
-            'mn_wallet'     => 'active',
-            'extra'         => 'apps/member/wallet/history_transaction/js/js-index',
-        );
-        $this->load->view('apps/template/wrapper-member', $data);
-    }
-
 }

@@ -364,14 +364,17 @@ $input.on('keydown', function (e) {
 });
 
 //user is "finished typing," do something
+//@todo
+//searching checkbox di ganti radio button, isinya tambah all
 function doneTyping () {
   //do something
     var input=$('#search_data').val();
+    var type='';
     if (input.length < 3) {
         $('#suggestionslist').hide();
     } else {
         $.ajax({
-            url: "<?=base_url()?>searching/member_search?term="+input,
+            url: "<?=base_url()?>searching/member_search?term="+input+"&type="+type,
             success: function(data, response) {
                 $('.spinner-search').hide();
                 $('.fa-magnifying-glass').show();

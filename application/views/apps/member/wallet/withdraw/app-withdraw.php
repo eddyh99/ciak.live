@@ -34,7 +34,7 @@
                 </div>
             <?php } ?>
                 <div class="apps-member light w-100">
-                    <p class="text-center mt-5">USDX balance</p>
+                    <p class="text-center mt-5">EURX balance</p>
                     <h2 class="text-center" style="color: #03B115;"><?=number_format($balance,2)?></h2>
                     <form action="<?= base_url()?>withdraw/withdraw_payment" method="POST" class="mt-5">
                         
@@ -45,8 +45,8 @@
                         <div>
                             <label for="topup-receive" class="ps-3">You Receive</label>
                             <div class="topup-receive-input d-flex justify-content-between text-end mt-2">
-                                <label for="topup-receive">USDX</label>
-                                <input type="text" id="topup-receive" name="xeur" class="usdx-input text-end w-100" placeholder="0.000" autocomplete="off" >
+                                <label for="topup-receive">XEUR</label>
+                                <input type="text" id="topup-receive" name="xeur" class="money-input text-end w-100" placeholder="0.00" autocomplete="off" >
                             </div>
                         </div>
                         <div class="my-5">
