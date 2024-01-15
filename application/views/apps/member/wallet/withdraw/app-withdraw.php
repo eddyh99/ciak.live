@@ -46,7 +46,7 @@
                             <label for="topup-receive" class="ps-3">You Receive</label>
                             <div class="topup-receive-input d-flex justify-content-between text-end mt-2">
                                 <label for="topup-receive">USDX</label>
-                                <input type="text" id="topup-receive" name="xeur" class="usdx-input text-end w-100" placeholder="0.000" autocomplete="off" >
+                                <input type="text" id="topup-receive" name="usdx" class="usdx-input text-end w-100" placeholder="0.000" autocomplete="off" >
                             </div>
                         </div>
                         <div class="my-5">

@@ -47,7 +47,7 @@ class Withdraw extends CI_Controller
     {
 
         $this->form_validation->set_rules('currencycode', 'Currency Code', 'trim|required');
-        $this->form_validation->set_rules('xeur', 'XEUR', 'trim|required');
+        $this->form_validation->set_rules('usdx', 'USDX', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
@@ -57,10 +57,10 @@ class Withdraw extends CI_Controller
     
         $input              = $this->input;
         $currencycode       = $this->security->xss_clean($input->post("currencycode") );
-        $xeur               = $this->security->xss_clean($input->post("xeur"));
+        $usdx               = $this->security->xss_clean($input->post("usdx"));
 
         $mdata = array(
-            "usdx"          => $xeur,
+            "usdx"          => $usdx,
             "currencycode"  => $currencycode
         );
 
@@ -192,7 +192,7 @@ class Withdraw extends CI_Controller
           
         */
 
-        $this->form_validation->set_rules('xeuramount', 'XEUR Amount', 'trim|required');
+        $this->form_validation->set_rules('usdxamount', 'USDX Amount', 'trim|required');
         $this->form_validation->set_rules('accountHolderName', 'Recipient Name', 'trim|required');
         $this->form_validation->set_rules('causal', 'Causal', 'trim|required');
         $this->form_validation->set_rules('transfer_type', 'Transfer Type', 'trim|required');
@@ -485,14 +485,14 @@ class Withdraw extends CI_Controller
         }
     
         $input              = $this->input;
-        $xeuramount         = $this->security->xss_clean($input->post("xeuramount"));
+        $usdxamount         = $this->security->xss_clean($input->post("usdxamount"));
         $transfer_type      = $this->security->xss_clean($input->post("transfer_type"));
         $accountHolderName  = $this->security->xss_clean($input->post("accountHolderName"));
         $causal             = $this->security->xss_clean($input->post("causal"));
         
         $mdata=array(
             "userid"        => $_SESSION['user_id'],
-            "amount"        => $xeuramount,
+            "amount"        => $usdxamount,
             "currency"      => $_SESSION['withdraw']['currencycode'] ,
             "transfer_type" => $transfer_type,
         );
@@ -501,14 +501,14 @@ class Withdraw extends CI_Controller
 
 
         $summary = apiciaklive(URLAPI . "/v1/member/wallet/bankSummary", json_encode($mdata));
-        $balance = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance;
+        $balance = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=USDX&userid=" . $_SESSION["user_id"])->message->balance;
 
         if (@$summary->code != 200) {
             $this->session->set_flashdata("failed", $summary->message);
             redirect("withdraw");
         }
 
-        $temp["xeuramount"]             = $xeuramount;
+        $temp["usdxamount"]             = $usdxamount;
         $temp["accountHolderName"]      = $accountHolderName;
         $temp["causal"]                 = $causal;
         $temp["transfer_type"]          = $transfer_type;
@@ -516,8 +516,8 @@ class Withdraw extends CI_Controller
 
         if($_SESSION['withdraw']['currencycode'] == 'EUR'){
             $temp["iban"]           = $this->security->xss_clean($input->post("iban"));
-            $temp["accountNumber"]  = $this->security->xss_clean($input->post("accountNumber"));
-            $temp["swiftCode"]      = $this->security->xss_clean($input->post("swiftCode"));
+            $temp["accountNumber"]  = @$this->security->xss_clean($input->post("accountNumber"));
+            $temp["swiftCode"]      = @$this->security->xss_clean($input->post("swiftCode"));
         }
 
         if($_SESSION['withdraw']['currencycode'] == 'USD'){
@@ -813,7 +813,7 @@ class Withdraw extends CI_Controller
         */
 
         // $this->form_validation->set_rules('currencycode', 'Currency Code', 'trim|required');
-        $this->form_validation->set_rules('xeuramount', 'XEUR Amount', 'trim|required|greater_than[0]');
+        $this->form_validation->set_rules('usdxamount', 'USDX Amount', 'trim|required|greater_than[0]');
         $this->form_validation->set_rules('accountHolderName', 'Recipient Name', 'trim|required');
         $this->form_validation->set_rules('causal', 'Causal', 'trim|required');
         $this->form_validation->set_rules('transfer_type', 'Transfer Type', 'trim|required');
@@ -1088,7 +1088,7 @@ class Withdraw extends CI_Controller
 
         $input              = $this->input;
         $accountHolderName  = $this->security->xss_clean($input->post("accountHolderName")) . ' xxx';
-        $xeuramount         = $this->security->xss_clean($input->post("xeuramount"));
+        $usdxamount         = $this->security->xss_clean($input->post("usdxamount"));
         $causal             = $this->security->xss_clean($input->post("causal"));
         $transfer_type      = $this->security->xss_clean($input->post("transfer_type"));
 
@@ -1103,7 +1103,7 @@ class Withdraw extends CI_Controller
             $mdata= array (
                 "userid"            => $_SESSION['user_id'],
                 "currency"          => $_SESSION['withdraw']['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1113,6 +1113,9 @@ class Withdraw extends CI_Controller
                     "causal"            => @$causal,
                 )
             );
+            
+        // echo "<pre>".print_r($mdata,true)."</pre>";
+        // die;
         }
 
         if($_SESSION['withdraw']['currencycode'] == 'USD'){
@@ -1129,7 +1132,7 @@ class Withdraw extends CI_Controller
             $mdata= array (
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1153,7 +1156,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1170,7 +1173,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'] ,
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1195,7 +1198,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'] ,
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1221,7 +1224,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1243,7 +1246,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1267,7 +1270,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1287,7 +1290,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1305,7 +1308,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1323,7 +1326,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1339,7 +1342,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1357,7 +1360,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'] ,
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1376,7 +1379,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1394,7 +1397,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1413,7 +1416,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1430,7 +1433,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1447,7 +1450,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1466,7 +1469,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1487,7 +1490,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1512,7 +1515,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1536,7 +1539,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1556,7 +1559,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1575,7 +1578,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1596,7 +1599,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1619,7 +1622,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1640,7 +1643,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1658,7 +1661,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1677,7 +1680,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1694,7 +1697,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1711,7 +1714,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1729,7 +1732,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1752,7 +1755,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1773,7 +1776,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1790,7 +1793,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1807,7 +1810,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1823,7 +1826,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1841,7 +1844,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1863,7 +1866,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1884,7 +1887,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1906,7 +1909,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1929,7 +1932,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
@@ -1947,7 +1950,7 @@ class Withdraw extends CI_Controller
             $mdata = array(
                 "userid"            => $_SESSION["user_id"],
                 "currency"          => $_SESSION["withdraw"]['currencycode'],
-                "amount"            => $xeuramount,
+                "amount"            => $usdxamount,
                 "transfer_type"     => $transfer_type,
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,

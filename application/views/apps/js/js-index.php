@@ -359,17 +359,15 @@ $input.on('keyup', function (e) {
 
 //on keydown, clear the countdown 
 $input.on('keydown', function (e) {
-    clearTimeout(typingTimer);
-    
+    clearTimeout(typingTimer); 
 });
 
 //user is "finished typing," do something
 //@todo
 //searching checkbox di ganti radio button, isinya tambah all
 function doneTyping () {
-  //do something
-    var input=$('#search_data').val();
-    var type='';
+    var input = $('#search_data').val();
+    var type = $('input[name="filter_search"]:checked').val();
     if (input.length < 3) {
         $('#suggestionslist').hide();
     } else {
@@ -385,9 +383,131 @@ function doneTyping () {
                 }
             }
         });
-    
     }  
 }
+
+$('input[name="filter_search"]').change(function() {
+    var input = $('#search_data').val();
+    if (this.value == 'username') {
+        if (input.length < 3) {
+            $('#suggestionslist').hide();
+        } else {
+            $('#searching-icon').append('<div id="spinner-searching" class="spinner-border spinner-search spinner-border-sm" role="status"> <span class="visually-hidden">Loading...</span> </div>');
+            $('.fa-magnifying-glass').hide();
+            $.ajax({
+                url: "<?=base_url()?>searching/member_search?term="+input+"&type="+this.value,
+                success: function(data, response) {
+                    $('.spinner-search').hide();
+                    $('.fa-magnifying-glass').show();
+                    // return success
+                    if (data.length > 0) {
+                        $('#suggestionslist').html(data);
+                        $('#suggestionslist').show();
+                    }
+                }
+            });
+        }  
+    }else if (this.value == 'post') {
+        if (input.length < 3) {
+            $('#suggestionslist').hide();
+        } else {
+            $('#searching-icon').append('<div id="spinner-searching" class="spinner-border spinner-search spinner-border-sm" role="status"> <span class="visually-hidden">Loading...</span> </div>');
+            $('.fa-magnifying-glass').hide();
+            $.ajax({
+                url: "<?=base_url()?>searching/member_search?term="+input+"&type="+this.value,
+                success: function(data, response) {
+                    $('.spinner-search').hide();
+                    $('.fa-magnifying-glass').show();
+                    // return success
+                    if (data.length > 0) {
+                        $('#suggestionslist').html(data);
+                        $('#suggestionslist').show();
+                    }
+                }
+            });
+        }  
+    }else if (this.value == 'email'){
+        if (input.length < 3) {
+            $('#suggestionslist').hide();
+        } else {
+            $('#searching-icon').append('<div id="spinner-searching" class="spinner-border spinner-search spinner-border-sm" role="status"> <span class="visually-hidden">Loading...</span> </div>');
+            $('.fa-magnifying-glass').hide();
+            $.ajax({
+                url: "<?=base_url()?>searching/member_search?term="+input+"&type="+this.value,
+                success: function(data, response) {
+                    $('.spinner-search').hide();
+                    $('.fa-magnifying-glass').show();
+                    // return success
+                    if (data.length > 0) {
+                        $('#suggestionslist').html(data);
+                        $('#suggestionslist').show();
+                    }
+                }
+            });
+        }  
+    }else if (this.value == 'contact'){
+        if (input.length < 3) {
+            $('#suggestionslist').hide();
+        } else {
+            $('#searching-icon').append('<div id="spinner-searching" class="spinner-border spinner-search spinner-border-sm" role="status"> <span class="visually-hidden">Loading...</span> </div>');
+            $('.fa-magnifying-glass').hide();
+            $.ajax({
+                url: "<?=base_url()?>searching/member_search?term="+input+"&type="+this.value,
+                success: function(data, response) {
+                    $('.spinner-search').hide();
+                    $('.fa-magnifying-glass').show();
+                    // return success
+                    if (data.length > 0) {
+                        $('#suggestionslist').html(data);
+                        $('#suggestionslist').show();
+                    }
+                }
+            });
+        }  
+    }else if (this.value == 'surename'){
+        if (input.length < 3) {
+            $('#suggestionslist').hide();
+        } else {
+            $('#searching-icon').append('<div id="spinner-searching" class="spinner-border spinner-search spinner-border-sm" role="status"> <span class="visually-hidden">Loading...</span> </div>');
+            $('.fa-magnifying-glass').hide();
+            $.ajax({
+                url: "<?=base_url()?>searching/member_search?term="+input+"&type="+this.value,
+                success: function(data, response) {
+                    $('.spinner-search').hide();
+                    $('.fa-magnifying-glass').show();
+                    // return success
+                    if (data.length > 0) {
+                        $('#suggestionslist').html(data);
+                        $('#suggestionslist').show();
+                    }
+                }
+            });
+        }  
+    }
+    else{
+        if (input.length < 3) {
+            $('#suggestionslist').hide();
+        } else {
+            $('#searching-icon').append('<div id="spinner-searching" class="spinner-border spinner-search spinner-border-sm" role="status"> <span class="visually-hidden">Loading...</span> </div>');
+            $('.fa-magnifying-glass').hide();
+            $.ajax({
+                url: "<?=base_url()?>searching/member_search?term="+input+"&type="+this.value,
+                success: function(data, response) {
+                    $('.spinner-search').hide();
+                    $('.fa-magnifying-glass').show();
+                    // return success
+                    if (data.length > 0) {
+                        $('#suggestionslist').html(data);
+                        $('#suggestionslist').show();
+                    }
+                }
+            });
+        }  
+    }
+
+
+    
+});
 
 
 /*----------------------------------------------------------

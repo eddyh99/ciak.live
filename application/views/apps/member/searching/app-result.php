@@ -1,6 +1,7 @@
                     <?php $this->load->view('apps/member/app-popup-search')?>
                     <?php 
-                        foreach ($search->member as $dt){
+                        if(isset($search->member)){
+                            foreach ($search->member as $dt){
                     ?>
                     <div class="apps-member col-12 mx-auto">
                         <div class="list-people mb-on-botbar">
@@ -13,26 +14,28 @@
                         </div>
                     </div>
                     <?php 
+                            }
                         }
                     ?>
                         
                         <?php 
-                            foreach ($search->post as $dt){
-                                if ($dt->is_admin=="active"){
-                                    if (
-                                        ($dt->id_member==$_SESSION["user_id"] && $dt->is_deleted=="active") ||
-                                        ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="public" && $dt->is_deleted=="active" && $dt->is_block=='no' && $dt->is_blocked=='no') ||
-                                        ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="private" && $dt->is_deleted=="active" && ($dt->is_subscribe=="no"||$dt->is_subscribe=="yes") && $dt->is_block=='no' && $dt->is_blocked=='no') ||
-                                        ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="private" && $dt->is_deleted=="active" && $dt->is_subscribe=="yes" && $dt->is_block=='no' && $dt->is_blocked=='yes') || 
-                                        ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="special" && $dt->is_special=="yes" && $dt->is_deleted=="deleted") ||
-                                        ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="special" && ($dt->is_special=="yes"||$dt->is_special=='no') && $dt->is_deleted=="active" && $dt->is_block=='no' && $dt->is_blocked=='no') ||
-                                        ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="download" && $dt->is_download=="yes" && $dt->is_deleted=="deleted") ||
-                                        ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="download" && ($dt->is_download=="yes"||$dt->is_download=='no') && $dt->is_deleted=="active" && $dt->is_block=='no' && $dt->is_blocked=='no')
-                                        ) {
-                                            if(
-                                                ($dt->content_type == 'explicit' && @$_COOKIE['content'] === 'yes') || 
-                                                $dt->content_type == 'non explicit'
-                                        ) {
+                            if(isset($search->post)){
+                                foreach ((array)$search->post as $dt){
+                                    if ($dt->is_admin=="active"){
+                                        if (
+                                            ($dt->id_member==$_SESSION["user_id"] && $dt->is_deleted=="active") ||
+                                            ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="public" && $dt->is_deleted=="active" && $dt->is_block=='no' && $dt->is_blocked=='no') ||
+                                            ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="private" && $dt->is_deleted=="active" && ($dt->is_subscribe=="no"||$dt->is_subscribe=="yes") && $dt->is_block=='no' && $dt->is_blocked=='no') ||
+                                            ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="private" && $dt->is_deleted=="active" && $dt->is_subscribe=="yes" && $dt->is_block=='no' && $dt->is_blocked=='yes') || 
+                                            ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="special" && $dt->is_special=="yes" && $dt->is_deleted=="deleted") ||
+                                            ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="special" && ($dt->is_special=="yes"||$dt->is_special=='no') && $dt->is_deleted=="active" && $dt->is_block=='no' && $dt->is_blocked=='no') ||
+                                            ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="download" && $dt->is_download=="yes" && $dt->is_deleted=="deleted") ||
+                                            ($dt->id_member!=$_SESSION["user_id"] && $dt->type=="download" && ($dt->is_download=="yes"||$dt->is_download=='no') && $dt->is_deleted=="active" && $dt->is_block=='no' && $dt->is_blocked=='no')
+                                            ) {
+                                                if(
+                                                    ($dt->content_type == 'explicit' && @$_COOKIE['content'] === 'yes') || 
+                                                    $dt->content_type == 'non explicit'
+                                            ) {
                         ?>
                             <div class="row">
                                 <div class="posts-member mx-auto">
@@ -729,8 +732,9 @@
                             </script>
 
                     <?php   
-                                    }
-                                }        
+                                        }
+                                    }        
+                                }
                             }
                         }
                     ?>

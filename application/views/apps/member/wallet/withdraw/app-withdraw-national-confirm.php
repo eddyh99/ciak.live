@@ -42,7 +42,7 @@
                         <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                         
                         <!-- REQUIRE INPUT -->
-                        <input type="hidden" name="xeuramount" value="<?= $dataWD->xeuramount ?>">
+                        <input type="hidden" name="usdxamount" value="<?= $dataWD->usdxamount ?>">
                         <input type="hidden" name="accountHolderName" value="<?= $dataWD->accountHolderName?>">
                         <input type="hidden" name="causal" value="<?= $dataWD->causal?>">
                         <input type="hidden" name="transfer_type" value="<?= $dataWD->transfer_type ?>">
