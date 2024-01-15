@@ -203,9 +203,9 @@ class Swap extends CI_Controller
             );
 
             $result = apiciaklive(URLAPI . "/v1/member/swap/swapCurrency", json_encode($mdata));
-            print_r(json_encode($mdata));
+            // print_r(json_encode($mdata));
             // print_r(json_encode($result));
-            die;
+            // die;
             if (@$result->code != 200) {
                 $this->session->set_flashdata("failed", $result->message);
                 redirect('swap');

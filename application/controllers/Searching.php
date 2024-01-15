@@ -37,7 +37,14 @@ class Searching extends CI_Controller
     
     public function member_search(){
         $term=$this->security->xss_clean($_GET["term"]);
-        $url = URLAPI . "/v1/member/post/search_post?term=".$term;
+        $type=$this->security->xss_clean($_GET["type"]);
+        
+        if (empty($type)){
+            $url = URLAPI . "/v1/member/post/search_post?term=".$term;
+        }else{
+            $url = URLAPI . "/v1/member/post/search_post?term=".$term."&type=".$type;
+        }
+
         $result = @apiciaklive($url)->message;
 
         $data['search'] = @apiciaklive($url)->message;
