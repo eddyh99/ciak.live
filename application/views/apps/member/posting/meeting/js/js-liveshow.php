@@ -411,14 +411,15 @@ connection.onopen = function(event) {
 
     if (event.extra.moderator == username_moderator){
         $("#allviewer").show();
-    }else{
-        if (meeting_type=='ticket'){
-            payperjoin();
-        }else if (meeting_type=='minutes'){
-            payperminutes();
-        }
-        statusPayperMinutes = true;
     }
+    // else{
+    //     if (meeting_type=='ticket'){
+    //         payperjoin();
+    //     }else if (meeting_type=='minutes'){
+    //         payperminutes();
+    //     }
+    //     statusPayperMinutes = true;
+    // }
     
 };
 
@@ -476,9 +477,10 @@ connection.onExtraDataUpdated = function(event) {
         .remove()
         .draw();
 
-    // if (event.extra.moderator == username_moderator){
-    //     $("#allviewer").show();
-    // }else{
+    if (event.extra.moderator == username_moderator){
+        $("#allviewer").show();
+    }
+    // else{
     //     if (meeting_type=='ticket'){
     //         payperjoin();
     //     }else if (meeting_type=='minutes'){
