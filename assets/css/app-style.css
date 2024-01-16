@@ -3231,7 +3231,13 @@ label#label-forsubs {
 
 .posts-member .post-member .wrapper-filter .filter {
     padding: 0px !important;
-    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.posts-member .post-member .wrapper-filter .all {
+    padding: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 15px !important;
 }
 
 .posts-member .post-member .wrapper-filter .filter input[type="checkbox"] + label {

@@ -45,9 +45,9 @@ class Searching extends CI_Controller
             $url = URLAPI . "/v1/member/post/search_post?term=".$term."&type=".$type;
         }
 
-        $result = @apiciaklive($url)->message;
-
+        $result = @apiciaklive($url);
         $data['search'] = @apiciaklive($url)->message;
+
         $this->load->view('apps/member/searching/app-result', $data);
     }
 }

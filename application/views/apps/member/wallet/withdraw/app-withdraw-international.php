@@ -23,7 +23,7 @@
                     <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
                     <input type="hidden" name="currencycode" id="currencycode" value="<?= $_SESSION['withdraw']['currencycode']?>">
-                    <input type="hidden" name="xeuramount" id="xeuramount" value="<?= $_SESSION['withdraw']['xeur']?>">
+                    <input type="hidden" name="xeuramount" id="xeuramount" value="<?= $_SESSION['withdraw']['usdx']?>">
                     <input type="hidden" name="transfer_type" id="transfer_type" value="outside">
 
 
