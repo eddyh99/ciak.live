@@ -34,7 +34,7 @@
                 </div>
             <?php } ?>
                 <div class="apps-member light w-100">
-                    <p class="text-center mt-5">EURX balance</p>
+                    <p class="text-center mt-5">USDX balance</p>
                     <h2 class="text-center" style="color: #03B115;"><?=number_format($balance,2)?></h2>
                     <form action="<?= base_url()?>withdraw/withdraw_payment" method="POST" class="mt-5">
                         

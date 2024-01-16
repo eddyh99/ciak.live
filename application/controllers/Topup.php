@@ -82,7 +82,7 @@ class Topup extends CI_Controller
         }
 
         $input        = $this->input;
-        $target        = "XEUR";
+        $target        = "USDX";
         $amount        = $this->security->xss_clean($input->post("amount"));
 
         if ($amount > 0) {
@@ -142,7 +142,7 @@ class Topup extends CI_Controller
 
         $input      = $this->input;
         $amount     = $this->security->xss_clean($this->input->post("amount"));
-        $target     = 'XEUR';
+        $target     = 'USDX';
         
         $mdata  = array(
             "source"    => $_SESSION["currency"],
