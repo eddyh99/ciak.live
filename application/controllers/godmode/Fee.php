@@ -26,7 +26,7 @@ class Fee extends CI_Controller
 
 	public function getfee()
 	{
-		$mfee = ciakadmin(URLAPI . "/v1/admin/fee/getciakFee?currency=XEUR");
+		$mfee = ciakadmin(URLAPI . "/v1/admin/fee/getciakFee?currency=USDX");
 		$mdata = array();
 		if (@$mfee->code == 200) {
 			$mdata = array(
@@ -46,7 +46,7 @@ class Fee extends CI_Controller
 
 	public function editfee()
 	{
-		$mfee = ciakadmin(URLAPI . "/v1/admin/fee/getciakFee?currency=XEUR");
+		$mfee = ciakadmin(URLAPI . "/v1/admin/fee/getciakFee?currency=USDX");
 
 		$mdata = array();
 		if (@$mfee->code == 200) {
@@ -111,7 +111,7 @@ class Fee extends CI_Controller
 		}
 
 		$mdata = array(
-			"currency"           => "XEUR",
+			"currency"           => "USDX",
 			"wallet2wallet_pct" => $wallet2wallet_pct / 100,
 			"referral_lv1"      => $referral_lv1 / 100,
 			"referral_lv2"      => $referral_lv2 / 100,

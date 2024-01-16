@@ -97,6 +97,54 @@ video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-p
 <script src="https://muazkhan.com:9001/socket.io/socket.io.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 <script>
+
+
+
+var url=new URL(window.location.href);
+var room_id = url.searchParams.get("room_id");
+var performer=false;
+var camera=true;
+
+$.ajax({
+    url: "<?=base_url()?>meeting/cekroommeeting",
+    type: "post",
+    data: "room="+room_id,
+    success: function (response) {
+        var data=JSON.parse(response);
+        console.log(data);
+        connection.extra.userFullName = data.username;
+        if (data.performer===true){
+            $('#load-edit-profile').hide()
+            $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Start');      
+            $("#btninvite").show();
+            $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
+            performer=true;
+            connection.extra.roomOwner = true;
+            connection.extra.broadCaster = true;
+        }else if (data.performer===false){
+            $('#load-edit-profile').hide()
+            $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
+            $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Join');
+            $("#btninvite").hide();
+            performer=false;
+            connection.extra.roomOwner = false;
+            connection.extra.broadCaster = true;
+        }else{
+            $('#load-edit-profile').hide()
+            $("#btnopen").html("Join");
+            $("#btninvite").hide();
+            performer=false;
+            connection.extra.roomOwner = false;
+            connection.extra.broadCaster = false;
+        }
+    }
+});
+
+
+
+
+
+
 function inviteuser(input,room,username){
     $.ajax({
             url: "<?=base_url()?>meeting/inviteuser?guestid="+input+"&room="+room,
@@ -271,45 +319,6 @@ connection.processSdp = function(sdp) {
 // ......................Handling Room-ID................
 // ......................................................
 
-var url=new URL(window.location.href);
-var room_id = url.searchParams.get("room_id");
-var performer=false;
-var camera=true;
-
-$.ajax({
-    url: "<?=base_url()?>meeting/cekroommeeting",
-    type: "post",
-    data: "room="+room_id,
-    success: function (response) {
-        var data=JSON.parse(response);
-        connection.extra.userFullName = data.username;
-        if (data.performer===true){
-            $('#load-edit-profile').hide()
-            $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Start');      
-            $("#btninvite").show();
-            $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
-            performer=true;
-            connection.extra.roomOwner = true;
-            connection.extra.broadCaster = true;
-        }else if (data.performer===false){
-            $('#load-edit-profile').hide()
-            $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
-            $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Join');
-            $("#btninvite").hide();
-            performer=false;
-            connection.extra.roomOwner = false;
-            connection.extra.broadCaster = true;
-        }else{
-            $('#load-edit-profile').hide()
-            $("#btnopen").html("Join");
-            $("#btninvite").hide();
-            performer=false;
-            connection.extra.roomOwner = false;
-            connection.extra.broadCaster = false;
-        }
-    }
-});
-
 $("#btnopen").on("click",function(){
     $("#txt-chat-message").removeAttr("disabled");
     $("#btn-chat-message").removeAttr("disabled");
@@ -341,7 +350,7 @@ $("#btnopen").on("click",function(){
             connection.checkPresence(room_id, function(isRoomExist, roomid) {
                 if (isRoomExist === true) {
                     connection.join(roomid);
-                    afterConnectingSocket();
+                    // afterConnectingSocket();
                     $("#btnopen").attr("disabled","true");
                     $("#btncamera").removeAttr("disabled");
                 } else {

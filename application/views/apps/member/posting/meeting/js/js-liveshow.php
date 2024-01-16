@@ -123,8 +123,6 @@ $("video").on("click",function(e){
     e.preventDefault();   
 })
 
-
-
 var url=new URL(window.location.href);
 var broadcastId = url.searchParams.get("room_id");
 var meeting_type;
@@ -478,16 +476,16 @@ connection.onExtraDataUpdated = function(event) {
         .remove()
         .draw();
 
-    if (event.extra.moderator == username_moderator){
-        $("#allviewer").show();
-    }else{
-        if (meeting_type=='ticket'){
-            payperjoin();
-        }else if (meeting_type=='minutes'){
-            payperminutes();
-        }
-        statusPayperMinutes = true;
-    }
+    // if (event.extra.moderator == username_moderator){
+    //     $("#allviewer").show();
+    // }else{
+    //     if (meeting_type=='ticket'){
+    //         payperjoin();
+    //     }else if (meeting_type=='minutes'){
+    //         payperminutes();
+    //     }
+    //     statusPayperMinutes = true;
+    // }
     
 };
 
