@@ -431,14 +431,14 @@ class Profile extends CI_Controller
         $subscribe_id   = $this->security->xss_clean($this->input->post('ucode'));
         $jenis          = $this->security->xss_clean($this->input->post('jenis'));
         
-        $balance    = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance;
+        $balance    = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=USDX&userid=" . $_SESSION["user_id"])->message->balance;
         $price      = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$subscribe_id)->message;
 
         if (($jenis=="sub7") && ($balance-$price->sub7)<0){
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
 		            "success"   => false,
-		            "message"   => "Insufficient XEUR funds"
+		            "message"   => "Insufficient USDX funds"
 		        );
 		    echo json_encode($message);
     	    die;
@@ -446,7 +446,7 @@ class Profile extends CI_Controller
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
 		            "success"   => false,
-		            "message"   => "Insufficient XEUR funds"
+		            "message"   => "Insufficient USDX funds"
 		        );
 		    echo json_encode($message);
     	    die;
@@ -454,7 +454,7 @@ class Profile extends CI_Controller
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
 		            "success"   => false,
-		            "message"   => "Insufficient XEUR funds"
+		            "message"   => "Insufficient USDX funds"
 		        );
 		    echo json_encode($message);
     	    die;
@@ -462,7 +462,7 @@ class Profile extends CI_Controller
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
 		            "success"   => false,
-		            "message"   => "Insufficient XEUR funds"
+		            "message"   => "Insufficient USDX funds"
 		        );
 		    echo json_encode($message);
     	    die;

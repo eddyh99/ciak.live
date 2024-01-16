@@ -559,8 +559,6 @@ window.onkeyup = function(e) {
 function kickuser(id, username){
     connection.extra.kickusername = username;
     connection.extra.idrow_listmember = id;
-    console.log("&&&&CHECK USER : " + connection.extra.userFullName);
-    console.log("&&&&CHECK KICKUSER : " + connection.extra.userFullName);
 
     // connection.disconnectWith(id);
     // connection.deletePeer(id);
@@ -594,7 +592,6 @@ document.getElementById('btn-chat-message').onclick = function() {
 
 connection.onerror = function(event) {
     var remoteUserId = event.userid;
-    console.log("#######SAYA " + event.extra.userJoin);
     if (event.extra.userJoin=="performer"){
         alert("broadcast ended or you've been kicked");
         window.location.href="<?=base_url()?>homepage";
