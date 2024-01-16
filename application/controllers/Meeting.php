@@ -195,12 +195,12 @@ class Meeting extends CI_Controller
     public function confirmjoin(){
         $room_id    = $this->security->xss_clean($this->input->post("room"));
 
-        $balance    = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance;
+        $balance    = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=USDX&userid=" . $_SESSION["user_id"])->message->balance;
         $detail     = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
 
         if ($detail->price>$balance){
             header("HTTP/1.0 403 Forbidden");
-            echo "Insufficient XEUR Balance";
+            echo "Insufficient USDX Balance";
             return;
         }
         

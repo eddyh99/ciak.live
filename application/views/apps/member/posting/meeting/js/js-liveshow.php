@@ -184,10 +184,10 @@ $.ajax({
             if (data.meeting_type=="free"){
                 $("#notifjoin").html("This show is free");
             }else if (data.meeting_type=="ticket"){
-                $("#costjoin").html("This show will cost "+data.price+" XEUR");
+                $("#costjoin").html("This show will cost "+data.price+" USDX");
                 $("#notifjoin").html("Balance will be deducted from your wallet");
             }else if (data.meeting_type=="minutes"){
-                $("#costjoin").html("This show will cost "+data.price+" XEUR/minutes");
+                $("#costjoin").html("This show will cost "+data.price+" USDX/minutes");
                 $("#notifjoin").html("Balance will be deducted from your wallet each minutes");
             }
             $('.addModerator-class').hide();
@@ -595,9 +595,9 @@ document.getElementById('btn-chat-message').onclick = function() {
 connection.onerror = function(event) {
     var remoteUserId = event.userid;
     console.log("#######SAYA " + event.extra.userJoin);
-    if (event.extra.userJoin=="performer" || event.extra.ismoderator=="moderator"){
-        alert("broadcast ended or you've been kicked" + event.extra.userJoin);
-        // window.location.href="<?=base_url()?>homepage";
+    if (event.extra.userJoin=="performer"){
+        alert("broadcast ended or you've been kicked");
+        window.location.href="<?=base_url()?>homepage";
     }
 };
 
@@ -910,9 +910,4 @@ $(document).ready(function(){
         },
     });
 });
-
-// function invite_guest_active(id, img, username){
-//     console.log(id + img + username);
-
-// }
 </script>

@@ -602,12 +602,12 @@ class Post extends CI_Controller
         $amount     = $this->security->xss_clean($this->input->post("amount"));
         $owner_post = $this->security->xss_clean($this->input->post("owner_post"));
         
-        $balance    = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=XEUR&userid=" . $_SESSION["user_id"])->message->balance;
+        $balance    = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=USDX&userid=" . $_SESSION["user_id"])->message->balance;
         if ($amount<0.5){
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
 		            "success"   => false,
-		            "message"   => "Minimum tips is 0.5 XEUR"
+		            "message"   => "Minimum tips is 0.5 USDX"
 		        );
 		    echo json_encode($message);
         }
@@ -616,7 +616,7 @@ class Post extends CI_Controller
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
 		            "success"   => false,
-		            "message"   => "Insufficient XEUR funds"
+		            "message"   => "Insufficient USDX funds"
 		        );
 		    echo json_encode($message);
         }
