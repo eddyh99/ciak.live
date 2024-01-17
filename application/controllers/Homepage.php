@@ -33,7 +33,7 @@ class Homepage extends CI_Controller
         $maxpage = apiciaklive(URLAPI . "/v1/member/post/getmax_page");
 
         //print_r(json_encode($post->message));
-        // echo "<pre>".print_r($nonfollow,true)."</pre>";
+        // echo "<pre>".print_r($_SESSION,true)."</pre>";
         // die;
         $data = array(
             'title'         => NAMETITLE . ' - Homepage',

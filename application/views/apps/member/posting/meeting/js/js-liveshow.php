@@ -237,7 +237,6 @@ function payperminutes(){
 }
 
 
-
 setInterval(()=>{
         if(statusPayperMinutes === true){
             payperminutes()
@@ -258,7 +257,6 @@ $("#btnopen").on("click",function(){
     $("#txt-chat-message").removeAttr("disabled");
     $("#btn-chat-message").removeAttr("disabled");
     $("#btn-emoji-livestream").removeAttr("disabled");
-    console.log(performer);
     if (!performer){
         $("#confirmjoin").modal("show");
     }else if (performer){
@@ -364,7 +362,6 @@ function invite_moderator(uname, profile){
         alert("MAXIMAL 2 MODERATOR");
     }else{
         max_moderator += 1;
-        console.log(max_moderator);
         $('#wrap-preview-moderator').append(
             `<div class="my-3 mb-3 px-4 d-flex align-items-center preview-moderator">
                 <img width="50" src="${profile}" height="auto" class="img-preview-moderator rounded-circle me-3">
@@ -390,31 +387,25 @@ connection.onopen = function(event) {
     if(userjoin != 'performer'){
         pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger btn-kickmember" onclick="kickuser('${event.userid}','${remoteUserFullName}'); $(this).parent().parent().remove();">Kick</button>`});
     }
-
     
     var listmember = $('#memberjoin').DataTable();
 
     pushmember.forEach((push) => {
         listmember.row.add([
-            push.username,
-            push.btnkick                                                                               
+            push.,
+            push.btusernamenkick                                                                               
         ]).node().id = `id_${event.userid}`;
         listmember.draw(false);
     })
 
-
-
-    console.log("++++++++ ON OPEN USERJOIN - " + event.extra.userJoin);
-    console.log("++++++++ ON OPEN MODE - " + event.extra.moderator);
-    console.log("+++++++++ ON OPEN USERNAME - " + username_moderator);
-    console.log("+++++++++ ON OPEN IS MODE - " + event.extra.ismoderator);
 
     if (event.extra.moderator == username_moderator){
         $("#allviewer").show();
     }
     // else{
     //     if (meeting_type=='ticket'){
-    //         payperjoin();
+    //             payperjoin();
+    //             console.log("PAY TICKET ");
     //     }else if (meeting_type=='minutes'){
     //         payperminutes();
     //     }
@@ -461,12 +452,6 @@ connection.onmessage = function(event) {
 
 connection.onExtraDataUpdated = function(event) {
     
-    console.log("**************ON DATAUPDATE IS USERNAME - " + connection.extra.userFullName);
-    console.log("**************ON DATAUPDATE KICKUSERNAME - " + event.extra.kickusername);
-    console.log("**************ON DATAUPDATE USERJOIN - " + event.extra.userJoin);
-    console.log("**************ON DATAUPDATE MODE - " + event.extra.moderator);
-    console.log("**************ON DATAUPDATE USRNAME- " + username_moderator);
-    console.log("**************ON DATAUPDATE IS MODE- " + event.extra.ismoderator);
 
     if(event.extra.kickusername == connection.extra.userFullName){
         window.location.href="<?=base_url()?>homepage";
@@ -479,12 +464,17 @@ connection.onExtraDataUpdated = function(event) {
 
     if (event.extra.moderator == username_moderator){
         $("#allviewer").show();
+        statusPayperMinutes = false;
+        // if(statusPayperMinutes){
+        //     payperminutes(event.extra.moderator);
+        // }
     }
     // else{
     //     if (meeting_type=='ticket'){
     //         payperjoin();
     //     }else if (meeting_type=='minutes'){
     //         payperminutes();
+    //         console.log("#####CHANGE TO MODERATOR");
     //     }
     //     statusPayperMinutes = true;
     // }
