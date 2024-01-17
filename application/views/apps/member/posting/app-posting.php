@@ -403,9 +403,9 @@
 </div>
 
 <!-- Modal for Set Price Subcription -->
-<?php if(($get_price->sub7 == '0.00') && ($get_price->sub30 == '0.00') && 
-        ($get_price->sub365 == '0.00') && ($get_price->trial == '0.00') &&
-        ($get_price->trial_long == '0')){
+<?php if((@$get_price->sub7 == '0.00') && (@$get_price->sub30 == '0.00') && 
+        (@$get_price->sub365 == '0.00') && (@$get_price->trial == '0.00') &&
+        (@$get_price->trial_long == '0')){
 ?>
     <div class="modal fade" id="setprice_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="setprice" aria-hidden="true">
     <div class="modal-dialog modal-lg">

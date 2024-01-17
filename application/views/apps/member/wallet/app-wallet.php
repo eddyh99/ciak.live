@@ -95,7 +95,7 @@
             </div>
             <div class="card-currency row mt-2">
                 <?php foreach($currency as $dt) {?>
-                    <?php if($dt->currency!='USDX'){?>
+                    <?php if(($dt->currency!='USDX') && ($dt->currency!='XEUR')){?>
                         <?php if($dt->currency == 'EUR' || $dt->currency == 'USD'){?>
                             <div class="detail-currency d-flex justify-content-between align-items-center col-10 mx-auto py-3 my-2">                   
                                 <div class="ps-3">
@@ -116,7 +116,7 @@
                 <?php }?>
 
                 <?php foreach ($currency as $dt){ ?>
-                    <?php if ($dt->currency!='USDX'){?>
+                    <?php if (($dt->currency!='USDX') && ($dt->currency!='XEUR')){?>
                         <?php if($dt->currency != 'EUR' && $dt->currency != 'USD') {?>
                             <div class="detail-currency d-flex justify-content-between align-items-center col-10 mx-auto py-3 my-2">                   
                                 <div class="ps-3">

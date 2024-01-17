@@ -181,7 +181,7 @@
                     <h4>Send Tips</h4>
                     <input type="hidden" name="owner_post" value="<?= $room->id_member?>">
                     <label for="amount">Amount</label>
-                    <input type="text" name="amount" id="amount" placeholder="0.00 XEUR" value="0.5" class="rounded border-1 border-white bg-transparent text-white form-control money-input">
+                    <input type="text" name="amount" id="amount" placeholder="0.00 USDX" value="0.5" class="rounded border-1 border-white bg-transparent text-white form-control money-input">
                 </div>
                 <button id="btnconfirm" class="btn <?php echo ($content_type == 'explicit') ? 'btn-explicit-content' : 'btn-main-green'?> col-lg-8 m-1 mt-2">Confirm</button>            
             </form>

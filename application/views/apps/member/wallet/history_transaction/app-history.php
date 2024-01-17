@@ -31,7 +31,10 @@
                         <rect width="100" height="6" rx="3" fill="white" fill-opacity="0.9"/>
                     </svg>
 
-                    <div class="d-flex justify-content-between mt-3">
+                    <div class="d-flex justify-content-center my-5">
+                        <h4>COMING SOON</h4>
+                    </div>
+                    <!-- <div class="d-flex justify-content-between mt-3">
                         <h4>Transactions History</h4>
                         <div>
                             <span>
@@ -111,7 +114,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div> -->
                     
                 </div>
             </div>
