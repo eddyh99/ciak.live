@@ -122,6 +122,7 @@ $.ajax({
             connection.extra.roomOwner = true;
             connection.extra.broadCaster = true;
         }else if (data.performer===false){
+            console.log("broadcaster");
             $('#load-edit-profile').hide()
             $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
             $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Join');
@@ -130,6 +131,7 @@ $.ajax({
             connection.extra.roomOwner = false;
             connection.extra.broadCaster = true;
         }else{
+            console.log("umum");
             $('#load-edit-profile').hide()
             $("#btnopen").html("Join");
             $("#btninvite").hide();
@@ -210,7 +212,11 @@ $.fn.select2.defaults.set( "theme", "bootstrap" );
 
 var connection = new RTCMultiConnection();
 connection.socketURL = 'https://muazkhan.com:9001/';
-connection.socketMessageEvent = 'live-meeting';
+connection.socketMessageEvent = 'ciak-livemeeting';
+connection.extra.broadcastuser = 0;
+connection.autoCloseEntireSession = false;
+connection.maxParticipantsAllowed = 1000;
+
 var conversationPanel = document.getElementById('conversation-panel');
 
 connection.session = {
@@ -359,18 +365,26 @@ $("#btnopen").on("click",function(){
             });
         }
     }else{
-        console.log("200 - performer");
-        connection.extra.broadcastuser = 0;
-        $("#broadcast-viewers-counter").html('Online viewers: <b>1 User</b>');
-        connection.checkPresence(room_id, function(isRoomExist, roomid) {
-            if (isRoomExist === false) {
-                connection.open(roomid);
+        connection.open(room_id, function(isRoomOpened, roomid, error) {
+            if (error) {
+                if (error === connection.errors.ROOM_NOT_AVAILABLE) {
+                    alert('Someone already created this room. Please either join or create a separate room.');
+                    return;
+                }
+                alert(error);
+            }else{
                 $("#btnopen").attr("disabled","true");
                 $("#btncamera").removeAttr("disabled");
             }
+        
+            connection.socket.on('disconnect', function() {
+                location.reload();
+            });
         });
     }
 });
+
+
 
 connection.onExtraDataUpdated = function(event) {
     var user = event.extra.broadcastuser;
