@@ -16,9 +16,9 @@
             </button>
         </div>
         <div class="modal-body">
-            <input type="hidden" id="youtube" value="<?=@$rtmp->youtube?>">
-            <input type="hidden" id="facebook" value="<?=@$rtmp->facebook?>">
-            <input type="hidden" id="others1" value="<?=@$rtmp->others?>">
+            <input type="hidden" id="youtube" value="<?=$rtmp->youtube?>">
+            <input type="hidden" id="facebook" value="<?=$rtmp->facebook?>">
+            <input type="hidden" id="others1" value="<?=$rtmp->others?>">
             <ul class="">
                 <li class="connect-live">
                     <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
