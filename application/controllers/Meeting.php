@@ -132,6 +132,12 @@ class Meeting extends CI_Controller
 
     public function showmeeting(){
         $following   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
+        $room_id = $_GET['room_id'];
+        $guest = apiciaklive(URLAPI . "/v1/member/perform/getmember_byroom?room_id=".$room_id."&from_id=1")->message;
+        $public = apiciaklive(URLAPI . "/v1/member/perform/getpublic_byroom?room_id=".$room_id)->message;
+        // echo "<pre>".print_r($guest,true)."</pre>";
+        // die;
+
 
         $data = array(
             'title'         => NAMETITLE . ' - Meeting',
@@ -144,10 +150,13 @@ class Meeting extends CI_Controller
     
     public function cekroommeeting(){
         $room_id   = $this->security->xss_clean($this->input->post("room"));
-        $room_id    = "zzq2jjp";
+        // $room_id    = "zzq2jjp";
         $detail = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+        // echo "<pre>".print_r($detail,true)."</pre>";
         if ($detail->id_member!=$_SESSION["user_id"]){
             $guest = apiciaklive(URLAPI . "/v1/member/perform/getmember_byroom?room_id=".$room_id."&from_id=".$detail->id_member)->message;
+            // echo "<pre>".print_r($guest,true)."</pre>";
+            // die;
             if (empty($guest)){
                 $public = apiciaklive(URLAPI . "/v1/member/perform/getpublic_byroom?room_id=".$room_id)->message;
                 if (empty($public)){
@@ -223,8 +232,8 @@ class Meeting extends CI_Controller
     public function inviteuser(){
         $room_id    = $this->security->xss_clean($_GET["room"]);
         $detail     = apiciaklive(URLAPI . "/v1/member/perform/getchat_byroom?room_id=".$room_id)->message;
-        
-        $guestid=$this->security->xss_clean($_GET["guestid"]);
+        $guestid = $this->security->xss_clean($_GET["guestid"]);
+
         $post_time=date("Y-m-d H:i");
         $mdata=array(
                 "to_user_id"    => $guestid,
@@ -233,10 +242,12 @@ class Meeting extends CI_Controller
                 "timestamp"     => $post_time,
                 "roomid"        => $room_id
             );
-
-        $url = URLAPI . "/v1/member/perform/invitemmeeting";
-		$result = apiciaklive($url,json_encode($mdata));
         
+            
+        $url = URLAPI . "/v1/member/perform/invitemmeeting";
+        $result = apiciaklive($url,json_encode($mdata));
+        echo "<pre>".print_r($result,true)."</pre>";
+        die;
 		if (@$result->code!=200){
 		    //set flash data error
 	        return;

@@ -1,6 +1,5 @@
 
 <style>
-
 .dataTables_wrapper .dataTables_length, 
 .dataTables_wrapper .dataTables_filter, 
 .dataTables_wrapper .dataTables_info, 
@@ -69,8 +68,10 @@ video::-webkit-media-controls {
 }
 
 #conversation-panel .message {
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
     padding: 5px 10px;
+    color: white;
+    background: #22283A !important;
 }
 
 #conversation-panel .message img, #conversation-panel .message video, #conversation-panel .message iframe {
@@ -110,39 +111,72 @@ video::-webkit-media-controls {
     }
 }
 </style>
-<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <script src="https://muazkhan.com:9001/dist/RTCMultiConnection.js"></script>
 <script src="https://muazkhan.com:9001/node_modules/webrtc-adapter/out/adapter.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
 <script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
 <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
-<script>
-$("video").on("click",function(e){
-    e.preventDefault();   
-})
+<script>  
 
-var url=new URL(window.location.href);
+
+/*----------------------------------------------------------
+    Modul Name  : js-liveshow
+    Desc        : Extra javascript digunakan untuk live show atau live streaming
+------------------------------------------------------------*/ 
+
+/**
+ * TABLE OF CONTENTS
+ *
+ * 1. Inisialisasi General Variable  
+ * 2. AJAX check room live streaming
+ * 3. Inisialisasi Function payperjoin() & payperminutes() 
+ * 4. SetInterval untuk payperminutes
+ * 5. Confirmation open member join
+ * 6. Confirmation start live performer type FREE Public & enable social media connect streaming
+ * 7. Confirmation member before start streaming
+ * 8. Function invite moderator
+ * 9. Function Kick User
+ * 10. Function Append Chating
+ * 11. Connection onopen berfungsi untuk trigger setiap ada user join
+ * 12. Connection onmessage berfugsi interaksi chating
+ * 13. Connection onExtraDataUpdate berfungsi update real time data
+ * 14. Connection onstream berfungsi receive all local or remote media streaming
+ * 15. Count viewer join
+ * 16. Search location member
+ * 17. Function request media
+ * 18. Send Tips
+ * 19. Emoji Picker
+ */
+
+
+/*----------------------------------------------------------
+1. Inisialisasi General Variable 
+------------------------------------------------------------*/ 
+var url = new URL(window.location.href);
 var broadcastId = url.searchParams.get("room_id");
 var meeting_type;
 var purpose;
 var rtmpurl;
 var statusPayperMinutes = false;
 let id_has_room;
-
-var performer=false;
+var performer = false;
 var username_moderator = '';
+var countPayperminutes;
 var connection = new RTCMultiConnection();
+$("#allviewer").hide();
+
+// Inisialisasi Connection
 connection.socketURL = 'https://muazkhan.com:9001/';
 connection.socketMessageEvent = 'ciak-liveshow';
 connection.extra.broadcastuser = 0;
-
-// keep room opened even if owner leaves
+// Inisialisasi room opened even if owner leaves
 connection.autoCloseEntireSession = false;
 connection.maxParticipantsAllowed = 1000;
 
-// here goes RTCMultiConnection
+// Inisialisasi AUDIO, VIDEO, DATA RTCMultiConnection
 connection.session = {
     audio: true,
     video: true,
@@ -153,16 +187,16 @@ connection.sdpConstraints.mandatory = {
     OfferToReceiveVideo: true
 };
 
-$("#allviewer").hide();
 
-
+/*----------------------------------------------------------
+2. AJAX check room live streaming
+------------------------------------------------------------*/ 
 $.ajax({
     url: "<?=base_url()?>meeting/cekroom",
     type: "post",
     data: "room="+broadcastId,
     success: function (response) {
         var data=JSON.parse(response);
-        console.log(data);
         id_has_room = data.id_has_room;
         connection.extra.userFullName = data.username;
         username_moderator = data.username;
@@ -174,8 +208,6 @@ $.ajax({
             $('#load-edit-profile').hide()
             $('.please-click-join-live').text('Please start to live');
             $("#btnopen").html("Start");
-            // $("#broadcast-viewers-counter").html('Online viewers: '+connection.extra.broadcastuser+' <b> User</b>');
-            // console.log(connection.extra.broadcastuser, "130");
             performer=true;
             connection.extra.roomOwner = true;
         }else if (data.performer===false){
@@ -203,6 +235,9 @@ $.ajax({
 });
 
 
+/*----------------------------------------------------------
+3. Inisialisasi Function payperjoin() & payperminutes() 
+------------------------------------------------------------*/ 
 function payperjoin(){
     if(meeting_type=="ticket" && !performer){
         $.ajax({
@@ -210,7 +245,7 @@ function payperjoin(){
             type: "post",
             data: "room="+broadcastId,
             success: function (response) {
-                console.log("PAY");
+                console.log("");
             },
             error: function (request, status, error) {
                 alert(request.responseText);
@@ -219,6 +254,7 @@ function payperjoin(){
         });
     }
 }
+
 function payperminutes(){
     if(meeting_type=="minutes" && !performer){
         $.ajax({
@@ -226,7 +262,7 @@ function payperminutes(){
             type: "post",
             data: "room="+broadcastId,
             success: function (response) {
-                console.log("PAY MINUTES");
+                console.log("");
             },
             error: function (request, status, error) {
                 alert(request.responseText);
@@ -236,17 +272,26 @@ function payperminutes(){
     }
 }
 
-
+/*----------------------------------------------------------
+4. SetInterval untuk payperminutes
+------------------------------------------------------------*/ 
 setInterval(()=>{
+    countPayperminutes++;
+    if(countPayperminutes == 58){
         if(statusPayperMinutes === true){
-            payperminutes()
+            payperminutes();
         }else{
             return;
         }
-    }, 58000
-);
+    }else if(countPayperminutes >= 60){
+        countPayperminutes = 0;
+    }
+}, 1000);
 
 
+/*----------------------------------------------------------
+5. Confirmation open member join
+------------------------------------------------------------*/ 
 $(document).ready(function() {
     if (!performer){
         $('#confirmjoin').modal('show');
@@ -258,8 +303,10 @@ $("#btnopen").on("click",function(){
     $("#btn-chat-message").removeAttr("disabled");
     $("#btn-emoji-livestream").removeAttr("disabled");
     if (!performer){
-        $("#confirmjoin").modal("show");
+        // Masuk sebagai member 
+        $("#confirmjoin").modal("show");      
     }else if (performer){
+        // Masuk sebagai Performer
         if((meeting_type == "free") && (purpose == "public")){
             $('#livemodal-connect').modal('show');
         }else{
@@ -271,6 +318,8 @@ $("#btnopen").on("click",function(){
                     }
                     alert(error);
                 }else{
+                    connection.extra.userJoin = "performer";
+                    $("#allviewer").show();
                     $("#btnopen").attr("disabled","true");
                     $('.please-click-join-live').hide();
                 }
@@ -283,7 +332,9 @@ $("#btnopen").on("click",function(){
     }
 });
 
-
+/*----------------------------------------------------------
+6. Confirmation start live performer type FREE Public & enable social media connect streaming
+------------------------------------------------------------*/ 
 $("#startlive").on("click",function(){
         if ($("#pil_yt").is(":checked")){
             rtmpurl=$("#youtube").val();
@@ -298,10 +349,9 @@ $("#startlive").on("click",function(){
         }
 
         $("#livemodal-connect").modal("hide");	
-        connect_server();
-        
-        connection.extra.userJoin = "performer";
 
+        connect_server();
+        connection.extra.userJoin = "performer";
         connection.open(broadcastId, function(isRoomOpened, roomid, error) {
             if (error) {
                 if (error === connection.errors.ROOM_NOT_AVAILABLE) {
@@ -321,11 +371,12 @@ $("#startlive").on("click",function(){
         });
 });
 
-
+/*----------------------------------------------------------
+7. Confirmation member before start streaming
+------------------------------------------------------------*/ 
 $("#btnconfirm").on("click",function(){
     $("#confirmjoin").modal("hide");
-    // connection.extra.userJoin = "memmber join";
-    connection.join(broadcastId, function(isRoomJoined, roomid, error, event) {
+    connection.join(broadcastId, function(isRoomJoined, roomid, error) {
         if (error) {
             if (error === connection.errors.ROOM_NOT_AVAILABLE) {
                 alert('This room does not exist. Please either create it or wait for moderator to enter in the room.');
@@ -338,6 +389,7 @@ $("#btnconfirm").on("click",function(){
             alert(error);
         }else{
             connection.extra.broadcastuser +=1;
+            countPayperminutes = 0;
 
             $("#btnopen").attr("disabled","true");
             $("#txt-chat-message").removeAttr("disabled");
@@ -355,6 +407,9 @@ $("#btnconfirm").on("click",function(){
     });
 })
 
+/*----------------------------------------------------------
+8. Function invite moderator
+------------------------------------------------------------*/ 
 var max_moderator = 0;
 function invite_moderator(uname, profile){
 
@@ -376,51 +431,100 @@ function invite_moderator(uname, profile){
 }
 
 
+/*----------------------------------------------------------
+9. Function Kick User
+------------------------------------------------------------*/ 
+function kickuser(id, username){
+    connection.extra.kickusername = username;
+    connection.extra.idrow_listmember = id;
+
+    var rows = listmember
+        .rows(`#id_${id}`)
+        .remove()
+        .draw();
+    connection.updateExtraData();
+}
+
+/*----------------------------------------------------------
+10. Function Append Chating
+------------------------------------------------------------*/ 
+function appendChatMessage(event, checkmark_id) {
+    var div = document.createElement('div');
+
+    div.className = 'message mt-2';
+
+    if (event.data) {
+        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> </div>`;
+
+        if (event.data.checkmark_id) {
+            connection.send({
+                checkmark: 'received',
+                checkmark_id: event.data.checkmark_id
+            });
+        }
+    } else {
+        div.innerHTML = '<b>You:</b> <img class="checkmark" id="' + checkmark_id + '" title="Received" src="<?=base_url()?>assets/img/new-ciak/live-check-chat.png" style="width:15px"><br>' + event;
+    }
+    div.style.background = '#ffffff';
+
+    conversationPanel.appendChild(div);
+
+    conversationPanel.scrollTop = conversationPanel.clientHeight;
+    conversationPanel.scrollTop = conversationPanel.scrollHeight - conversationPanel.scrollTop;
+}
+
+/*----------------------------------------------------------
+11. Connection onopen berfungsi untuk trigger setiap ada user join
+------------------------------------------------------------*/ 
+var ismember = true;
 connection.onopen = function(event) {
 
+    // inisalisasi variable
     unique_id = event.userid;
     var remoteUserFullName = event.extra.userFullName;
     var userjoin = event.extra.userJoin;
-
     var pushmember=[];
     
+    // assign object to array untuk list member
     if(userjoin != 'performer'){
         pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger btn-kickmember" onclick="kickuser('${event.userid}','${remoteUserFullName}'); $(this).parent().parent().remove();">Kick</button>`});
     }
     
+    // Datatables list member
     var listmember = $('#memberjoin').DataTable();
-
     pushmember.forEach((push) => {
         listmember.row.add([
-            push.,
-            push.btusernamenkick                                                                               
+            push.username,
+            push.btnkick                                                                               
         ]).node().id = `id_${event.userid}`;
         listmember.draw(false);
     })
 
-
+    // Condition moderator atau member general
     if (event.extra.moderator == username_moderator){
         $("#allviewer").show();
+        ismember = false;
+    }else if(ismember == true){
+        ismember = false;
+        if (meeting_type=='ticket'){
+            payperjoin();
+        }else if (meeting_type=='minutes'){
+            payperminutes();
+            statusPayperMinutes = true;    
+        }
     }
-    // else{
-    //     if (meeting_type=='ticket'){
-    //             payperjoin();
-    //             console.log("PAY TICKET ");
-    //     }else if (meeting_type=='minutes'){
-    //         payperminutes();
-    //     }
-    //     statusPayperMinutes = true;
-    // }
     
 };
 
-var member = [];
+// Inisalisasi datatables first
 var listmember = $("#memberjoin").DataTable({
     ordering: false,
 });
 
 
-
+/*----------------------------------------------------------
+12. connection onmessage berfugsi interaksi chating
+------------------------------------------------------------*/ 
 connection.onmessage = function(event) {
     if(event.data.typing === true) {
         $('#key-press').show().find('span').html(event.extra.userFullName + ' is typing');
@@ -447,98 +551,9 @@ connection.onmessage = function(event) {
 
 };
 
-// extra code
-
-
-connection.onExtraDataUpdated = function(event) {
-    
-
-    if(event.extra.kickusername == connection.extra.userFullName){
-        window.location.href="<?=base_url()?>homepage";
-    }
-
-    var rows = listmember
-        .rows(`#id_${event.extra.idrow_listmember}`)
-        .remove()
-        .draw();
-
-    if (event.extra.moderator == username_moderator){
-        $("#allviewer").show();
-        statusPayperMinutes = false;
-        // if(statusPayperMinutes){
-        //     payperminutes(event.extra.moderator);
-        // }
-    }
-    // else{
-    //     if (meeting_type=='ticket'){
-    //         payperjoin();
-    //     }else if (meeting_type=='minutes'){
-    //         payperminutes();
-    //         console.log("#####CHANGE TO MODERATOR");
-    //     }
-    //     statusPayperMinutes = true;
-    // }
-    
-};
-
-
-connection.onstream = function(event) {
-    // if (event.extra.moderator==connection.userFullName){
-    //     $("#allviewer").show();
-    // }
-
-
-    if (event.extra.roomOwner === true) {
-        if (connection.extra.broadcastuser>1){
-            console.log(connection.extra.broadcastuser, "315");
-            // $("#broadcast-viewers-counter").html('Online viewers: <b>' + connection.extra.broadcastuser + ' Users</b>');
-        }else{
-            console.log(connection.extra.broadcastuser, "317");
-            // $("#broadcast-viewers-counter").html('Online viewers: <b>' + connection.extra.broadcastuser + ' User</b>');
-        }
-        
-        event.mediaElement.controls = false;
-        var video = document.getElementById('main-video');
-        video.setAttribute('data-streamid', event.streamid);
-
-        // video.style.display = 'none';
-        if(event.type === 'local') {
-            video.muted = true;
-            video.volume = 0;
-        }
-        video.srcObject = event.stream;
-        requestMedia(event.stream);
-        $('#main-video').show();
-    } 
-};
-
 var conversationPanel = document.getElementById('conversation-panel');
 
-function appendChatMessage(event, checkmark_id) {
-    var div = document.createElement('div');
-
-    div.className = 'message mt-2';
-
-    if (event.data) {
-        div.innerHTML = `<div class="d-flex justify-content-between"><div><b> ${event.extra.userFullName || event.userid} :</b><br> ${event.data.chatMessage} </div> </div>`;
-
-        if (event.data.checkmark_id) {
-            connection.send({
-                checkmark: 'received',
-                checkmark_id: event.data.checkmark_id
-            });
-        }
-    } else {
-        div.innerHTML = '<b>You:</b> <img class="checkmark" id="' + checkmark_id + '" title="Received" src="<?=base_url()?>assets/img/new-ciak/live-check-chat.png" style="width:15px"><br>' + event;
-    }
-    div.style.background = '#ffffff';
-
-    conversationPanel.appendChild(div);
-
-    conversationPanel.scrollTop = conversationPanel.clientHeight;
-    conversationPanel.scrollTop = conversationPanel.scrollHeight - conversationPanel.scrollTop;
-}
-
+// press Enter to send chat
 window.onkeyup = function(e) {
     var code = e.keyCode || e.which;
     if (code == 13) {
@@ -546,20 +561,8 @@ window.onkeyup = function(e) {
     }
 };
 
-function kickuser(id, username){
-    connection.extra.kickusername = username;
-    connection.extra.idrow_listmember = id;
-
-    // connection.disconnectWith(id);
-    // connection.deletePeer(id);
-    var rows = listmember
-        .rows(`#id_${id}`)
-        .remove()
-        .draw();
-    connection.updateExtraData();
-}
-
-document.getElementById('btn-chat-message').onclick = function() {
+// Send chat
+$('#btn-chat-message').on("click", function(){
     var chatMessage = $('#txt-chat-message').val();
     $('#txt-chat-message').val('');
 
@@ -577,34 +580,62 @@ document.getElementById('btn-chat-message').onclick = function() {
     connection.send({
         typing: false
     });
-};
+});
 
 
-connection.onerror = function(event) {
-    var remoteUserId = event.userid;
-    if (event.extra.userJoin=="performer"){
-        alert("broadcast ended or you've been kicked");
+/*----------------------------------------------------------
+13. connection onExtraDataUpdate berfungsi update real time data
+------------------------------------------------------------*/ 
+connection.onExtraDataUpdated = function(event) {
+    
+    if(event.extra.kickusername == connection.extra.userFullName){
         window.location.href="<?=base_url()?>homepage";
     }
+
+    var rows = listmember
+        .rows(`#id_${event.extra.idrow_listmember}`)
+        .remove()
+        .draw();
+
+    if (event.extra.moderator == username_moderator){
+        $("#allviewer").show();
+        statusPayperMinutes = false;
+    }
+    
 };
 
+/*----------------------------------------------------------
+14. connection onstream berfungsi receive all local or remote media streaming
+------------------------------------------------------------*/ 
+connection.onstream = function(event) {
+    if (event.extra.roomOwner === true) {
+        event.mediaElement.controls = false;
+        var video = document.getElementById('main-video');
+        video.setAttribute('data-streamid', event.streamid);
+
+        // video.style.display = 'none';
+        if(event.type === 'local') {
+            video.muted = true;
+            video.volume = 0;
+        }
+        video.srcObject = event.stream;
+        requestMedia(event.stream);
+        $('#main-video').show();
+    } 
+};
+
+/*----------------------------------------------------------
+15. Count viewer join
+------------------------------------------------------------*/ 
 connection.onUserStatusChanged = function(event, dontWriteLogs) {
     if (!!connection.enableLogs && !dontWriteLogs) {
-        console.info(event.userid, event.status, connection.extra.broadcastuser,  "HALLO 404");
         var countViewer = $(`.count-viewer`).text();
         if(event.status == 'online'){
             countViewer++
             $(`.count-viewer`).text(countViewer);
-        }else if(event.status == 'offline' && event.userid == unique_id){
-            console.log("INI MERUPAKAN : " + event.userid);
-            // if(performer != true){
-                // window.location.href="<?=base_url()?>homepage";
-                // connection.disconnectWith(event.userid);
-            // }
         }
     }
 };
-
 connection.onleave = function(event) {
     var countViewer = $(`.count-viewer`).text();
     countViewer--;
@@ -612,68 +643,32 @@ connection.onleave = function(event) {
 };
 
 
-function replaceTrack(videoTrack, screenTrackId) {
-    if (!videoTrack) return;
-    if (videoTrack.readyState === 'ended') {
-        alert('Can not replace an "ended" track. track.readyState: ' + videoTrack.readyState);
-        return;
+/*----------------------------------------------------------
+15. Connection End
+------------------------------------------------------------*/ 
+connection.onerror = function(event) {
+    var remoteUserId = event.userid;
+    if (event.extra.userJoin=="performer"){
+        alert("broadcast ended or you've been kicked");
+        window.location.href="<?=base_url()?>homepage";
     }
-    connection.getAllParticipants().forEach(function(pid) {
-        var peer = connection.peers[pid].peer;
-        if (!peer.getSenders) return;
-        var trackToReplace = videoTrack;
-        peer.getSenders().forEach(function(sender) {
-            if (!sender || !sender.track) return;
-            if(screenTrackId) {
-                if(trackToReplace && sender.track.id === screenTrackId) {
-                    sender.replaceTrack(trackToReplace);
-                    trackToReplace = null;
-                }
-                return;
-            }
+};
+connection.onEntireSessionClosed = function(event) {
+    console.log("");
+};
 
-            if(sender.track.id !== tempStream.getTracks()[0].id) return;
-            if (sender.track.kind === 'video' && trackToReplace) {
-                sender.replaceTrack(trackToReplace);
-                trackToReplace = null;
-            }
-        });
+$("#btnleave").on("click",function(e){
+    e.preventDefault();
+    connection.getAllParticipants().forEach(function(participantId) {
+        connection.disconnectWith( participantId );
     });
-}
+    connection.closeSocket();
+    window.location.href="<?=base_url()?>homepage";
+})
 
-function replaceScreenTrack(stream) {
-    stream.isScreen = true;
-    stream.streamid = stream.id;
-    stream.type = 'local';
-
-    // connection.attachStreams.push(stream);
-    connection.onstream({
-        stream: stream,
-        type: 'local',
-        streamid: stream.id,
-        // mediaElement: video
-    });
-
-    var screenTrackId = stream.getTracks()[0].id;
-    addStreamStopListener(stream, function() {
-        connection.send({
-            hideMainVideo: true
-        });
-        replaceTrack(tempStream.getTracks()[0], screenTrackId);
-    });
-
-    stream.getTracks().forEach(function(track) {
-        if(track.kind === 'video' && track.readyState === 'live') {
-            replaceTrack(track);
-        }
-    });
-
-    connection.send({
-        showMainVideo: true
-    });
-}
-
-
+/*----------------------------------------------------------
+16. Search location member
+------------------------------------------------------------*/ 
 connection.iceServers= [
     {
         urls: [ "stun:ss-turn2.xirsys.com" ]
@@ -734,17 +729,9 @@ connection.iceServers= [
 		state="ready";
 }
 
-$("#btnleave").on("click",function(e){
-    e.preventDefault();
-    connection.getAllParticipants().forEach(function(participantId) {
-        connection.disconnectWith( participantId );
-    });
-    connection.closeSocket();
-    window.location.href="<?=base_url()?>homepage"
-})
-
-
-
+/*----------------------------------------------------------
+17. Function request media
+------------------------------------------------------------*/ 
 function requestMedia(stream){
 	var constraints = {
 	    audio: {sampleRate: 44100,echoCancellation: true},
@@ -790,16 +777,11 @@ function requestMedia(stream){
 	});
 }
 
-function stopStream(){
-	console.log("stop pressed:");
-
-	mediaRecorder.stop();
-}
-
-
-
 $(document).ready(function(){
 
+    /*----------------------------------------------------------
+    18. Send Tips
+    ------------------------------------------------------------*/ 
     $("#frmsendtips").submit(function(e){
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -868,6 +850,9 @@ $(document).ready(function(){
         return false;
     })
 
+    /*----------------------------------------------------------
+    19. Emoji Picker
+    ------------------------------------------------------------*/ 
     new EmojiPicker({
         trigger: [
             {
@@ -896,5 +881,6 @@ $(document).ready(function(){
             hideCategory: true
         },
     });
+
 });
 </script>

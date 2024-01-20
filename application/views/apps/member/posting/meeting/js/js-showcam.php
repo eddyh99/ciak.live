@@ -27,7 +27,7 @@ var room_id = url.searchParams.get("room_id");
 var performer=false;
 var camera=true;
 var is_joined=false;
-var statusPayperMinutes = false;
+var   = false;
 
 $.ajax({
     url: "<?=base_url()?>meeting/cekroomcam",
@@ -199,7 +199,7 @@ connection.sdpConstraints.mandatory = {
 // STAR_FIX_VIDEO_AUTO_PAUSE_ISSUES
 // via: https://github.com/muaz-khan/RTCMultiConnection/issues/778#issuecomment-524853468
 var bitrates = 512;
-var resolutions = 'Ultra-HD';
+var resolutions = 'HD';
 var videoConstraints = {};
 
 if (resolutions == 'HD') {
