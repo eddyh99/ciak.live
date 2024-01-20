@@ -115,14 +115,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr>
-                            <td>Ari</td>
-                            <td><button class="btn btn-danger">KICK</button></td>
-                        </tr>
-                        <tr>
-                            <td>Dede</td>
-                            <td><button class="btn btn-danger">KICK</button></td>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>

@@ -13,6 +13,11 @@ video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-p
     display: none;
 }
 
+.media-container {
+    width: 90% !important;
+    padding: 5px !important;
+}
+
 .modal-backdrop {
     z-index: 98 !important;
 }
@@ -61,6 +66,12 @@ video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-p
 }
 
 @media (min-width: 768px) {
+
+    /* .media-container {
+        width: 90% !important;
+        padding: 5px !important;
+    } */
+
     .main-live-camera {
         width:100%; 
         height:60vh; 
@@ -95,6 +106,7 @@ video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-p
 <script src="https://muazkhan.com:9001/dist/RTCMultiConnection.js"></script>
 <script src="https://muazkhan.com:9001/node_modules/webrtc-adapter/out/adapter.js"></script>
 <script src="https://muazkhan.com:9001/socket.io/socket.io.js"></script>
+<script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 <script>
 
@@ -104,6 +116,8 @@ var url=new URL(window.location.href);
 var room_id = url.searchParams.get("room_id");
 var performer=false;
 var camera=true;
+
+$("#allviewer").hide();
 
 $.ajax({
     url: "<?=base_url()?>meeting/cekroommeeting",
@@ -122,6 +136,7 @@ $.ajax({
             connection.extra.roomOwner = true;
             connection.extra.broadCaster = true;
         }else if (data.performer===false){
+            $('.addModerator-class').hide();
             console.log("broadcaster");
             $('#load-edit-profile').hide()
             $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
@@ -131,6 +146,7 @@ $.ajax({
             connection.extra.roomOwner = false;
             connection.extra.broadCaster = true;
         }else{
+            $('.addModerator-class').hide();
             console.log("umum");
             $('#load-edit-profile').hide()
             $("#btnopen").html("Join");
@@ -143,77 +159,29 @@ $.ajax({
 });
 
 
-
-
-
-
-function inviteuser(input,room,username){
+function inviteuser(input, room, username){
     $.ajax({
-            url: "<?=base_url()?>meeting/inviteuser?guestid="+input+"&room="+room,
-            success: function(data, response) {
-                console.log(data);
-                alert("member "+username+" is successfully invited");
-                $("#otherperformer").modal("hide");
-            }
-        });
+        url: "<?=base_url()?>meeting/inviteuser?guestid="+input+"&room="+room,
+        success: function(data, response) {
+            console.log(data);
+            alert("member "+username+" is successfully invited");
+            $("#otherperformer").modal("hide");
+        }
+    });
 }
 
 $("#btninvite").on("click",function(){
     $("#otherperformer").modal("show");
 });
 
-$('#suggestionslist').hide();
-//setup before functions
-var typingTimer;                //timer identifier
-var doneTypingInterval = 5000;  //time in ms, 5 seconds for example
-var $input = $('#search_data');
-
-//on keyup, start the countdown
-$input.on('keyup', function () {
-  clearTimeout(typingTimer);
-  typingTimer = setTimeout(doneTyping(), doneTypingInterval);
-});
-
-//on keydown, clear the countdown 
-$input.on('keydown', function () {
-  clearTimeout(typingTimer);
-});
-
-//user is "finished typing," do something
-function doneTyping () {
-    console.log("100 finish");
-  //do something
-    var input=$('#search_data').val();
-    if (input.length < 4) {
-        $('#suggestionslist').hide();
-    } else {
-        console.log("200 search");
-        $.ajax({
-            url: "<?=base_url()?>meeting/follower_search?term="+input+"&room_id="+room_id,
-            success: function(data, response) {
-                $('.spinner-search').hide();
-                $('.fa-magnifying-glass').show();
-                console.log(response);
-                // return success
-                if (data.length > 0) {
-                    $('#suggestionslist').html(data);
-                    $('#suggestionslist').show();
-                }
-            }
-        });
-    
-    }  
-}
 
 $.fn.select2.defaults.set( "theme", "bootstrap" );
-// ......................................................
-// ..................Konfigurasi.............
-// ......................................................
 
 var connection = new RTCMultiConnection();
 connection.socketURL = 'https://muazkhan.com:9001/';
 connection.socketMessageEvent = 'ciak-livemeeting';
 connection.extra.broadcastuser = 0;
+connection.extra.infocamera = 0;
 connection.autoCloseEntireSession = false;
 connection.maxParticipantsAllowed = 1000;
 
@@ -250,7 +218,7 @@ connection.sdpConstraints.mandatory = {
 // STAR_FIX_VIDEO_AUTO_PAUSE_ISSUES
 // via: https://github.com/muaz-khan/RTCMultiConnection/issues/778#issuecomment-524853468
 var bitrates = 512;
-var resolutions = 'Ultra-HD';
+var resolutions = 'HD';
 var videoConstraints = {};
 
 if (resolutions == 'HD') {
@@ -269,9 +237,11 @@ if (resolutions == 'Ultra-HD') {
     videoConstraints = {
         width: {
             ideal: 1920
+            // ideal: 1080
         },
         height: {
             ideal: 1080
+            // ideal: 1920
         },
         frameRate: 30
     };
@@ -321,10 +291,6 @@ connection.processSdp = function(sdp) {
 };
 
 
-// ......................................................
-// ......................Handling Room-ID................
-// ......................................................
-
 $("#btnopen").on("click",function(){
     $("#txt-chat-message").removeAttr("disabled");
     $("#btn-chat-message").removeAttr("disabled");
@@ -373,6 +339,7 @@ $("#btnopen").on("click",function(){
                 }
                 alert(error);
             }else{
+                $("#allviewer").show();
                 $("#btnopen").attr("disabled","true");
                 $("#btncamera").removeAttr("disabled");
             }
@@ -388,12 +355,56 @@ $("#btnopen").on("click",function(){
 
 connection.onExtraDataUpdated = function(event) {
     var user = event.extra.broadcastuser;
+    var infocamera = event.extra.infocamera;
+
     if (user>1){
         $("#broadcast-viewers-counter").html('Online viewers: <b>'+user+' Users</b>');
     }
+
+
+    console.log("BROADCASTERNYA = " + infocamera);
+    console.log("JUMLAH CAMERA = " + $('.media-container').length);
+
+
+    // if(($('.media-container').length == 2) || ($('.media-container').length == 3) || ($('.media-container').length == 4)){
+    //     $(".media-container").attr('style', 'width: 50% !important');
+    // }else if($('.media-container').length == 1){
+    //     $(".media-container").attr('style', 'width: 90% !important');
+    // }
+    
+    
+    if(($('.media-container').length == 2)){
+        // $(window).resize(function() {
+            $(".media-container").attr('style', 'width: 50% !important');
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                $(".media-container").attr('style', 'width: 90% !important');
+            }
+        // });
+        // $(".media-container").attr('style', 'width: 50% !important');
+    }else if(($('.media-container').length == 3) || ($('.media-container').length == 4)) {
+        $(".media-container").attr('style', 'width: 50% !important');
+        // $(window).resize(function() {
+            // if (window.matchMedia('(max-width: 768px)').matches) {
+            //     $(".media-container").attr('style', 'width: 50% !important');
+            // }
+            // if (window.matchMedia('(min-width: 768px)').matches) {
+            //     $(".media-container").attr('style', 'width: 50% !important');
+            // }
+        // });
+    }
+
+    // console.log($('.media-container').length);
     
     console.log("500 - broadcaster user update");
     console.log(event.extra.broadcastuser);
+};
+
+connection.onclose = function(event) {
+    if(event.extra.broadCaster == true){
+        connection.extra.infocamera = event.extra.infocamera-1
+    }
+    connection.updateExtraData();
+    // alert('INFO CLOSE BROADCASTER ' + event.extra.broadCaster);
 };
 
 connection.videosContainer = document.getElementById('videos-container');
@@ -403,6 +414,10 @@ connection.onstream = function(event) {
 
     var user = event.extra.broadcastuser+1;
     connection.extra.broadcastuser = user;
+    if(event.extra.broadCaster == true){
+        var infocam = connection.extra.infocamera+1;
+        connection.extra.infocamera = infocam;
+    }
     connection.updateExtraData();
 
     var existing = document.getElementById(event.streamid);
@@ -465,7 +480,7 @@ connection.onstream = function(event) {
     // to keep room-id in cache
     localStorage.setItem(connection.socketMessageEvent, connection.sessionid);
 
-    chkRecordConference.parentNode.style.display = 'none';
+    // chkRecordConference.parentNode.style.display = 'none';
 
     if(event.type === 'local') {
       connection.socket.on('disconnect', function() {
@@ -568,6 +583,109 @@ document.getElementById('btn-chat-message').onclick = function() {
         typing: false
     });
 };
+
+
+$(document).ready(function(){
+
+    $("#frmsendtips").submit(function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        if (parseFloat($("#amount").val())<0.5){
+            alert("Minimum amount is 0.5");
+            return
+        }
+
+        $.ajax({
+            url: "<?=base_url()?>post/givetips",
+            type: "post",
+            data: $("#frmsendtips").serialize(),
+            success: function (response) {
+                let ress = JSON.parse(response)
+                if (ress.success == true){
+                    Swal.fire({
+                        html:  `<div class="d-flex justify-content-center">
+                                    <div>
+                                        <i class="fas fa-check text-success fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">${ress.message}</div>
+                                </div>`,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top',
+                        timer: 1500,
+                    });
+                    $("#sendTips").modal('hide');
+                }else{
+                    Swal.fire({
+                        html:  `<div class="d-flex justify-content-center">
+                                    <div>
+                                        <i class="fas fa-check text-success fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">${ress.message}</div>
+                                </div>`,
+                        showConfirmButton: false,
+                        background: '#323436',
+                        color: '#ffffff',
+                        position: 'top',
+                        timer: 1500,
+                    });
+                    $("#sendTips").modal('hide');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire({
+                    html:  `<div class="d-flex justify-content-center">
+                                <div>
+                                <i class="fas fa-times fs-3 text-danger"></i>
+                                </div>
+                                <div class="ms-3">Send Tip Failed</div>
+                            </div>`,
+                    showConfirmButton: false,
+                    background: '#323436',
+                    color: '#ffffff',
+                    position: 'top',
+                    timer: 1500,
+                });
+                $(".offcanvas").offcanvas('hide');
+            }
+        });
+
+        return false;
+    })
+
+
+    new EmojiPicker({
+        trigger: [
+            {
+                selector: '.btn-emoji',
+                insertInto: '.input-live-show-chating'
+            }
+        ],
+        closeButton: true,
+        dragButton: true,
+        width: 350,
+        height: 370,
+        addPosX: -130,
+        addPosY: -380,
+        tabbed: false,
+        navPos: "bottom",
+        navButtonReversed: false,
+        disableSearch: false,
+        hiddenScrollBar: true, // Not for Firefox
+        animation: "slideDown",
+        animationDuration: "1s",
+        disableNav: false,
+        emojiDim: {
+            emojiPerRow: 5,
+            emojiSize: 30,
+            emojiButtonHeight: 80,
+            hideCategory: true
+        },
+    });
+
+});
 
 
 </script>
