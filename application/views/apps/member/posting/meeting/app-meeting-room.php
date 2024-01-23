@@ -10,18 +10,13 @@
     <div class="row">
         <div class="col-12 col-lg-8 d-flex justify-content-center align-items-center">
             <div id="videos-container"></div>
-            <!-- <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-12 ">
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <div class="col-12 col-lg-4 mt-4 live-show-chating">
             <!--<div id="onUserStatusChanged"></div>-->
-            <div id="broadcast-viewers-counter" class="text-white pb-3"></div>
+            <div id="broadcast-viewers-counter" class="text-white pb-3">
+                <div>Online Viewers: <span class="count-viewer">0</span>
+            </div>
+            </div>
             <div id="conversation-panel" class="col-lg-12 main-live-chating"></div>
             <div class="d-flex align-items-center mx-4">
                 <input type="text" class="form-control input-live-show-chating"  id="txt-chat-message" disabled placeholder="live chat...">
@@ -119,6 +114,25 @@
     </div>
 </div>
 
+<!-- Modal List Viewer-->
+<div class="modal" id="listviewer" style="z-index:99">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-body">
+                <table id="memberjoin" class="table table-striped" style="color:white">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-body" id="msgid"></div>

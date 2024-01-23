@@ -480,7 +480,6 @@ var ismember = true;
 connection.onopen = function(event) {
 
     // inisalisasi variable
-    unique_id = event.userid;
     var remoteUserFullName = event.extra.userFullName;
     var userjoin = event.extra.userJoin;
     var pushmember=[];

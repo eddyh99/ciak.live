@@ -1,4 +1,37 @@
 <style>
+
+.dataTables_wrapper .dataTables_length, 
+.dataTables_wrapper .dataTables_filter, 
+.dataTables_wrapper .dataTables_info, 
+.dataTables_wrapper .dataTables_processing, 
+.dataTables_wrapper .dataTables_paginate {
+  color: #ffffff !important;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+  color: #ffffff;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    color: #ffffff !important;
+}
+
+table.dataTable tbody tr {
+  color: #ffffff;
+  background-color: #1A1B1C;
+  border-bottom: 0.5px solid #ffffff;
+}
+
+table.dataTable thead tr {
+    border-bottom: 0.5px solid #ffffff !important;
+}
+
+table.dataTable tbody tr:hover{
+  background-color: #a6a6a6;
+  color: #ffffff;
+}
+
+
 .toast {
     color:white;
     background:rgba(0,0,0,0.8);
@@ -42,8 +75,10 @@ video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-p
 }
 
 #conversation-panel .message {
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
     padding: 5px 10px;
+    color: white;
+    background: #22283A !important;
 }
 
 #conversation-panel .message img, #conversation-panel .message video, #conversation-panel .message iframe {
@@ -101,6 +136,7 @@ video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-p
 
 </style>
 
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="<?=base_url()?>assets/css/getHTMLMediaElement.css">
 <script src="<?=base_url()?>assets/js/getHTMLMediaElement.js"></script>
 <script src="https://muazkhan.com:9001/dist/RTCMultiConnection.js"></script>
@@ -108,6 +144,8 @@ video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-p
 <script src="https://muazkhan.com:9001/socket.io/socket.io.js"></script>
 <script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
+<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
 <script>
 
 
@@ -116,6 +154,7 @@ var url=new URL(window.location.href);
 var room_id = url.searchParams.get("room_id");
 var performer=false;
 var camera=true;
+var username_moderator = '';
 
 $("#allviewer").hide();
 
@@ -127,11 +166,13 @@ $.ajax({
         var data=JSON.parse(response);
         console.log(data);
         connection.extra.userFullName = data.username;
+        username_moderator = data.username;
         if (data.performer===true){
             $('#load-edit-profile').hide()
             $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Start');      
             $("#btninvite").show();
-            $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
+            // $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
+            connection.extra.userJoin='';
             performer=true;
             connection.extra.roomOwner = true;
             connection.extra.broadCaster = true;
@@ -139,7 +180,7 @@ $.ajax({
             $('.addModerator-class').hide();
             console.log("broadcaster");
             $('#load-edit-profile').hide()
-            $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
+            // $("#broadcast-viewers-counter").html('Online viewers: <b>0 User</b>');
             $("#btnopen").html('<i class="fas fa-sign-in-alt"></i> Join');
             $("#btninvite").hide();
             performer=false;
@@ -233,19 +274,6 @@ if (resolutions == 'HD') {
     };
 }
 
-if (resolutions == 'Ultra-HD') {
-    videoConstraints = {
-        width: {
-            ideal: 1920
-            // ideal: 1080
-        },
-        height: {
-            ideal: 1080
-            // ideal: 1920
-        },
-        frameRate: 30
-    };
-}
 
 connection.mediaConstraints = {
     video: videoConstraints,
@@ -295,8 +323,9 @@ $("#btnopen").on("click",function(){
     $("#txt-chat-message").removeAttr("disabled");
     $("#btn-chat-message").removeAttr("disabled");
     if (!connection.extra.roomOwner){
-        $("#broadcast-viewers-counter").html('Online viewers: <b>1 User</b>');
+        // $("#broadcast-viewers-counter").html('Online viewers: <b>1 User</b>');
         if (connection.extra.broadCaster){
+            console.log("========MASUK GUEST========");
             console.log("100 - extra broadcaster");
             
             connection.sdpConstraints.mandatory = {
@@ -306,6 +335,7 @@ $("#btnopen").on("click",function(){
             connection.checkPresence(room_id, function(isRoomExist, roomid) {
                 if (isRoomExist === true) {
                     connection.join(roomid);
+                    $("#allviewer").show();
                     $("#btnopen").attr("disabled","true");
                     $("#btncamera").removeAttr("disabled");
                 } else {
@@ -313,12 +343,6 @@ $("#btnopen").on("click",function(){
                 }
             });
         }else{
-            connection.dontCaptureUserMedia = true;
-            connection.session.oneway = true;
-            connection.sdpConstraints.mandatory = {
-                OfferToReceiveAudio: true,
-                OfferToReceiveVideo: true
-            };
             connection.checkPresence(room_id, function(isRoomExist, roomid) {
                 if (isRoomExist === true) {
                     connection.join(roomid);
@@ -332,6 +356,7 @@ $("#btnopen").on("click",function(){
         }
     }else{
         connection.open(room_id, function(isRoomOpened, roomid, error) {
+            connection.extra.userJoin = "performer";
             if (error) {
                 if (error === connection.errors.ROOM_NOT_AVAILABLE) {
                     alert('Someone already created this room. Please either join or create a separate room.');
@@ -351,18 +376,75 @@ $("#btnopen").on("click",function(){
     }
 });
 
+// Inisalisasi datatables first
+var listmember = $("#memberjoin").DataTable({
+    ordering: false,
+});
+
+var ismember = true;
+connection.onopen = function(event) {
+    // inisalisasi variable
+    var remoteUserFullName = event.extra.userFullName;
+    var userjoin = event.extra.userJoin;
+    var pushmember=[];
+
+    // assign object to array untuk list member
+    if(userjoin != 'performer'){
+        pushmember.push({'username': remoteUserFullName, 'btnkick': `<button class="btn btn-danger btn-kickmember" onclick="kickuser('${event.userid}','${remoteUserFullName}'); $(this).parent().parent().remove();">Kick</button>`});
+    }
+
+    console.log(pushmember);
+    
+    // Datatables list member
+    var listmember = $('#memberjoin').DataTable();
+    pushmember.forEach((push) => {
+        listmember.row.add([
+            push.username,
+            push.btnkick                                                                               
+        ]).node().id = `id_${event.userid}`;
+        listmember.draw(false);
+    })
+
+    if ((event.extra.moderator == connection.extra.userFullName)){
+        $("#allviewer").show();
+    }
+
+}
+
+var max_moderator = 0;
+function invite_moderator(uname, profile){
+
+    if(max_moderator >= 2){
+        alert("MAXIMAL 2 MODERATOR");
+    }else{
+        max_moderator += 1;
+        $('#wrap-preview-moderator').append(
+            `<div class="my-3 mb-3 px-4 d-flex align-items-center preview-moderator">
+                <img width="50" src="${profile}" height="auto" class="img-preview-moderator rounded-circle me-3">
+                <h6 class="username-preview-moderator my-auto">${uname}</h6>
+                <i class="fas fa-check fs-3 ms-3 text-success me-auto check-preview-moderator"></i>
+            </div>`)
+    }
+
+    connection.extra.ismoderator = "moderator";
+    connection.extra.moderator = uname;
+    connection.updateExtraData();
+}
 
 
 connection.onExtraDataUpdated = function(event) {
-    var user = event.extra.broadcastuser;
+    // var user = event.extra.broadcastuser;
     var infocamera = event.extra.infocamera;
-
-    if (user>1){
-        $("#broadcast-viewers-counter").html('Online viewers: <b>'+user+' Users</b>');
-    }
+    var infoBroadcaster = event.extra.broadCaster
 
 
-    console.log("BROADCASTERNYA = " + infocamera);
+    // if (user>1){
+    //     $("#broadcast-viewers-counter").html('Online viewers: <b>'+user+' Users</b>');
+    // }
+    
+    
+    console.log("INFO CAMERA = " + infocamera);
+    console.log("INFO BROADCAST " + infoBroadcaster);
     console.log("JUMLAH CAMERA = " + $('.media-container').length);
 
 
@@ -373,31 +455,38 @@ connection.onExtraDataUpdated = function(event) {
     // }
     
     
-    if(($('.media-container').length == 2)){
-        // $(window).resize(function() {
-            $(".media-container").attr('style', 'width: 50% !important');
-            if (window.matchMedia('(max-width: 768px)').matches) {
-                $(".media-container").attr('style', 'width: 90% !important');
-            }
-        // });
-        // $(".media-container").attr('style', 'width: 50% !important');
-    }else if(($('.media-container').length == 3) || ($('.media-container').length == 4)) {
+    if((infocamera == 2)){
         $(".media-container").attr('style', 'width: 50% !important');
-        // $(window).resize(function() {
-            // if (window.matchMedia('(max-width: 768px)').matches) {
-            //     $(".media-container").attr('style', 'width: 50% !important');
-            // }
-            // if (window.matchMedia('(min-width: 768px)').matches) {
-            //     $(".media-container").attr('style', 'width: 50% !important');
-            // }
-        // });
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            $(".media-container").attr('style', 'width: 90% !important');
+        }
+    }else if((infocamera == 3) || (infocamera == 4)) {
+        $(".media-container").attr('style', 'width: 50% !important');
+    }else {
+        $(".media-container").attr('style', 'width: 90% !important');
     }
 
     // console.log($('.media-container').length);
     
     console.log("500 - broadcaster user update");
     console.log(event.extra.broadcastuser);
+
+    if(event.extra.kickusername == connection.extra.userFullName){
+        alert("You've been kicked");
+        window.location.href="<?=base_url()?>homepage";
+    }
+
+    if (event.extra.moderator == connection.extra.userFullName){
+        $("#allviewer").show();
+    }
+    
+    var rows = listmember
+        .rows(`#id_${event.extra.idrow_listmember}`)
+        .remove()
+        .draw();
+
 };
+
 
 connection.onclose = function(event) {
     if(event.extra.broadCaster == true){
@@ -407,22 +496,73 @@ connection.onclose = function(event) {
     // alert('INFO CLOSE BROADCASTER ' + event.extra.broadCaster);
 };
 
+
+
+
+function kickuser(id, username){
+    connection.extra.kickusername = username;
+    connection.extra.idrow_listmember = id;
+
+    var rows = listmember
+        .rows(`#id_${id}`)
+        .remove()
+        .draw();
+    connection.updateExtraData();
+}
+
+
+connection.onUserStatusChanged = function(event, dontWriteLogs) {
+    if (!!connection.enableLogs && !dontWriteLogs) {
+        var countViewer = $(`.count-viewer`).text();
+        if(event.status == 'online'){
+            countViewer++
+            $(`.count-viewer`).text(countViewer);
+        }
+    }
+};
+connection.onleave = function(event) {
+    var countViewer = $(`.count-viewer`).text();
+    countViewer--;
+    $(`.count-viewer`).text(countViewer);
+    var rows = listmember
+        .rows(`#id_${event.userid}`)
+        .remove()
+        .draw();
+};
+
+
+
 connection.videosContainer = document.getElementById('videos-container');
 connection.onstream = function(event) {
     console.log("300 - stream broadcast");
     console.log(event.extra.broadcastuser);
 
+    // $('#'+event.streamid).hide();
+
+    // if(event.extra.broadCaster == false){
+    //     setTimeout(() => {
+    //         $('#'+event.streamid).remove();
+    //     }, 200);
+    // }
+
+
+    console.log("GET ID " + event.streamid);
+
     var user = event.extra.broadcastuser+1;
     connection.extra.broadcastuser = user;
+    $("#btn-emoji-livestream").removeAttr("disabled");
+
+
     if(event.extra.broadCaster == true){
         var infocam = connection.extra.infocamera+1;
         connection.extra.infocamera = infocam;
     }
     connection.updateExtraData();
 
+
     var existing = document.getElementById(event.streamid);
     if(existing && existing.parentNode) {
-      existing.parentNode.removeChild(existing);
+        existing.parentNode.removeChild(existing);
     }
 
     event.mediaElement.removeAttribute('src');
@@ -441,20 +581,20 @@ connection.onstream = function(event) {
     }
 
     if(event.type === 'local') {
-      video.volume = 0;
-      try {
-          video.setAttributeNode(document.createAttribute('muted'));
-      } catch (e) {
-          video.setAttribute('muted', true);
-      }
-    }else{
-        if (user>1){
-            $("#broadcast-viewers-counter").html('Online viewers: <b>'+user+' Users</b>');
+        video.volume = 0;
+        try {
+            video.setAttributeNode(document.createAttribute('muted'));
+        } catch (e) {
+            video.setAttribute('muted', true);
         }
     }
-    video.srcObject = event.stream;
-    // var video = event.mediaElement;
-    // $('#videos-container').append(video);
+
+
+    if(event.extra.broadCaster == true){
+        video.srcObject = event.stream;
+    }else{
+        existing.style.visibility = 'hidden';
+    }
 
     var width = parseInt(connection.videosContainer.clientWidth/2);
     var mediaElement = getHTMLMediaElement(video, {
@@ -481,7 +621,6 @@ connection.onstream = function(event) {
     localStorage.setItem(connection.socketMessageEvent, connection.sessionid);
 
     // chkRecordConference.parentNode.style.display = 'none';
-
     if(event.type === 'local') {
       connection.socket.on('disconnect', function() {
         if(!connection.getAllParticipants().length) {
@@ -491,12 +630,20 @@ connection.onstream = function(event) {
     }
 };
 
-connection.onstreamended = function(event) {
-    if (connection.extra.broadCaster==true){
-        connection.extra.broadcastuser=connection.extra.broadcastuser-1
+
+connection.onerror = function(event) {
+    var remoteUserId = event.userid;
+    if (event.extra.userJoin=="performer"){
+        alert("Broadcast ended");
+        window.location.href="<?=base_url()?>homepage";
     }
-    
-    console.log(event.streamid);
+};
+connection.onEntireSessionClosed = function(event) {
+    console.log("");
+};
+
+
+connection.onstreamended = function(event) {    
     var mediaElement = document.getElementById(event.streamid);
     if (mediaElement) {
         mediaElement.parentNode.removeChild(mediaElement);
@@ -528,7 +675,6 @@ connection.onmessage = function(event) {
     }
 
 };
-
 
 var conversationPanel = document.getElementById('conversation-panel');
 
