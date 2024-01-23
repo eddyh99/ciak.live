@@ -18,11 +18,6 @@
                     <span class="text">Sign Up</span>
                 </div>
             </a>
-            <!-- <a class="link">
-                <span class="mode-toggle">
-                    <span class="switch"></span>
-                </span>
-            </a> -->
         </div>
 
         <button id="open-menus" class="btn-menus"><i class="fa fa-bars"></i></button>

@@ -268,10 +268,10 @@ if (isset($extra)) {
     //     document.querySelector(selector).style.display = visible ? 'block' : 'none';
     // }
 
-    onReady(function() {
-        setVisible('.apps-container', true);
-        setVisible('#loading', false);
-    });
+    // onReady(function() {
+    //     setVisible('.apps-container', true);
+    //     setVisible('#loading', false);
+    // });
 
 
 

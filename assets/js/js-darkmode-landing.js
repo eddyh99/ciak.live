@@ -13,28 +13,17 @@ if(getStatus && getStatus ==="close"){
     sidebar.classList.toggle("close");
 }
 
-modeToggle.addEventListener("click", () =>{
+// modeToggle.addEventListener("click", () =>{
 
-    body.classList.toggle("dark");
-    if(body.classList.contains("dark")){
-        localStorage.setItem("mode", "dark");
-    }else{
-        localStorage.setItem("mode", "light");
-    }
+//     body.classList.toggle("dark");
+//     if(body.classList.contains("dark")){
+//         localStorage.setItem("mode", "dark");
+//     }else{
+//         localStorage.setItem("mode", "light");
+//     }
 
-});
+// });
 
-sidebarToggle.addEventListener("click", () => {
-
-    sidebar.classList.toggle("close");
-    
-    if(sidebar.classList.contains("close")){
-        localStorage.setItem("status", "close");
-    }else{
-        localStorage.setItem("status", "open");
-    }
-
-})
 
 
 
