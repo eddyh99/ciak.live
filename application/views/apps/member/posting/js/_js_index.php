@@ -873,14 +873,23 @@ $(document).ready(function(){
 16. Show Preview Invite Guest Start
 ------------------------------------------------------------*/  
 
+var chooseguest = 0;
 function invite_guest_active(id, img, username){
+
+    
+    if(chooseguest < 3){
+        console.log(chooseguest);
+        $('#meetingcam'+chooseguest).val(id);
+        chooseguest += 1;
+    }
+
     $('.people').removeClass('active');
     $('#invite1').prop('checked', false);
     $('#invite2').prop('checked', false);
 
     $('.people-cam2cam'+id).addClass('active');
     $('#guestcam').val(id);
-    $('#meetingcam').val(id);
+    
     $('#invite1').prop('checked', true);
 
     $('.preview-cam2cam-guest').removeClass('d-none');
@@ -898,6 +907,9 @@ function invite_guest_active(id, img, username){
 $('#invite2').click(function(){
     $('.preview-meeting-guest').addClass('d-none');
 })
+
+
+
 /*----------------------------------------------------------
 16. Show Preview Invite Guest End
 ------------------------------------------------------------*/ 

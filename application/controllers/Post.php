@@ -483,6 +483,11 @@ class Post extends CI_Controller
         $guestinvite    = $this->security->xss_clean($this->input->post("guestinvite"));
         $meetingtype    = $this->security->xss_clean($this->input->post("meetingtype"));
 
+        // echo "<pre>".print_r($guestcam,true)."</pre>";
+		// die;
+            
+
+
         $post_time=date("Y-m-d H:i");
         
         if ($guestinvite=='invite'){
@@ -502,15 +507,16 @@ class Post extends CI_Controller
             "guestcam"      => $guestcam,
             "meeting_type"  => $meetingtype
         );
-        // echo "<pre>".print_r($mdata,true)."</pre>";
-		// die;
-            
+
+        
         $url = URLAPI . "/v1/member/post/performmeeting";
         $result = apiciaklive($url,json_encode($mdata));
-            
+        echo "<pre>".print_r($result,true)."</pre>";
+        die;
         
 		if (@$result->code!=200){
 		    $this->session->set_flashdata('failed', $result->message);
+            redirect("post?type=".$_GET['type']);
 	        return;
 		}
 		

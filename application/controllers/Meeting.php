@@ -234,20 +234,34 @@ class Meeting extends CI_Controller
         $detail     = apiciaklive(URLAPI . "/v1/member/perform/getchat_byroom?room_id=".$room_id)->message;
         $guestid = $this->security->xss_clean($_GET["guestid"]);
 
+
         $post_time=date("Y-m-d H:i");
-        $mdata=array(
+        if (empty($detail)){
+            $message="You Are Invited to join meeting";
+            $message.="<br>Description : ".$deskripsi;
+
+            $mdata=array(
+                "to_user_id"    => $guestid,
+                "from_user_id"  => $_SESSION["user_id"],
+                "chat_message"  => $message,
+                "timestamp"     => $post_time,
+                "roomid"        => $room_id
+            );
+        }else{
+            $mdata=array(
                 "to_user_id"    => $guestid,
                 "from_user_id"  => $_SESSION["user_id"],
                 "chat_message"  => $detail->chat_message,
                 "timestamp"     => $post_time,
                 "roomid"        => $room_id
             );
+        }
         
             
         $url = URLAPI . "/v1/member/perform/invitemmeeting";
         $result = apiciaklive($url,json_encode($mdata));
-        echo "<pre>".print_r($result,true)."</pre>";
-        die;
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
 		if (@$result->code!=200){
 		    //set flash data error
 	        return;

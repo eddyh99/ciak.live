@@ -299,7 +299,9 @@
                     <!-- Start Meeting Room section -->
                     <div id="Meeting" class="wrap-posting tabcontent">
                         <form action="<?=base_url()?>post/simpanmeeting" method="post" id="showmeeting">
-                            <input type="hidden" id="meetingcam" name="meetingcam">
+                            <input type="hidden" id="meetingcam0" name="meetingcam[]">
+                            <input type="hidden" id="meetingcam1" name="meetingcam[]">
+                            <input type="hidden" id="meetingcam2" name="meetingcam[]">
                             <div class="row live-description mb-3">
                                 <div class="col-10 wrap-live-description">
                                     <input type="text" class="form-control" name="deskripsi" id="descam" placeholder="Description" maxlength="150" required>
