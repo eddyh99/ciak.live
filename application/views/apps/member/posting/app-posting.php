@@ -299,9 +299,10 @@
                     <!-- Start Meeting Room section -->
                     <div id="Meeting" class="wrap-posting tabcontent">
                         <form action="<?=base_url()?>post/simpanmeeting" method="post" id="showmeeting">
-                            <input type="hidden" id="meetingcam0" name="meetingcam[]">
-                            <input type="hidden" id="meetingcam1" name="meetingcam[]">
-                            <input type="hidden" id="meetingcam2" name="meetingcam[]">
+                            <input type="hidden" name="content_type" value="<?= $_GET['type']?>">
+                            <div class="hiddenguest">
+                                <!-- <input type="hidden" id="meetingcam0" name="meetingcam[]"> -->
+                            </div>
                             <div class="row live-description mb-3">
                                 <div class="col-10 wrap-live-description">
                                     <input type="text" class="form-control" name="deskripsi" id="descam" placeholder="Description" maxlength="150" required>
@@ -329,10 +330,12 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="my-5 d-flex align-items-center preview-meeting-guest d-none">
-                                <img id="img-preview-meeting-guest"  width="50" height="auto" class="rounded-circle me-3">
-                                <h5 id="username-preview-meeting-guest" class="my-auto"></h5>
-                                <i id="check-preview-meeting-guest" class="fas fs-3 ms-3 text-success me-auto"></i>
+                            <div class="my-5 preview-meeting-guest">
+                                <!-- <div class="d-flex align-items-center my-3">
+                                    <img id="img-preview-meeting-guest" width="50" height="auto" class="rounded-circle me-3">
+                                    <h5 id="username-preview-meeting-guest" class="my-auto"></h5>
+                                    <i id="check-preview-meeting-guest" class="fas fs-3 ms-3 text-success me-auto"></i>
+                                </div> -->
                             </div>
                             <div class="col-3">
                                 <button class="btn-publish text-white px-3 py-2">Submit</button>
@@ -472,35 +475,38 @@
 </div>
 
 <!-- Modal Meeting Room Invite Guest-->
-<div class="modal fade" id="meetingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body text-white d-flex justify-content-center gap-2">
-            <div class="row col-10">
-                <div class="apps-member col-12 mx-auto">
-                    <div class="d-flex justify-content-center mt-4 search-input-guest">
-                        <input type="text" name="search_data_invt_meeting" id="search_data_invt_meeting" class="form-control search_data_invt_meeting" placeholder="Search minimun 3 character...">
-                    </div>
-                    <div id="suggestionslistmeeting"></div>  
-                    <div class="list-people mt-5 mb-on-botbar">
-                        <?php 
-                            $i=1;
-                            foreach ($follower as $dt){?>
-                                
-                                <div class="people people-cam2cam<?= $dt->id?> px-4">
-                                    <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')" data-bs-dismiss="modal">
-                                        <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
-                                        <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
-                                    </a>
-                                </div>
-                        <?php 
-                                if($i == 10) break;
-                                $i++;
-                            }?>
+<div class="modal fade" id="meetingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-white d-flex justify-content-center gap-2">
+                <div class="row col-10">
+                    <div class="apps-member col-12 mx-auto">
+                        <div class="d-flex justify-content-center mt-4 search-input-guest">
+                            <input type="text" name="search_data_invt_meeting" id="search_data_invt_meeting" class="form-control search_data_invt_meeting" placeholder="Search minimun 3 character...">
+                        </div>
+                        <div id="suggestionslistmeeting"></div>  
+                        <div class="list-people mt-5 mb-on-botbar">
+                            <?php 
+                                $i=1;
+                                foreach ($follower as $dt){?>
+                                    
+                                    <div class="people people-cam2cam<?= $dt->id?> px-4">
+                                        <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_guest_active('<?= $dt->id?>', '<?= $dt->profile?>','<?= $dt->username?>')">
+                                            <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
+                                            <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
+                                        </a>
+                                    </div>
+                            <?php 
+                                    if($i == 10) break;
+                                    $i++;
+                                }?>
+                        </div>
                     </div>
                 </div>
             </div>
-      </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

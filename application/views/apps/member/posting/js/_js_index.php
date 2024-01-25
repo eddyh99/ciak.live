@@ -879,15 +879,23 @@ function invite_guest_active(id, img, username){
     
     if(chooseguest < 3){
         console.log(chooseguest);
-        $('#meetingcam'+chooseguest).val(id);
+        $('.people-cam2cam'+id).addClass('active');
+        $('.hiddenguest').append(`<input type="hidden" id="meetingcam${chooseguest}" value="${id}" name="meetingcam[]">`)
+        $('.preview-meeting-guest').append(`<div class="d-flex align-items-center my-3">
+                                                <img id="img-preview-meeting-guest" src='${img}' width="50" height="auto" class="rounded-circle me-3">
+                                                <h5 id="username-preview-meeting-guest" class="my-auto">${username}</h5>
+                                                <i id="check-preview-meeting-guest" class="fas fa-check fs-3 ms-3 text-success me-auto"></i>
+                                            </div>`);
+
+        // $('#meetingcam'+chooseguest).val(id);
         chooseguest += 1;
     }
 
-    $('.people').removeClass('active');
+    // $('.people').removeClass('active');
     $('#invite1').prop('checked', false);
     $('#invite2').prop('checked', false);
 
-    $('.people-cam2cam'+id).addClass('active');
+ 
     $('#guestcam').val(id);
     
     $('#invite1').prop('checked', true);
@@ -897,11 +905,11 @@ function invite_guest_active(id, img, username){
     $('#username-preview-cam2cam-guest').text(username);
     $('#check-preview-cam2cam-guest').addClass('fa-check');
 
-    $('.preview-meeting-guest').removeClass('d-none');
-    $('#img-preview-meeting-guest').attr('src', img);
-    $('#username-preview-meeting-guest').text(username);
-    $('#check-preview-meeting-guest').addClass('fa-check');
-
+    // $('.preview-meeting-guest').removeClass('d-none');
+    // $('#img-preview-meeting-guest').attr('src', img);
+    // $('#username-preview-meeting-guest').text(username);
+    // $('#check-preview-meeting-guest').addClass('fa-check');
+    // $('#meetingModal').addClass('show').css(({'display': 'block'}));
 }
 
 $('#invite2').click(function(){
