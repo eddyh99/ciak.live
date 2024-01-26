@@ -133,6 +133,11 @@ video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-p
     width:100%!important;
 }
 
+video {
+    max-height: auto !important;
+    /* height: 400px !important; */
+}
+
 
 </style>
 
@@ -460,7 +465,7 @@ connection.onExtraDataUpdated = function(event) {
         if (window.matchMedia('(max-width: 768px)').matches) {
             $(".media-container").attr('style', 'width: 90% !important');
         }
-    }else if((infocamera == 3) || (infocamera == 4)) {
+    }else if((infocamera == 3) || (infocamera >= 4)) {
         $(".media-container").attr('style', 'width: 50% !important');
     }else {
         $(".media-container").attr('style', 'width: 90% !important');
@@ -537,24 +542,15 @@ connection.onstream = function(event) {
     console.log("300 - stream broadcast");
     console.log(event.extra.broadcastuser);
 
-    // $('#'+event.streamid).hide();
-
-    // if(event.extra.broadCaster == false){
-    //     setTimeout(() => {
-    //         $('#'+event.streamid).remove();
-    //     }, 200);
-    // }
-
-
     console.log("GET ID " + event.streamid);
 
     var user = event.extra.broadcastuser+1;
     connection.extra.broadcastuser = user;
     $("#btn-emoji-livestream").removeAttr("disabled");
 
-
+    var infocam = 0;
     if(event.extra.broadCaster == true){
-        var infocam = connection.extra.infocamera+1;
+        infocam = connection.extra.infocamera+1;
         connection.extra.infocamera = infocam;
     }
     connection.updateExtraData();
@@ -590,7 +586,7 @@ connection.onstream = function(event) {
     }
 
 
-    if(event.extra.broadCaster == true){
+    if(event.extra.broadCaster == true && infocam <= 4){
         video.srcObject = event.stream;
     }else{
         existing.style.visibility = 'hidden';
@@ -607,7 +603,7 @@ connection.onstream = function(event) {
     connection.videosContainer.appendChild(mediaElement);
     var remote=event.streamid;
     // console.log("HALAMAN 268 - " + remote);
-    $("video#"+remote).css("height","40vh");
+    $("video#"+remote).css("height","10vh");
     $("video#"+remote).css("width","100wh");
     $("video#"+remote).css("object-fit","contain");
 
