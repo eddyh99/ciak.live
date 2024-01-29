@@ -27,7 +27,7 @@ class Member extends CI_Controller
     public function member()
     {
         $data = array(
-            "title"     => NAMETITLE." - Member",
+            "title"     => NAMETITLE . " - Member",
             "content"   => "admin/member/member",
             "bank"      => apitrackless(URLAPI . "/v1/trackless/member/getAll_bank")->message,
             "mn_member" => "active",
@@ -41,7 +41,7 @@ class Member extends CI_Controller
     public function history($id)
     {
         $data = array(
-            "title"     => "TracklessBank - Member History",
+            "title"     => NAMETITLE . " - Member History",
             "content"   => "admin/member/member-history",
             "user_id"      => $id,
             "mn_member" => "active",
@@ -167,7 +167,7 @@ class Member extends CI_Controller
         
         $decodedArticle = base64_decode($result->message->article);
         $data = array(
-            "title"     => NAMETITLE." - Post",
+            "title"     => NAMETITLE . " - Post",
             "content"   => "admin/member/post",
             "extra"     => "admin/member/js/js_search",
             "mn_change" => "active",
@@ -241,9 +241,6 @@ class Member extends CI_Controller
         return $dash_str;
     }
 
-    public function changepass()
-    {
-    }
 
     public function sendmail_listmember()
     {
@@ -290,13 +287,19 @@ class Member extends CI_Controller
     
     public function sendmail()
     {
+
+        $getalluser = ciakadmin(URLAPI . "/v1/admin/member/getAll")->message;
+        // echo '<pre>'.print_r($getalluser,true).'</pre>';
+        // die;
+
+
         $data = array(
-            "title"     => "Freedybank - Send Email",
-            "content"   => "admin/member/sendmail",
-            "bank"      => apitrackless(URLAPI . "/v1/trackless/member/getAll_bank")->message,
-            "mn_member" => "active",
-            "sendmail" => "sendmail",
-            "extra"     => "admin/member/js/js_email"
+            "title"         => NAMETITLE . " - Send Email",
+            "content"       => "admin/member/sendmail",
+            "mn_member"     => "active",
+            "getalluser"    => $getalluser,
+            "sendmail"      => "sendmail",
+            "extra"         => "admin/member/js/js_email"
         );
 
         $this->load->view('admin_template/wrapper', $data);
@@ -347,5 +350,6 @@ class Member extends CI_Controller
             redirect('godmode/member?status=new');
         }
     }
+
     
 }

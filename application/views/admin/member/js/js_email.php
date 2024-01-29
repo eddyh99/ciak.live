@@ -2,6 +2,23 @@
 .select2-container .select2-search--inline .select2-search__field {
     vertical-align: top !important;
 }
+
+
+
+
+.select2-container--default .select2-selection--multiple {
+    background-color: #000000 !important;
+}
+
+.note-editable { 
+    background-color: black !important; 
+    color: white !important; 
+}
+
+.note-toolbar {
+    background-color: #03B115 !important;
+}
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -27,13 +44,15 @@ $(document).ready(function() {
         ],
         placeholder: 'Type Message...',
         tabsize: 2,
-        height: 300
+        height: 300, 
     });
     $('.dropdown-toggle').dropdown();
 });
 
 $(document).ready(function() {
-    $('#tujuan').select2();
+    $('#tujuan').select2({
+        width: '100%'
+    });
 });
 
 $("#all").on("click", function() {
@@ -55,7 +74,7 @@ listmember();
 function listmember() {
     var readbank = $("#bank").val();
     $.ajax({
-        url: "<?= base_url() ?>m3rc4n73/member/sendmail_listmember?bank=" + readbank,
+        url: "<?= base_url() ?>godmode/member/sendmail_listmember?bank=" + readbank,
         dataType: 'json',
         success: function(result) {
             $("#tujuan").html(result.message);
