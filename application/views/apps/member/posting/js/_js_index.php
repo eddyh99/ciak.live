@@ -67,6 +67,7 @@ Desc        : Modul ini di digunakan untuk melakukan
     * 14. Class Explicit Content
     * 15. Save Set Subscription
     * 16. Show Preview Invite Guest
+    * 17. TUI Image Editor
 */
 
 
@@ -128,7 +129,7 @@ $(document).ready(function(){
     $('#img-preview-post').hide();
     localforage.getItem('img_save', function (err, value) {
         var dataImg=JSON.parse(value);
-        console.log(dataImg);
+        // console.log(dataImg);
         if(dataImg == null || dataImg.length == 0) {
             console.log("");
         }else {
@@ -279,6 +280,10 @@ $(document).ready(function(){
     $("#upload_video").on("change", function(event){
         files = event.target.files;
         var m_video = [];
+        $('#header-preview-text').hide();
+        $('#attch-preview-post').remove();
+        $(".carousel-item").remove();
+        localforage.clear();
         for (var i = 0; i < files.length; i++) {
             var f = files[i];
             // Only process video files.
@@ -295,11 +300,14 @@ $(document).ready(function(){
             
             m_video.push(URL.createObjectURL(files[i]));
 
-            $('#img-preview-post').show();
-            $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+' d-block"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
+            var carousel_active = $(".carousel-item").hasClass("active");
+            if(carousel_active == false){
+                $('#img-preview-post').show();
+            }
+
+            $('.carousel-inner').append('<div class="carousel-item '+(carousel_active ==  false ? "active" : "")+'"><div class="d-flex justify-content-center"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div></div>');
+            // $('.carousel-inner').append('<div class="carousel-item '+(i ==  0? "active" : "")+' d-block"><video src="'+URL.createObjectURL(files[i])+'" class="d-block" width="280" height="240" controls></video><span class="close-img-post fs-5" onClick="del('+i+')">X</span></div>');
         }
-        localforage.setItem("video_save", JSON.stringify(m_video));
-        window.location.href = '<?= base_url()?>post?type=<?=$_SESSION["content_type"]?>';
     }) ;
 
 /*----------------------------------------------------------
@@ -315,6 +323,9 @@ $(function() {
     $('#upload_attch').on('change', function(){
         var input = document.getElementById('upload_attch');
         var children = "";
+        $(".carousel-item").remove();
+        $('#img-preview-post').hide();
+        localforage.clear();
         if(this.files[0].size > 50097152){
             Swal.fire({
                 text: "File is too big! max 50MB",
@@ -351,11 +362,8 @@ $(function() {
         var tipepost=$("#tipepost").val();
         var is_video = localStorage.getItem("is_video");
         // var vs_data = $('#vs-preview').html();
-        
         // $('#load-edit-profile').show();
 
-        console.log(jenis);
-        console.log(is_video);
         if (jenis=="Post"){
             if (tipepost=="special" || tipepost=="download"){
                 if (parseFloat($("#postprice").val())<0.5){
@@ -449,12 +457,12 @@ $(function() {
                 });
 
             }else if (is_video=="attach"){
-                console.log("MASUK ATTACH ");
+                // console.log("MASUK ATTACH ");
                 if (typeof files !== 'undefined'){
-                    console.log("200");
+                    // console.log("200");
                     for (var i = 0; i < files.length; i++) {
                         var f = files[i];
-                        console.log(f);
+                        // console.log(f);
                         formdata.append("attach[]",f);
                     }
                 }
@@ -520,7 +528,7 @@ $(function() {
                     }
                 });
             }else{
-                console.log("MASUK IMAGE");
+                // console.log("MASUK IMAGE");
                 localforage.getItem('img_save', function (err, value) {
                     var dataImg=JSON.parse(value);
                     if(dataImg != null) {
@@ -748,13 +756,13 @@ $(function() {
         if (input.length < 3) {
             $('#suggestionslist').hide();
         } else {
-            console.log("200 search");
+            // console.log("200 search");
             $.ajax({
                 url: "<?=base_url()?>post/invite_search?term="+input,
                 success: function(data, response) {
                     $('.spinner-search').hide();
                     $('.fa-magnifying-glass').show();
-                    console.log(response);
+                    // console.log(response);
                     // return success
                     if (data.length > 0) {
                         $('#suggestionslist').html(data);
@@ -790,13 +798,13 @@ $(function() {
         if (inputMeeting.length < 3) {
             $('#suggestionslistmeeting').hide();
         } else {
-            console.log("200 search");
+            // console.log("200 search");
             $.ajax({
                 url: "<?=base_url()?>post/invite_search?term="+inputMeeting,
                 success: function(data, response) {
                     $('.spinner-search').hide();
                     $('.fa-magnifying-glass').show();
-                    console.log(response);
+                    // console.log(response);
                     // return success
                     if (data.length > 0) {
                         $('#suggestionslistmeeting').html(data);
@@ -872,20 +880,17 @@ $(document).ready(function(){
 /*----------------------------------------------------------
 16. Show Preview Invite Guest Start
 ------------------------------------------------------------*/  
-
 var chooseguest = 0;
 function invite_guest_active(id, img, username){
-
-    
     if(chooseguest < 3){
-        console.log(chooseguest);
+        // console.log(chooseguest);
         $('.people-cam2cam'+id).addClass('active');
         $('.hiddenguest').append(`<input type="hidden" id="meetingcam${chooseguest}" value="${id}" name="meetingcam[]">`)
         $('.preview-meeting-guest').append(`<div class="d-flex align-items-center my-3">
-                                                <img id="img-preview-meeting-guest" src='${img}' width="50" height="auto" class="rounded-circle me-3">
-                                                <h5 id="username-preview-meeting-guest" class="my-auto">${username}</h5>
-                                                <i id="check-preview-meeting-guest" class="fas fa-check fs-3 ms-3 text-success me-auto"></i>
-                                            </div>`);
+            <img id="img-preview-meeting-guest" src='${img}' width="50" height="auto" class="rounded-circle me-3">
+            <h5 id="username-preview-meeting-guest" class="my-auto">${username}</h5>
+            <i id="check-preview-meeting-guest" class="fas fa-check fs-3 ms-3 text-success me-auto"></i>
+        </div>`);
 
         // $('#meetingcam'+chooseguest).val(id);
         chooseguest += 1;
@@ -896,8 +901,7 @@ function invite_guest_active(id, img, username){
     $('#invite2').prop('checked', false);
 
  
-    $('#guestcam').val(id);
-    
+    $('#guestcam').val(id);    
     $('#invite1').prop('checked', true);
 
     $('.preview-cam2cam-guest').removeClass('d-none');
@@ -929,7 +933,11 @@ $(document).ready(function() {
 });
 
 
-/*** trial tui ***/
+
+/*----------------------------------------------------------
+17. TUI Image Editor Start
+------------------------------------------------------------*/ 
+
 var settings = {
     i18n: { 
             Color: 'Color',
@@ -940,13 +948,11 @@ var settings = {
     imgName : 'Image',
     hideLoadBtn : false,
 };
-    
-
 
 $("#upload_image").on("change",function (event){
     files=event.target.files;
     ext=$("#upload_image").val().split('.')[1].toLowerCase();
-    console.log(ext);
+    // console.log(ext);
     if (ext=="heic"){
         formdata = new FormData();
         formdata.append('image', files[0]); 
@@ -1024,12 +1030,9 @@ $("#upload_image").on("change",function (event){
                                 format: 'jpeg',
                                 quality: 0.5
                             });
-
                             // For push last images
                             m_data.push(imageUrl);
-
-
-                            console.log(m_data);
+                            // console.log(m_data);
                         })
 
                         // Click Finish button
@@ -1133,9 +1136,7 @@ $("#upload_image").on("change",function (event){
 
                 // For push last images
                 m_data.push(imageUrl);
-
-
-                console.log(m_data);
+                // console.log(m_data);
             })
 
             // Click Finish button
@@ -1160,11 +1161,9 @@ $("#upload_image").on("change",function (event){
     $("#tuieditor").modal("show");
     
 })
-
-// localforage.getItem('img_save', function (err, value) {
-//     var dataImg=JSON.parse(value);
-//     console.log(dataImg);
-// })
+/*----------------------------------------------------------
+17. TUI Image Editor End
+------------------------------------------------------------*/ 
 
 
 
