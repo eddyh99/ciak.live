@@ -281,7 +281,7 @@ $(document).ready(function(){
         files = event.target.files;
         var m_video = [];
         $('#header-preview-text').hide();
-        $('#attch-preview-post').remove();
+        $('#attch-preview-post').hide();
         $(".carousel-item").remove();
         localforage.clear();
         for (var i = 0; i < files.length; i++) {
@@ -325,6 +325,7 @@ $(function() {
         var children = "";
         $(".carousel-item").remove();
         $('#img-preview-post').hide();
+        $('#attch-preview-post').show();
         localforage.clear();
         if(this.files[0].size > 50097152){
             Swal.fire({
@@ -441,10 +442,12 @@ $(function() {
                         location.replace('<?= base_url()?>homepage');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
+                        let err = JSON.parse(jqXHR.responseText);
+                        console.log(err);
                         $('#load-edit-profile').hide();
                         setTimeout(()=>{
                             Swal.fire({
-                                text: "Something Error to upload, please try again",
+                                text: err.message,
                                 confirmButtonColor: '#03B115',
                                 background: '#323436',
                                 color: '#ffffff',
@@ -513,10 +516,12 @@ $(function() {
                             location.replace('<?= base_url()?>homepage');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
+                        let err = JSON.parse(jqXHR.responseText);
+                        console.log(err);
                         $('#load-edit-profile').hide();
                         setTimeout(()=>{
                             Swal.fire({
-                                text: "Something Error to upload, please try again",
+                                text: err.message,
                                 confirmButtonColor: '#03B115',
                                 background: '#323436',
                                 color: '#ffffff',
@@ -582,10 +587,12 @@ $(function() {
                                     location.replace('<?= base_url()?>homepage');
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
+                                let err = JSON.parse(jqXHR.responseText);
+                                console.log(err);
                                     $('#load-edit-profile').hide();
                                     setTimeout(()=>{
                                         Swal.fire({
-                                            text: "Something Error to upload, please try again",
+                                            text: err.message,
                                             confirmButtonColor: '#03B115',
                                             background: '#323436',
                                             color: '#ffffff',

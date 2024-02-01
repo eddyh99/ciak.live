@@ -672,7 +672,7 @@ $("#btnUpdate").on("click",function(){
                     $('#load-edit-profile').hide();
                     setTimeout(()=>{
                         Swal.fire({
-                            text: "Something Error to upload, please try again",
+                            text: data.message,
                             confirmButtonColor: '#03B115',
                             background: '#323436',
                             color: '#ffffff',
@@ -747,7 +747,7 @@ $("#btnUpdate").on("click",function(){
                     $('#load-edit-profile').hide();
                     setTimeout(()=>{
                         Swal.fire({
-                            text: "Something Error to upload, please try again",
+                            text: data.message,
                             confirmButtonColor: '#03B115',
                             background: '#323436',
                             color: '#ffffff',
@@ -823,7 +823,7 @@ $("#btnUpdate").on("click",function(){
                     $('#load-edit-profile').hide();
                     setTimeout(()=>{
                         Swal.fire({
-                            text: "Something Error to upload, please try again",
+                            text: data.message,
                             confirmButtonColor: '#03B115',
                             background: '#323436',
                             color: '#ffffff',
