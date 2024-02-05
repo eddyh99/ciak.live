@@ -57,17 +57,18 @@
                         <div class="list-people mt-5 mb-on-botbar">
                             <?php 
                                 $i=1;
-                                foreach ($following as $dt){
+                                foreach ($nonguest as $dt){
                                     if ($i==11){
                                         break;
                                     }
-                                ?>
+                                ?> 
                                     <div class="people px-4">
                                         <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="inviteuser('<?=$dt->id?>','<?=$_GET['room_id']?>','<?=$dt->username?>')">
                                             <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
                                             <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
                                         </a>
                                     </div>
+                                    
                             <?php $i++;}?>
                         </div>
                     </div>
@@ -95,14 +96,20 @@
                         <div class="list-people mt-5 mb-on-botbar">
                             <?php 
                                 $i=1;
-                                foreach ($following as $dt){?>
-                                    <div class="people people-cam2cam<?= $dt->id?> px-4">
-                                        <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_moderator('<?= $dt->username?>', '<?= $dt->profile?>')" data-bs-dismiss="modal">
-                                            <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
-                                            <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
-                                        </a>
-                                    </div>
-                            <?php $i++;}?>
+                                foreach ($nonguest as $dt){
+                                    if ($i==11){
+                                        break;
+                                    }
+                            ?>
+
+                                        <div class="people people-cam2cam<?= $dt->id?> px-4">
+                                            <a class="w-100 h-100 d-block text-decoration-none d-flex" onclick="invite_moderator('<?= $dt->username?>', '<?= $dt->profile?>')" data-bs-dismiss="modal">
+                                                <img src="<?=$dt->profile?>" alt="image" class="rounded-circle me-3">
+                                                <h4 class="names my-auto me-auto"><?=$dt->username?></h4>
+                                            </a>
+                                        </div>
+
+                            <?php $i++; } ?>
                         </div>
                     </div>
                 </div>

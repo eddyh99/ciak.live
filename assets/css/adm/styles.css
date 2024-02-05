@@ -5424,7 +5424,8 @@ fieldset:disabled .btn {
 }
 
 .card.fee .card-header,
-.card.cost .card-header{
+.card.cost .card-header,
+.card.sendemail .card-header{
   padding: 0.5rem 1rem;
   margin-bottom: 0;
   background-color: #03B115;
@@ -5433,12 +5434,14 @@ fieldset:disabled .btn {
 }
 
 .card.fee .card-body,
-.card.cost .card-body {
+.card.cost .card-body,
+.card.sendemail .card-body {
   background-color: #212121;
 }
 
 .card.fee .card-body .fee-input,
-.card.cost .card-body .cost-input {
+.card.cost .card-body .cost-input,
+.card.sendemail .card-body .sendemail-input {
   background-color: #000000;
   color: #ffffff;
 }

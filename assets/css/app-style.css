@@ -3260,6 +3260,75 @@ label#label-forsubs {
     color: var(--text-white-color) ;
 }
 
+/* width */
+.posts-member .post-member .comment::-webkit-scrollbar {
+    width: 10px;    
+}
+  
+  /* Track */
+.posts-member .post-member .comment::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+  /* Handle */
+.posts-member .post-member .comment::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 99999px;
+}
+  
+  /* Handle on hover */
+.posts-member .post-member .comment::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.posts-member .post-member .comment {
+    position: relative;
+    /* height: 400px; */
+    width: auto;
+    overflow: auto;
+}
+
+.posts-member .post-member .comment .sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: calc(100% - 1px);
+    width: calc(100% - 1px);
+    float: left;  
+    margin-right: -100%;
+    pointer-events: none;
+}
+
+
+.posts-member .post-member .comment .sticky .user-input-comment {
+    background-color: #6C6C6C;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    white-space: nowrap;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    pointer-events: auto;
+    transition: background .3s;
+}
+
+.posts-member .post-member .comment .user-input-comment input{
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    color: #212121;
+}
+
+.posts-member .post-member .comment .user-input-comment input::placeholder{
+    color: #212121;
+}
+
+.posts-member .post-member .comment .user-input-comment .btn-comment{
+    color: #00FE1A;    
+}
+
 /* #messages_area {
     overflow-x:hidden;
     overflow-y:visible;

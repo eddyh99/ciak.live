@@ -23,13 +23,18 @@ Documentation - github.com/muaz-khan/WebRTC-Experiment/tree/master/getMediaEleme
 
 .media-container {
     width: 36%;
+    height: 400px !important;
     display: inline-block;
-    border: 1px solid rgb(0, 0, 0);
+    /* border: 1px solid rgb(0, 0, 0); */
     border-radius: 4px;
     overflow: hidden;
     vertical-align: top;
-    background: white;
+    /* background: white; */
     margin: 0px auto;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
 }
 
 .media-box {
@@ -122,7 +127,7 @@ Documentation - github.com/muaz-khan/WebRTC-Experiment/tree/master/getMediaEleme
 .media-box video {
     width: 100%;
     vertical-align: top;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .media-box audio {

@@ -135,15 +135,41 @@ class Meeting extends CI_Controller
         $room_id = $_GET['room_id'];
         $guest = apiciaklive(URLAPI . "/v1/member/perform/getmember_byroom?room_id=".$room_id."&from_id=1")->message;
         $public = apiciaklive(URLAPI . "/v1/member/perform/getpublic_byroom?room_id=".$room_id)->message;
-        // echo "<pre>".print_r($guest,true)."</pre>";
-        // die;
+        $allguest = apiciaklive(URLAPI . "/v1/member/perform/getguest?room_id=".$room_id)->message;
+        
+        
+        $nonguest = array();
+        foreach($following as $dt){
+            // echo "<pre>".print_r($dt_val->username . "FOLLOWING",true)."</pre>";
+            $temp_ufollowing = $dt->username;
+            $flag_guest = false;
+
+            foreach($allguest as $dta){
+                $temp_uguest = $dta->username;
+                if($temp_ufollowing == $temp_uguest){
+                    $flag_guest = true;
+                }
+                // echo "<pre>".print_r($dta_val->username . "GUEST",true)."</pre>";
+            }
+
+            if($flag_guest == false){
+                array_push($nonguest, (object)[
+                    'id'        => $dt->id,
+                    'username'  => $dt->username,
+                    'profile'   => $dt->profile,
+                    'ucode'     => $dt->ucode,
+                    'is_follow' => $dt->is_follow,
+                ]);
+            }
+        }
 
 
         $data = array(
             'title'         => NAMETITLE . ' - Meeting',
             'content'       => 'apps/member/posting/meeting/app-meeting-room',
             'extra'         => 'apps/member/posting/meeting/js/js-showmeeting',
-            'following'     => $following
+            'following'     => $following,
+            'nonguest'      => $nonguest,
         );
         $this->load->view('apps/template/wrapper-member', $data);
     }
@@ -234,20 +260,34 @@ class Meeting extends CI_Controller
         $detail     = apiciaklive(URLAPI . "/v1/member/perform/getchat_byroom?room_id=".$room_id)->message;
         $guestid = $this->security->xss_clean($_GET["guestid"]);
 
+
         $post_time=date("Y-m-d H:i");
-        $mdata=array(
+        if (empty($detail)){
+            $message="You Are Invited to join meeting";
+            $message.="<br>Description : ".$deskripsi;
+
+            $mdata=array(
+                "to_user_id"    => $guestid,
+                "from_user_id"  => $_SESSION["user_id"],
+                "chat_message"  => $message,
+                "timestamp"     => $post_time,
+                "roomid"        => $room_id
+            );
+        }else{
+            $mdata=array(
                 "to_user_id"    => $guestid,
                 "from_user_id"  => $_SESSION["user_id"],
                 "chat_message"  => $detail->chat_message,
                 "timestamp"     => $post_time,
                 "roomid"        => $room_id
             );
+        }
         
             
         $url = URLAPI . "/v1/member/perform/invitemmeeting";
         $result = apiciaklive($url,json_encode($mdata));
-        echo "<pre>".print_r($result,true)."</pre>";
-        die;
+        // echo "<pre>".print_r($result,true)."</pre>";
+        // die;
 		if (@$result->code!=200){
 		    //set flash data error
 	        return;
