@@ -756,11 +756,11 @@
                                     <?php } ?>
                                 </div>
                             </div>
-                            <!-- <div class="comment m-3">
+                            <div class="comment m-3">
                                 <div class="sticky">
                                     <div class="user-input-comment d-flex justify-content-between align-items-center py-2 px-3">
-                                        <input type="text" class="w-100" placeholder="Write a comment">
-                                        <span class="f-jakarta btn-comment">Publish</span>
+                                        <input type="text" id="comment_<?=$dt->id?>" class="w-100" placeholder="Write a comment">
+                                        <span class="f-jakarta btn-comment"><button type="button" id="publishcomment" onclick="postcomment('<?=$dt->id?>')">Publish</button></span>
                                     </div>
                                 </div>
 
@@ -777,70 +777,9 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="">Read all 100 comments</a>
+                                    <a onclick="read_all_comment('<?=$dt->id?>')">Read all 100 comments</a>
                                 </div>
-                                <div class="user-comment d-flex align-items-start">
-                                    <div class="d-flex align-items-start">
-                                        <img src="<?= base_url()?>assets/img/profile.jpg" width="30" height="30" alt="" class="rounded-circle">
-                                        <div class="ms-2">
-                                            <span class="fw-bold">Guest Name</span>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, ads asdj sadhsajd commodi.</p>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 px-3">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="user-comment d-flex align-items-start">
-                                    <div class="d-flex align-items-start">
-                                        <img src="<?= base_url()?>assets/img/profile.jpg" width="30" height="30" alt="" class="rounded-circle">
-                                        <div class="ms-2">
-                                            <span class="fw-bold">Guest Name</span>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, ads asdj sadhsajd commodi.</p>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 px-3">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="user-comment d-flex align-items-start">
-                                    <div class="d-flex align-items-start">
-                                        <img src="<?= base_url()?>assets/img/profile.jpg" width="30" height="30" alt="" class="rounded-circle">
-                                        <div class="ms-2">
-                                            <span class="fw-bold">Guest Name</span>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, ads asdj sadhsajd commodi.</p>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 px-3">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="user-comment d-flex align-items-start">
-                                    <div class="d-flex align-items-start">
-                                        <img src="<?= base_url()?>assets/img/profile.jpg" width="30" height="30" alt="" class="rounded-circle">
-                                        <div class="ms-2">
-                                            <span class="fw-bold">Guest Name</span>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, ads asdj sadhsajd commodi.</p>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 px-3">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="user-comment d-flex align-items-start mb-5">
-                                    <div class="d-flex align-items-start">
-                                        <img src="<?= base_url()?>assets/img/profile.jpg" width="30" height="30" alt="" class="rounded-circle">
-                                        <div class="ms-2">
-                                            <span class="fw-bold">Guest Name</span>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, ads asdj sadhsajd commodi.</p>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 px-3">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                </div>
-                          
-                            </div> -->
+                            </div> 
                         </div>
                         
 

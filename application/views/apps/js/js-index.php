@@ -658,5 +658,39 @@ modeToggleContentHome.addEventListener("click", () =>{
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
 
+/*----------------------------------------------------------
+11. Post Comment
+------------------------------------------------------------*/
+
+function postcomment(id){
+    var comment=$("#comment_"+id).val();
+    $.ajax({
+        url: "<?=base_url()?>post/comment?post_id="+id,
+        type: "post",
+        data: "comment="+comment,
+        success: function(data) {
+            console.log(data);
+        }
+    });
+}
+/*----------------------------------------------------------
+11. Post Comment END
+------------------------------------------------------------*/
+
+/*----------------------------------------------------------
+11. Read All Comment
+------------------------------------------------------------*/
+
+function read_all_comment(id){
+    $.ajax({
+        url: "<?=base_url()?>post/readcomment?post_id="+id,
+        success: function(data) {
+            console.log(data);
+        }
+    });
+}
+/*----------------------------------------------------------
+11. Read All Comment END
+------------------------------------------------------------*/
 
 </script>

@@ -671,7 +671,6 @@ class Post extends CI_Controller
         $this->form_validation->set_rules('trialamount', 'Trial Amount', 'trim');
 
 
-        $input      = $this->input;
         $weekly     = $this->security->xss_clean($this->input->post("weekly"));
         $monthly    = $this->security->xss_clean($this->input->post("monthly"));
         $yearly     = $this->security->xss_clean($this->input->post("yearly"));
@@ -710,5 +709,42 @@ class Post extends CI_Controller
     //     $this->session->set_flashdata('vs_data', $result);
     //     redirect('post');
     // }
+    
+    public function comment(){
+        $post_id   = $this->security->xss_clean($_GET["post_id"]);
+        $comment   = $this->security->xss_clean($this->input->post("comment"));
+        
+        //validasi dibuat
+        
+        $mdata=array(
+                "post_id"   => $post_id,
+                "comment"   => $comment
+            );
+        
+        $url=URLAPI . "/v1/member/post/comment";
+        $result=apiciaklive($url,json_encode($mdata));
+
+        if (@$result->code!=200){
+            header("HTTP/1.0 406 Not Acceptable");
+		    echo json_encode($result->message);
+		    die;
+        }
+        
+        echo json_encode($result->message);
+    }
+    
+    public function readcomment(){
+        $post_id   = $this->security->xss_clean($_GET["post_id"]);
+        $url=URLAPI . "/v1/member/post/readcomment?post_id=".$post_id;
+        $result=apiciaklive($url);
+
+        if (@$result->code!=200){
+            header("HTTP/1.0 406 Not Acceptable");
+		    echo json_encode($result->message);
+		    die;
+        }
+        
+        echo json_encode($result->message);
+    }
 
 }
