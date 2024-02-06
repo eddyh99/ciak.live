@@ -737,6 +737,8 @@ class Post extends CI_Controller
         $post_id   = $this->security->xss_clean($_GET["post_id"]);
         $url=URLAPI . "/v1/member/post/readcomment?post_id=".$post_id;
         $result=apiciaklive($url);
+        
+
 
         if (@$result->code!=200){
             header("HTTP/1.0 406 Not Acceptable");

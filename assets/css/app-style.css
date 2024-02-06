@@ -17,7 +17,7 @@
  *      3.3 min-width 425px
  *      3.4 min-width 576px
  *      3.5 min-width 768px
- *      3.6 min-width 992px
+ *      3.6 min-width 992px 
  *      3.7 min-width 1200px
  *      3.8 min-width 1400px
  * 4. Darkmode
@@ -3283,9 +3283,37 @@ label#label-forsubs {
 
 .posts-member .post-member .comment {
     position: relative;
-    /* height: 400px; */
+    height: auto;
     width: auto;
     overflow: auto;
+}
+
+.posts-member .post-member .comment.show-0{
+    height: 70px;
+}
+
+.posts-member .post-member .comment.show-1{
+    height: 150px;
+}
+
+.posts-member .post-member .comment.show-2{
+    height: 250px;
+}
+
+.posts-member .post-member .comment.show-4{
+    height: 400px;
+}
+
+.posts-member .post-member .comment .avail-comment-loading {
+    background-color: #1A1B1C;
+    z-index: 9999;
+    width: 100%;
+    height: -webkit-fill-available;
+    position: absolute;
+}
+
+.posts-member .post-member .comment .avail-comment .read-all-comment a {
+    color: #2D8BF8;
 }
 
 .posts-member .post-member .comment .sticky {
@@ -3307,33 +3335,40 @@ label#label-forsubs {
     bottom: 0;
     white-space: nowrap;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 0px;
     border: none;
     outline: none;
     pointer-events: auto;
     transition: background .3s;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
 }
 
 .posts-member .post-member .comment .user-input-comment input{
     background-color: transparent;
     box-shadow: none;
     border: none;
-    color: #212121;
+    color: #ffffff;
 }
 
 .posts-member .post-member .comment .user-input-comment input::placeholder{
     color: #212121;
 }
 
-.posts-member .post-member .comment .user-input-comment .btn-comment{
+.posts-member .post-member .comment .user-input-comment .btn-comment button{
     color: #00FE1A;    
+    box-shadow: none;
+    border: none;
+    background: none;
+    font-weight: 700;
 }
 
-/* #messages_area {
-    overflow-x:hidden;
-    overflow-y:visible;
-    height: 500px;
-} */
+
+
+
+
  /*----------------------------------------------------------
 2. Member End
 ------------------------------------------------------------*/ 
@@ -3360,6 +3395,9 @@ label#label-forsubs {
 3.2 max-width 575px Start
 ------------------------------------------------------------*/ 
 @media (max-width: 575px) {
+
+    
+
     
     .apps-topbar .apps-auth a img {
         height: 35px;
@@ -3409,15 +3447,32 @@ label#label-forsubs {
 ------------------------------------------------------------*/ 
 
 /*----------------------------------------------------------
-3.3 min-width 576px Start
+3.3 min-width 375 & 425 Start
 ------------------------------------------------------------*/ 
+.posts-member .post-member .comment .avail-comment p {
+    width: 200px;
+}
+
+@media (min-width: 375px) {
+
+    .posts-member .post-member .comment .avail-comment p {
+        width: 250px;
+    }
+
+}
+
 @media (min-width: 425px) {
     .btn-topup-header {
         font-size: 12px;
     }
+
+    .posts-member .post-member .comment .avail-comment p {
+        width: 300px;
+    }
+    
 }
 /*----------------------------------------------------------
-3.3 min-width 576px End
+3.3 min-width 375 & 425 End
 ------------------------------------------------------------*/ 
 
 
@@ -3425,6 +3480,10 @@ label#label-forsubs {
 3.4 min-width 576px Start
 ------------------------------------------------------------*/ 
 @media (min-width: 576px) {
+    .posts-member .post-member .comment .avail-comment p {
+        width: 450px;
+    }
+
     .btn-topup-header {
         font-size: 15px;
     }
@@ -3455,6 +3514,10 @@ label#label-forsubs {
 3.5 min-width 768px Start
 ------------------------------------------------------------*/ 
 @media (min-width: 768px) {
+    .posts-member .post-member .comment .avail-comment p {
+        width: 650px;
+    }
+
     .apps-member .withdraw-payment {
         font-size: 18px;
     }
@@ -3471,14 +3534,22 @@ label#label-forsubs {
 
 
 /*----------------------------------------------------------
-3.6 min-width 992px Start
+3.6 min-width 992px  Start
 ------------------------------------------------------------*/ 
+
+
 @media (min-width: 992px) {
+
+    .posts-member .post-member .comment .avail-comment p {
+        width: 280px;
+    }
+
     .apps-member .biodata .ciak-connect .bg-live-connect {
         width: 400px;
         margin: 4px;
     }
 }
+
 /*----------------------------------------------------------
 3.6 min-width 992px End
 ------------------------------------------------------------*/ 
@@ -3487,6 +3558,11 @@ label#label-forsubs {
 3.7 min-width 1200px Start
 ------------------------------------------------------------*/ 
 @media (min-width: 1200px) {
+
+    .posts-member .post-member .comment .avail-comment p {
+        width: 350px;
+    }
+
     .apps-topbar .apps-auth .mode-apps input {
         width: 100px;
         height: 35px;
@@ -3528,6 +3604,9 @@ label#label-forsubs {
 3.8 min-width 1400px Start 
 ------------------------------------------------------------*/ 
 @media (min-width: 1400px) {
+    .posts-member .post-member .comment .avail-comment p {
+        width: 450px;
+    }
 }
 /*----------------------------------------------------------
 3.8 min-width 1400px End

@@ -40,7 +40,7 @@ $('#hideadive').on("click", function() {
     var iconHide = $('#iconhide').hasClass('fa-eye');
     var iconShow = $('#iconhide').hasClass('fa-eye-slash');
     if (iconHide) {
-        $('.apps-adive').css('display', 'none');
+        $('.apps-adive').css('display', 'none')
         $('#iconhide').removeClass('fa-eye');
         $('#iconhide').addClass('fa-eye-slash');
     }
@@ -662,35 +662,82 @@ modeToggleContentHome.addEventListener("click", () =>{
 11. Post Comment
 ------------------------------------------------------------*/
 
-function postcomment(id){
-    var comment=$("#comment_"+id).val();
+function postcomment(id, username, profile){
+    var comment=$("#inputcomment_"+id).val();
     $.ajax({
         url: "<?=base_url()?>post/comment?post_id="+id,
         type: "post",
         data: "comment="+comment,
         success: function(data) {
+            $("#inputcomment_"+id).val('');
             console.log(data);
+            $('#avail-comment'+id).prepend(`
+                <div class="user-comment new-comment d-flex align-items-start">
+                    <div class="d-flex align-items-start">
+                        <img src="${profile}" width="30" height="30" alt="" class="rounded-circle">
+                        <div class="ms-2">
+                            <span class="fw-bold">${username}</span>
+                            <p style="white-space: pre-line;word-wrap: break-word;">${comment}</p>
+                        </div>
+                    </div>
+                </div>`);
         }
     });
 }
-/*----------------------------------------------------------
-11. Post Comment END
-------------------------------------------------------------*/
 
-/*----------------------------------------------------------
-11. Read All Comment
-------------------------------------------------------------*/
 
 function read_all_comment(id){
+    $('#avail-comment-loading'+id).toggleClass('d-none');
+
     $.ajax({
         url: "<?=base_url()?>post/readcomment?post_id="+id,
         success: function(data) {
-            console.log(data);
+            var ress = JSON.parse(data);
+            $('#avail-comment'+id+' .prev-comment').addClass('d-none');
+            $('#avail-comment-loading'+id).toggleClass('d-none');
+            $('.new-comment').remove();
+
+            if(ress.length >= 5){
+                $('#comment'+id).toggleClass('show-4');
+            }else {
+                $('#comment'+id).toggleClass('show-2');
+            }
+
+            ress.forEach((el, i, arr) => {
+                i === ress.length - 1 ? console.log('LAST') : console.log('NOT LAST')
+                $('#avail-comment'+id).append(`
+                    <div class="user-comment d-flex align-items-start ${(i === ress.length - 1) ? 'mb-5':''}">
+                        <div class="d-flex align-items-start">
+                            <img src="${el.profile}" width="30" height="30" alt="" class="rounded-circle">
+                            <div class="ms-2">
+                                <span class="fw-bold">${el.username}</span>
+                                <p style="white-space: pre-line;word-wrap: break-word;">${el.comment}</p>
+                            </div>
+                        </div>
+                        <!-- <div class="mt-2 px-3">
+                            <i class="fa-regular fa-heart"></i>
+                        </div> -->
+                    </div>`);
+            })
         }
     });
 }
+
+
+function checkCountComment(id, angka){
+    $('#read-all-comment'+id).toggleClass('mb-5');
+    if(angka == 2){
+        $('#comment'+id).toggleClass('show-2');
+    }else{
+        $('#comment'+id).toggleClass('show-1');
+    }
+    // else{
+    //     $('#comment'+id).toggleClass('show-0');
+    //     totalcomment = angka;
+    // }
+}
 /*----------------------------------------------------------
-11. Read All Comment END
+11. Post Comment End
 ------------------------------------------------------------*/
 
 </script>
