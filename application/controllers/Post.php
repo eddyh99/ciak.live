@@ -688,8 +688,6 @@ class Post extends CI_Controller
         $result =  apiciaklive(URLAPI . "/v1/member/subscription/setSubscription", json_encode($mdata));
         echo json_encode($result);
     }
-
-
     
     // public function vs($id)
     // {

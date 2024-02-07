@@ -167,10 +167,10 @@ class Member extends CI_Controller
         
         $decodedArticle = base64_decode($result->message->article);
         $data = array(
-            "title"     => NAMETITLE . " - Post",
+            "title"     => NAMETITLE . " - Search Post",
             "content"   => "admin/member/post",
             "extra"     => "admin/member/js/js_search",
-            "mn_change" => "active",
+            "mn_post"   => "active",
             "post"      => $result->message,
             "article"   => $decodedArticle
         );
