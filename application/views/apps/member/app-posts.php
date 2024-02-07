@@ -796,7 +796,7 @@
                                                     if(count($dt->comment) >= 2){
                                                     ?>
                                                         <div id="read-all-comment<?= $dt->id?>" class="read-all-comment">
-                                                            <a onclick="read_all_comment('<?=$dt->id?>')">Read all comments</a>
+                                                            <a style="cursor: pointer;" onclick="read_all_comment('<?=$dt->id?>')">Read all comments</a>
                                                         </div>
                                                 <?php  
                                                         } 

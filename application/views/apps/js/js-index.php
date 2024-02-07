@@ -676,8 +676,8 @@ function postcomment(id, username, profile){
                     <div class="d-flex align-items-start">
                         <img src="${profile}" width="30" height="30" alt="" class="rounded-circle">
                         <div class="ms-2">
-                            <span class="fw-bold">${username}</span>
-                            <p style="white-space: pre-line;word-wrap: break-word;">${comment}</p>
+                            <span class="fw-bold text-white">${username}</span>
+                            <p class="text-white" style="white-space: pre-line;word-wrap: break-word;">${comment}</p>
                         </div>
                     </div>
                 </div>`);
@@ -710,8 +710,8 @@ function read_all_comment(id){
                         <div class="d-flex align-items-start">
                             <img src="${el.profile}" width="30" height="30" alt="" class="rounded-circle">
                             <div class="ms-2">
-                                <span class="fw-bold">${el.username}</span>
-                                <p style="white-space: pre-line;word-wrap: break-word;">${el.comment}</p>
+                                <span class="fw-bold text-white">${el.username}</span>
+                                <p class="text-white" style="white-space: pre-line;word-wrap: break-word;">${el.comment}</p>
                             </div>
                         </div>
                         <!-- <div class="mt-2 px-3">

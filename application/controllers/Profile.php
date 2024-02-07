@@ -59,7 +59,7 @@ class Profile extends CI_Controller
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost");
 
 
-        // echo "<pre>".print_r($result,true)."</pre>";
+        // echo "<pre>".print_r($post,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
