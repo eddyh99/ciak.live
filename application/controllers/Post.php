@@ -688,8 +688,6 @@ class Post extends CI_Controller
         $result =  apiciaklive(URLAPI . "/v1/member/subscription/setSubscription", json_encode($mdata));
         echo json_encode($result);
     }
-
-
     
     // public function vs($id)
     // {
@@ -737,6 +735,8 @@ class Post extends CI_Controller
         $post_id   = $this->security->xss_clean($_GET["post_id"]);
         $url=URLAPI . "/v1/member/post/readcomment?post_id=".$post_id;
         $result=apiciaklive($url);
+        
+
 
         if (@$result->code!=200){
             header("HTTP/1.0 406 Not Acceptable");

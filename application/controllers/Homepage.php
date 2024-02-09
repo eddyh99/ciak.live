@@ -28,15 +28,14 @@ class Homepage extends CI_Controller
 
 		$nonfollow = apiciaklive(URLAPI . "/v1/member/home/randomuser");
 		$post = apiciaklive(URLAPI . "/v1/member/post/getall_post?page=1");
-        //print_r(json_encode($post->message));
-        echo "<pre>".print_r($post->message,true)."</pre>";
-        die;
-		
-		
         $notif = apiciaklive(URLAPI . "/v1/member/notification/getnotif");
         $notifmsg = apiciaklive(URLAPI . "/v1/member/notification/chat_notif");
         $maxpage = apiciaklive(URLAPI . "/v1/member/post/getmax_page");
-
+		$profile = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
+        // echo '<pre>'.print_r($post,true).'</pre>';
+        // die;
+        $_SESSION['profile'] = $profile->profile;
+        
         $data = array(
             'title'         => NAMETITLE . ' - Homepage',
             'content'       => 'apps/member/app-index',

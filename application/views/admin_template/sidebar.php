@@ -33,14 +33,27 @@
                                 <a class="nav-link" href="<?= base_url() ?>godmode/member?status=new">New Member</a>
                             </nav>
                         </div>
-                        <a class="nav-link <?= @$mn_report ?>" href="<?= base_url() ?>godmode/reported">
-                            <div class="sb-nav-link-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                            Reported Post
+                        <a class="nav-link collapsed <?= @$mn_post ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePagesPost" aria-expanded="false" aria-controls="collapsePagesPost">
+                            <div class="sb-nav-link-icon"><i class="fas fa-icons"></i></div>
+                            Post
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <a class="nav-link <?= @$mn_change ?>" href="<?= base_url() ?>godmode/member/post">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-right-left"></i></div>
-                            Change Post Category
+                        <div class="collapse" id="collapsePagesPost" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?= base_url() ?>godmode/reported">Reported Post</a>
+                                <a class="nav-link" href="<?= base_url() ?>godmode/member/post">Change Post Category</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed <?= @$mn_live ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePagesLive" aria-expanded="false" aria-controls="collapsePagesLive">
+                            <div class="sb-nav-link-icon"><i class="fas fa-video"></i></div>
+                            Live
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <div class="collapse" id="collapsePagesLive" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?= base_url() ?>godmode/live">Live Today</a>
+                            </nav>
+                        </div>
                         <a class="nav-link" href="<?= base_url() ?>auth/logout">
                             <div class="sb-nav-link-icon"><i class="fas fa-sign-out"></i></div>
                             Logout

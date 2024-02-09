@@ -20,7 +20,7 @@ class Reported extends CI_Controller
         $data = array(
             "title"     => NAMETITLE." - Reported Post",
             "content"   => "admin/report/index",
-            "mn_report" => "active",
+            "mn_post"   => "active",
             "extra"     => "admin/report/js/js_index"
         );
 
