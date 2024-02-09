@@ -131,6 +131,81 @@
                             <span class="max">Max 300</span>
                         </div>
                         <div class="mb-3 ciak-data-input">
+                            <label for="profession" class="form-label">Profession</label>
+                            <select id="profession" class="form-control" name="profession">
+                                <option value="">--Select Profession--</option>
+                                <option value="Accountant" <?= (@$profile->profession == "Accountant") ? "selected" : ""?>>Accountant</option>
+                                <option value="Actor" <?= (@$profile->profession == "Actor") ? "selected" : ""?>>Actor</option>
+                                <option value="Actress" <?= (@$profile->profession == "Actress") ? "selected" : ""?>>Actress</option>
+                                <option value="Air Traffic Controller" <?= (@$profile->profession == "Air Traffic Controller") ? "selected" : ""?>>Air Traffic Controller</option>
+                                <option value="Architect" <?= (@$profile->profession == "Architect") ? "selected" : ""?>>Architect</option>
+                                <option value="Artist" <?= (@$profile->profession == "Artist") ? "selected" : ""?>>Artist</option>
+                                <option value="Attorney" <?= (@$profile->profession == "Attorney") ? "selected" : ""?>>Attorney</option>
+                                <option value="Banker" <?= (@$profile->profession == "Banker") ? "selected" : ""?>>Banker</option>
+                                <option value="Bartender" <?= (@$profile->profession == "Bartender") ? "selected" : ""?>>Bartender</option>
+                                <option value="Barber" <?= (@$profile->profession == "Barber") ? "selected" : ""?>>Barber</option>
+                                <option value="Bookkeeper" <?= (@$profile->profession == "Bookkeeper") ? "selected" : ""?>>Bookkeeper</option>
+                                <option value="Builder" <?= (@$profile->profession == "Builder") ? "selected" : ""?>>Builder</option>
+                                <option value="Businessman" <?= (@$profile->profession == "Businessman") ? "selected" : ""?>>Businessman</option>
+                                <option value="Businesswoman" <?= (@$profile->profession == "Businesswoman") ? "selected" : ""?>>Businesswoman</option>
+                                <option value="Businessperson" <?= (@$profile->profession == "Businessperson") ? "selected" : ""?>>Businessperson</option>
+                                <option value="Butcher" <?= (@$profile->profession == "Butcher") ? "selected" : ""?>>Butcher</option>
+                                <option value="Carpenter" <?= (@$profile->profession == "Carpenter") ? "selected" : ""?>>Carpenter</option>
+                                <option value="Cashier" <?= (@$profile->profession == "Cashier") ? "selected" : ""?>>Cashier</option>
+                                <option value="Chef" <?= (@$profile->profession == "Chef") ? "selected" : ""?>>Chef</option>
+                                <option value="Dental Hygienist" <?= (@$profile->profession == "Dental Hygienist") ? "selected" : ""?>>Dental Hygienist</option>
+                                <option value="Dentist" <?= (@$profile->profession == "Dentist") ? "selected" : ""?>>Dentist</option>
+                                <option value="Designer" <?= (@$profile->profession == "Designer") ? "selected" : ""?>>Designer</option>
+                                <option value="Developer" <?= (@$profile->profession == "Developer") ? "selected" : ""?>>Developer</option>
+                                <option value="Dietician" <?= (@$profile->profession == "Dietician") ? "selected" : ""?>>Dietician</option>
+                                <option value="Eoctor" <?= (@$profile->profession == "Doctor") ? "selected" : ""?>>Doctor</option>
+                                <option value="Economist" <?= (@$profile->profession == "Economist") ? "selected" : ""?>>Economist</option>
+                                <option value="Editor" <?= (@$profile->profession == "Editor") ? "selected" : ""?>>Editor</option>
+                                <option value="Electrician" <?= (@$profile->profession == "Electrician") ? "selected" : ""?>>Electrician</option>
+                                <option value="Engineer" <?= (@$profile->profession == "Engineer") ? "selected" : ""?>>Engineer</option>
+                                <option value="Farmer" <?= (@$profile->profession == "Farmer") ? "selected" : ""?>>Farmer</option>
+                                <option value="Film Maker" <?= (@$profile->profession == "Film Maker") ? "selected" : ""?>>Film Maker</option>
+                                <option value="Fisherman" <?= (@$profile->profession == "Fisherman") ? "selected" : ""?>>Fisherman</option>
+                                <option value="Flight Attendant" <?= (@$profile->profession == "Flight Attendant") ? "selected" : ""?>>Flight Attendant</option>
+                                <option value="Jeweler" <?= (@$profile->profession == "Jeweler") ? "selected" : ""?>>Jeweler</option>
+                                <option value="Judge" <?= (@$profile->profession == "Judge") ? "selected" : ""?>>Judge</option>
+                                <option value="Lawyer" <?= (@$profile->profession == "Lawyer") ? "selected" : ""?>>Lawyer</option>
+                                <option value="Mechanic" <?= (@$profile->profession == "Mechanic") ? "selected" : ""?>>Mechanic</option>
+                                <option value="Musician" <?= (@$profile->profession == "Musician") ? "selected" : ""?>>Musician</option>
+                                <option value="Nutritionist" <?= (@$profile->profession == "Nutritionist") ? "selected" : ""?>>Nutritionist</option>
+                                <option value="Nurse" <?= (@$profile->profession == "Nurse") ? "selected" : ""?>>Nurse</option>
+                                <option value="Optician" <?= (@$profile->profession == "Optician") ? "selected" : ""?>>Optician</option>
+                                <option value="Painter" <?= (@$profile->profession == "Painter") ? "selected" : ""?>>Painter</option>
+                                <option value="Pharmacist" <?= (@$profile->profession == "Pharmacist") ? "selected" : ""?>>Pharmacist</option>
+                                <option value="Photographer" <?= (@$profile->profession == "Photographer") ? "selected" : ""?>>Photographer</option>
+                                <option value="Physician" <?= (@$profile->profession == "Physician") ? "selected" : ""?>>Physician</option>
+                                <option value="Physician's Asistant" <?= (@$profile->profession == "Physician's Asistant") ? "selected" : ""?>>Physician's Asistant</option>
+                                <option value="Pilot" <?= (@$profile->profession == "Pilot") ? "selected" : ""?>>Pilot</option>
+                                <option value="Plumber" <?= (@$profile->profession == "Plumber") ? "selected" : ""?>>Plumber</option>
+                                <option value="Police Officer" <?= (@$profile->profession == "Police Officer") ? "selected" : ""?>>Police Officer</option>
+                                <option value="Politician" <?= (@$profile->profession == "Politician") ? "selected" : ""?>>Politician</option>
+                                <option value="Professor" <?= (@$profile->profession == "Professor") ? "selected" : ""?>>Professor</option>
+                                <option value="Programmer" <?= (@$profile->profession == "Programmer") ? "selected" : ""?>>Programmer</option>
+                                <option value="Psychologist" <?= (@$profile->profession == "Psychologist") ? "selected" : ""?>>Psychologist</option>
+                                <option value="Receptionist" <?= (@$profile->profession == "Receptionist") ? "selected" : ""?>>Receptionist</option>
+                                <option value="Salesman" <?= (@$profile->profession == "Salesman") ? "selected" : ""?>>Salesman</option>
+                                <option value="Sales Person" <?= (@$profile->profession == "Sales Person") ? "selected" : ""?>>Sales Person</option>
+                                <option value="Sales Woman" <?= (@$profile->profession == "Sales Woman") ? "selected" : ""?>>Sales Woman</option>
+                                <option value="Secretary" <?= (@$profile->profession == "Secretary") ? "selected" : ""?>>Secretary</option>
+                                <option value="Singer" <?= (@$profile->profession == "Singer") ? "selected" : ""?>>Singer</option>
+                                <option value="Surgeon" <?= (@$profile->profession == "Surgeon") ? "selected" : ""?>>Surgeon</option>
+                                <option value="Teacher" <?= (@$profile->profession == "Teacher") ? "selected" : ""?>>Teacher</option>
+                                <option value="Therapist" <?= (@$profile->profession == "Therapist") ? "selected" : ""?>>Therapist</option>
+                                <option value="Translator" <?= (@$profile->profession == "Translator") ? "selected" : ""?>>Translator</option>
+                                <option value="Undertaker" <?= (@$profile->profession == "Undertaker") ? "selected" : ""?>>Undertaker</option>
+                                <option value="Veterianrian" <?= (@$profile->profession == "Veterianrian") ? "selected" : ""?>>Veterianrian</option>
+                                <option value="Videographer" <?= (@$profile->profession == "Videographer") ? "selected" : ""?>>Videographer</option>
+                                <option value="Waiter" <?= (@$profile->profession == "Waiter") ? "selected" : ""?>>Waiter</option>
+                                <option value="Waitress" <?= (@$profile->profession == "Waitress") ? "selected" : ""?>>Waitress</option>
+                                <option value="Writer" <?= (@$profile->profession == "Writer") ? "selected" : ""?>>Writer</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 ciak-data-input">
                             <label for="web" class="form-label">Web</label>
                             <input type="text" class="form-control" id="web" name="web" value="<?=@$profile->web?>">
                         </div>

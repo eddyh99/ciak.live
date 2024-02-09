@@ -59,7 +59,7 @@ class Profile extends CI_Controller
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost");
 
 
-        // echo "<pre>".print_r($post,true)."</pre>";
+        // echo "<pre>".print_r($result,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
@@ -270,11 +270,11 @@ class Profile extends CI_Controller
     	$profile = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"]);
         $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
         $pricing = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
-        //    echo "<pre>".print_r($pricing,true)."</pre>";
-	    // 	die;
+        // echo "<pre>".print_r($profile->message,true)."</pre>";
+        // die;
         $data = array(
             'title'         => NAMETITLE . ' - Setting Profile',
-            'profile'       => $profile->message,
+            'profile'       => @$profile->message,
             'rtmp'          => $rtmp,
             'pricing'       => $pricing,
             'content'       => 'apps/member/profile/app-setting-profile',
@@ -307,6 +307,7 @@ class Profile extends CI_Controller
             $surename       = $this->security->xss_clean($this->input->post("surename"));
             $bio            = $this->security->xss_clean($this->input->post("bio"));
             $web            = $this->security->xss_clean($this->input->post("web"));
+            $profession     = $this->security->xss_clean($this->input->post("profession"));
             $email          = $this->security->xss_clean($this->input->post("email"));
             $phone          = $this->security->xss_clean($this->input->post("phone"));
             $comment        = @$this->security->xss_clean($this->input->post("comment"));
@@ -318,7 +319,8 @@ class Profile extends CI_Controller
 
         }
 
-    //   echo "INI COMMENT : " . $comment;
+    //   echo '<pre>'.print_r($profession,true).'</pre>';
+    //   die;
 
 
         $mdata=array(
@@ -328,6 +330,7 @@ class Profile extends CI_Controller
                 "surename"  => $surename,
                 "bio"       => $bio,
                 "web"       => $web,
+                "profession"    => $profession,
                 "email"     => $email,
                 "contact"   => $phone,
                 "is_comment"=> (@$comment=="yes")?"yes":"no",
@@ -337,10 +340,7 @@ class Profile extends CI_Controller
                 "profile"   => $imgpp,
                 "header"    => $imgbanner 
             );
-            
         
-        // echo "<pre>".print_r($mdata,true)."</pre>";
-        // die;
     	$url = URLAPI . "/v1/member/profile/setProfile";
 		$result = apiciaklive($url,json_encode($mdata));
 
