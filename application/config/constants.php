@@ -104,6 +104,6 @@ if (stripos($_SERVER['HTTP_HOST'], 'sandbox') === 0) {
 
 
 /*email config*/
-define('HOST_EMAIL', "mail.tracklessbank.com");
-define('USERNAME_EMAIL', "noreply@tracklessbank.com");
-define('PASS_EMAIL', 'M!I]J!v3ZjJH');
+define('HOST_EMAIL', "mail.ciak.live");
+define('USERNAME_EMAIL', "no-reply@ciak.live");
+define('PASS_EMAIL', 'LvP6lx$!jvIX');
