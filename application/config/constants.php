@@ -94,7 +94,7 @@ define('NAMETITLE', "Ciak.Live");
 if (stripos($_SERVER['HTTP_HOST'], 'sandbox') === 0) {
     define('URLAPI', "https://api.sandbox.ciak.live");
     define('CHATMODE',"sb");
-} elseif (stripos($_SERVER['HTTP_HOST'], 'local') === 0) {
+} elseif (stripos($_SERVER['HTTP_HOST'], 'local') > 0) {
     define('URLAPI', "https://api.sandbox.ciak.live");
     define('CHATMODE',"sb");
 } else {

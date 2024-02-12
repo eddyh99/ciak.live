@@ -13,6 +13,7 @@
 <script src="<?= base_url()?>assets/js/main-member.js"></script>
 <script src="<?= base_url()?>assets/js/explicit-content.js"></script>
 <script src="<?= base_url()?>assets/js/readmore.js"></script>
+<script src="<?= base_url()?>assets/js/readmore_v3.js"></script>
 <script src="<?= base_url()?>assets/js/localforage.min.js"></script>
 <script src="<?= base_url()?>assets/js/jquery.star-rating-svg.js"></script>
 <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>

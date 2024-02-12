@@ -412,11 +412,9 @@ $(document).ready(function(){
 7. Readmore & Infinite Scroll for Tabs Start 
 ------------------------------------------------------------*/ 
 $(function() {
-    $('.article').readmore({
-        speed: 75, 
+    new Readmore('.article', {
+        speed: 75,
         collapsedHeight: 95, 
-        moreLink: `<a class="ac" href="#">Read more</a>`, 
-        lessLink: `<a class="ac" href="#">Close</a>`, 
     });
 
 
@@ -448,11 +446,9 @@ $(function() {
     });
 
     $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
-        $('.article').readmore({
-            speed: 75, 
+        new Readmore('.article', {
+            speed: 75,
             collapsedHeight: 95, 
-            moreLink: `<a class="ac" href="#">Read more</a>`, 
-            lessLink: `<a class="ac" href="#">Close</a>`, 
         });
 
         var target = $(e.target).attr("href");

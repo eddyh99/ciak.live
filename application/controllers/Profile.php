@@ -1031,23 +1031,42 @@ class Profile extends CI_Controller
             'callback' => base_url().'profile/linkedin_link',
             'keys'     => [
                             'id' => '86hzwlo2nhnklx',
-                            'secret' => 'LMzMTFfhCcOzVvIx'
+                            'secret' => 'CzTA0O6pSYvPpF32'
                         ],
-            'scope'    => "openid profile email r_liteprofile",
+            'scope'    => "openid profile email",
         ]);
 
         // ACCESS TOKEN
         // getAccessToken()
 
         try {
+            
             $adapter->authenticate();
             $token = $adapter->getAccessToken();
             // $userProfile = $adapter->getUserProfile();
 
             // print_r(json_encode($userProfile));
             echo "token : " . $token['access_token'];
-            // echo "USER PROFILE : " . $userProfile;
+            // echo "USER PROFILE : " . $user_profile->identifier;
+
+            $ch     = curl_init('https://api.linkedin.com/v2/userinfo');
+            $headers    = array(
+                'Authorization: Bearer ' . $token['access_token'],
+                'Content-Type: application/json'
+            );
+ 
+            curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+            echo '<br>';
+            $result = json_decode(curl_exec($ch));
+            
+            // print_r($result);
             die;
+
         }
         catch( Exception $e ){
             echo "ERROR DISINI";
@@ -1055,6 +1074,8 @@ class Profile extends CI_Controller
         }
 
     }
+
+    
 
     public function tiktok_link()
     {

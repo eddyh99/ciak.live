@@ -580,6 +580,7 @@ $(function() {
                             processData: false,
                             contentType: false,
                             success: function (response) {
+                                    console.log(response);
                                     localStorage.removeItem('textarea-post');
                                     localStorage.removeItem('title-optional-post');
                                     localforage.clear();
