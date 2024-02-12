@@ -59,7 +59,7 @@ class Profile extends CI_Controller
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost");
 
 
-        // echo "<pre>".print_r($post,true)."</pre>";
+        // echo "<pre>".print_r($result,true)."</pre>";
 		// die;
         // print_r(json_encode($post));
         
@@ -270,11 +270,11 @@ class Profile extends CI_Controller
     	$profile = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"]);
         $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
         $pricing = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$_SESSION["user_id"])->message;
-        //    echo "<pre>".print_r($pricing,true)."</pre>";
-	    // 	die;
+        // echo "<pre>".print_r($profile->message,true)."</pre>";
+        // die;
         $data = array(
             'title'         => NAMETITLE . ' - Setting Profile',
-            'profile'       => $profile->message,
+            'profile'       => @$profile->message,
             'rtmp'          => $rtmp,
             'pricing'       => $pricing,
             'content'       => 'apps/member/profile/app-setting-profile',
@@ -307,6 +307,7 @@ class Profile extends CI_Controller
             $surename       = $this->security->xss_clean($this->input->post("surename"));
             $bio            = $this->security->xss_clean($this->input->post("bio"));
             $web            = $this->security->xss_clean($this->input->post("web"));
+            $profession     = $this->security->xss_clean($this->input->post("profession"));
             $email          = $this->security->xss_clean($this->input->post("email"));
             $phone          = $this->security->xss_clean($this->input->post("phone"));
             $comment        = @$this->security->xss_clean($this->input->post("comment"));
@@ -318,7 +319,8 @@ class Profile extends CI_Controller
 
         }
 
-    //   echo "INI COMMENT : " . $comment;
+    //   echo '<pre>'.print_r($profession,true).'</pre>';
+    //   die;
 
 
         $mdata=array(
@@ -328,6 +330,7 @@ class Profile extends CI_Controller
                 "surename"  => $surename,
                 "bio"       => $bio,
                 "web"       => $web,
+                "profession"    => $profession,
                 "email"     => $email,
                 "contact"   => $phone,
                 "is_comment"=> (@$comment=="yes")?"yes":"no",
@@ -337,10 +340,7 @@ class Profile extends CI_Controller
                 "profile"   => $imgpp,
                 "header"    => $imgbanner 
             );
-            
         
-        // echo "<pre>".print_r($mdata,true)."</pre>";
-        // die;
     	$url = URLAPI . "/v1/member/profile/setProfile";
 		$result = apiciaklive($url,json_encode($mdata));
 
@@ -1031,23 +1031,42 @@ class Profile extends CI_Controller
             'callback' => base_url().'profile/linkedin_link',
             'keys'     => [
                             'id' => '86hzwlo2nhnklx',
-                            'secret' => 'LMzMTFfhCcOzVvIx'
+                            'secret' => 'CzTA0O6pSYvPpF32'
                         ],
-            'scope'    => "openid profile email r_liteprofile",
+            'scope'    => "openid profile email",
         ]);
 
         // ACCESS TOKEN
         // getAccessToken()
 
         try {
+            
             $adapter->authenticate();
             $token = $adapter->getAccessToken();
             // $userProfile = $adapter->getUserProfile();
 
             // print_r(json_encode($userProfile));
             echo "token : " . $token['access_token'];
-            // echo "USER PROFILE : " . $userProfile;
+            // echo "USER PROFILE : " . $user_profile->identifier;
+
+            $ch     = curl_init('https://api.linkedin.com/v2/userinfo');
+            $headers    = array(
+                'Authorization: Bearer ' . $token['access_token'],
+                'Content-Type: application/json'
+            );
+ 
+            curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+            echo '<br>';
+            $result = json_decode(curl_exec($ch));
+            
+            // print_r($result);
             die;
+
         }
         catch( Exception $e ){
             echo "ERROR DISINI";
@@ -1055,6 +1074,8 @@ class Profile extends CI_Controller
         }
 
     }
+
+    
 
     public function tiktok_link()
     {

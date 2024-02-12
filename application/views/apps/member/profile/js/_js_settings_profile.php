@@ -1,5 +1,42 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+<!-- Or for RTL support -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" /> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 <script src="<?= base_url()?>assets/vendor/emoji-js/Emoji.js"></script>
+<style>
+
+.select2-container--default .select2-selection--multiple{
+    background-color: black !important;
+}
+
+.select2-container--bootstrap-5 .select2-selection {
+    background-color: #1A1B1C !important;
+}
+
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+    color: #ffffff !important;
+}
+
+.select2-container--bootstrap-5 .select2-dropdown,
+.select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field {
+    background-color: #000000 !important;
+    color: #ffffff;
+}
+
+.select2-results__option--selectable {
+    color: #ffffff;
+}
+
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, 
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected=true]:not(.select2-results__option--highlighted) {
+    background-color: #08CB1C !important;
+}
+
+</style>
 
 <script>
     
@@ -375,11 +412,9 @@ $(document).ready(function(){
 7. Readmore & Infinite Scroll for Tabs Start 
 ------------------------------------------------------------*/ 
 $(function() {
-    $('.article').readmore({
-        speed: 75, 
+    new Readmore('.article', {
+        speed: 75,
         collapsedHeight: 95, 
-        moreLink: `<a class="ac" href="#">Read more</a>`, 
-        lessLink: `<a class="ac" href="#">Close</a>`, 
     });
 
 
@@ -411,11 +446,9 @@ $(function() {
     });
 
     $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
-        $('.article').readmore({
-            speed: 75, 
+        new Readmore('.article', {
+            speed: 75,
             collapsedHeight: 95, 
-            moreLink: `<a class="ac" href="#">Read more</a>`, 
-            lessLink: `<a class="ac" href="#">Close</a>`, 
         });
 
         var target = $(e.target).attr("href");
@@ -758,6 +791,14 @@ function checkCountComment(id, angka){
     //     totalcomment = angka;
     // }
 }
+
+
+$(document).ready(function() {
+    $('#profession').select2({
+        width: '100%',
+        theme: "bootstrap-5",
+    });
+});
 
 
 </script>

@@ -81,6 +81,7 @@
                     <p>
                         <a href="<?=(preg_match("/http/",@$profile->web)>0)?@$profile->web:"https://".@$profile->web?>" target="_blank"><?=@$profile->web?></a>
                     </p>
+                    <span class="px-5 mx-5 mb-4 d-block span-text-toogle-explicit" style="white-space: pre-line;word-wrap: break-word;"><?= @$profile->profession?></span>
                 </div>
             </div>
             

@@ -177,20 +177,21 @@ class Post extends CI_Controller
         $result = apiciaklive($url,json_encode($mdata));
             
         // print_r(json_encode($result));
+        // echo '<pre>'.print_r($result,true).'</pre>';
         // die;
-		if (@$result->code!=200){
+		if (@$result->code != 200){
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
 		            "success"   => false,
-		            "message"   => $result
+		            "message"   => $result->message
 		        );
 		    echo json_encode($message);
 		    die;
 		}
-		 $message=array(
-	            "success"   => true,
-	            "message"   => ""
-	        );
+        $message=array(
+            "success"   => true,
+            "message"   => ""
+        );
 	    echo json_encode($message);
         die;
     }
