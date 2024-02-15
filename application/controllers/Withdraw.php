@@ -1965,7 +1965,6 @@ class Withdraw extends CI_Controller
 
         $result = apiciaklive(URLAPI . "/v1/member/wallet/bankTransfer", json_encode($mdata));
 
-
         if (@$result->code != 200) {
             if (@$result->code == 5055) {
                 $this->session->set_flashdata("failed", @$result->message[0]->message . '<br>' . @$result->message[1]->message  . '<br>' . @$result->message[2]->message  . '<br>' . @$result->message[3]->message);

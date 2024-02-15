@@ -183,7 +183,8 @@ class Post extends CI_Controller
             header("HTTP/1.0 406 Not Acceptable");
             $message=array(
 		            "success"   => false,
-		            "message"   => $result->message
+		            "message"   => $result->message,
+		            "halo"      => "disini"
 		        );
 		    echo json_encode($message);
 		    die;

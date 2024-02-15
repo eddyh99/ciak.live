@@ -30,18 +30,20 @@ class Meeting extends CI_Controller
 
 
     public function showlive(){
-        $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
-        $room_id = $_GET['room_id'];
-        $room = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
-        $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
-        $content_type = apiciaklive(URLAPI . "/v1/member/perform/getpublic_byroom?room_id=".$room_id)->message;
+        if ($_SESSION["role"]!="admin" && $_SESSION["role"]!="super admin"){
+            $rtmp   = apiciaklive(URLAPI . "/v1/member/perform/get_rtmp")->message;
+            $room_id = $_GET['room_id'];
+            $room = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+            $follower   = apiciaklive(URLAPI . "/v1/member/follow/getlist_follower")->message;
+            $content_type = apiciaklive(URLAPI . "/v1/member/perform/getpublic_byroom?room_id=".$room_id)->message;
+        }
 
         $data = array(
             'title'         => NAMETITLE . ' - Meeting',
-            'rtmp'          => $rtmp,
-            'room'          => $room,
-            'content_type'  => $content_type,
-            'follower'      => $follower,
+            'rtmp'          => @$rtmp,
+            'room'          => @$room,
+            'content_type'  => @$content_type,
+            'follower'      => @$follower,
             'content'       => 'apps/member/posting/meeting/app-live-show',
             'extra'         => 'apps/member/posting/meeting/js/js-liveshow',
         );
@@ -49,13 +51,19 @@ class Meeting extends CI_Controller
     }
     
     public function cekroom(){
-        $room_id   = $this->security->xss_clean($this->input->post("room"));
-        $detail = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+        $room_id    = $this->security->xss_clean($this->input->post("room"));
+        if ($_SESSION["role"]=="admin" || $_SESSION["role"]=="super admin"){
+            $detail     = ciakadmin(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+        }else{
+            $detail     = apiciaklive(URLAPI . "/v1/member/perform/getdata_byroom?room_id=".$room_id)->message;
+        }
 
         $to_time    = strtotime(date("Y-m-d H:i:s"));
         $from_time  = strtotime($detail->start_date);
         $selisih    = round(abs($to_time - $from_time) / 60);
- 
+        
+        echo $_SESSION["user_id"]." ".$detail->id_member;
+        die;
         if ($_SESSION["user_id"]==$detail->id_member){
             if ($selisih<-15){
                 header("HTTP/1.0 403 Forbidden");

@@ -32,7 +32,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-navbartop-ciak">
         <!-- Navbar Brand-->
-        <a class="navbar-brand text-center d-flex align-item justify-content-center" href="<?=base_url()?>admin/dashboard">
+        <a class="navbar-brand text-center d-flex align-item justify-content-center" href="<?=base_url()?>godmode/dashboard">
             <img src="<?= base_url() ?>assets/img/new-ciak/logo.png" alt="logo" class="me-2" style="height: 25px;">
             <b class="text-green-freedy" translate="no"><?= NAMETITLE?></b>
         </a>

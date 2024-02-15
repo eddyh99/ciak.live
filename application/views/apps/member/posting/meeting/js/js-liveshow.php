@@ -203,7 +203,7 @@ $.ajax({
         connection.extra.userJoin='';
         meeting_type=data.meeting_type;
         purpose=data.purpose;
-        
+        console.log(response);
         if (data.performer===true){
             $('#load-edit-profile').hide()
             $('.please-click-join-live').text('Please start to live');
