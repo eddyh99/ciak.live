@@ -35,8 +35,8 @@
             <?php } ?>
                 <div class="apps-member light w-100">
                     <p class="text-center mt-5">USDX balance</p>
-                    <h2 class="text-center" style="color: #03B115;"><?=number_format($balance,2)?></h2>
-                    <form action="<?= base_url()?>withdraw/withdraw_payment" method="POST" class="mt-5">
+                    <h2 class="text-center" style="color: #03B115;"><?=number_format($balance,3)?></h2>
+                    <form action="<?= base_url()?>withdraw/withdraw_national" method="POST" class="mt-5">
                         
                         <input type="hidden" id="token"
                             name="<?php echo $this->security->get_csrf_token_name(); ?>"
@@ -70,7 +70,6 @@
                                 
                         <div class="mb-3 ciak-data-input d-grid gap-2 ">
                             <button type="submit" class="btn-main-green">Withdraw</button>
-                            <!-- <a href="<?= base_url() ?>withdraw/withdraw_payment" class="btn-main-green">Withdraw</a> -->
                         </div>
                     </form>
                 </div>

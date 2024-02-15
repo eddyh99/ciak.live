@@ -24,12 +24,12 @@
 
                     <input type="hidden" name="currencycode" id="currencycode" value="<?= $_SESSION['withdraw']['currencycode']?>">
                     <input type="hidden" name="usdxamount" id="usdxamount" value="<?= $_SESSION['withdraw']['usdx']?>">
-                    <input type="hidden" name="transfer_type" id="transfer_type" value="circuit">
+                    <input type="hidden" name="transfer_type" id="transfer_type" value="outside">
 
                     <div class="apps-member light w-100 mt-5">
                         <div class="topup-headwithdraw-national d-flex justify-content-center w-auto">
                             <span class="py-3 px-4 w-100 text-center">
-                                <?= $_SESSION['withdraw']['currencycode']?> - National
+                                <?= $withdraw['currencycode']?>
                             </span>
                         </div>
                         <div class="wrap-withdraw-national my-5 p-4">
@@ -39,9 +39,9 @@
                             </div>
 
                             <?php 
-                                $data['type'] = "national";
+                                $data['type'] = "international";
                                 $data['countries_list'] = $countries_list;
-                                $this->load->view('apps/member/wallet/withdraw/currency/' . @$_SESSION['withdraw']['currencycode'], $data)
+                                $this->load->view('apps/member/wallet/withdraw/currency/' . @$withdraw['currencycode'], $data)
                             ?>
                             <div class="withdraw-national-field mb-4">
                                 <label for="causal">Causal</label><br>
