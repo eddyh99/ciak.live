@@ -80,6 +80,26 @@ class Withdraw extends CI_Controller
     public function withdraw_national()
     {        
 
+        $this->form_validation->set_rules('currencycode', 'Currency Code', 'trim|required');
+        $this->form_validation->set_rules('usdx', 'USDX', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('failed', "<p style='color:black'>" . validation_errors() . "</p>");
+            redirect("withdraw");
+            return;
+        }
+    
+        $input              = $this->input;
+        $currencycode       = $this->security->xss_clean($input->post("currencycode") );
+        $usdx               = $this->security->xss_clean($input->post("usdx"));
+
+        $mdata = array(
+            "usdx"          => $usdx,
+            "currencycode"  => $currencycode
+        );
+
+        $this->session->set_userdata('withdraw', $mdata);
+
         $currencyCodeAdd = array(
             "BDT" => "BD",
             "CZK" => "CZ",
@@ -105,11 +125,40 @@ class Withdraw extends CI_Controller
             "ZAR" => "ZA"
         );
 
-        if (@$currencyCodeAdd[$_SESSION['withdraw']['currencycode']] == '') {
+        if (@$currencyCodeAdd[$mdata['currencycode']] == '') {
             $getcodecur = '';
         } else {
-            $getcodecur = apiciaklive(URLAPI . "/v1/member/wallet/getBankCode?country=" . $currencyCodeAdd[$_SESSION['withdraw']['currencycode']])->message->values;
+            $getcodecur = apiciaklive(URLAPI . "/v1/member/wallet/getBankCode?country=" . $currencyCodeAdd[$mdata['currencycode']])->message->values;
         }
+        
+
+        $EURCountry = array(
+            array("name"=>"Austria","code"=>"AT"),
+            array("name"=>"Netherlands (the),","code"=>"NL"),
+            array("name"=>"Belgium","code"=>"BE"),
+            array("name"=>"Bulgaria","code"=>"BG"),
+            array("name"=>"Croatia","code"=>"HR"),
+            array("name"=>"Cyprus","code"=>"CYP"),
+            array("name"=>"Denmark","code"=>"DNK"),
+            array("name"=>"Estonia","code"=>"EST"),
+            array("name"=>"Finland","code"=>"FIN"),
+            array("name"=>"France","code"=>"FRA"),
+            array("name"=>"Germany","code"=>"DEU"),
+            array("name"=>"Hungary","code"=>"HUN"),
+            array("name"=>"Ireland","code"=>"IRL"),
+            array("name"=>"Italy","code"=>"IT"),
+            array("name"=>"Latvia","code"=>"LVA"),
+            array("name"=>"Lithuania","code"=>"LTU"),
+            array("name"=>"Luxembourg","code"=>"LUX"),
+            array("name"=>"Malta","code"=>"MLT"),
+            array("name"=>"Poland","code"=>"POL"),
+            array("name"=>"Portugal","code"=>"PRT"),
+            array("name"=>"Romania","code"=>"ROU"),
+            array("name"=>"Slovenia","code"=>"SVN"),
+            array("name"=>"Slovakia","code"=>"SVK"),
+            array("name"=>"Spain","code"=>"ESP"),
+            array("name"=>"Sweden","code"=>"SWE")
+        );
 
 
         $data = array(
@@ -117,6 +166,8 @@ class Withdraw extends CI_Controller
             'content'       => 'apps/member/wallet/withdraw/app-withdraw-national',
             'mn_wallet'     => 'active',
             'codecur'       => @$getcodecur,
+            'withdraw'      => $mdata,
+            'countryEUR'    => $EURCountry,
             'extra'         => 'apps/member/wallet/withdraw/currency/js/_js_form_currency',
         );
         $this->load->view('apps/template/wrapper-member', $data);
@@ -125,31 +176,6 @@ class Withdraw extends CI_Controller
     public function getbranchCode()
     {
 
-        // $this->form_validation->set_rules('bankCode', 'Bank Code', 'trim|required');
-
-        // if ($this->form_validation->run() == FALSE) {
-        //     header("HTTP/1.1 500 Internal Server Error");
-        //     $error = array(
-        //         "token"     => $this->security->get_csrf_hash(),
-        //         "message"   => validation_errors()
-        //     );
-        //     echo json_encode($error);
-        //     return;
-        // }
-
-                // $url = URLAPI . "/v1/member/wallet/getBranchCode?country=BD&bankcode=" . $bankCode;
-        // $result = apiciaklive($url)->message->values;
-
-        // print_r(json_encode($result));
-        // die;
-
-        
-        // $data['bankCode'] = $result;
-
-        // $response = array(
-        //     "token"     => $this->security->get_csrf_hash(),
-        //     "message"   => utf8_encode($this->load->view('member/wallet/withdraw/currency/js/branchCode', $data, TRUE))
-        // );
 
         $this->form_validation->set_rules('bankCode', 'Bank Code', 'trim|required');
         $this->form_validation->set_rules('trimcurrency', 'Currency Code', 'trim|required');
@@ -220,6 +246,10 @@ class Withdraw extends CI_Controller
             $this->form_validation->set_rules('iban', 'IBAN', 'trim');
             $this->form_validation->set_rules('accountNumber', 'Account Number', 'trim');
             $this->form_validation->set_rules('swiftCode', 'Swift Code', 'trim');
+            $this->form_validation->set_rules('firstLine', 'First Line', 'trim');
+            $this->form_validation->set_rules('postCode', 'Post Code', 'trim');
+            $this->form_validation->set_rules('city', 'City', 'trim');
+            $this->form_validation->set_rules('countryCode', 'Country Code', 'trim');
         }
 
         if($_SESSION['withdraw']['currencycode'] == 'USD'){
@@ -518,6 +548,10 @@ class Withdraw extends CI_Controller
             $temp["iban"]           = $this->security->xss_clean($input->post("iban"));
             $temp["accountNumber"]  = @$this->security->xss_clean($input->post("accountNumber"));
             $temp["swiftCode"]      = @$this->security->xss_clean($input->post("swiftCode"));
+            $temp["firstLine"]      = $this->security->xss_clean($input->post("firstLine"));
+            $temp["postCode"]       = $this->security->xss_clean($input->post("postCode"));
+            $temp["city"]           = $this->security->xss_clean($input->post("city"));
+            $temp["countryCode"]    = $this->security->xss_clean($input->post("countryCode"));
         }
 
         if($_SESSION['withdraw']['currencycode'] == 'USD'){
@@ -774,12 +808,7 @@ class Withdraw extends CI_Controller
             $temp["swiftCode"] = $this->security->xss_clean($input->post("swiftCode"));
         }
 
-
-
-
-
         $inputdata = (object)$temp;
-
 
         // echo "<pre>".print_r($inputdata,true)."</pre>";
         // die;
@@ -822,6 +851,10 @@ class Withdraw extends CI_Controller
             $this->form_validation->set_rules('iban', 'IBAN', 'trim');
             $this->form_validation->set_rules('accountNumber', 'Account Number', 'trim');
             $this->form_validation->set_rules('swiftCode', 'Swift Code', 'trim');
+            $this->form_validation->set_rules('firstLine', 'First Line', 'trim');
+            $this->form_validation->set_rules('postCode', 'Post Code', 'trim');
+            $this->form_validation->set_rules('city', 'City', 'trim');
+            $this->form_validation->set_rules('countryCode', 'Country Code', 'trim');
         }
 
         if($_SESSION['withdraw']['currencycode'] == 'USD'){
@@ -1096,9 +1129,13 @@ class Withdraw extends CI_Controller
 
 
         if($_SESSION['withdraw']['currencycode'] == 'EUR'){
-            $iban = $this->security->xss_clean($input->post("iban"));
-            $accountNumber = $this->security->xss_clean($input->post("accountNumber"));
-            $swiftCode = $this->security->xss_clean($input->post("swiftCode"));
+            $iban           = $this->security->xss_clean($input->post("iban"));
+            $accountNumber  = $this->security->xss_clean($input->post("accountNumber"));
+            $swiftCode      = $this->security->xss_clean($input->post("swiftCode"));
+            $firstLine      = $this->security->xss_clean($input->post("firstLine"));
+            $postCode       = $this->security->xss_clean($input->post("postCode"));
+            $city           = $this->security->xss_clean($input->post("city"));
+            $countryCode    = $this->security->xss_clean($input->post("countryCode"));
 
             $mdata= array (
                 "userid"            => $_SESSION['user_id'],
@@ -1108,9 +1145,13 @@ class Withdraw extends CI_Controller
                 "bank_detail"   => array(
                     "accountHolderName" => $accountHolderName,
                     "IBAN"              => @$iban,
+                    "address.country"           => @$countryCode,
+                    "address.city"              => @$city,
+                    "address.firstLine"         => @$firstLine,
+                    "address.postCode"          => @$postCode,
+                    "causal"            => @$causal,
                     "accountNumber"     => @$accountNumber,
                     "swiftCode"         => @$swiftCode,
-                    "causal"            => @$causal,
                 )
             );
             
@@ -1962,15 +2003,19 @@ class Withdraw extends CI_Controller
         }
 
 
+        echo '<pre>'.print_r($mdata,true).'</pre>';
 
         $result = apiciaklive(URLAPI . "/v1/member/wallet/bankTransfer", json_encode($mdata));
 
+        echo '<pre>'.print_r($result,true).'</pre>';
+        die;
+
         if (@$result->code != 200) {
             if (@$result->code == 5055) {
-                $this->session->set_flashdata("failed", @$result->message[0]->message . '<br>' . @$result->message[1]->message  . '<br>' . @$result->message[2]->message  . '<br>' . @$result->message[3]->message);
+                $this->session->set_flashdata("failed", @$result->message->errors[0]->message . '<br>' . @$result->message->errors[1]->message  . '<br>' . @$result->message->errors[2]->message  . '<br>' . @$result->message->errors[3]->message);
                 redirect(base_url() . "withdraw");
             }
-            $this->session->set_flashdata("failed", @$result->message[0]->message . '<br>' . @$result->message[1]->message  . '<br>' . @$result->message[2]->message  . '<br>' . @$result->message[3]->message);
+            $this->session->set_flashdata("failed", @$result->message->errors[0]->message . '<br>' . @$result->message->errors[1]->message  . '<br>' . @$result->message->errors[2]->message  . '<br>' . @$result->message->errors[3]->message);
             redirect(base_url() . "withdraw");
         }
 
