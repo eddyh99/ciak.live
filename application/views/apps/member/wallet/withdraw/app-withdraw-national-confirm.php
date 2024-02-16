@@ -135,13 +135,13 @@
     
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
                             <span class="left">Amount to Withdraw</span>
-                            <span class="right">XEUR <?= $summary->amount?></span>
+                            <span class="right">USDX <?= $summary->amount?></span>
                         </div>
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
                             <span class="left">Transaction Charges</span>
                             <span class="right">
                                 <?php 
-                                    echo $_SESSION['withdraw']['currencycode']; 
+                                    echo "USDX"; 
                                     echo '&nbsp';
                                     echo $summary->fee; 
                                 ?>
@@ -151,13 +151,13 @@
                             <span class="left">You will receive</span>
                             <span class="right">    
                                 <?php 
-                                    echo $_SESSION['withdraw']['currencycode']; 
+                                    echo "USDX"; 
                                     echo '&nbsp';
                                     echo $summary->amt_trans; 
                                 ?></span>
                         </div>
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
-                            <span class="left">XEUR Balance</span>
+                            <span class="left">New USDX Balance</span>
                             <span class="right">
                                 <?php
                                     $oldbalance = number_format($balance,2);

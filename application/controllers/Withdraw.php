@@ -531,6 +531,8 @@ class Withdraw extends CI_Controller
 
 
         $summary = apiciaklive(URLAPI . "/v1/member/wallet/bankSummary", json_encode($mdata));
+        // echo "<pre>".print_r($summary,true)."</pre>";
+        // die;
         $balance = apiciaklive(URLAPI . "/v1/member/wallet/getBalance?currency=USDX&userid=" . $_SESSION["user_id"])->message->balance;
 
         if (@$summary->code != 200) {
@@ -2003,7 +2005,7 @@ class Withdraw extends CI_Controller
         }
 
 
-        echo '<pre>'.print_r($mdata,true).'</pre>';
+        // echo '<pre>'.print_r($mdata,true).'</pre>';
 
         $result = apiciaklive(URLAPI . "/v1/member/wallet/bankTransfer", json_encode($mdata));
 
@@ -2018,7 +2020,11 @@ class Withdraw extends CI_Controller
             $this->session->set_flashdata("failed", @$result->message->errors[0]->message . '<br>' . @$result->message->errors[1]->message  . '<br>' . @$result->message->errors[2]->message  . '<br>' . @$result->message->errors[3]->message);
             redirect(base_url() . "withdraw");
         }
-
+        
+        redirect (base_url()."withdraw/withdraw_success");
+    }
+    
+    public function withdraw_success(){
         $data = array(
             'title'         => NAMETITLE . ' - Wallet Withdraw',
             'content'       => 'apps/member/wallet/withdraw/app-withdraw-national-notif',
@@ -2026,9 +2032,8 @@ class Withdraw extends CI_Controller
             'extra'         => 'apps/js/js-index',
         );
         $this->load->view('apps/template/wrapper-member', $data);
+
     }
-
-
 
 
     public function to_wallet()

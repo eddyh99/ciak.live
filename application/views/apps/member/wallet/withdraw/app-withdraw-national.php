@@ -24,7 +24,7 @@
 
                     <input type="hidden" name="currencycode" id="currencycode" value="<?= $_SESSION['withdraw']['currencycode']?>">
                     <input type="hidden" name="usdxamount" id="usdxamount" value="<?= $_SESSION['withdraw']['usdx']?>">
-                    <input type="hidden" name="transfer_type" id="transfer_type" value="outside">
+                    <input type="hidden" name="transfer_type" id="transfer_type" value="circuit">
 
                     <div class="apps-member light w-100 mt-5">
                         <div class="topup-headwithdraw-national d-flex justify-content-center w-auto">
@@ -39,7 +39,7 @@
                             </div>
 
                             <?php 
-                                $data['type'] = "international";
+                                $data['type'] = "national";
                                 $data['countries_list'] = $countries_list;
                                 $this->load->view('apps/member/wallet/withdraw/currency/' . @$withdraw['currencycode'], $data)
                             ?>
