@@ -9,9 +9,10 @@ function calculate() {
             data: $("#swapconfirm").serialize(),
             success: function(response) {
                 var data = JSON.parse(response);
+                console.log(data);
                 $("#notifcalculate").hide();
                 $("#btnconfirm").attr("disabled", false);
-                $("#receive").val(data.receive);
+                $("#receive").val(data.receive + 0);
                 $("#amountget").val(data.receive);
                 $("#quoteid").val(data.quoteid);
                 $("#token").val(data.token);
@@ -22,13 +23,13 @@ function calculate() {
                 $("#btnconfirm").attr("disabled", true);
                 $("#txtnotif").html(data.message);
                 $("#receive").val("0.00");
-                $("#amountget").val("0.00");
+                $("#amountget").val("0.000");
                 $("#token").val(data.token);
             }
         });
     } else {
-        $("#receive").val("0.00");
-        $("#amountget").val("0.00");
+        $("#receive").val("0.000");
+        $("#amountget").val("0.000");
     }
 }
 

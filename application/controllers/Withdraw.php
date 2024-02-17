@@ -2009,8 +2009,8 @@ class Withdraw extends CI_Controller
 
         $result = apiciaklive(URLAPI . "/v1/member/wallet/bankTransfer", json_encode($mdata));
 
-        echo '<pre>'.print_r($result,true).'</pre>';
-        die;
+        // echo '<pre>'.print_r($result,true).'</pre>';
+        // die;
 
         if (@$result->code != 200) {
             if (@$result->code == 5055) {

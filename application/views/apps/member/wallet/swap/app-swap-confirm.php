@@ -38,7 +38,7 @@
                             <label for="topup-receive" class="ps-3">You Receive</label>
                             <div class="topup-receive-input d-flex justify-content-between text-end mt-2">
                                 <label for="topup-receive"><?= $symbol?></label>
-                                <input type="text" id="topup-receive" class="money-input text-end w-50" value="<?=number_format($amountget,2)?>" placeholder="0.00" disabled>
+                                <input type="text" id="topup-receive" class="usdx-input text-end w-50" value="<?=number_format($amountget,2)?>" placeholder="0.00" disabled>
                             </div>
                         </div>
                         <div class="my-5">
@@ -49,7 +49,7 @@
                             </div>
                             <div class="topup-receive-input-collapse down d-flex justify-content-between text-end">
                                 <label for="you-receive">To <?= $symbol?></label>
-                                <input type="text" id="you-receive" class="money-input text-end w-50" value="<?=number_format($amountget,2)?>" placeholder="0.00" disabled>
+                                <input type="text" id="you-receive" class="usdx-input text-end w-50" value="<?=number_format($amountget,2)?>" placeholder="0.00" disabled>
                             </div>
                         </div>
                                 

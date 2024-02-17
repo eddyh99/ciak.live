@@ -30,10 +30,10 @@
                     <h3 class="text-head-national-confirm fw-bold">Confirm Transaction</h3>
                     <div class="topup-headwithdraw-national d-flex flex-column justify-content-center align-items-center w-auto mt-3">
                         <span class="fs-6 text-amount">
-                            Amount to Withdraw
+                            Balance
                         </span>
                         <span class="px-4 w-100 fs-3 text-center text-white fw-bold">
-                            <?=number_format($balance,2)?>
+                            <?=number_format($balance,3)?>
                         </span>
                     </div>
                     
@@ -84,14 +84,14 @@
                             <span class="right"><?= $dataWD->accountHolderName?></span>
                         </div>
     
-                        <?php if(
+                        <!-- <?php if(
                             ($_SESSION['withdraw']['currencycode'] == 'EUR')
                         ){?>
                             <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
                                 <span class="left">IBAN</span>
                                 <span class="right"><?= $dataWD->iban?></span>
                             </div>
-                        <?php }?>
+                        <?php }?> -->
 
                         <?php if (
                                     (
@@ -135,7 +135,7 @@
     
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
                             <span class="left">Amount to Withdraw</span>
-                            <span class="right">USDX <?= $summary->amount?></span>
+                            <span class="right">USDX <?=number_format($summary->amount,3)?></span>
                         </div>
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
                             <span class="left">Transaction Charges</span>
@@ -143,17 +143,17 @@
                                 <?php 
                                     echo "USDX"; 
                                     echo '&nbsp';
-                                    echo $summary->fee; 
+                                    echo number_format($summary->fee, 3); 
                                 ?>
                             </span>
                         </div>
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
-                            <span class="left">You will receive</span>
+                            <span class="left">Amount To Be Transferred</span>
                             <span class="right">    
                                 <?php 
                                     echo "USDX"; 
                                     echo '&nbsp';
-                                    echo $summary->amt_trans; 
+                                    echo number_format($summary->amt_trans,3) ; 
                                 ?></span>
                         </div>
                         <div class="d-flex justify-content-between mt-4 withdraw-confirm-info ">
@@ -163,7 +163,7 @@
                                     $oldbalance = number_format($balance,2);
                                     $amountwd = $summary->amount;
                                     $totalbalance = $oldbalance - $amountwd;
-                                    echo $totalbalance;
+                                    echo number_format( $totalbalance, 3);
                                 ?>
                             </span>
                         </div>

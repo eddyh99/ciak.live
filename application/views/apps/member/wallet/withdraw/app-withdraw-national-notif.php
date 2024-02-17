@@ -40,7 +40,7 @@
                         </svg>
                     </div>
                     <div class="mb-5">
-                        <h2 class="text-center">Exchange Successful</h2>
+                        <h2 class="text-center">Withdraw Successful</h2>
                         <!-- <p class="text-center mx-5 px-5">You have successfully initiated the transaction. Amount will reflect in wallet within 1 hour</p> -->
                     </div>
                     <div class="mb-3 ciak-data-input d-grid gap-2 ">
