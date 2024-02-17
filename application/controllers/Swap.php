@@ -161,8 +161,8 @@ class Swap extends CI_Controller
 
         $symbol = apiciaklive(URLAPI . "/v1/member/currency/getByCurrency?currency=" . $target)->message->symbol;
 
-        // print_r($symbol);
-        // die;
+    //    echo '<pre>'.print_r($mdata,true).'</pre>';
+    //    die;
         
         $data = array(
             'title'         => NAMETITLE . ' - Swap',

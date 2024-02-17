@@ -15,7 +15,7 @@
     <label for="accountType">Account Type</label>
     <select name="accountType" id="accountType" class="form-select select-currency-withdraw">>
         <option value="">--Account Type--</option>
-        <option value="SAVING" class="pb-3">Saving</option>
+        <option value="SAVINGS" class="pb-3">Saving</option>
         <option value="CHECKING" class="pb-3">Checking</option>
     </select>
 </div>

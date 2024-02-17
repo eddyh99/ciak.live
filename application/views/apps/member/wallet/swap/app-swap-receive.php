@@ -57,7 +57,7 @@
                             <label for="you-receive" class="ps-3">You Receive</label>
                             <div class="topup-receive-input d-flex justify-content-between text-end mt-2">
                                 <label for="you-receive">USDX </label>
-                                <input type="text" id="receive" class="usdx-input text-end w-100" placeholder="0.00" readonly>
+                                <input type="text" id="receive" class="usdx-input text-end w-100"  readonly>
                             </div>
                         </div>
                                 
