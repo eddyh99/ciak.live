@@ -163,16 +163,16 @@ class Member extends CI_Controller
     
     public function post()
     {
-        $result = ciakadmin(URLAPI . "/v1/member/post/get_singlepost?post_id=435");
+        //$result = ciakadmin(URLAPI . "/v1/member/post/get_singlepost?post_id=435");
         
-        $decodedArticle = base64_decode($result->message->article);
+        //$decodedArticle = base64_decode($result->message->article);
         $data = array(
             "title"     => NAMETITLE . " - Search Post",
             "content"   => "admin/member/post",
             "extra"     => "admin/member/js/js_search",
             "mn_post"   => "active",
-            "post"      => $result->message,
-            "article"   => $decodedArticle
+            //"post"      => $result->message,
+            //"article"   => $decodedArticle
         );
         
         $this->load->view('admin_template/wrapper', $data);

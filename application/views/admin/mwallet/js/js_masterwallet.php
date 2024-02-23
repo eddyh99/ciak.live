@@ -32,12 +32,12 @@ $(document).ready(function() {
 var tblhistory =
     $('#tbl_history').DataTable({
         "order": [
-            [5, 'desc']
+            [4, 'desc']
         ],
         "scrollX": true,
         "responsive": true,
         "ajax": {
-            "url": "<?= base_url() ?>admin/mwallet/get_history",
+            "url": "<?= base_url() ?>godmode/mwallet/get_history",
             "type": "POST",
             "data": function(d) {
                 d.csrf_freedy = $("#token").val();
@@ -48,33 +48,21 @@ var tblhistory =
                 return data["history"];
             },
         },
-        "aoColumnDefs": [{
-            "aTargets": [4],
-            "mRender": function(data, type, row) {
-                return "<?= $_SESSION['symbol']?> " + (parseFloat(row.fee) + parseFloat(row
-                    .referral)).toLocaleString('en', {
-                    minimumFractionDigits: 2
-                })
-            }
-        }],
         "pageLength": 100,
         "columns": [{
                 "data": "ket"
+            },
+            {
+                "data": "amount",
+                render: $.fn.dataTable.render.number(',', '.', 2, '<?= $_SESSION['symbol']?> ')
             },
             {
                 "data": "cost",
                 render: $.fn.dataTable.render.number(',', '.', 2, '<?= $_SESSION['symbol']?> ')
             },
             {
-                "data": "referral",
+                "data": "income",
                 render: $.fn.dataTable.render.number(',', '.', 2, '<?= $_SESSION['symbol']?> ')
-            },
-            {
-                "data": "fee",
-                render: $.fn.dataTable.render.number(',', '.', 2, '<?= $_SESSION['symbol']?> ')
-            },
-            {
-                "data": "fee"
             },
             {
                 "data": "date_created"

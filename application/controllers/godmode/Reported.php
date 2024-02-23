@@ -71,5 +71,17 @@ class Reported extends CI_Controller
             redirect('godmode/reported');
         }
     }    
-    
+
+    public function delpost($id)
+    {
+        $id = $this->security->xss_clean($id);
+        $result = ciakadmin(URLAPI . "/v1/admin/post/delpost?post_id=" . $id);
+        if ($result->code != 200) {
+            $this->session->set_flashdata("failed", $result->message);
+            redirect('godmode/reported');
+        } else {
+            $this->session->set_flashdata("success", $result->message);
+            redirect('godmode/reported');
+        }
+    }    
 }

@@ -56,7 +56,7 @@ class Mwallet extends CI_Controller
             "currency"  => $_SESSION["currency"],
             "timezone"  => $_SESSION["time_location"]
         );
-        $result = apitrackless(URLAPI . "/v1/admin/wallet/gethistory_bycurrency", json_encode($mdata));
+        $result = ciakadmin(URLAPI . "/v1/admin/mwallet/gethistory_bycurrency", json_encode($mdata));
         $data["token"] = $this->security->get_csrf_hash();
         $data["history"] = $result->message;
         echo json_encode($data);

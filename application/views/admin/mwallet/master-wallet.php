@@ -20,10 +20,9 @@
                         <thead class="table-ciak">
                             <tr>
                                 <th>Description</th>
-                                <th>Trackless Cost</th>
-                                <th>Referral Comission</th>
-                                <th><?= NAMETITLE ?> Cost</th>
-                                <th>Income</th>
+                                <th>Amount</th>
+                                <th>Management Cost</th>
+                                <th>Ciak Cost</th>
                                 <th>Date</th>
                             </tr>
                         </thead>

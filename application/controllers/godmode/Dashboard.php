@@ -13,7 +13,7 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
-        $currency = ["XEUR","USDX","EUR", "USD", "AUD","CAD","GBP"];
+        $currency = ["USDX","EUR", "USD", "AUD","CAD","GBP"];
         
         $ciak = ciakadmin(URLAPI . "/v1/admin/mwallet/get_ciakBalance")->message;
 

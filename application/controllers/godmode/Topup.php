@@ -75,7 +75,7 @@ class Topup extends CI_Controller
 				fclose($handle);
 			} else {
 				$this->session->set_flashdata("error", "Wrong file format");
-				redirect("godmode/operations/ciaktopup");
+				redirect("godmode/topup");
 				return;
 			}
 		}
@@ -84,12 +84,12 @@ class Topup extends CI_Controller
 		$result = ciakadmin(URLAPI . "/v1/trackless/operations/topup", json_encode($mdata));
 		if ($result->code != 200) {
 			$this->session->set_flashdata('failed', $result->message);
-			redirect("godmode/operations/ciaktopup");
+			redirect("godmode/topup");
 			return;
 		}
 
 		$this->session->set_flashdata('success', $result->message);
-		redirect("godmode/operations/ciaktopup");
+		redirect("godmode/topup");
 		return;
 	}
 }
