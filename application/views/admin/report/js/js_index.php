@@ -56,7 +56,7 @@ var tblactive =
             },
         },
         order: [
-            [0, 'asc']
+            [3, 'desc']
         ],
         "pageLength": 100,
         "aoColumnDefs": [{
@@ -86,7 +86,15 @@ var tblactive =
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Preview Report (${full.category})</h5>
+                                            <div>
+                                                <h5 class="modal-title" id="exampleModalLabel">Preview Report (${full.category})</h5>
+                                                ${full.status == 'active' ? 
+                                                    '<a href="<?= base_url() ?>godmode/reported/post_lock/' +full.id_post +'" title="Lock Post" class="m-1 btn btn-danger btn-sm"><i class="fa-solid fa-lock"></i></a>' 
+                                                    : '<a href="<?= base_url() ?>godmode/reported/unlockpost/' +full.id_post +'" title="Unlock Post" class="m-1 btn btn-danger btn-sm"><i class="fa-solid fa-lock-open"></i></a> ' 
+                                                }
+                                                <a href="<?= base_url() ?>godmode/reported/delpost/${full.id_post}" title="Delete Post" class="m-1 btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                                <a href="<?= base_url() ?>godmode/reported/dismisspost/${full.id_post}" title="Dismiss Report" class="m-1 btn btn-warning btn-sm">Dismiss Report</a>
+                                            </div>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -238,12 +246,12 @@ var tblactive =
                                 `;
 
 
-                if (full.status == 'active') {
-                    button = button +'<a href="<?= base_url() ?>godmode/reported/post_lock/' +full.id_post +'" title="Lock Post" class="m-1 btn btn-danger btn-sm"><i class="fa-solid fa-lock"></i></a> ';
-                }else if (full.status=='deleted'){
-                    button = button +'<a href="<?= base_url() ?>godmode/reported/unlockpost/' +full.id_post +'" title="Unlock Post" class="m-1 btn btn-danger btn-sm"><i class="fa-solid fa-lock-open"></i></a> ';
-                }
-                button = button+'<a href="<?= base_url() ?>godmode/reported/delpost/' + full.id_post +'" title="Delete Post" class="m-1 btn btn-dark btn-sm"><i class="fa-solid fa-xmark"></i></a> ';
+                // if (full.status == 'active') {
+                //     button = button +'<a href="<?= base_url() ?>godmode/reported/post_lock/' +full.id_post +'" title="Lock Post" class="m-1 btn btn-danger btn-sm"><i class="fa-solid fa-lock"></i></a> ';
+                // }else if (full.status=='deleted'){
+                //     button = button +'<a href="<?= base_url() ?>godmode/reported/unlockpost/' +full.id_post +'" title="Unlock Post" class="m-1 btn btn-danger btn-sm"><i class="fa-solid fa-lock-open"></i></a> ';
+                // }
+                // button = button+'<a href="<?= base_url() ?>godmode/reported/delpost/' + full.id_post +'" title="Delete Post" class="m-1 btn btn-dark btn-sm"><i class="fa-solid fa-xmark"></i></a> ';
                 return button;
             }
         }],
