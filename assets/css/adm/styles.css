@@ -5425,7 +5425,8 @@ fieldset:disabled .btn {
 
 .card.fee .card-header,
 .card.cost .card-header,
-.card.sendemail .card-header{
+.card.sendemail .card-header,
+.card.mwallet .card-header{
   padding: 0.5rem 1rem;
   margin-bottom: 0;
   background-color: #03B115;
@@ -5435,7 +5436,8 @@ fieldset:disabled .btn {
 
 .card.fee .card-body,
 .card.cost .card-body,
-.card.sendemail .card-body {
+.card.sendemail .card-body,
+.card.mwallet .card-body {
   background-color: #212121;
 }
 
@@ -13022,6 +13024,10 @@ body.explicit {
   color: #ffffff;
 }
 
+.dataTables_wrapper .dataTables_filter input {
+  color: #fff !important;
+}
+
 table.dataTable tbody tr {
   color: #ffffff;
   background-color: #1A1B1C;
@@ -13209,6 +13215,7 @@ table.dataTable tbody tr:hover{
   border-radius: 3px;
   padding: 5px;
   background-color: transparent;
+  color: #fff;
 }
 
 .paginate_button.current {

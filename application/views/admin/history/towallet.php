@@ -5,7 +5,7 @@
     <main>
         <div class="container-fluid px-4">
             <?php $this->load->view("admin/header"); ?>
-            <div class="col-12 card mb-5">
+            <div class="col-12 card mwallet mb-5">
                 <div class="card-header fw-bold">
                     <i class="fas fa-list me-1"></i>
                     Transactions
