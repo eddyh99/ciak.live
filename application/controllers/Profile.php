@@ -143,6 +143,11 @@ class Profile extends CI_Controller
             redirect("profile");
         }
 		$profile                 = (array) apiciaklive(URLAPI . "/auth/getmember_byucode?ucode=".$ucode)->message;
+
+        if(empty($profile['id'])){
+            show_404();
+        }
+
         $profile["is_follow"]    = apiciaklive(URLAPI . "/v1/member/profile/is_follow?follow_id=".$profile["id"])->message;
         $profile["is_block"]     = apiciaklive(URLAPI . "/v1/member/profile/is_block?block_id=".$profile["id"])->message;
         $profile["is_blocked"]   = apiciaklive(URLAPI . "/v1/member/profile/is_blocked?block_id=".$profile["id"])->message;
@@ -640,8 +645,11 @@ class Profile extends CI_Controller
             $url        = URLAPI . "/auth/get_singlepost?post_id=".$id;
         }
 	    $result     = apiciaklive($url)->message;
-        // echo "<pre>".print_r($result,true)."</pre>";
-        // die;
+
+        if(empty($result->id)){
+            show_404();
+        }
+
         $data = array(
             'title'         => NAMETITLE . ' - '.$result->username." Post",
             'content'       => 'apps/member/app-single-posts',

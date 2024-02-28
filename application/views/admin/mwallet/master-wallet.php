@@ -9,7 +9,7 @@
                 <a href="<?= base_url() ?>admin/mwallet/withdraw"
                     class="btn btn-green-ciak fw-bold px-5 py-3">Withdraw</a>
             </div>
-            <div class="col-12 card mb-5">
+            <div class="col-12 card mwallet mb-5">
                 <div class="card-header fw-bold">
                     <i class="fas fa-list me-1"></i>
                     Transactions
