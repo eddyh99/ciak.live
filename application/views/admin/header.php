@@ -7,14 +7,14 @@
         <?php } else {?>
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    <h4 class="fw-bold text-white"><?= $_SESSION["symbol"] ?> <?= number_format(balanceadmin($_SESSION["currency"]),2) ?></h4>
-                    <span class="text-blue-freedy fw-bold">( Balance )</span>
-                </div>
-                <div class="d-flex flex-column justify-content-center align-items-center">
                     <?php if ($_SESSION["role"]=="super admin"){?>
                     <h4 class="fw-bold text-white"><?= $_SESSION["symbol"] ?> <?= number_format(@$_SESSION["tcbalance"]->amount,2) ?></h4>
                     <span class="text-success fw-bold">( Management Balance )</span>
                     <?php } ?>
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h4 class="fw-bold text-white"><?= $_SESSION["symbol"] ?> <?= number_format(balanceadmin($_SESSION["currency"]),2) ?></h4>
+                    <span class="text-blue-freedy fw-bold">( Balance )</span>
                 </div>
             </div>
         <?php } ?>

@@ -8,7 +8,7 @@ $("#notifcalculate").hide();
 function calculate() {
     if ($("#amount").val().replace(/,/g, '') > 0) {
         $.ajax({
-            url: "<?= base_url() ?>admin/swap/swapcalculate",
+            url: "<?= base_url() ?>admin/swap/ ",
             method: "post",
             data: $("#swapconfirm").serialize(),
             success: function(response) {

@@ -2627,6 +2627,17 @@ textarea.form-control-lg {
   color: #ffffff;
 }
 
+.form-select.category-swap{
+  background-color: #00040B;
+  color: #ffffff;
+  border: 1px solid #50970f;
+  border-radius: 99999px;
+  -webkit-border-radius: 99999px;
+  -moz-border-radius: 99999px;
+  -ms-border-radius: 99999px;
+  -o-border-radius: 99999px;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   .form-select,
@@ -13237,7 +13248,7 @@ table.dataTable tbody tr:hover{
   background: none !important;
   border: 1px solid rgba(0, 0, 0, 0) !important;
 }
-
+/* 
 .swap-selection select {
   background: #FFFFFF;
   border: 2px solid #0F4E97;
@@ -13251,26 +13262,28 @@ table.dataTable tbody tr:hover{
 
   width: 100%;
   height: 50px;
-}
+} */
 
 .swap-form-icon {
-  background: #FFFFFF;
-  border: 2px solid #0F4E97;
+  background: #000000;
+  border: 2px solid #50970f;
   border-radius: 20px;
 }
 
 .swap-form-icon label,
 .swap-form-icon input {
+  outline: none;
   border: 0;
   box-shadow: 0;
   padding: .5rem 2rem;
-  background: #FFFFFF;
+  background: #000000;
   border-radius: 20px;
   margin-bottom: 0;
+  color: #ffffff;
 }
 
-.swap-form-icon input[readonly] {
-  background: #FFFFFF !important;
+.swap-form-icon input:focus {
+  box-shadow: none;
 }
 
 .f-hahmlet {

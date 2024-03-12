@@ -115,7 +115,7 @@
                         </div>
                         <div class="mb-3">
                             <a href="<?= base_url() ?>admin/mwallet/withdraw" class="btn btn-freedy-white px-4 py-2 me-2 shadow-none">Cancel</a>
-                            <button class="btn btn-freedy-green px-4 py-2 mx-2 shadow-none" id="btnconfirm">Confirm</button>
+                            <button class="btn btn-green-ciak px-4 py-2 mx-2 shadow-none" id="btnconfirm">Confirm</button>
                         </div>
                     </form>
                 </div>

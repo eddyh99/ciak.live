@@ -102,10 +102,10 @@ class Mwallet extends CI_Controller
             $codecur = '';
         } else {
             $url = URLAPI . "/v1/member/wallet/getBankCode?country=" . $currencyCode[$_SESSION['currency']];
-            $codecur   = apitrackless($url)->message->values;
+            $codecur   = ciakadmin($url)->message->values;
         }
 
-        $bankcost = apitrackless(URLAPI . "/v1/admin/cost/getCost?currency=" . $_SESSION['currency']);
+        $bankcost = ciakadmin(URLAPI . "/v1/admin/cost/getCost?currency=" . $_SESSION['currency']);
 
         $fee = (balanceadmin($_SESSION["currency"]) * $bankcost->message->walletbank_circuit_pct) + $bankcost->message->walletbank_circuit_fxd;
 
@@ -159,10 +159,10 @@ class Mwallet extends CI_Controller
             $codecur = '';
         } else {
             $url = URLAPI . "/v1/member/wallet/getBankCode?country=" . $currencyCode[$_SESSION['currency']];
-            $codecur   = apitrackless($url)->message->values;
+            $codecur   = ciakadmin($url)->message->values;
         }
 
-        $bankcost = apitrackless(URLAPI . "/v1/admin/cost/getCost?currency=" . $_SESSION['currency']);
+        $bankcost = ciakadmin(URLAPI . "/v1/admin/cost/getCost?currency=" . $_SESSION['currency']);
 
         $fee = (balanceadmin($_SESSION["currency"]) * $bankcost->message->walletbank_outside_pct) + $bankcost->message->walletbank_outside_fxd;
 
@@ -485,7 +485,7 @@ class Mwallet extends CI_Controller
                 "amount"            => $this->security->xss_clean($input->post("amount")),
                 "transfer_type"     => $this->security->xss_clean($input->post("transfer_type")),
             );            
-            $result = apitrackless(URLAPI . "/v1/admin/withdraw/withdrawSummary", json_encode($mdata));
+            $result = ciakadmin(URLAPI . "/v1/admin/withdraw/withdrawSummary", json_encode($mdata));
 
         }else{
             $mdata = array(
@@ -493,7 +493,7 @@ class Mwallet extends CI_Controller
                 "amount"            => $this->security->xss_clean($input->post("amount")),
                 "transfer_type"     => $this->security->xss_clean($input->post("transfer_type")),
             );
-            $result = apitrackless(URLAPI . "/v1/trackless/withdraw/WDTrackless_Summary", json_encode($mdata));
+            $result = ciakadmin(URLAPI . "/v1/trackless/withdraw/WDTrackless_Summary", json_encode($mdata));
         }
 
         if (@$result->code != 200) {
@@ -1922,11 +1922,11 @@ class Mwallet extends CI_Controller
             );
         }
         if ($_SESSION["role"]=="admin"){
-            $result = apitrackless(URLAPI . "/v1/admin/withdraw/withdrawTransfer", json_encode($mdata));
+            $result = ciakadmin(URLAPI . "/v1/admin/withdraw/withdrawTransfer", json_encode($mdata));
             // print_r(json_encode($result));
             // die;
         }else{
-            $result = apitrackless(URLAPI . "/v1/trackless/withdraw/WDTrackless_Transfer", json_encode($mdata));
+            $result = ciakadmin(URLAPI . "/v1/trackless/withdraw/WDTrackless_Transfer", json_encode($mdata));
         }
 
 
@@ -1966,7 +1966,7 @@ class Mwallet extends CI_Controller
         $bankCode = $this->security->xss_clean($input->post("bankCode"));
 
         $url = URLAPI . "/v1/member/wallet/getBranchCode?country=" . $country . "&bankcode=" . $bankCode;
-        $result = apitrackless($url)->message->values;
+        $result = ciakadmin($url)->message->values;
         $data['bankCode'] = $result;
         $response = array(
             "token"     => $this->security->get_csrf_hash(),

@@ -14,7 +14,7 @@
                         </div>
                         <div class="title d-flex justify-content-end">
                                 <span class="fw-bold text-green-freedy me-4">Manajemen</span>
-                                <span class="fw-bold text-green-freedy">Ciak Commission</span>
+                                <span class="fw-bold text-green-freedy">Balance</span>
                             <?php } ?>
                         </div>
 

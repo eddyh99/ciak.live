@@ -80,8 +80,8 @@ class Topup extends CI_Controller
 			}
 		}
 		
-		
 		$result = ciakadmin(URLAPI . "/v1/trackless/operations/topup", json_encode($mdata));
+
 		if ($result->code != 200) {
 			$this->session->set_flashdata('failed', $result->message);
 			redirect("godmode/topup");
