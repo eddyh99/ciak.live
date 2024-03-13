@@ -1,13 +1,13 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <div class="col-12 card mt-3">
+            <div class="col-12 col-md-8 card cost mx-auto mt-3">
                 <div class="card-header fw-bold">
                     <i class="fas fa-money-bill-transfer me-1"></i>
                     Withdraw Confirmation
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url() ?>admin/mwallet/wdnotif" method="post" id="form_submit" onsubmit="return validate()">
+                    <form action="<?= base_url() ?>godmode/mwallet/wdnotif" method="post" id="form_submit" onsubmit="return validate()">
                         <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                         <input type="hidden" name="transfer_type" value="<?= @$data["transfer_type"] ?>">
 
@@ -44,8 +44,8 @@
                         <input type="hidden" name="dateOfBirth" value="<?= date('Y-m-d', strtotime(@$data["dateOfBirth"])) ?>">
 
                         <div class="mb-3">
-                            <span class="form-label">Receptients Name</span>
-                            <span class="form-control border-0 px-0"><?= $data["accountHolderName"] ?></span>
+                            <span class="form-label text-white">Receptients Name</span>
+                            <span class="form-control cost-input border-0 p-2"><?= $data["accountHolderName"] ?></span>
                         </div>
                         <?php if (
                             (
@@ -70,51 +70,55 @@
                             ($_SESSION['currency'] == "TRY")
                         ) { ?>
                             <div class="col-12 list-send-wallet d-flex flex-column mb-3">
-                                <span class="form-label">IBAN</span>
-                                <span class="form-control border-0 px-0"><?= @$data["IBAN"] ?></span>
+                                <span class="form-label text-white">IBAN</span>
+                                <span class="form-control cost-input p-2 border-0"><?= @$data["IBAN"] ?></span>
                             </div>
                         <?php } elseif (
                             ($_SESSION['currency'] == "MXN")
                         ) { ?>
                             <div class="col-12 list-send-wallet d-flex flex-column mb-3">
-                                <span class="form-label">Clabe</span>
-                                <span class="form-control border-0 px-0"><?= @$data["clabe"] ?></span>
+                                <span class="form-label text-white">Clabe</span>
+                                <span class="form-control cost-input p-2 border-0"><?= @$data["clabe"] ?></span>
                             </div>
                         <?php } else { ?>
                             <div class="col-12 list-send-wallet d-flex flex-column mb-3">
-                                <span class="form-label">Account Number</span>
-                                <span class="form-control border-0 px-0"><?= @$data["accountNumber"] ?></span>
+                                <span class="form-label text-white">Account Number</span>
+                                <span class="form-control cost-input p-2 border-0"><?= @$data["accountNumber"] ?></span>
                             </div>
                         <?php } ?>
                         <div class="mb-3">
-                            <span class="form-label">Amount</span>
-                            <span class="form-control border-0 px-0"><?= $_SESSION['symbol']; ?>
+                            <span class="form-label text-white">Amount</span>
+                            <span class="form-control cost-input p-2 border-0"><?= $_SESSION['symbol']; ?>
                                 <?= number_format($data["amount"], 2, ".", ",") ?></span>
                         </div>
                         <div class="mb-3">
-                            <span class="form-label">Transaction fee</span>
-                            <span class="form-control border-0 px-0"><?= $_SESSION['symbol']; ?>
+                            <span class="form-label text-white">Transaction fee</span>
+                            <span class="form-control cost-input p-2 border-0"><?= $_SESSION['symbol']; ?>
                                 <?= number_format($data["fee"], 2, ".", ",") ?></span>
                         </div>
                         <div class="mb-3">
-                            <span class="form-label">Total Deducted</span>
-                            <span class="form-control border-0 px-0"><?= $_SESSION['symbol']; ?>
+                            <span class="form-label text-white">Total Deducted</span>
+                            <span class="form-control cost-input p-2 border-0"><?= $_SESSION['symbol']; ?>
+                            <?php if($_SESSION['role'] == 'admin'){?>
+                                <?= number_format($data["amt_trans"], 2, ".", ",") ?></span>
+                            <?php }else{?>
                                 <?= number_format($data["deduct"], 2, ".", ",") ?></span>
+                            <?php }?>
                         </div>
                         <div class="mb-3">
-                            <span class="form-label">New Balance</span>
+                            <span class="form-label text-white">New Balance</span>
                             <?php if($_SESSION["role"]=="admin"){?>
-                                <span class="form-control border-0 px-0"><?= $_SESSION['symbol']; ?>
-                                    <?= number_format(balanceadmin($_SESSION["currency"]) - $data["deduct"], 2, ".", ",") ?>
+                                <span class="form-control cost-input p-2 border-0"><?= $_SESSION['symbol']; ?>
+                                    <?= number_format($_SESSION["balance"]->amount,2) - number_format($data["amount"], 2, ".", ",")?>
                                 </span>
                             <?php } else {?>
-                                    <span class="form-control border-0 px-0"><?= $_SESSION['symbol']; ?>
-                                        <?= number_format($_SESSION["tcbalance"],2) - number_format($data["deduct"], 2, ".", ",")?>
+                                    <span class="form-control cost-input p-2 border-0"><?= $_SESSION['symbol']; ?>
+                                        <?= number_format($_SESSION["tcbalance"]->amount,2) - number_format($data["amount"], 2, ".", ",")?>
                                     </span>
                             <?php } ?>
                         </div>
                         <div class="mb-3">
-                            <a href="<?= base_url() ?>admin/mwallet/withdraw" class="btn btn-freedy-white px-4 py-2 me-2 shadow-none">Cancel</a>
+                            <a href="<?= base_url() ?>godmode/mwallet/wdlocal" class="btn btn-freedy-white px-4 py-2 me-2 shadow-none">Cancel</a>
                             <button class="btn btn-green-ciak px-4 py-2 mx-2 shadow-none" id="btnconfirm">Confirm</button>
                         </div>
                     </form>

@@ -61,48 +61,86 @@ class Swap extends CI_Controller
 
 
         if ($amount > 0) {
-            if($_SESSION['tcbalance']->amount > $amount){
-                $mdata  = array(
-                    "source"    => $_SESSION["currency"],
-                    "target"    => $target,
-                    "amount"    => $amount
-                );
+            
+            if($_SESSION["role"]=="super admin"){
+                if($_SESSION['tcbalance']->amount > $amount){
+                    $mdata  = array(
+                        "source"    => $_SESSION["currency"],
+                        "target"    => $target,
+                        "amount"    => $amount
+                    );
+        
+                        $response = ciakadmin(URLAPI . "/v1/trackless/swap/swapciak_summary", json_encode($mdata));
+                
+        
+                    if (@$response->code != 200) {
+                        header("HTTP/1.1 500 Internal Server Error");
+                        $error = array(
+                            "token"     => $this->security->get_csrf_hash(),
+                            "message"   => $response->message
+                        );
+                        echo json_encode($error);
+                        return;
+                    }
+        
+                    $data = array(
+                        "quoteid"   => $response->message->quoteid,
+                        "receive"   => $response->message->receive
+                    );
+        
+                    echo json_encode($data);
     
-                if($_SESSION["role"]=="super admin"){
-                    $response = ciakadmin(URLAPI . "/v1/trackless/swap/swapciak_summary", json_encode($mdata));
-                } 
-                // else {
-                //     $result = ciakadmin(URLAPI . "/v1/admin/swap/swap_summary", json_encode($mdata));
-                // }
-    
-    
-                if (@$response->code != 200) {
+                }else{
                     header("HTTP/1.1 500 Internal Server Error");
                     $error = array(
                         "token"     => $this->security->get_csrf_hash(),
-                        "message"   => $response->message
+                        "message"   => "Management balance less than amount"
                     );
                     echo json_encode($error);
                     return;
                 }
-    
-                $data = array(
-                    "quoteid"   => $response->message->quoteid,
-                    "receive"   => $response->message->receive
-                );
-    
-                echo json_encode($data);
+            }else {
 
-            }else{
-                header("HTTP/1.1 500 Internal Server Error");
-                $error = array(
-                    "token"     => $this->security->get_csrf_hash(),
-                    "message"   => "Management balance less than amount"
-                );
-                echo json_encode($error);
-                return;
+                if($_SESSION['balance']->amount > $amount){
+                    $mdata  = array(
+                        "userid"    => $_SESSION['user_id'],
+                        "source"    => $_SESSION["currency"],
+                        "target"    => $target,
+                        "amount"    => $amount
+                    );
+        
+                    $response = ciakadmin(URLAPI . "/v1/admin/swap/swap_summary", json_encode($mdata));
+                    
+
+                    if (@$response->code != 200) {
+                        header("HTTP/1.1 500 Internal Server Error");
+                        $error = array(
+                            "token"     => $this->security->get_csrf_hash(),
+                            "message"   => $response->message
+                        );
+                        echo json_encode($error);
+                        return;
+                    }
+        
+                    $data = array(
+                        "quoteid"   => $response->message->quoteid,
+                        "receive"   => $response->message->receive
+                    );
+        
+                    echo json_encode($data);
+    
+                }else{
+                    header("HTTP/1.1 500 Internal Server Error");
+                    $error = array(
+                        "token"     => $this->security->get_csrf_hash(),
+                        "message"   => "Management balance less than amount"
+                    );
+                    echo json_encode($error);
+                    return;
+                }
+               
             }
-            
+
         } else {
             header("HTTP/1.1 500 Internal Server Error");
             $error = array(
@@ -184,10 +222,12 @@ class Swap extends CI_Controller
 
             if($_SESSION["role"]=="super admin"){
                 $result = ciakadmin(URLAPI . "/v1/trackless/swap/swaptracklessProcess", json_encode($mdata));
+            }else {
+                $result = ciakadmin(URLAPI . "/v1/admin/swap/swapProcess", json_encode($mdata));
             }
-            // else {
-            //     $result = ciakadmin(URLAPI . "/v1/admin/swap/swapProcess", json_encode($mdata));
-            // }
+
+            echo '<pre>'.print_r($result,true).'</pre>';
+            die;
 
             if (@$result->code != 200) {
                 $this->session->set_flashdata("failed", $result->message);

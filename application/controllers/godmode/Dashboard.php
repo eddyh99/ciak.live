@@ -45,6 +45,8 @@ class Dashboard extends CI_Controller
             array_push($mifbalance,$temp);
         }
 
+        // echo '<pre>'.print_r($_SESSION,true).'</pre>';
+        // die;
 
         $data = array(
             "title"     => NAMETITLE . " - Admin Dashboard",
