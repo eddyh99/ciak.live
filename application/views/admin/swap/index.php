@@ -25,7 +25,8 @@
 
                         <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>"
                             value="<?php echo $this->security->get_csrf_hash(); ?>">
-                        <input type="hidden" id="amountget" name="amountget">
+
+                            <input type="hidden" id="amountget" name="amountget">
                         <input type="hidden" id="quoteid" name="quoteid">
                         <div class="swap-form-icon d-flex flex-row align-items-center my-4">
                             <label for=""><?= $_SESSION["symbol"] ?></label>
@@ -37,22 +38,22 @@
                             <div class="col-12 col-sm-4">
                                 <span class="t-select">Convert to</span>
                                 <select name="toswap" id="toswap" class="form-select category-swap">
-                                    <?php if ($_SESSION["currency"] != "USD") { ?>
+                                    <!-- <?php if ($_SESSION["currency"] != "USD") { ?>
                                         <option data-currency="&dollar;" value="USD">USD</option>
                                     <?php } ?>
                                     <?php if ($_SESSION["currency"] != "EUR") { ?>
                                         <option data-currency="&euro;" value="EUR">EUR</option>
-                                    <?php } ?>
-                                    <?php foreach ($currency as $dt) {
-                                        if ($dt->status == 'active') {
-                                            if (($dt->currency != "USD") && ($dt->currency != "EUR") && ($_SESSION["currency"] != $dt->currency)) {
+                                    <?php } ?> -->
+                                    
+                                    
+                                    <?php 
+                                        foreach($currency as $dt){
+                                            if($_SESSION['currency'] != $dt && $dt != 'USDX'){
                                     ?>
-                                    <option data-currency="<?= $dt->symbol ?>" value="<?= $dt->currency ?>"
-                                        <?php echo ($_SESSION["currency"] == $dt->currency) ? "selected" : "" ?>>
-                                        <?= $dt->currency ?></option>
-                                    <?php       }
+                                        <option data-currency="<?= $dt?>" value="<?= $dt?>"><?= $dt?></option>
+                                    <?php 
                                         }
-                                    }
+                                            }
                                     ?>
                                 </select>
                             </div>
@@ -65,8 +66,7 @@
                         </div>
                         <div class="row">
                             <div class="d-flex flex-row mt-4">
-                                <button class="btn btn-green-ciak px-4 py-2 mx-auto shadow-none" type="submit"
-                                    id="btnconfirm">Confirm</button>
+                                <button class="btn btn-green-ciak px-4 py-2 mx-auto shadow-none disabled" type="submit" id="btnconfirm">Confirm</button>
                             </div>
                         </div>
                     </form>

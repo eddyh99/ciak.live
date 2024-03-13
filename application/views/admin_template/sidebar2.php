@@ -26,10 +26,12 @@
                             <a class="nav-link" href="<?= base_url() ?>godmode/transactions/tobank">Wallet to Bank</a>
                         </nav>
                     </div>
+                    <?php if($_SESSION['role'] == 'super admin'){?>
                     <a class="nav-link <?= @$mn_swap ?>" href="<?= base_url() ?>godmode/swap">
                         <div class="sb-nav-link-icon"><i class="fas fa-right-left"></i></div>
                         Swap
                     </a>
+                    <?php }?>
                     <a class="nav-link" href="<?= base_url() ?>auth/logout">
                         <div class="sb-nav-link-icon"><i class="fas fa-sign-out"></i></div>
                         Logout

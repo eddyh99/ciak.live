@@ -18,15 +18,17 @@ class Swap extends CI_Controller
             "userid" => $_SESSION["user_id"]
         );
 
-        echo '<pre>'.print_r($_SESSION,true).'</pre>';
+        // echo '<pre>'.print_r($_SESSION,true).'</pre>';
+        // die;
 
-        $url = URLAPI . "/v1/trackless/currency/getAllCurrency";
-        $result  = apitrackless($url, json_encode($mdata))->message;
+        $all_curr  = allcurrency();
+
 
         $mdata = array(
             "title"     => NAMETITLE." - Swap",
             "content"   => "admin/swap/index",
             "mn_swap"   => "active",
+            'currency'  => $all_curr,
             "extra"     => "admin/swap/js/js_index"
         );
 
@@ -57,38 +59,50 @@ class Swap extends CI_Controller
         $target        = $this->security->xss_clean($input->post("toswap"));
         $amount        = $this->security->xss_clean($input->post("amount"));
 
-        if ($amount > 0) {
-            $mdata  = array(
-                "source"    => $_SESSION["currency"],
-                "target"    => $target,
-                "amount"    => $amount
-            );
 
-            if($_SESSION["role"]=="super admin"){
-                $result = ciakadmin(URLAPI . "/v1/trackless/swap/swaptrackless_summary", json_encode($mdata));
-                // print_r(json_encode($result));
-                // die;
-            } else {
-                $result = ciakadmin(URLAPI . "/v1/admin/swap/swap_summary", json_encode($mdata));
-                // print_r(json_encode($result));
-                // die;
-            }
-            if (@$result->code != 200) {
+        if ($amount > 0) {
+            if($_SESSION['tcbalance']->amount > $amount){
+                $mdata  = array(
+                    "source"    => $_SESSION["currency"],
+                    "target"    => $target,
+                    "amount"    => $amount
+                );
+    
+                if($_SESSION["role"]=="super admin"){
+                    $response = ciakadmin(URLAPI . "/v1/trackless/swap/swapciak_summary", json_encode($mdata));
+                } 
+                // else {
+                //     $result = ciakadmin(URLAPI . "/v1/admin/swap/swap_summary", json_encode($mdata));
+                // }
+    
+    
+                if (@$response->code != 200) {
+                    header("HTTP/1.1 500 Internal Server Error");
+                    $error = array(
+                        "token"     => $this->security->get_csrf_hash(),
+                        "message"   => $response->message
+                    );
+                    echo json_encode($error);
+                    return;
+                }
+    
+                $data = array(
+                    "quoteid"   => $response->message->quoteid,
+                    "receive"   => $response->message->receive
+                );
+    
+                echo json_encode($data);
+
+            }else{
                 header("HTTP/1.1 500 Internal Server Error");
                 $error = array(
                     "token"     => $this->security->get_csrf_hash(),
-                    "message"   => $result->message
+                    "message"   => "Management balance less than amount"
                 );
                 echo json_encode($error);
                 return;
             }
-
-            $data = array(
-                "quoteid"   => $result->message->quoteid,
-                "token"     => $this->security->get_csrf_hash(),
-                "receive"   => $result->message->receive
-            );
-            echo json_encode($data);
+            
         } else {
             header("HTTP/1.1 500 Internal Server Error");
             $error = array(
@@ -124,16 +138,18 @@ class Swap extends CI_Controller
             "amount"    => $this->security->xss_clean($input->post("amount")),
             "quoteid"   => $this->security->xss_clean($input->post("quoteid")),
             "amountget" => $this->security->xss_clean($input->post("amountget")),
-            "symbol"    => ciakadmin(URLAPI . "/v1/trackless/currency/getsymbol?currency=" . $target)->message
+            // "symbol"    => ciakadmin(URLAPI . "/v1/trackless/currency/getsymbol?currency=" . $target)->message
         );
 
+        // echo '<pre>'.print_r($_SESSION,true).'</pre>';
+        // die;
 
 
         $data = array(
-            "title"     => NAMETITLE . " - Swap",
+            "title"     => NAMETITLE . " - Swap Confirm",
             "content"   => "admin/swap/swap-confirm",
             "mn_swap"    => "active",
-            "extra"     => "admin/swap/js/js_swap",
+            "extra"     => "admin/swap/js/js_index",
             "data"     => $data,
         );
 
@@ -165,30 +181,25 @@ class Swap extends CI_Controller
                 "quoteid"   => $quoteid,
             );
 
+
             if($_SESSION["role"]=="super admin"){
                 $result = ciakadmin(URLAPI . "/v1/trackless/swap/swaptracklessProcess", json_encode($mdata));
-
-            }else {
-                $result = ciakadmin(URLAPI . "/v1/admin/swap/swapProcess", json_encode($mdata));
             }
+            // else {
+            //     $result = ciakadmin(URLAPI . "/v1/admin/swap/swapProcess", json_encode($mdata));
+            // }
 
             if (@$result->code != 200) {
                 $this->session->set_flashdata("failed", $result->message);
                 redirect('godmode/swap');
             }
 
-            $datatc = array(
-                "amount"    => $amount,
-                "amountget" => $result->message->receive,
-                // "symbol"    => ciakadmin(URLAPI . "/v1/admin/currency/getsymbol?currency=" . $target)->message
-            );
 
             $data = array(
                 "title"     => NAMETITLE . " - Swap",
                 "content"   => "admin/swap/swap-notif",
-                "mn_swap"    => "active",
-                "extra"     => "admin/swap/js/js_swap",
-                "data"     => $datatc,
+                "mn_swap"   => "active",
+                "extra"     => "admin/swap/js/js_index",
             );
 
             $this->load->view('admin_template/wrapper2', $data);

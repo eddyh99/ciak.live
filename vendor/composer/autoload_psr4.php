@@ -8,12 +8,15 @@ $baseDir = dirname($vendorDir);
 return array(
     'phpseclib3\\' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'gimucco\\TikTokLoginKit\\' => array($vendorDir . '/gimucco/tiktok-loginkit/src'),
+    'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
     'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
+    'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
     'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'Maestroerror\\' => array($vendorDir . '/maestroerror/php-heic-to-jpg/src'),
     'Instagram\\' => array($vendorDir . '/jstolpe/instagram-graph-api-php-sdk/src/Instagram'),
     'Hybridauth\\' => array($vendorDir . '/hybridauth/hybridauth/src'),
@@ -25,4 +28,5 @@ return array(
     'Google\\' => array($vendorDir . '/google/apiclient/src'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'Facebook\\' => array($vendorDir . '/facebook/graph-sdk/src/Facebook'),
+    'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
 );

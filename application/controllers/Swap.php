@@ -94,11 +94,9 @@ class Swap extends CI_Controller
                 "amount"    => $amount,
                 "userid"    => $_SESSION["user_id"]
             );
-            // echo "<pre>".print_r($mdata,true)."</pre>";
+
             
             $result = apiciaklive(URLAPI . "/v1/member/swap/getSummary", json_encode($mdata));
-            // echo "<pre>".print_r($result,true)."</pre>";
-            // die;
 
 
             if (@$result->code != 200) {
