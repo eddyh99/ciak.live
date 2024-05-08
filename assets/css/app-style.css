@@ -500,9 +500,9 @@
     text-align: center;
 }
 
-.apps-container.auth .apps-body .apps-auth .logo img {
+/* .apps-container.auth .apps-body .apps-auth .logo img {
     height: 100px;
-}
+} */
 
 .apps-container.auth .apps-body .apps-auth .logo span {
     display: block;
@@ -516,7 +516,7 @@
 .apps-container.auth .apps-body .apps-auth .logo h3 {
     font-weight: 500;
     font-size: 27px;
-    color: #03B115;
+    color: #016247;
     margin-bottom: 0;
 }
 
@@ -606,17 +606,17 @@
     line-height: 16px;
     text-align: center;
 
-    box-shadow: 0px 4px 7px rgba(69, 146, 218, 0.25);
-    border: 2px solid #03B115;
+    box-shadow: 0px 4px 7px rgba(0, 93, 20, 0.25);
+    border: 2px solid #016247;
     background: transparent;
-    color: #03B115;
+    color: #016247;
 }
 
 .apps-container.auth .apps-body .apps-auth .apps-list-btn a.btn-ciak-o,
 .apps-container.auth .apps-body .apps-auth .apps-list-btn button.btn-ciak-o {
     color: #FFF;
-    border: 2px solid #03B115;
-    background: #03B115;
+    border: 2px solid #016247;
+    background: #016247;
 }
 
 .apps-container.auth .apps-body .apps-auth .apps-list-btn a.btn-ciak-o.bg-gardien,
@@ -693,7 +693,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-    color: #03B115;
+    color: #016247;
 }
 
 .apps-container.auth .apps-body .apps-auth .formbox-grey {
@@ -3420,9 +3420,9 @@ label#label-forsubs {
         height: 25px;
     }
 
-    .apps-container.auth .apps-body .apps-auth .logo img {
+    /* .apps-container.auth .apps-body .apps-auth .logo img {
         height: 150px;
-    }
+    } */
 
     .apps-container.auth .apps-body .apps-auth .apps-list-btn a,
     .apps-container.auth .apps-body .apps-auth .apps-list-btn button {

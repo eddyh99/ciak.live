@@ -60,6 +60,16 @@ class Link extends CI_Controller
         $this->load->view('landingpage/template/wrapper', $data);
     }
 
+    public function referral()
+    {
+        $data = [
+            'title' => NAMETITLE,
+            'content' => 'landingpage/referral',
+            'extra' => 'landingpage/js/js_index',
+        ];
+        $this->load->view('landingpage/template/wrapper', $data);
+    }
+
 
     public function privacy_police()
     {
