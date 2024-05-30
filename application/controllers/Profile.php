@@ -60,8 +60,8 @@ class Profile extends CI_Controller
 
 
         // echo "<pre>".print_r($result,true)."</pre>";
+        // print_r(json_encode($result));
 		// die;
-        // print_r(json_encode($post));
         
         $data = array(
             'title'         => NAMETITLE . ' - Profile',
@@ -144,6 +144,7 @@ class Profile extends CI_Controller
         }
 		$profile                 = (array) apiciaklive(URLAPI . "/auth/getmember_byucode?ucode=".$ucode)->message;
 
+
         if(empty($profile['id'])){
             show_404();
         }
@@ -155,7 +156,6 @@ class Profile extends CI_Controller
         $profile["price"]        = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$profile["id"])->message;
         $post = apiciaklive(URLAPI . "/v1/member/post/get_memberpost?ucode=".$ucode."&page=1")->message;
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost?ucode=".$ucode);
-
 
     
 	    // echo "<pre>".print_r($profile,true)."</pre>";
@@ -301,6 +301,7 @@ class Profile extends CI_Controller
 
     public function saveprofile(){
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
+        $this->form_validation->set_rules('bio', 'Bio', 'trim|required|maxlength[300]');
 
         if ($this->form_validation->run() == FALSE) {
 			redirect("profle/setting_profile");

@@ -21,7 +21,7 @@
                     <div class="alert-notif d-flex justify-content-between px-4 px-lg-0">
                         <div class="action-icon">
                             <a id="discard-post" href="<?= base_url()?>homepage" class="text-primary">
-                                Delete
+                                Discard
                             </a>
                         </div>
                         <div class="action">
@@ -52,13 +52,7 @@
                                     <!-- Hidden Icon -->
                                     <div class="position-absolute hidden-icon" style="z-index: 9999" id="hidden-iconpost">
                                         <div class="d-flex flex-column gap-3 ">
-                                            <!--<div>-->
-                                            <!--    <a href="" data-bs-toggle="modal" data-bs-target="#postModal" >-->
-                                            <!--        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-                                            <!--            <path d="M3.33334 13.3335L7.155 9.51183C7.46755 9.19938 7.8914 9.02385 8.33334 9.02385C8.77528 9.02385 9.19912 9.19938 9.51167 9.51183L13.3333 13.3335M11.6667 11.6668L12.9883 10.3452C13.3009 10.0327 13.7247 9.85719 14.1667 9.85719C14.6086 9.85719 15.0325 10.0327 15.345 10.3452L16.6667 11.6668M11.6667 6.66683H11.675M5 16.6668H15C15.442 16.6668 15.866 16.4912 16.1785 16.1787C16.4911 15.8661 16.6667 15.4422 16.6667 15.0002V5.00016C16.6667 4.55814 16.4911 4.13421 16.1785 3.82165C15.866 3.50909 15.442 3.3335 15 3.3335H5C4.55798 3.3335 4.13405 3.50909 3.82149 3.82165C3.50893 4.13421 3.33334 4.55814 3.33334 5.00016V15.0002C3.33334 15.4422 3.50893 15.8661 3.82149 16.1787C4.13405 16.4912 4.55798 16.6668 5 16.6668Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>-->
-                                            <!--        </svg>-->
-                                            <!--    </a>-->
-                                            <!--</div>-->
+
                                             <div>
                                                 <label for="upload_image" class="icon-upload-video">
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,8 +88,6 @@
 
                             </div>
                             <div class="write-posting ps-3 pt-2 w-100">
-                                <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100">
-                                <textarea id="textarea-post"></textarea>
                                 <h4 id="header-preview-text">Preview Attachment</h4>
                                 <div id="attch-preview-post"></div>
                                 <div id="img-preview-post" class="img-preview-post">
@@ -111,6 +103,8 @@
                                         </button>
                                     </div>
                                 </div>
+                                <input type="text" id="title-optional-post" class="title-optional-post" placeholder="Title (optional)" maxlength="100">
+                                <textarea id="textarea-post" class="mb-5 pb-5"></textarea>
                                 
                                 
                                 <!-- <?php if(!empty($stitch)){?>
@@ -203,8 +197,8 @@
                             <input type="hidden" name="content_type" value="<?= $_GET['type']?>">
                             <div class="row live-schedule-settings d-flex align-items-start">
                                 <div class="col-6 wrap-live-top d-block">
-                                    <div class="d-flex align-items-center">
-                                        <label class="pe-3 span-text-toogle-explicit">Starting Time</label>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <label class="pe-3 span-text-toogle-explicit ">Starting Time</label><br>
                                         <select id="time" name="time" class="form-select select-posting-type" required>
                                             <option value="now">Now</option>
                                             <option value="schedule">Schedule</option>
@@ -212,8 +206,8 @@
                                     </div>
                                     <input type="text" id="schedule" name="schedule" class="form-control my-3" placeholder="Select your schedule" autocomplete="off">
                                 </div>
-                                <div class="col-6 d-flex align-items-center">
-                                    <label class="pe-3 span-text-toogle-explicit">Selection</label>
+                                <div class="col-6 d-flex flex-column align-items-start">
+                                    <label class="pe-3 span-text-toogle-explicit">Selection</label> <br>
                                     <select id="selection" name="selection" class="form-select select-posting-type" required>
                                         <option value="public">Public</option>
                                         <option value="follower">Follower</option>
@@ -221,10 +215,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="my-3 row live-price-minute">
+                            <div class=" my-5 row live-price-minute">
                                 <div class="col-6 wrap-live-price-minute">
-                                    <div class="d-flex align-items-center">
-                                        <label class="pe-3 span-text-toogle-explicit">Price/minute</label>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <label class="pe-3 span-text-toogle-explicit">Price/minute</label><br>
                                         <select id="pilih_price" name="pilih_price" class="form-select select-posting-type" required>
                                             <option value="free">Free</option>
                                             <option value="ticket">Ticket</option>
@@ -253,11 +247,12 @@
                             </div>
                             <div class="row live-description mb-3">
                                 <div class="col-10 wrap-live-description d-flex">
-                                    <input type="text" class="form-control"  name="deskripsi" id="deskripsi" placeholder="Description" maxlength="150" required>
+                                    <textarea class="form-control" name="deskripsi"  rows="6" id="deskripsi" placeholder="Description...." maxlength="150" required></textarea>
+                                    <!-- <input type="text" class="form-control"  name="deskripsi" id="deskripsi" placeholder="Description" maxlength="150" required> -->
                                 </div>
-                                <label class="span-text-toogle-explicit">Max 150</label>
+                                <!-- <label class="span-text-toogle-explicit">Max 150</label> -->
                             </div>
-                            <div class="col-4">
+                            <div class="col-4 mx-auto d-flex justify-content-center">
                                 <button type="submit" class="text-white btn-publish px-3 py-2">Submit</button>
                             </div>
                         </form>
@@ -271,13 +266,14 @@
                             <input type="hidden" id="guestcam" name="guestcam">
                             <div class="row live-description mb-3">
                                 <div class="col-10 wrap-live-description">
-                                    <input type="text" class="form-control" name="deskripsi" id="descam" placeholder="Description" maxlength="150" required>
+                                    <textarea class="form-control" name="deskripsi" id="deskripsi" placeholder="Description...." rows="6" maxlength="150" required></textarea>
+                                    <!-- <input type="text" class="form-control" name="deskripsi" id="deskripsi" placeholder="Description" maxlength="150" required> -->
                                 </div>
-                                <label class="span-text-toogle-explicit">Max 150</label>
+                                <!-- <label class="span-text-toogle-explicit">Max 150</label> -->
                             </div>
                             <div class="live-price-minute">
-                                <div class="d-flex align-items-center wrap-live-price-minute col-12 col-md-4">
-                                    <label class="pe-3 span-text-toogle-explicit">Price/minute</label>
+                                <div class="d-flex flex-column align-items-start wrap-live-price-minute col-12 col-md-4">
+                                    <label class="pe-3 span-text-toogle-explicit" style="font-size: 12px;">Price/minute</label>
                                     <input type="text" class="form-control money-input" name="priceshow" id="pricecam" placeholder="price">
                                 </div>
                             </div>
@@ -289,7 +285,7 @@
                                 <h5 id="username-preview-cam2cam-guest" class="my-auto"></h5>
                                 <i id="check-preview-cam2cam-guest" class="fas fs-3 ms-3 text-success me-auto"></i>
                             </div>
-                            <div class="col-3 mt-3">
+                            <div class="col-3 mt-3 mx-auto d-flex justify-content-center">
                                 <button class="btn-publish text-white px-3 py-2">Submit</button>
                             </div>
                         </form>
@@ -305,12 +301,13 @@
                             </div>
                             <div class="row live-description mb-3">
                                 <div class="col-10 wrap-live-description">
-                                    <input type="text" class="form-control" name="deskripsi" id="descam" placeholder="Description" maxlength="150" required>
+                                    <!-- <input type="text" class="form-control" name="deskripsi" id="descam" placeholder="Description" maxlength="150" required> -->
+                                    <textarea class="form-control" name="deskripsi" id="descam" placeholder="Description...." rows="6" maxlength="150" required></textarea>
                                 </div>
-                                <label class="span-text-toogle-explicit">Max 150</label>
+                                <!-- <label class="span-text-toogle-explicit">Max 150</label> -->
                             </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <label class="pe-3 span-text-toogle-explicit">Type Meeting</label>
+                            <div class="d-flex flex-column align-items-start my-5">
+                                <label class="pe-3 span-text-toogle-explicit">Public & Private</label>
                                 <select name="meetingtype" class="form-select select-posting-type">
                                     <option value="public">Public</option>
                                     <option value="private">Private</option>
@@ -337,7 +334,7 @@
                                     <i id="check-preview-meeting-guest" class="fas fs-3 ms-3 text-success me-auto"></i>
                                 </div> -->
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 mx-auto d-flex justify-content-center">
                                 <button class="btn-publish text-white px-3 py-2">Submit</button>
                             </div>
                         </form>

@@ -567,9 +567,9 @@ $(function() {
 8. Rating Profile Start
 ------------------------------------------------------------*/
 $(".my-rating").starRating({
-    strokeColor: '#894A00',
+    strokeColor: '#FDC80B',
     strokeWidth: 10,
-    starSize: 25,
+    starSize: 16,
     readOnly:true
 });
 /*----------------------------------------------------------

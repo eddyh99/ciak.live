@@ -303,6 +303,13 @@ function actionLike(post) {
 /*----------------------------------------------------------
 6. Rating Postingan Start
 ------------------------------------------------------------*/ 
+$(".my-rating").starRating({
+    strokeColor: '#FDC80B',
+    strokeWidth: 10,
+    starSize: 16,
+    readOnly:true
+});
+
 function actionStar(post, star) {
      $.ajax({
         url: "<?=base_url()?>profile/giverating",
@@ -404,9 +411,17 @@ function actionFollow(user, ucode) {
             if (data.success==true){
                 if ($("#user" + user).val() == 'Unfollow') {
                     $("#user" + user).val('Follow');
+                    $("#iconuser1").removeClass('fa-user-slash');
+                    $("#iconuser1").addClass('fa-user-plus');
+                    $("#labeluser1").removeClass('btn-main-green-outline');
+                    $("#labeluser1").addClass('btn-main-green');
                     $("#user" + user).removeClass('active');
                 } else {
                     $("#user" + user).val('Unfollow');
+                    $("#iconuser1").removeClass('fa-user-plus');
+                    $("#iconuser1").addClass('fa-user-slash');
+                    $("#labeluser1").removeClass('btn-main-green');
+                    $("#labeluser1").addClass('btn-main-green-outline');
                     $("#user" + user).addClass('active');
                 }
             }
