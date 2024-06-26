@@ -8,10 +8,11 @@
             <div class="profile mb-4">
                 <div class="d-flex flex-row position-relative user">
                     <div class="d-flex align-items-center">
-                        <a class="icon-profile shareit me-auto ms-2" style="cursor:pointer" onclick="setClipboard('<?=base_url()?>profile/user/<?=$_SESSION['ucode']?>')">
-                            <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <a class="icon-profile me-auto" style="cursor:pointer" onclick="setClipboard('<?=base_url()?>profile/user/<?=$_SESSION['ucode']?>')">
+                            <!-- <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.59 12.51L13.42 16.49M13.41 5.51L6.59 9.49M19 4C19 5.65685 17.6569 7 16 7C14.3431 7 13 5.65685 13 4C13 2.34315 14.3431 1 16 1C17.6569 1 19 2.34315 19 4ZM7 11C7 12.6569 5.65685 14 4 14C2.34315 14 1 12.6569 1 11C1 9.34315 2.34315 8 4 8C5.65685 8 7 9.34315 7 11ZM19 18C19 19.6569 17.6569 21 16 21C14.3431 21 13 19.6569 13 18C13 16.3431 14.3431 15 16 15C17.6569 15 19 16.3431 19 18Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
+                            </svg> -->
+                            <img src="<?= base_url()?>assets/img/new-ciak/shareprofile.png" class="img-fluid ms-2" alt="">
                         </a>
                         <!-- <a class="link pt-2 px-3" style="z-index: 999;">
                             <span class="mode-toggle">
@@ -31,34 +32,53 @@
                         </svg>
                     </a> -->
     
-                    <a href="<?= base_url() ?>auth/logout" id="logout" class="icon-profile logout ms-auto me-2 me-md-3 me-lg-2 me-xl-3">
-                        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.6667 15.7083L19.875 10.5M19.875 10.5L14.6667 5.29166M19.875 10.5H7.375M10.5 15.7083C10.5 16.0162 10.5 16.1702 10.4886 16.3035C10.3696 17.6895 9.34881 18.83 7.98441 19.1013C7.85315 19.1274 7.70002 19.1444 7.39412 19.1784L6.33015 19.2966C4.73175 19.4742 3.93251 19.563 3.29757 19.3599C2.45097 19.0889 1.75981 18.4703 1.39706 17.6588C1.125 17.0502 1.125 16.2461 1.125 14.6378V6.36218C1.125 4.75391 1.125 3.94978 1.39706 3.34116C1.75981 2.52966 2.45097 1.91104 3.29757 1.64013C3.93251 1.43694 4.73172 1.52574 6.33015 1.70334L7.39411 1.82156C7.70013 1.85556 7.85313 1.87256 7.98441 1.89867C9.34881 2.16995 10.3696 3.31045 10.4886 4.69646C10.5 4.82982 10.5 4.98377 10.5 5.29166" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <a href="<?= base_url() ?>auth/logout" id="logout" class="icon-profile ms-auto">
+                        <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_3559_9661)">
+                            <path d="M25.8499 22.0499C25.9249 22.0499 25.9249 22.1249 25.8499 22.1999L25.0999 23.4749C25.0249 23.5499 24.9499 23.5499 24.8749 23.5499L23.9749 23.2499C23.7499 23.3999 23.5999 23.4749 23.3749 23.6249L23.2249 24.5999C23.2249 24.6749 23.1499 24.7499 23.0749 24.7499H21.5749C21.4999 24.7499 21.4249 24.6749 21.3499 24.5999L21.1999 23.6249C20.9749 23.5499 20.7499 23.3999 20.5999 23.2499L19.6999 23.6249C19.6249 23.6249 19.5499 23.6249 19.4749 23.5499L18.7249 22.2749C18.6499 22.1999 18.7249 22.1249 18.7999 22.0499L19.6249 21.4499V20.6999L18.7999 20.0999C18.7249 20.0249 18.7249 19.9499 18.7249 19.8749L19.4749 18.5999C19.5499 18.5249 19.6249 18.5249 19.6999 18.5249L20.5999 18.8999C20.8249 18.7499 20.9749 18.6749 21.1999 18.5249L21.3499 17.5499C21.3499 17.4749 21.4249 17.3999 21.5749 17.3999H23.0749C23.1499 17.3999 23.2249 17.4749 23.2249 17.5499L23.3749 18.5249C23.5999 18.5999 23.8249 18.7499 24.0499 18.8999L24.9499 18.5249C25.0249 18.5249 25.1749 18.5249 25.1749 18.5999L25.9249 19.8749C25.9999 19.9499 25.9249 20.0249 25.8499 20.0999L25.0249 20.6999V21.4499L25.8499 22.0499ZM23.3749 20.9999C23.3749 20.3999 22.8499 19.8749 22.2499 19.8749C21.6499 19.8749 21.1249 20.3999 21.1249 20.9999C21.1249 21.5999 21.6499 22.1249 22.2499 22.1249C22.8499 22.1249 23.3749 21.5999 23.3749 20.9999Z" fill="white"/>
+                            <path d="M12.5 13.5C12.5 11.4375 14.1875 9.75 16.25 9.75C18.3125 9.75 20 11.4375 20 13.5C20 15.5625 18.3125 17.25 16.25 17.25C14.1875 17.25 12.5 15.5625 12.5 13.5ZM19.0625 24.75H8.75V22.875C8.75 20.8125 12.125 19.125 16.25 19.125C16.7188 19.125 17.0938 19.125 17.5625 19.2188C17.2812 19.7812 17.1875 20.3438 17.1875 21C17.1875 22.5 17.9375 23.9062 19.0625 24.75Z" fill="white"/>
+                            </g>
+                            <circle cx="17.5" cy="18.25" r="16.5" stroke="#016247" stroke-width="2"/>
+                            <defs>
+                            <clipPath id="clip0_3559_9661">
+                            <rect width="18" height="18" fill="white" transform="translate(8 6.75)"/>
+                            </clipPath>
+                            </defs>
                         </svg>
+
                     </a>
-                    <div class="pt-3 px-2 position-relative icon-posting">
+                    <a onclick="" style="cursor:pointer" class="icon-profile"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasguestmenu" aria-controls="offcanvasBottom">
+                    <svg width="33" height="34" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="8.75" y="10.6069" width="15.5" height="2.21429" rx="1.10714" fill="white" fill-opacity="0.96"/>
+<rect x="8.75" y="16.1431" width="15.5" height="2.21429" rx="1.10714" fill="white" fill-opacity="0.96"/>
+<rect x="8.75" y="21.6787" width="15.5" height="2.21429" rx="1.10714" fill="white" fill-opacity="0.96"/>
+<circle cx="16.5" cy="17.25" r="15.5" stroke="#016247" stroke-width="2"/>
+</svg>
+
+                    </a>
+                    <!-- <div class="pt-3 px-2 position-relative icon-posting">
                         <a class="position-relative me-2 me-md-3 me-lg-2 me-xl-3 pt-1 d-block" id="toggle-iconpost" data-bs-toggle="offcanvas" href="#additionalProfile" role="button" aria-controls="additionalProfile">
                             <i class="fas fa-ellipsis-v fs-3"></i>
                         </a>
-                        <!-- <a href="<?= base_url() ?>auth/logout" id="logout" class="icon-profile logout ms-auto me-2 me-md-3 me-lg-2 me-xl-3">
+                        <a href="<?= base_url() ?>auth/logout" id="logout" class="icon-profile logout ms-auto me-2 me-md-3 me-lg-2 me-xl-3">
                             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14.6667 15.7083L19.875 10.5M19.875 10.5L14.6667 5.29166M19.875 10.5H7.375M10.5 15.7083C10.5 16.0162 10.5 16.1702 10.4886 16.3035C10.3696 17.6895 9.34881 18.83 7.98441 19.1013C7.85315 19.1274 7.70002 19.1444 7.39412 19.1784L6.33015 19.2966C4.73175 19.4742 3.93251 19.563 3.29757 19.3599C2.45097 19.0889 1.75981 18.4703 1.39706 17.6588C1.125 17.0502 1.125 16.2461 1.125 14.6378V6.36218C1.125 4.75391 1.125 3.94978 1.39706 3.34116C1.75981 2.52966 2.45097 1.91104 3.29757 1.64013C3.93251 1.43694 4.73172 1.52574 6.33015 1.70334L7.39411 1.82156C7.70013 1.85556 7.85313 1.87256 7.98441 1.89867C9.34881 2.16995 10.3696 3.31045 10.4886 4.69646C10.5 4.82982 10.5 4.98377 10.5 5.29166" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                        </a> -->
+                        </a>
                         <div class="offcanvas offcanvas-end profile" tabindex="-1" id="additionalProfile" aria-labelledby="additinalProfileLabel">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title profile" id="additinalProfileLabel"></h5>
-                                <button type="button" class="btn-close text-white fs-4" data-bs-dismiss="offcanvas" aria-label="Close">
-                                    X
+                                <button type="button" class="btn-close btn-close-white fs-4" data-bs-dismiss="offcanvas" aria-label="Close">
+                                    
                                 </button>
                             </div>
-                            <div class="offcanvas-body">
+                            <div class="offcanvas-body p-0">
                                 <div class="rowcanvas-profile">
                                     <a class="content-canvas" href="">Live Lists</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="info-profile mx-3">

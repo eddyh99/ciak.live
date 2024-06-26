@@ -124,7 +124,7 @@
             </div>
 
             <div class="col-12 content-wallet mt-5">
-                <div class="col-10 text-center m-auto guides box-important">
+                <div class="col-10 text-start m-auto guides box-important">
                     <p class="fw-semibold">
                         IMPORTANT<br>
                         GIVING THE ACCESS TO THE AGENCY, THE AGENCY WILL BE NOT ABLE TO  MANAGE YOUR WALLET AND YOUR LIVE ACTIONS <br>
@@ -175,7 +175,7 @@
             <div class="col-12 content-wallet">
                 <div class="col-10 text-start m-auto guides post">
                     <ol>
-                        <li>To create the new post click the button <span class="px-3"><img src="<?= base_url()?>assets/img/new-ciak/logo-only-noborder.png" height="50" alt="plus"></span> on the navigation bar</li>
+                        <li>To create the new post click the button <span class="px-3"><img src="<?= base_url()?>assets/img/new-ciak/logo-only-noborder.png" height="40" alt="plus"></span> on the navigation bar</li>
                         <li>Make a description of your post and upload the file</li>
                         <li class="pt-2">Choose in which section you want to post :</li>
                     </ol>

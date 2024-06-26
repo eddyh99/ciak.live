@@ -42,7 +42,7 @@
     --bg-auth-primary-color: #00040B;
     --bg-auth-secondary-color: #1A1B1C;
     --bg-auth-input: rgba(255, 255, 255, 0.56);
-    --input-search-homepage: #000000;
+    --input-search-homepage: #323436;
     --nonactive-botbar: rgba(255, 255, 255, 0.5);
     --editsub-editprof:#017A59;
     --nonactive-navlink-profile: #c0c0c0;
@@ -632,9 +632,14 @@
 
 .apps-container.auth .apps-body .apps-auth .apps-list-btn a.btn-ciak-o.bg-gardien,
 .apps-container.auth .apps-body .apps-auth .apps-list-btn button.btn-ciak-o.bg-gardien {
-    color: #000;
+    color: #ffffff;
     border: none;
-    background: linear-gradient(90deg, #03B115 47.56%, #00cf15 102.84%);
+    background: linear-gradient(90deg, #016247 47.56%, #016247 102.84%);
+    border-radius: 999999px;
+    -webkit-border-radius: 999999px;
+    -moz-border-radius: 999999px;
+    -ms-border-radius: 999999px;
+    -o-border-radius: 999999px;
 }
 
 .apps-container.auth .apps-body .apps-auth .form-login label {
@@ -714,12 +719,13 @@
 }
 
 .apps-container.auth .apps-body .apps-auth .formbox-grey label {
-    color: #000;
+    color: #FFFFFF;
 }
 
 .apps-container.auth .apps-body .apps-auth .form-icon-left {
     padding: .5rem .5rem;
     background: var(--bg-primary-color);
+    border: 2px solid #016247;
 }
 
 .apps-container.auth .apps-body .apps-auth .form-icon-left span,
@@ -950,13 +956,13 @@ input[type=number] {
     padding: 1rem;
     background: var(--bg-primary-color);
     box-shadow: inset 0px 1px 0px #323436;
-    border-radius: 20px 20px 0px 0px;
+    /* border-radius: 20px 20px 0px 0px; */
     border-top: 1px solid #5C5C5C;
-    -webkit-border-radius: 20px 20px 0px 0px;
+    /* -webkit-border-radius: 20px 20px 0px 0px;
     -moz-border-radius: 20px 20px 0px 0px;
     -ms-border-radius: 20px 20px 0px 0px;
-    -o-border-radius: 20px 20px 0px 0px;
-}
+    -o-border-radius: 20px 20px 0px 0px; */
+} 
 
 .apps-botbar .apps-member .icon-svg {
     height: 45px;
@@ -1219,7 +1225,7 @@ input[type=number] {
     margin: .5rem auto;
     text-align: center;
 
-    background: linear-gradient(90deg, #6B9E75 47.56%, #6B9E75 102.84%);
+    background: linear-gradient(90deg, #016247 47.56%, #016247 102.84%);
     border-radius: 5px;
     border: none;
 
@@ -1271,9 +1277,10 @@ input[type=number] {
 }
 
 .apps-member .posts-member .post-member .post-header .post-profile img.picture {
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
     object-fit: cover;
+    border: 3px solid #017A59;
 }
 
 .apps-member .posts-member .post-member .post-header .post-profile span.name {
@@ -1899,7 +1906,7 @@ input[type=number] {
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
-    overflow: hidden;      
+    /* overflow: hidden;       */
 }
 
 .apps-member .app-notif .list-notif .massage .info.detail-message {
@@ -2063,7 +2070,7 @@ input[type=number] {
     border-radius: 5px;
 }
 
-.apps-member .action-profile a {
+.apps-member .action-profile #edit-profile {
     flex: 1;
     text-decoration: none;
     padding: .5rem 0;
@@ -2077,7 +2084,7 @@ input[type=number] {
     color: #ffffff;
 }
 
-.apps-member .action-profile a:hover {
+.apps-member .action-profile #edit-profile:hover {
     border: 3px solid #016247;
     color: #ffffff;
     background-color: var(--hover-editsub-editprof);
@@ -2156,8 +2163,8 @@ input[type=number] {
 
 .apps-member .profile .user .img-profile .img,
 .apps-member .profile .user .img-profile .img img {
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
 }
 
 .apps-member .profile .user .img-profile .img div {
@@ -2246,10 +2253,13 @@ input[type=number] {
 
 
 .apps-member .profile a.icon-profile.shareit {
-
     background-color: #000000;
-    border: 1px solid #6B9E75;
+    border: 3px solid #6B9E75;
     border-radius: 32px;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    -ms-border-radius: 32px;
+    -o-border-radius: 32px;
 }
 
 .apps-member .profile a.icon-profile.logout {
@@ -2610,11 +2620,11 @@ input[type=number] {
 
 .action-guest-subs .btn-guest-subs {
     padding: 5px 10px;
-    background: linear-gradient(#017A59, #017A59) padding-box,
+    background: linear-gradient(#016247, #016247) padding-box,
     linear-gradient(to right, #016247, #016247) border-box;
     border-radius: 99999px;
     border: 3px solid transparent;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .apps-member .text-guest-note {
@@ -2953,6 +2963,33 @@ input[type=number] {
 }
 
 
+.apps-member .guestsubscribe .title {
+    color: #C4C4C4;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.apps-member .guestsubscribe .boxguest-subscribe {
+    background: #232323;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+}
+
+.apps-member .guestsubscribe .boxguest-subscribe ul li {
+    display: inline-block;
+    background-image: url(../img/new-ciak/logo-only.png);
+    background-position: top left;
+    background-position-y: 5px;
+    background-repeat: no-repeat;
+    background-size: auto 25px;
+    padding-left: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--text-subheader);
+}
 
 .tab-post {
     overflow: hidden;
@@ -3826,7 +3863,7 @@ body.dark .apps-container.auth .apps-body .apps-auth.apps-bg-login {
 }
 
 .offcanvas.profile { 
-    background-color: var(--bg-primary-color) !important;
+    background-color: var(--bg-navbar-color) !important;
 }
 
 .offcanvas .offcanvas-header .offcanvas-title.profile {
@@ -3834,16 +3871,37 @@ body.dark .apps-container.auth .apps-body .apps-auth.apps-bg-login {
 }
 
 .offcanvas .offcanvas-body .rowcanvas-profile {
-    background-color: var(--input-search-homepage);
     padding: 10px 10px;
-    border-radius: 4px;
     margin-bottom: 8px;
+    border-top: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
 }
 
 .offcanvas .offcanvas-body .rowcanvas-profile .content-canvas {
     color: var(--text-white-color);
     text-decoration: none;
     width: 100%;
+}
+
+#offcanvasguestmenu {
+    background-color: #000000; 
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #FFFFFF;
+    border-radius: 24px 24px 0px 0px !important;
+}
+
+#offcanvasguestmenu .offcanvas-body .list{
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 18px;
+    border-bottom: 1px solid white;
+    padding: 1rem;
+}
+
+#offcanvasguestmenu .offcanvas-body .list.block{
+    color: #FF0000;
 }
 
 .ewa-embed-footer {

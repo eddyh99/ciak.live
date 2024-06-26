@@ -187,3 +187,46 @@
         <a href="#" id="unblock_user" class="btn-main-green rounded-pill px-4 mt-4">Confirm</a>
     </div>
 </div>
+
+
+<div 
+    class="offcanvas offcanvas-bottom popup-bottom rounded-top" 
+    style=" 
+    " 
+    tabindex="-1" 
+    id="offcanvasguestmenu"
+    aria-labelledby="offcanvasBottomLabel"
+>
+    <div class="offcanvas-header">
+        <button type="button" class="ms-auto btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body small text-center pb-5">
+        <a href="" class="list">
+            Add to list
+        </a>
+        <a href="<?= base_url()?>profile/guest_note/<?=$profile["ucode"]?>" class="list">
+            Add note
+        </a>
+        <a href="<?=base_url()?>message/message_detail/<?=$profile["ucode"]?>" class="list">
+            Send Message
+        </a>
+        <?php if (!$profile["is_block"] && !$profile["is_blocked"]){
+            if ($profile["ucode"]!='rqzqkqx'){
+        ?>
+            <a  onclick="eventpopup('<?=$profile['id']?>')"  class="list block"  data-bs-toggle="offcanvas" data-bs-target="#blockeduser" aria-controls="offcanvasBottom">
+                Block User
+            </a>
+        <?php 
+                }
+            } else {
+        ?>
+            <a  onclick="eventpopup('<?=$profile['id']?>')"  class="list block"  data-bs-toggle="offcanvas" data-bs-target="#unblockuser" aria-controls="offcanvasBottom">
+                Unblock User
+            </a>
+        <?php 
+                }
+            
+        ?>
+    </div>
+</div>

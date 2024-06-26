@@ -3,7 +3,7 @@
     <div class="apps-auth w-100 d-flex flex-column mb-0">
         <div class="col-12 logo mt-auth-auto text-center pb-5">
             <div class="action-icon text-start ps-0 ps-md-5 ms-4">
-                <a href="<?= base_url()?>">
+                <a href="<?= base_url()?>auth/form_login">
                     <i class="fa-solid fa-arrow-left fs-5 pt-2 pt-md-5"></i>
                 </a>
             </div>

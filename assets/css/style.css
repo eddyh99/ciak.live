@@ -182,25 +182,25 @@
     margin: 0 1rem;
     /* padding: 0.2rem 1rem; */
     font-weight: 500;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 16px;
     color: var(--text-white-color);
 }
 
 .ciak-navbar .menus a.link.button-login {
-    background: linear-gradient(180deg, #016249 0%, #016249 100%);
+    background: linear-gradient(180deg, #016247 0%, #016247 100%);
     border-radius: 99px;
     display: inline-flex;
     /* padding: 1px; */
-    border: 2px solid #016249;
+    border: 2px solid #016247;
 }
 
 .ciak-navbar .menus a.link.button-login.for-agency {
-    background: #6B9E75;
+    background: #016247;
     border-radius: 99px;
     display: inline-flex;
     /* padding: 1px; */
-    border: 2px solid #6B9E75;
+    border: 2px solid #016247;
 }
 
 
@@ -209,7 +209,7 @@
     /* background: #000000; */
     border-radius: 10px;
     width: 100%;
-    padding: 0.75rem 1.5rem;
+    padding: 0.3rem 1.3rem;
     color: var(--text-white-color);
 }
 
@@ -217,16 +217,20 @@
     display: inline-block;
     border-radius: 10px;
     width: 100%;
-    padding: 0.75rem 1.5rem;
-    color: #000000;
+    padding: 0.3rem 1.3rem;
+    color: #ffffff;
+}
+
+.ciak-navbar .menus a.link.button-login.for-agency .black .fa-sign-in-alt,
+.ciak-navbar .menus a.link.button-login .black .fa-pencil-alt {
+    font-size: 16px;
 }
 
 .ciak-navbar .menus a.link.button-login .text {
     text-decoration: none;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 16px;
-
     border-radius: 10px;
     color: var(--text-white-color);
 }
@@ -234,10 +238,10 @@
 .ciak-navbar .menus a.link.button-login.for-agency .text {
     text-decoration: none;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 16px;
     border-radius: 10px;
-    color: var(--bg-primary-color);
+    color: var(--text-white-color);
 }
 
 
@@ -343,19 +347,20 @@
     display: inline-block;
     width: auto;
     text-decoration: none;
-    padding: .5rem 3rem;
+    padding: .2rem 1rem;
     background: #016249;
     box-shadow: -4px -4px 12px rgba(122, 134, 151, 0.201623),
         4px 4px 12px rgba(0, 0, 0, 0.301983);
     border-radius: 999999px;
     color: var(--bg-primary-color);
+    font-size: 14px;
 }
 
 .btn-register-head {
     display: inline-block;
     width: auto;
     text-decoration: none;
-    padding: .5rem 3rem;
+    padding: 0.2rem 1.5rem;
     background: #016249;
     box-shadow: -4px -4px 12px rgba(122, 134, 151, 0.201623),
         4px 4px 12px rgba(0, 0, 0, 0.301983);
@@ -402,10 +407,11 @@
 .btn-register-head .black {
     display: inline-block;
     font-weight: 600;
-    font-size: 16px;
-    line-height: 36px;
+    font-size: 14px;
+    line-height: 30px;
     color: var(--bg-primary-color);
 }
+
 .btn-login .black {
     font-weight: 600;
     font-size: 24px;
@@ -439,13 +445,14 @@
 }
 
 .content .ciak-rainbow h2 {
-    /* font-family: 'Poppins', sans-serif; */
     font-weight: 700;
     font-size: 45px;
-
     color: #FFFFFF;
-
     text-shadow: 3px 3px 8px rgba(129, 88, 82, 0.25);
+}
+
+.content .ciak-rainbow h2 .text-black {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 3px 3px 8px rgba(129, 88, 82, 0.25);
 }
 
 .content .ciak-silver h2.rainbow {
@@ -600,15 +607,14 @@
 }
 
 .content h3 {
-    /* font-family: 'DM Serif Display', serif; */
     font-weight: 400;
-    font-size: 40px;
+    font-size: 32px;
     color: #FFFFFF;
     text-shadow: 3px 3px 8px rgba(129, 88, 82, 0.25);
 }
 
 .content h4 {
-    font-size: 32px;
+    font-size: 24px;
 }
 
 .content p.whyregis {
@@ -647,8 +653,8 @@
 
 .content p {
     font-weight: 400;
-    font-size: 20px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 28px;
     color: var(--text-subheader);
 }
 
@@ -739,15 +745,20 @@
     color: #FFFFFF;
 }
 
+.content .easy-regis .list-check ul {
+    padding-left: 1rem !important;
+}
+
 .content .easy-regis .list-check ul li {
     display: inline-block;
     background-image: url(../img/new-ciak/logo-only.png);
     background-position: top left;
     background-repeat: no-repeat;
-    background-size: auto 35px;
+    background-size: auto 30px;
     padding-left: 3rem;
     font-weight: 400;
     font-size: 16px;
+    line-height: 30px;
     color: var(--text-subheader);
 }
 
@@ -785,7 +796,7 @@
 }
 
 .content .title-typeof {
-    font-size: 30px;
+    font-size: 24px;
     
 }
 
@@ -1078,7 +1089,7 @@
 .content .content-wallet .accordion .accordion-item .accordion-header .accordion-button {
     color: #FFFFFF;
     font-weight: 600;
-    font-size: 28px;
+    font-size: 24px;
     text-align: center;
 }
 
@@ -1213,16 +1224,16 @@
 
 .content .content-wallet .guides ol li,
 .content .content-wallet .guides ul li {
-    font-weight: 600;
+    font-weight: 400;
     font-size: 25px;
-    line-height: 34px;
+    line-height: 24px;
     margin-bottom: 1rem;
     color: var(--text-white-color);
 }
 
 .content .content-wallet .guides .text-profile-subscription {
     font-weight: 600;
-    font-size: 25px;
+    font-size: 20px;
     line-height: 34px;
     margin-bottom: 1rem;
     color: var(--text-white-color);
@@ -1239,7 +1250,7 @@
     margin-bottom: 1rem;
 }
 
-.content .content-wallet .guides p spani.gold {
+.content .content-wallet .guides p span.gold {
     color: #FDC80B;
 }
 
@@ -1269,7 +1280,7 @@
     padding-left: 2.5rem;
     margin-bottom: 2rem;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 16px;
     color: var(--text-subheader);
 }
 
@@ -1562,7 +1573,7 @@ body.dark .content .easy-regis .list-check ul li {
     .content .content-wallet .box-guide-list h3,
     .content .box-title h2,
     .content .link-title h2 {
-        font-size: 32px;
+        font-size: 28px;
     }
 
     .content .content-wallet .accordion .accordion-item .accordion-header h4,
@@ -1578,7 +1589,7 @@ body.dark .content .easy-regis .list-check ul li {
     .content .content-wallet .guides ul li,
     .content .content-wallet .step-payment span,
     .content .content-wallet .step-payment .box-payment p {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .content .content-wallet .step-payment .box-rainbow p,
@@ -1678,7 +1689,7 @@ body.dark .content .easy-regis .list-check ul li {
     }
 
     .ciak-navbar .mobile-menus a.link {
-        margin: 2rem 0;
+        margin: 1.5rem 0;
     }
 
     .ciak-navbar .mobile-menus .btn-close {
@@ -1687,7 +1698,7 @@ body.dark .content .easy-regis .list-check ul li {
         margin-right: 1rem;
         font-size: 36px;
 
-        background: linear-gradient(90deg, #6B9E75 0%, #4FF301 22.5%, #6B9E75 44.46%, #4FF301 69.63%, #6B9E75 96.41%);
+        background: linear-gradient(90deg, #016247 0%, #016247 22.5%, #016247 44.46%, #016247 69.63%, #016247 96.41%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -1726,6 +1737,11 @@ body.dark .content .easy-regis .list-check ul li {
         width: 35px;
         margin: 0 .5rem;
     }
+    .ciak-navbar .menus a.link.button-login .black,
+    .ciak-navbar .menus a.link.button-login.for-agency .black {
+        padding: 0.5rem 1.3rem;
+    }
+    
 }
 
 @media (max-width: 575px) {
@@ -1808,15 +1824,15 @@ body.dark .content .easy-regis .list-check ul li {
     .btn-register {
         margin-bottom: .5rem;
         text-align: center;
-        padding: .5rem 3rem;
-        width: 220px;
+        padding: .5rem 1.5rem;
+        width: auto;
     }
     
     .btn-register-head {
         margin-bottom: 2rem;
         text-align: center;
-        padding: .5rem 1rem;
-        width: 200px;
+        padding: 0.2rem 1rem;
+        width: auto;
     }
     
     .btn-shareit {
@@ -1830,7 +1846,7 @@ body.dark .content .easy-regis .list-check ul li {
     .content h2.rainbow,
     .content .ciak-silver h2,
     .content .ciak-rainbow h2 {
-        font-size: 32px;
+        font-size: 26px;
     }
 
     .content .ciak-silver .list-check ul li {
@@ -1891,7 +1907,7 @@ body.dark .content .easy-regis .list-check ul li {
 
     
     .content p.whyregis {
-        font-size: 18px;
+        font-size: 16px;
     }
     
 }
@@ -1935,7 +1951,7 @@ body.dark .content .easy-regis .list-check ul li {
     }
 
     .content .easy-regis .list-check ul li {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .content .card-diff {
@@ -1957,6 +1973,10 @@ body.dark .content .easy-regis .list-check ul li {
 
     .content .bg-referral .wrap-text-info {
         padding: 8rem;
+    }
+
+    .header p {
+        font-size: 16px;
     }
     
     

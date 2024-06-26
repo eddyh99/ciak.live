@@ -41,7 +41,7 @@
             </div>
             <div class="row my-5">
                 <div class="order-1 col-11 mx-auto col-lg-6">
-                    <h1 class="subtitle text-start f-montserrat">
+                    <h1 class="subtitle text-start f-montserrat mt-3 mt-md-4 mt-lg-0">
                         monetize your passions & skills <br>
                         <span class="f-montserrat">
                             like never before! 
@@ -90,16 +90,16 @@
                 <div class="order-1 col-11 col-lg-7 m-auto list-check">
                     <h3 class="green f-montserrat fw-bold text-capitalize">Fast <span> and </span> Easy <span> Registration</span></h3>
                     <ul>
-                        <li class="my-4">Profile opening free of charge</li>
-                        <li class="my-4">Just an email and a password are required</li>
-                        <li class="mt-4">No personal documents are required for registration, for posting and for buying or selling contents</li>
+                        <li class="my-2 mt-4">Profile opening free of charge</li>
+                        <li class="my-2">Just an email and a password are required</li>
+                        <li class="mt-2">No personal documents are required for registration, for posting and for buying or selling contents</li>
                     </ul>
                     <p class="ps-1 ps-lg-5">
                         Don't miss the opportunity to earn money with what you love doing most. Sign up now on Ciak.live and start your journey to financial success through your passions!
                     </p>
                     <a href="<?= base_url() ?>auth/" class="link btn-register py-2 ms-0 ms-lg-5">
                         <span class="text-white">
-                            <i class="fas fa-pencil-alt"></i>
+                            <i class="fas fa-pencil-alt me-1"></i>
                             Register
                         </span>
                     </a>
@@ -110,7 +110,7 @@
                 </div>
             </div>
             <div class="row py-5">
-                <div class="col-5 d-none d-lg-grid m-auto">
+                <div class="order-0 order-lg-1 col-11 col-lg-5 m-auto">
                     <img src="<?= base_url() ?>assets/img/new-ciak/img-2.png" alt="img-2" class="img-fluid">
                 </div>
                 <div class="col-11 col-lg-5 m-auto">
@@ -434,12 +434,12 @@
                 </div>
             </div>
             
-            <div class="col-12 col-xl-3 d-flex align-items-center justify-content-around justify-content-xl-between my-4">
+            <div class="col-12 col-xl-3 d-flex align-items-end justify-content-around justify-content-xl-between my-4">
                 <a href="<?= base_url()?>link/privacy_police" class="privacy-police-footer">
                     <img class="img-fluid" src="<?= base_url()?>assets/img/new-ciak/powered-mif.png" alt="">
                 </a>
                 <a href="<?= base_url()?>link/term_condition" class="privacy-police-footer">
-                    Term of Service 
+                    Privacy Police
                 </a>
             </div>
 

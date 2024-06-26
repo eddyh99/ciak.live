@@ -158,7 +158,7 @@ class Profile extends CI_Controller
         $maxpost = apiciaklive(URLAPI . "/v1/member/post/getmax_memberpost?ucode=".$ucode);
 
     
-	    // echo "<pre>".print_r($profile,true)."</pre>";
+	    // echo "<pre>".print_r($ucode,true)."</pre>";
         // print_r(json_encode($profile));
         // die;
 
@@ -172,6 +172,39 @@ class Profile extends CI_Controller
             'ucodeguest'    => @$ucode,
             'max_post'      => $maxpost->message,
             'extra'         => 'apps/member/profile/js/_js_guest',
+        );
+
+        $this->load->view('apps/template/wrapper-member', $data);
+    }
+
+    public function guest_subcription($ucode)
+    {
+        if ($ucode==$_SESSION["ucode"]){
+            redirect("profile");
+        }
+		$profile                 = (array) apiciaklive(URLAPI . "/auth/getmember_byucode?ucode=".$ucode)->message;
+
+
+        if(empty($profile['id'])){
+            show_404();
+        }
+
+        $profile["is_follow"]    = apiciaklive(URLAPI . "/v1/member/profile/is_follow?follow_id=".$profile["id"])->message;
+        $profile["is_block"]     = apiciaklive(URLAPI . "/v1/member/profile/is_block?block_id=".$profile["id"])->message;
+        $profile["is_blocked"]   = apiciaklive(URLAPI . "/v1/member/profile/is_blocked?block_id=".$profile["id"])->message;
+        $profile["dayleft"]      = apiciaklive(URLAPI . "/v1/member/subscription/days_subscribe?follow_id=".$profile["id"])->message;
+        $profile["price"]        = apiciaklive(URLAPI . "/v1/member/subscription/getPrice?userid=".$profile["id"])->message;
+        
+        // echo '<pre>'.print_r($profile,true).'</pre>';
+        // die;
+
+
+        $data = array(
+            'title'         => NAMETITLE . ' - Subscription',
+            'content'       => 'apps/member/profile/guest-subscription',
+            'botbar'        => 'apps/member/app-botbar',
+            'extra'         => 'apps/member/profile/js/_js_subscription',
+            'profile'       => $profile
         );
 
         $this->load->view('apps/template/wrapper-member', $data);
@@ -497,8 +530,6 @@ class Profile extends CI_Controller
             "message"   => true
         );
 	    echo json_encode($message);
-        // redirect("profile/guest_profile/".$subscribe_id);
-        // redirect('profile/guest_profile/'.$subscribe_id);
         
     }
     
