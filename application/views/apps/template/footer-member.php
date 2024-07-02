@@ -18,6 +18,7 @@
 <script src="<?= base_url()?>assets/js/jquery.star-rating-svg.js"></script>
 <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
 <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X04ENYHM92"></script>
@@ -286,7 +287,23 @@ if (isset($extra)) {
     // DISABLED BUTTON BUY SPECIAL END 
 
     
-
+    // CREATE QRCODE START
+    document.addEventListener('DOMContentLoaded', function() {
+        var articles = document.querySelectorAll('.card');
+        articles.forEach(function(article, index) {
+            console.log('Article index:', index);  // Debug: print the index
+            var qrText = article.getAttribute('data-qr-text');
+            console.log('QR Text:', qrText);  // Debug: print the QR text
+            var qrCodeContainer = article.querySelector('.qr-code');
+            console.log('QR Code Container:', qrCodeContainer);  // Debug: print the QR code container
+            new QRCode(qrCodeContainer, {
+                text: qrText,
+                width: 100,
+                height: 100
+            });
+        });
+    });
+    // CREATE QRCODE END
     
 </script>
 </body>
