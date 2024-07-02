@@ -40,6 +40,11 @@
                         <a class="position-relative me-2 me-md-3 me-lg-2 me-xl-3 pt-1 d-block" id="toggle-iconpost" data-bs-toggle="offcanvas" href="#additionalProfile" role="button" aria-controls="additionalProfile">
                             <i class="fas fa-ellipsis-v fs-3"></i>
                         </a>
+                        <!-- <a href="<?= base_url() ?>auth/logout" id="logout" class="icon-profile logout ms-auto me-2 me-md-3 me-lg-2 me-xl-3">
+                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.6667 15.7083L19.875 10.5M19.875 10.5L14.6667 5.29166M19.875 10.5H7.375M10.5 15.7083C10.5 16.0162 10.5 16.1702 10.4886 16.3035C10.3696 17.6895 9.34881 18.83 7.98441 19.1013C7.85315 19.1274 7.70002 19.1444 7.39412 19.1784L6.33015 19.2966C4.73175 19.4742 3.93251 19.563 3.29757 19.3599C2.45097 19.0889 1.75981 18.4703 1.39706 17.6588C1.125 17.0502 1.125 16.2461 1.125 14.6378V6.36218C1.125 4.75391 1.125 3.94978 1.39706 3.34116C1.75981 2.52966 2.45097 1.91104 3.29757 1.64013C3.93251 1.43694 4.73172 1.52574 6.33015 1.70334L7.39411 1.82156C7.70013 1.85556 7.85313 1.87256 7.98441 1.89867C9.34881 2.16995 10.3696 3.31045 10.4886 4.69646C10.5 4.82982 10.5 4.98377 10.5 5.29166" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a> -->
                         <div class="offcanvas offcanvas-end profile" tabindex="-1" id="additionalProfile" aria-labelledby="additinalProfileLabel">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title profile" id="additinalProfileLabel"></h5>
@@ -56,10 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="info-profile text-center">
-                <div class="rate-star">
-                    <div class="my-rating" data-rating="<?=round($profile->avgrate,2)?>"></div>
-                </div>
+            <div class="info-profile mx-3">
                 <div class="mt-3 d-flex align-items-cente justify-content-center">
                     <span class="span-text-toogle-explicit">Explicit contents</span>
                      <a class="link px-3" style="z-index: 999;">
@@ -70,40 +72,56 @@
                 </div>
                 <div class="name">
                     <h3 class="mt-2 mb-1">@<?= ucfirst($profile->username)?></h3>
-                    <!-- <h3 class="mt-2 mb-1"><?= @ucfirst($profile->firstname)?> <?= @ucfirst($profile->surename)?></h3> -->
+                    <h3 class="mt-2 mb-1"><?= @ucfirst($profile->firstname)?> <?= @ucfirst($profile->surename)?></h3>
+                    <div class="rate-star">
+                        <div class="my-rating" data-rating="<?=round($profile->avgrate,2)?>"></div>
+                    </div>
                     <?php if (@$profile->is_kontakshare=='yes'){?>
                         <span class="location mb-2"><?=$profile->contact?></span>
                     <?php } ?>
-                    <span class="px-5 mx-5 d-block span-text-toogle-explicit" style="white-space: pre-line;word-wrap: break-word;"><?=$profile->bio?></span>
+                    <span class="span-text-toogle-explicit" style="white-space: pre-line;word-wrap: break-word;">
+                        <?= @$profile->profession?> <small>(proffesion)</small>
+                    </span>
                     <?php if (@$profile->is_emailshare=='yes'){?>
                         <a href="mailto:<?= @$profile->email?>" class="location mb-2"><?=@$profile->email?></a>
                     <?php }?>
+                    <span class="d-block span-text-toogle-explicit" style="white-space: pre-line;word-wrap: break-word;"><?=$profile->bio?></span>
                     <p>
                         <a href="<?=(preg_match("/http/",@$profile->web)>0)?@$profile->web:"https://".@$profile->web?>" target="_blank"><?=@$profile->web?></a>
                     </p>
-                    <span class="px-5 mx-5 mb-4 d-block span-text-toogle-explicit" style="white-space: pre-line;word-wrap: break-word;"><?= @$profile->profession?></span>
                 </div>
             </div>
             
             <div class="action-profile text-center mx-5">
                 <!-- <a class="mx-2" href="<?= base_url() ?>profile/setting_price">Edit Subscription</a> -->
-                <a class="mx-5" id="edit-profile" href="<?= base_url() ?>profile/setting_profile" onclick="checkClassExists()">Edit Profile</a>
+                <a class="mx-0 mx-md-5" id="edit-profile" href="<?= base_url() ?>profile/setting_profile" onclick="checkClassExists()">
+                    <i class="far fa-edit"></i>
+                    Edit Profile
+                </a>
             </div>
 
             <!-- RILL DATA TABS BOTTOM -->
             <div class="tabs-profiles text-center m-3">
                 <ul class="nav nav-tabs d-flex justify-content-between">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#public" id="login-tab" data-bs-toggle="tab">Public</a>
+                        <a class="nav-link active" href="#public" id="login-tab" data-bs-toggle="tab">
+                            <i class="fas fa-globe"></i>
+                        </a>
                     </li>
                     <li class="nav-item ps-4">
-                        <a class="nav-link" href="#private" id="register-tab" data-bs-toggle="tab">Private</a>
+                        <a class="nav-link" href="#private" id="register-tab" data-bs-toggle="tab">
+                            <i class="fas fa-lock"></i>
+                        </a>
                     </li>
                     <li class="nav-item ps-4">
-                        <a class="nav-link" href="#special" id="register-tab" data-bs-toggle="tab">Special</a>
+                        <a class="nav-link" href="#special" id="register-tab" data-bs-toggle="tab">
+                            <i class="far fa-gem"></i>
+                        </a>
                     </li>
                     <li class="nav-item ps-4">
-                        <a class="nav-link" href="#download" id="register-tab" data-bs-toggle="tab">Download</a>
+                        <a class="nav-link" href="#download" id="register-tab" data-bs-toggle="tab">
+                            <i class="far fa-arrow-alt-circle-down"></i>
+                        </a>
                     </li>
                     <!-- <li class="nav-item ps-4">
                         <a class="nav-link" href="#vs" id="register-tab" data-bs-toggle="tab">VS</a>

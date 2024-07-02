@@ -9,7 +9,7 @@
                     </div>
                 </form>
                 <div class="tools-bar ms-3">
-                    <a class="rounded-circle" href="<?= base_url() ?>notification">
+                    <a class="rounded-circle add-border" href="<?= base_url() ?>notification">
                         <i class="fa-regular fa-bell">
                             <?php if(!empty($notif)){ ?>
                                 <span class="buble-red rounded-circle"></span>
@@ -18,6 +18,13 @@
                     </a>
                     <a class="rounded-circle add-border" href="<?= base_url() ?>message">
                         <i class="fa-regular fa-envelope">
+                            <?php if(!empty($notifmsg)){ ?>   
+                                <span class="buble-red rounded-circle"></span>
+                            <?php }?>
+                        </i>
+                    </a>
+                    <a class="rounded-circle add-border" href="">
+                        <i class="fas fa-fire">
                             <?php if(!empty($notifmsg)){ ?>   
                                 <span class="buble-red rounded-circle"></span>
                             <?php }?>

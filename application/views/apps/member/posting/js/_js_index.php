@@ -33,8 +33,13 @@
         vertical-align: middle;
         letter-spacing: .3px;
         text-align: center;
-        background-color: #03B115;
+        background-color: #016247;
         color: #ffffff;
+    }
+
+    .note-editable {
+        background-color: #181A1C; 
+        border-radius: 0px 0px 6px 6px;        
     }
 </style>
 
@@ -63,7 +68,7 @@ Desc        : Modul ini di digunakan untuk melakukan
     * 10. Change Type Post on Image, Video, Attachment
     * 11. Settings Live Show
     * 12. Settings Cam2Cam
-    * 13. Searching Invite Guest
+    * 13. Searching Invite Guesttextarea-post
     * 14. Class Explicit Content
     * 15. Save Set Subscription
     * 16. Show Preview Invite Guest

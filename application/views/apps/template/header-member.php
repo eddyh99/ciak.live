@@ -10,8 +10,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="<?= base_url() ?>assets/img/new-ciak/logo.png" rel="icon">
-    <link href="<?= base_url() ?>assets/img/new-ciak/logo.png" rel="apple-touch-icon">
+    <link href="<?= base_url() ?>assets/img/new-ciak/logo-white.png" rel="icon">
+    <link href="<?= base_url() ?>assets/img/new-ciak/logo-white.png" rel="apple-touch-icon">
     <?php
         $path=explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         if (@$path[2]=='post') {
@@ -62,7 +62,7 @@
 
     <!-- Ciak CSS -->
     <link href="<?= base_url(); ?>assets/css/app-style.css" rel="stylesheet" />
-    <link href="<?= base_url(); ?>assets/css/font-custom.css" rel="stylesheet" />
+    <!-- <link href="<?= base_url(); ?>assets/css/font-custom.css" rel="stylesheet" /> -->
     <link href="<?= base_url(); ?>assets/css/star-rating-svg.css" rel="stylesheet" />
     
     <?php 

@@ -7,7 +7,7 @@
 
 <!-- Ciak CSS -->
 <link href="<?= base_url(); ?>assets/css/app-style.css" rel="stylesheet" />
-<link href="<?= base_url(); ?>assets/css/font-custom.css" rel="stylesheet" />
+<!-- <link href="<?= base_url(); ?>assets/css/font-custom.css" rel="stylesheet" /> -->
 
 <?php 
     if (isset($cssextra)) {

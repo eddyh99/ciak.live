@@ -194,6 +194,7 @@ class Auth extends CI_Controller
 				'ipaddress'=> $this->input->ip_address()
 			);
 
+
 			$url = URLAPI . "/auth/register";
 			$result = apiciaklive($url, json_encode($mdata));
 			if ($result->code == 200) {

@@ -61,10 +61,11 @@
                                         <?php }
                                             if ($posts->id_member!=$_SESSION["user_id"]){
                                         ?>
-                                            <a href="" onclick="popupSendTip('<?=$posts->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($posts->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $posts->id?>" aria-controls="offcanvasBottom">
+                                            <!-- <a href="" onclick="popupSendTip('<?=$posts->id?>')" class="icon color-bp dollar rounded-circle <?php echo ($posts->content_type == 'explicit') ? 'dollar-explicit' : 'dollar-non'?>" data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $posts->id?>" aria-controls="offcanvasBottom">
                                                 <div class="bg-white-dollar rounded-circle"></div>
                                                 <i class="fa-solid fa-euro-sign"></i>
-                                            </a>
+                                            </a> -->
+                                            <a href="" id="sendTipClick" onclick="popupSendTip('<?=$posts->id?>')" class="icon color-bp rounded-circle <?php echo ($posts->content_type == 'explicit') ? 'chart-explicit' : 'chart-nonexplicit'?>"  data-bs-toggle="offcanvas" data-bs-target="#sendTip<?= $posts->id?>" aria-controls="offcanvasBottom"><i class="fa-solid fa-gift "></i></a>
                                         <?php }
                                             if ($posts->id_member!=$_SESSION["user_id"]){
                                         ?>
@@ -723,12 +724,20 @@
                                 <?php } ?>
                                 
                                 <div class="action">
+                                    
+                                    <div class="icon svg share" id="icon-comment" onclick="checkCountComment('<?= $posts->id?>','<?= count($posts->comment)?>')" style="cursor: pointer;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 12H8.01M12 12H12.01M16 12H16.01M21 12C21 16.418 16.97 20 12 20C10.5286 20.005 9.07479 19.6808 7.745 19.051L3 20L4.395 16.28C3.512 15.042 3 13.574 3 12C3 7.582 7.03 4 12 4C16.97 4 21 7.582 21 12Z" stroke="#ECEBED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+
                                     <a href="#" class="icon svg share" data-bs-toggle="offcanvas" data-bs-target="#shareSosmed" aria-controls="offcanvasBottom" onclick="actionShare('<?=$posts->id?>')">
                                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M6.4425 10.1325L11.565 13.1175M11.5575 4.8825L6.4425 7.8675M15.75 3.75C15.75 4.99264 14.7426 6 13.5 6C12.2574 6 11.25 4.99264 11.25 3.75C11.25 2.50736 12.2574 1.5 13.5 1.5C14.7426 1.5 15.75 2.50736 15.75 3.75ZM6.75 9C6.75 10.2426 5.74264 11.25 4.5 11.25C3.25736 11.25 2.25 10.2426 2.25 9C2.25 7.75736 3.25736 6.75 4.5 6.75C5.74264 6.75 6.75 7.75736 6.75 9ZM15.75 14.25C15.75 15.4926 14.7426 16.5 13.5 16.5C12.2574 16.5 11.25 15.4926 11.25 14.25C11.25 13.0074 12.2574 12 13.5 12C14.7426 12 15.75 13.0074 15.75 14.25Z" stroke="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </a>
-                                    <div class="icon svg share" id="icon-comment" onclick="checkCountComment('<?= $posts->id?>','<?= count($posts->comment)?>')" style="cursor: pointer;">
+
+                                    <!-- <div class="icon svg share" id="icon-comment" onclick="checkCountComment('<?= $posts->id?>','<?= count($posts->comment)?>')" style="cursor: pointer;">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_2952_16435)">
                                                 <path d="M10.9727 3.4176C15.3827 3.4176 18.9727 7.0076 18.9727 11.4176C18.9727 15.8276 15.3827 19.4176 10.9727 19.4176C9.79266 19.4176 8.63266 19.1576 7.54266 18.6376C7.27266 18.5076 6.98266 18.4476 6.68266 18.4476C6.49266 18.4476 6.30266 18.4776 6.12266 18.5276L2.92266 19.4676L3.86266 16.2676C4.00266 15.7976 3.96266 15.2876 3.75266 14.8476C3.23266 13.7576 2.97266 12.5976 2.97266 11.4176C2.97266 7.0076 6.56266 3.4176 10.9727 3.4176ZM10.9727 1.4176C5.45266 1.4176 0.972656 5.8976 0.972656 11.4176C0.972656 12.9576 1.33266 14.3976 1.94266 15.7076L-0.0273438 22.4176L6.68266 20.4476C7.99266 21.0576 9.43266 21.4176 10.9727 21.4176C16.4927 21.4176 20.9727 16.9376 20.9727 11.4176C20.9727 5.8976 16.4927 1.4176 10.9727 1.4176Z" fill="white"/>
@@ -740,7 +749,7 @@
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                    </div>
+                                    </div> -->
                                     <!-- <a href="#" class="icon svg vs" title="stitch">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_349_895)">

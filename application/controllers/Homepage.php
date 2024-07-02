@@ -32,10 +32,10 @@ class Homepage extends CI_Controller
         $notifmsg = apiciaklive(URLAPI . "/v1/member/notification/chat_notif");
         $maxpage = apiciaklive(URLAPI . "/v1/member/post/getmax_page");
 		$profile = apiciaklive(URLAPI . "/v1/member/profile/getProfile?userid=".$_SESSION["user_id"])->message;
-        // echo '<pre>'.print_r($post,true).'</pre>';
-        // die;
         $_SESSION['profile'] = $profile->profile;
-        
+
+        // echo '<pre>'.print_r($_SESSION,true).'</pre>';
+        // die;
         $data = array(
             'title'         => NAMETITLE . ' - Homepage',
             'content'       => 'apps/member/app-index',

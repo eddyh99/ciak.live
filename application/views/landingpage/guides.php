@@ -22,62 +22,26 @@
                         How to register
                     </h3>
                 </div>
-                <!-- <div class="row d-flex align-items-stretch">
-                    <div class="col-8 col-sm-6 col-lg-3 mx-auto step-payment">
-                        <div class="p-3 h-100 d-flex flex-column">
-                            <span>STEP 1</span>
-                            <div class="box-rainbow">
-                                <p>Register by using just email and password filling out the form and the confirm</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-8 col-sm-6 col-lg-3 mx-auto step-payment">
-                        <div class="p-3 h-100 d-flex flex-column">
-                            <span>STEP 2</span>
-                            <div class="box-rainbow">
-                                <p>Wait the confirmation email and click on the link received to activate your account</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-8 col-sm-6 col-lg-3 mx-auto step-payment">
-                        <div class="p-3 h-100 d-flex flex-column">
-                            <span>STEP 3</span>
-                            <div class="box-rainbow">
-                                <p>Once you click on the link received you will be redirected to the login page then access
-                                    using the email and password used for registration.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-8 col-sm-6 col-lg-3 mx-auto step-payment">
-                        <div class="p-3 h-100 d-flex flex-column">
-                            <span>STEP 4</span>
-                            <div class="box-rainbow">
-                                <p>Congratulations!<br> Now you can start to set up your profile and start to follow your
-                                    friends</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="wrap-line-horizontal-guide">
                     <div class="line-horizontal-box">
                         <div class="text head pb-2">Step 1</div>
-                        <div class="bullet line"></div>
-                        <div class="text px-5">Register by using just email and password filling out the form and the confirm</div>
+                        <div class="bullet line d-none d-md-inline-block"></div>
+                        <div class="text px-3">Register by using just email and password filling out the form and the confirm</div>
                     </div>
                     <div class="line-horizontal-box">
                         <div class="text head pb-2">Step 2</div>
-                        <div class="bullet line"></div>
-                        <div class="text px-5">Wait the confirmation email and click on the link received to activate your account</div>
+                        <div class="bullet line d-none d-md-inline-block"></div>
+                        <div class="text px-3">Wait the confirmation email and click on the link received to activate your account</div>
                     </div>
                     <div class="line-horizontal-box">
                         <div class="text head pb-2">Step 3</div>
-                        <div class="bullet line"></div>
-                        <div class="text px-5">Once you click on the link received you will be redirected to the login page then access using the email and password used for registration. </div>
+                        <div class="bullet line d-none d-md-inline-block"></div>
+                        <div class="text px-3">Once you click on the link received you will be redirected to the login page then access using the email and password used for registration. </div>
                     </div>
                     <div class="line-horizontal-box">
                         <div class="text head pb-2">Step 4</div>
-                        <div class="bullet"></div>
-                        <div class="text px-5">Congratulations ! Now you can start to set up your profile and start to follow your friends</div>
+                        <div class="bullet d-none d-md-inline-block"></div>
+                        <div class="text px-3">Congratulations ! Now you can start to set up your profile and start to follow your friends</div>
                     </div>
                 </div>
             </div>
@@ -185,7 +149,7 @@
                             <i class="fa fa-star gold"></i>
                             <i class="fa fa-star gold"></i>
                             <i class="fa fa-star gold"></i>
-                            <i class="fa fa-star"></i>
+                            <!-- <i class="fa fa-star gold"></i> -->
                         </span>
                     </p>
 
@@ -211,7 +175,7 @@
             <div class="col-12 content-wallet">
                 <div class="col-10 text-start m-auto guides post">
                     <ol>
-                        <li>To create the new post click the button <span class="px-3"><img src="<?= base_url()?>assets/img/new-ciak/plus-circle.png" alt="plus"></span> on the navigation bar</li>
+                        <li>To create the new post click the button <span class="px-3"><img src="<?= base_url()?>assets/img/new-ciak/logo-only-noborder.png" height="50" alt="plus"></span> on the navigation bar</li>
                         <li>Make a description of your post and upload the file</li>
                         <li class="pt-2">Choose in which section you want to post :</li>
                     </ol>
@@ -328,7 +292,7 @@
             </div>
 
             <div class="d-flex justify-content-end mt-5">
-                <a href="<?= base_url('link/guides/' . base64_encode('5') . '/' . base64_encode('How to use the Chat functions')) ?>" class="btn btn-guide-next px-5">
+                <a href="<?= base_url('link/guides/' . base64_encode('5') . '/' . base64_encode('How to use the Wallet')) ?>" class="btn btn-guide-next px-5">
                     Next
                 </a>
             </div>
@@ -336,6 +300,251 @@
     <?php }?>
 
     <?php if ($menu == '5') {?>
+        <div class="content py-5 py-sm-5">
+            <div class="col-12 content-wallet">
+                <div>
+                    <h5 class="text-center f-montserrat fw-semibold">
+                        <span translate="no"> CIAK.LIVE </span> USE <span style="color: #016247;"> XAUSD </span> FOR ALL PAYMENTS ON THE PLATFORM
+                    </h5>
+                </div>
+                <div class="wrap-line-horizontal-guide">
+                    <div class="line-horizontal-box">
+                        <div class="text head pb-2">Step 1</div>
+                        <div class="bullet line d-none d-md-inline-block"></div>
+                        <div class="text px-3">
+                            Top up your wallet with your favorite 
+                            <span class="fw-semibold" style="color: #016247;"> FIAT </span> 
+                            currency 
+                        </div>
+                    </div>
+                    <div class="line-horizontal-box">
+                        <div class="text head pb-2">Step 2</div>
+                        <div class="bullet line d-none d-md-inline-block"></div>
+                        <div class="text px-3">
+                            Convert any FIAT amount into <span class="fw-semibold" style="color: #016247;"> XAUSD </span>
+                        </div>
+                    </div>
+                    <div class="line-horizontal-box">
+                        <div class="text head pb-2">Step 3</div>
+                        <div class="bullet line d-none d-md-inline-block"></div>
+                        <div class="text px-3">
+                        Buy or sell contents using <span class="fw-semibold" style="color: #016247;"> XAUSD </span>
+                        </div>
+                    </div>
+                    <div class="line-horizontal-box">
+                        <div class="text head pb-2">Step 4</div>
+                        <div class="bullet d-none d-md-inline-block"></div>
+                        <div class="text px-3">
+                            Withdraw your  <span class="fw-semibold" style="color: #016247;"> XAUSD </span> balance into your favorite <span class="fw-semibold" style="color: #016247;"> FIAT </span> currency    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 content-wallet mt-3">
+                <div class="accordion accordion-flush" id="accordionWallet">
+                    <div class="accordion-item my-4">
+                        <div class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTopup" aria-expanded="false" aria-controls="collapseTopup">
+                                How to top up your wallet with FIAT
+                            </button>
+                        </div>
+                        <div id="collapseTopup" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-10 mx-auto">
+                                        <p class="text-center">
+                                            Your wallet is identified through the <span> ‘’Unique Code’’ </span>
+                                            (you can find it in the home page of your wallet) You have to use your <span> Unique Code </span> in order to top up your wallet .
+                                        </p>
+                                        <p class="text-center">
+                                            In order to top up your wallet follow the procedure below:
+                                        </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <ol>
+                                            <li>
+                                                Login into your account and access to your wallet
+                                            </li>
+                                            <li>
+                                                Click on the FIAT currency that you want to receive
+                                            </li>
+                                        </ol>
+                                        <img src="<?= base_url()?>assets/img/new-ciak/mini-1.png" alt="">
+                                        <ul>
+                                            <li>
+                                                After choosing the currency select the bank transfer method (national or international bank transfer)
+                                            </li>
+                                            <li>
+                                                Copy all the fields of the form that you find on the page
+                                            </li>
+                                            <li>
+                                                Paste on your online bank form/bank desk, making sure to copy exactly the
+                                                ‘’Causal’’ (which is your Unique code)  as it identifies the destination wallet
+                                            </li>
+                                            <li>
+                                            Send the bank transfer from your bank
+                                            </li>
+                                            <li>
+                                            Wait for your bank transfer to arrive into your wallet (timeline may vary from banks).
+                                            </li>
+                                            <li>
+                                            Congratulations ! Your money has arrived into your Ciak.Live wallet
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item my-4">
+                        <div class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConvert" aria-expanded="true" aria-controls="collapseConvert">
+                                How to convert FIAT into XEUR to buy contents
+                            </button>
+                        </div>
+                        <div id="collapseConvert" class="accordion-collapse collapse " aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p class="text-center">
+                                    In order to buy contents you have to convert one of your <span class="fw-semibold" style="color: #016247;"> FIAT </span> balances into <span class="fw-semibold" style="color: #016247;"> XEUR </span>.
+                                </p>
+                                <div class="wrap-line-horizontal-guide">
+                                    <div class="line-horizontal-box">
+                                        <div class="text head pb-2">Step 1</div>
+                                        <div class="bullet line d-none d-md-inline-block"></div>
+                                        <div class="text px-3">
+                                            Click The Button Swap And Select The <span class="fw-semibold" style="color: #016247;"> FIAT </span> currency that you  want to convert into <span class="fw-semibold" style="color: #016247;"> XAUSD </span>
+                                            <img src="<?= base_url()?>assets/img/new-ciak/mini-2.png" alt="logo">
+                                        </div>
+                                    </div>
+                                    <div class="line-horizontal-box">
+                                        <div class="text head pb-2">Step 2</div>
+                                        <div class="bullet line d-none d-md-inline-block"></div>
+                                        <div class="text px-3">
+                                            ENTER THE AMOUNT  
+                                            AND YOU WILL SEE IMMEDIATELY THE QUOTATION AND THEN CLICK NEXT
+                                        </div>
+                                    </div>
+                                    <div class="line-horizontal-box">
+                                        <div class="text head pb-2">Step 3</div>
+                                        <div class="bullet line d-none d-md-inline-block"></div>
+                                        <div class="text px-3">
+                                            Make sure that all data ENTERED are correct and then click on the button confirm 
+                                        </div>
+                                    </div>
+                                    <div class="line-horizontal-box">
+                                        <div class="text head pb-2">Step 4</div>
+                                        <div class="bullet d-none d-md-inline-block"></div>
+                                        <div class="text px-3">
+                                            CONGRATULATIONS ! YOU ARE READY TO BUY CONTENTS
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item my-4">
+                        <div class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSell" aria-expanded="false" aria-controls="collapseSell">
+                                How to sell contents
+                            </button>
+                        </div>
+                        <div id="collapseSell" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p class="text-center">
+                                    If you want to <span class="fw-bold text-white"> sell </span> your contents or let your friend make subscription on your profile you just need to :
+                                </p>
+                                <div class="wrap-line-horizontal-guide">
+                                    <div class="line-horizontal-box">
+                                        <div class="text head pb-2">Step 1</div>
+                                        <div class="bullet line d-none d-md-inline-block"></div>
+                                        <div class="text px-3">
+                                            Create contents without any request of personal documents 
+                                        </div>
+                                    </div>
+                                    <div class="line-horizontal-box">
+                                        <div class="text head pb-2">Step 2</div>
+                                        <div class="bullet line d-none d-md-inline-block"></div>
+                                        <div class="text px-3">
+                                            ENTER princes in <span class="fw-semibold" style="color: #016247;"> XAUSD </span> for your live, special, provate ETC...
+                                        </div>
+                                    </div>
+                                    <div class="line-horizontal-box">
+                                        <div class="text head pb-2">Step 3</div>
+                                        <div class="bullet line d-none d-md-inline-block"></div>
+                                        <div class="text px-3">
+                                            Receive instan payments for your creations in <span class="fw-semibold" style="color: #016247;"> XAUSD </span> from buyers
+                                        </div>
+                                    </div>
+                                    <div class="line-horizontal-box">
+                                        <div class="text head pb-2">Step 4</div>
+                                        <div class="bullet d-none d-md-inline-block"></div>
+                                        <div class="text px-3">
+                                            Withdraw any amount of your earnings to any bank account
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item my-4">
+                        <div class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWithdraw" aria-expanded="false" aria-controls="collapseWithdraw">
+                                How To Withdraw Funds
+                            </button>
+                        </div>
+                        <div id="collapseWithdraw" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p class="text-center">
+                                The balance can be withdrawn any time, without a minimum amount request, to any bank account even not under your name, in many different currencies.
+                            </p>
+                            <ol>
+                                <li>
+                                    Access to your wallet 
+                                </li>
+                                <li>
+                                    Click the button ‘” <span class="fw-semibold" style="color: #016247;"> Withdraw </span>’’ on the homepage of your wallet
+                                </li>
+                                <li>
+                                    Enter the <span class="fw-semibold" style="color: #016247;"> XAUSD </span> amount that you want to withdraw
+                                </li>
+                                <li>
+                                    Choose the  <span class="fw-semibold" style="color: #016247;"> FIAT </span> currency that you want to withdraw
+                                </li>
+                                <li>
+                                    Click the button next
+                                </li>
+                                <li>
+                                    Choose your suitable method with what you want to make the withdrawal : <br>
+                                    ‘’ <span class="fw-semibold" style="color: #016247;">International bank transfer</span>’’  or ‘’<span class="fw-semibold" style="color: #016247;">National bank transfer</span>’’
+                                </li>
+                                <li>
+                                Fill the form entering the required bank details
+                                </li>
+                                <li>
+                                    Click continue 
+                                </li>
+                                <li>
+                                    Check that the all the data are correct  and click confirm
+                                </li>
+                                <li>
+                                    Congratulations  your bank transfer has been sent !
+                                </li>
+                            </ol>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-5">
+                <a href="<?= base_url('link/guides/' . base64_encode('6') . '/' . base64_encode('How to use the Chat functions')) ?>" class="btn btn-guide-next px-5">
+                    Next
+                </a>
+            </div>
+        </div>
+
+    <?php }?>
+
+    <?php if ($menu == '6') {?>
         <div class="content py-5 py-sm-5">
             <div class="col-12 content-wallet">
                 <div class="border-top-wallet">

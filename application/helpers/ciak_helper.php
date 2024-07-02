@@ -49,6 +49,10 @@ function balanceadmin($currency)
     return $balance;
 }
 
+function allcurrency(){
+    return ["USDX","EUR", "USD", "AUD","CAD","GBP"];
+}
+
 
 function sendmail($email, $subject, $message)
 {

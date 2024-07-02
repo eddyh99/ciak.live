@@ -27,8 +27,8 @@
     disableAfterRate: true,
     baseUrl: false,
     starGradient: {
-      start: '#FEF7CD',
-      end: '#FF9511'
+      start: '#FDC80B',
+      end: '#FDC80B'
     },
     strokeWidth: 4,
     strokeColor: 'black',

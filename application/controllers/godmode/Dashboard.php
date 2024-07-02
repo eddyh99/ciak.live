@@ -13,7 +13,7 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
-        $currency = ["USDX","EUR", "USD", "AUD","CAD","GBP"];
+        $currency = allcurrency();
         
         $ciak = ciakadmin(URLAPI . "/v1/admin/mwallet/get_ciakBalance")->message;
 
@@ -44,7 +44,10 @@ class Dashboard extends CI_Controller
             }
             array_push($mifbalance,$temp);
         }
-        
+
+        // echo '<pre>'.print_r($_SESSION,true).'</pre>';
+        // die;
+
         $data = array(
             "title"     => NAMETITLE . " - Admin Dashboard",
             "content"   => "admin/dashboard",

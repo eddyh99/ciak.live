@@ -39,25 +39,27 @@ class Topup extends CI_Controller
         $array = array_map('array_filter', $sheetData);
         $array = array_filter($array);
         $input = array_map("unserialize", array_unique(array_map("serialize", $array)));
-        
+		
+
         $i=0;
         $mdata = array();
         foreach ($input as $dt){
             $i++;
             if ($i==1) continue;
             if (strtolower(substr($dt[0], 0, 8)) == strtolower("TRANSFER")) {
-                
-                if (!empty($dt[5])) {
-    						    
+
+				
+				if (!empty($dt[4])) {
+					
 					$temp["admin_id"] = 1;
-                    if (strtolower(substr($dt[5],0,4))=="rcpt"){
+                    if (strtolower(substr($dt[4],0,4))=="rcpt"){
 					    $temp["wise_id"] = substr($dt[0], -8);
-					    $temp["causal"] = substr($dt[5],0,10);
-						$temp["currency"] = $dt[3];
+					    $temp["causal"] = substr($dt[4],0,10);
+						$temp["currency"] = $dt[2];
 						if ($dt[3]=="USD"){
-							$temp["amount"] = $dt[2]-$dt[18];
+							$temp["amount"] = $dt[1]-$dt[18];
 						}else{
-						    $temp["amount"] = $dt[2];
+						    $temp["amount"] = $dt[1];
 						}
     				    $temp["is_proses"]='yes';
     					array_push($mdata, $temp);
@@ -138,12 +140,8 @@ class Topup extends CI_Controller
 			}
 		}
 		
-		print_r($mdata);
-		die;
-		
 		$result = ciakadmin(URLAPI . "/v1/trackless/operations/topup", json_encode($mdata));
-		print_r($result);
-		die;
+
 		if ($result->code != 200) {
 			$this->session->set_flashdata('failed', $result->message);
 			redirect("godmode/topup");

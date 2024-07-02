@@ -6,7 +6,7 @@
                     <i class="fa-solid fa-arrow-left fs-5 "></i>
                 </a>
             </div>
-            <img src="<?= base_url() ?>assets/img/new-ciak/logo.png" alt="Ciak.Live">
+            <img class="img-fluid" src="<?= base_url() ?>assets/img/new-ciak/logo.png" alt="Ciak.Live">
             <h3>Login</h3>
             <?php if (@isset($_SESSION["actived"])) { ?>
                 <span class="text-center text-danger">

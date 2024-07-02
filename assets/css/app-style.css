@@ -30,7 +30,7 @@
 ------------------------------------------------------------*/ 
 :root{
     /* ===== Colors ===== */
-    --text-primary-color: #4FF301;
+    --text-primary-color: #016247;
     --text-white-color: #FFFFFF;
     --bg-primary-color: #000000;
     --shadow-navbar: #ffffff;
@@ -42,19 +42,19 @@
     --bg-auth-primary-color: #00040B;
     --bg-auth-secondary-color: #1A1B1C;
     --bg-auth-input: rgba(255, 255, 255, 0.56);
-    --input-search-homepage: #323436;
+    --input-search-homepage: #000000;
     --nonactive-botbar: rgba(255, 255, 255, 0.5);
-    --editsub-editprof:#03B115;
+    --editsub-editprof:#017A59;
     --nonactive-navlink-profile: #c0c0c0;
     --disable-border-input-profile-setting: rgba(196, 196, 196, 0.45);
     --border-input-profile-setting: #ffffff;
 
-    --hover-btn-profile: #00ef18;
+    --hover-btn-profile: #6B9E75;
     --bg-wallet-homepage: #202020;
-    --hover-editsub-editprof: #1A1B1C;
+    --hover-editsub-editprof: #000000;
 
-    --publish-btn: #03B115;
-    --a-readmore: #00cf15;
+    --publish-btn: #6B9E75;
+    --a-readmore: #6B9E75;
 
     
     /* ====== Transition ====== */
@@ -124,7 +124,7 @@
 /* font-family: 'Poppins', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
 /* font-family: 'Koulen', cursive; */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 /* font-family: 'Inter', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap');
 /* font-family: 'Hanken Grotesk', sans-serif; */
@@ -135,7 +135,7 @@
 }
 
 * {
-    font-family: corporative, 'sans-serif';
+    font-family: "Inter", sans-serif;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
     -moz-user-select: none;
@@ -214,13 +214,13 @@
     border-radius: 999999px;
     padding: .75rem 1rem;
     color: #FFF !important;
-    border: 5px solid #11f127;
+    border: 5px solid #016247;
 }
 
 .btn-main-green {
     text-decoration: none;
     text-align: center;
-    background: linear-gradient(90deg, #03B115 47.56%, #11f127 102.84%);
+    background: linear-gradient(90deg, #016247 47.56%, #016247 102.84%);
     border-radius: 10px;
     padding: .75rem 1rem;
     color: #FFF !important;
@@ -230,12 +230,23 @@
 .btn-main-green:hover {
     text-decoration: none;
     text-align: center;
-    background: linear-gradient(90deg, #11f127 47.56%, #03B115 102.84%);
+    background: linear-gradient(90deg, #016247 47.56%, #016247 102.84%);
     border-radius: 10px;
     padding: .75rem 1rem;
     color: #FFF;
     border: none;
 }
+
+.btn-main-green-outline {
+    text-decoration: none;
+    text-align: center;
+    background: transparent;
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    color: #FFF !important;
+    border: 2px solid #007B59;
+}
+
 
 .btn-cancel-upload {
     text-decoration: none;
@@ -361,7 +372,7 @@
 }
 
 .apps-container.member {
-    background: var(--bg-auth-secondary-color);
+    background: #000000;
     overflow-x: hidden;
 }
 
@@ -500,9 +511,9 @@
     text-align: center;
 }
 
-.apps-container.auth .apps-body .apps-auth .logo img {
+/* .apps-container.auth .apps-body .apps-auth .logo img {
     height: 100px;
-}
+} */
 
 .apps-container.auth .apps-body .apps-auth .logo span {
     display: block;
@@ -516,7 +527,7 @@
 .apps-container.auth .apps-body .apps-auth .logo h3 {
     font-weight: 500;
     font-size: 27px;
-    color: #03B115;
+    color: #016247;
     margin-bottom: 0;
 }
 
@@ -606,17 +617,17 @@
     line-height: 16px;
     text-align: center;
 
-    box-shadow: 0px 4px 7px rgba(69, 146, 218, 0.25);
-    border: 2px solid #03B115;
+    box-shadow: 0px 4px 7px rgba(0, 93, 20, 0.25);
+    border: 2px solid #016247;
     background: transparent;
-    color: #03B115;
+    color: #016247;
 }
 
 .apps-container.auth .apps-body .apps-auth .apps-list-btn a.btn-ciak-o,
 .apps-container.auth .apps-body .apps-auth .apps-list-btn button.btn-ciak-o {
     color: #FFF;
-    border: 2px solid #03B115;
-    background: #03B115;
+    border: 2px solid #016247;
+    background: #016247;
 }
 
 .apps-container.auth .apps-body .apps-auth .apps-list-btn a.btn-ciak-o.bg-gardien,
@@ -693,7 +704,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-    color: #03B115;
+    color: #016247;
 }
 
 .apps-container.auth .apps-body .apps-auth .formbox-grey {
@@ -853,7 +864,7 @@ input[type=number] {
 .nav-tabs .nav-link.active, .nav-tabs .nav-link.active:hover  {
     background-color: transparent !important;
     border: none ;
-    border-bottom: 5px solid #07C21A;
+    border-bottom: 5px solid #6B9572;
     color: var(--text-white-color);
 }
 
@@ -939,6 +950,12 @@ input[type=number] {
     padding: 1rem;
     background: var(--bg-primary-color);
     box-shadow: inset 0px 1px 0px #323436;
+    border-radius: 20px 20px 0px 0px;
+    border-top: 1px solid #5C5C5C;
+    -webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    -ms-border-radius: 20px 20px 0px 0px;
+    -o-border-radius: 20px 20px 0px 0px;
 }
 
 .apps-botbar .apps-member .icon-svg {
@@ -953,6 +970,11 @@ input[type=number] {
 .apps-botbar .apps-member .icon-svg svg {
     height: 25px !important;
     width: 25px !important;
+}
+
+.apps-botbar .apps-member .icon-svg.plus svg {
+    height: 40px !important;
+    width: 40px !important;
 }
 
 .apps-botbar .apps-member .icon-svg.fill svg {
@@ -973,6 +995,7 @@ input[type=number] {
 
 .apps-botbar .apps-member .icon-svg.plus {
     background: linear-gradient(90deg, #03B115 47.56%, #03B115 102.84%);
+    background: transparent;
 }
 
 .apps-botbar .apps-member .icon-svg.plus.stroke svg {
@@ -983,7 +1006,7 @@ input[type=number] {
 /* Top Bar */
 
 .apps-topbar.alerts {
-    background: var(--bg-auth-secondary-color);
+    background: #000000;
 }
 
 .apps-topbar .apps-member {
@@ -998,7 +1021,7 @@ input[type=number] {
 
 
 .apps-topbar .apps-member .search {
-    background: var(--input-search-homepage);
+    background: #323436;
     border-radius: 32px;
     padding: .15rem 1rem;
 
@@ -1053,7 +1076,7 @@ input[type=number] {
     width: 7.5px;
     height: 7.5px;
 
-    background: #F72E8E;
+    background: #007B59;
     border: 1.2px solid #FFF;
 }
 
@@ -1145,7 +1168,7 @@ input[type=number] {
     margin-right: 1rem;
     display: grid;
     align-items: flex-end;
-    background: #03B115;
+    background: #017A59;
     padding: 3px;
     border-radius: 16px;
     cursor: pointer;
@@ -1154,12 +1177,19 @@ input[type=number] {
 
 .apps-container.member .apps-body .apps-adive .somebody img {
     position: absolute;
-    height: 100%;
-    width: 100%;
+    height: 96%;
+    width: 95%;
     object-fit: cover;
     margin-right: 1rem;
     border-radius: 16px;
     cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
 }
 
 .apps-container.member .apps-body .apps-adive .somebody .action .somebody-username {
@@ -1189,7 +1219,7 @@ input[type=number] {
     margin: .5rem auto;
     text-align: center;
 
-    background: linear-gradient(90deg, #03B115 47.56%, #03B115 102.84%);
+    background: linear-gradient(90deg, #6B9E75 47.56%, #6B9E75 102.84%);
     border-radius: 5px;
     border: none;
 
@@ -1214,7 +1244,7 @@ input[type=number] {
 }
 
 .apps-member .post-member {
-    border-top: 1px solid #323436;
+    border-top: 1px solid #6e6e6e;
     padding: 1rem 1rem;
 }
 .apps-member .post-member.border-none {
@@ -1264,9 +1294,9 @@ input[type=number] {
 
 .apps-member .posts-member .post-member .post-header .action a.icon {
     position: relative;
-    width: 35px;
-    height: 35px;
-    font-size: 24px;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1282,9 +1312,21 @@ input[type=number] {
 }
 
 .apps-member .posts-member .post-member .post-header .action a.color-bp.chart-nonexplicit {
-    background: linear-gradient(90deg, #03B115 47.56%, #03B115 102.84%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: linear-gradient(90deg, #000000 47.56%, #000000 102.84%);
+    /* -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    border: 1px solid #323436;
+}
+.apps-member .posts-member .post-member .post-header .action a.color-bp.chart-nonexplicit {
+    background: linear-gradient(90deg, #000000 47.56%, #000000 102.84%);
+    /* -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    border: 1px solid #323436;
+}
+
+.apps-member .posts-member .post-member .post-header .action a.color-bp.chart-nonexplicit .fa-basket-shopping,
+.apps-member .posts-member .post-member .post-header .action a.color-bp.chart-nonexplicit .fa-gift {
+    color: #FFFFFF;
 }
 
 .apps-member .posts-member .post-member .post-header .action a.color-bp.dollar.dollar-explicit {
@@ -1368,7 +1410,7 @@ input[type=number] {
 }
 
 .apps-member .posts-member .post-member .post-body .text a {
-    color: #00cf15;
+    color: #00b482;
     text-decoration: none;
 }
 
@@ -1676,7 +1718,7 @@ input[type=number] {
 }
 
 .popup-bottom .bg-input.tip-nonexplicit {
-    background: linear-gradient(90deg, #4FF301 8.46%, #4FF301 97.98%);
+    background: linear-gradient(90deg, #016247 8.46%, #016247 97.98%);
     padding: 2px;
     display: inline-block;
 }
@@ -1966,7 +2008,7 @@ input[type=number] {
     right: -2px;
     background: linear-gradient(90deg, #000000 47.56%, #000000 102.84%);
     border-radius: 100px;
-    border: 3px solid #03B115;
+    border: 3px solid #017A59;
     z-index: 1;
 }
 
@@ -2026,19 +2068,50 @@ input[type=number] {
     text-decoration: none;
     padding: .5rem 0;
     background: var(--editsub-editprof);
-    border: 1px solid #727477;
+    border: 1px solid #016247;
     border-radius: 30px;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 24px;
     text-align: center;
     color: #ffffff;
 }
 
 .apps-member .action-profile a:hover {
-    border: 1px solid #727477;
+    border: 3px solid #016247;
     color: #ffffff;
     background-color: var(--hover-editsub-editprof);
+}
+
+.apps-member .action-profile .btn-main-green{
+    padding: 0px;
+    border: 1px solid #000000;
+    border-radius: 9999999px;
+    -webkit-border-radius: 9999999px;
+    -moz-border-radius: 9999999px;
+    -ms-border-radius: 9999999px;
+    -o-border-radius: 9999999px;
+}
+
+.apps-member .action-profile .btn-main-green-outline{
+    padding: 0px;
+    border-radius: 9999999px;
+    -webkit-border-radius: 9999999px;
+    -moz-border-radius: 9999999px;
+    -ms-border-radius: 9999999px;
+    -o-border-radius: 9999999px;
+}
+
+.apps-member .action-profile .btn-main-green #user1 {
+    border: none;
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+.apps-member .action-profile .btn-main-green-outline #user1 {
+    border: none;
+    background-color: transparent;
+    color: #FFFFFF;
 }
 
 .apps-member .selection-menus-profile button {
@@ -2173,9 +2246,9 @@ input[type=number] {
 
 
 .apps-member .profile a.icon-profile.shareit {
-    color: #00cf15;
+
     background-color: #000000;
-    border: 1px solid #727477;
+    border: 1px solid #6B9E75;
     border-radius: 32px;
 }
 
@@ -2188,7 +2261,7 @@ input[type=number] {
     margin-top: .75rem;
     color: #FFFFFF;
     background: #000000;
-    border: 1px solid #727477;
+    border: 1px solid #6B9E75;
     border-radius: 32px;
     z-index: 1;
 }
@@ -2204,7 +2277,7 @@ input[type=number] {
     padding: .5rem 1rem;
     border-radius: 5px;
 
-    background: #03B115;
+    background: #017A59;
     color: #FFFFFF;
 
     z-index: 9;
@@ -2344,8 +2417,9 @@ input[type=number] {
 }
 
 .apps-member .biodata .ciak-data-input .btn-green {
-    background: #03B115;
+    background: #017A59;
     border-radius: 10px;
+    border: 2px solid #016247;
     font-weight: 700;
     font-size: 15px;
     line-height: 22px;
@@ -2357,7 +2431,7 @@ input[type=number] {
 }
 
 .apps-member .biodata .ciak-data-input .btn-green:hover {
-    background-color: #05e81c;
+    border: 2px solid #07a175;
 }
 
 .apps-member .biodata .ciak-data-input .btn-border-orange {
@@ -2516,7 +2590,7 @@ input[type=number] {
 }
 
 .apps-member .list-people .people.active {
-    background-color: #03B115;
+    background-color: #016247;
 }
 
 
@@ -2536,10 +2610,11 @@ input[type=number] {
 
 .action-guest-subs .btn-guest-subs {
     padding: 5px 10px;
-    background: linear-gradient(#181A1C, #181A1C) padding-box,
-    linear-gradient(to right, #03B115, #54c45f) border-box;
+    background: linear-gradient(#017A59, #017A59) padding-box,
+    linear-gradient(to right, #016247, #016247) border-box;
     border-radius: 99999px;
     border: 3px solid transparent;
+    font-size: 12px;
 }
 
 .apps-member .text-guest-note {
@@ -2758,7 +2833,7 @@ input[type=number] {
 .apps-member .wrap-posting form .live-schedule-settings .wrap-live-top  input,
 .apps-member .wrap-posting form .live-price-minute .wrap-live-price-minute  input {
     background: var(--input-search-homepage);
-    border-radius: 9999px;
+    border-radius: 4px;
     padding: 0.5rem 1rem;
     display: flex;
     flex-direction: row;
@@ -2766,8 +2841,13 @@ input[type=number] {
     align-items: center;
     border: 1px solid var(--publish-btn);
     color: var(--text-white-color);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
 }
 
+.apps-member .wrap-posting form .live-description .wrap-live-description textarea,
 .apps-member .wrap-posting form .live-description .wrap-live-description input {
     background: var(--input-search-homepage);
     border-radius: 10px;
@@ -2820,13 +2900,23 @@ input[type=number] {
 
 .apps-member .wrap-posting .write-posting .title-optional-post {
     width: 100%;
-    background-color: transparent;
+    background-color: #181A1C;
     box-shadow: none;
     border: none;
-    border-top: 1px solid #ddd;
-    font-size: 32px;
+    font-size: 24px;
     margin-bottom: 70px;
     color: white;
+    padding: 0.5rem;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+
+.apps-member .wrap-posting .write-posting .title-optional-post:focus {
+    border: 1px solid #6B9E75;
 }
 
 .apps-member .wrap-posting .write-posting .title-optional-post::placeholder {
@@ -2834,7 +2924,7 @@ input[type=number] {
 }
 
 .apps-member .wrap-posting .write-posting textarea {
-    background-color: transparent;
+    background-color: #000000 !important;
     border: none;
     color: var(--text-white-color);
     resize: none;
@@ -3246,6 +3336,8 @@ label#label-forsubs {
 
 .article {
     overflow: hidden;
+    padding-left: 1rem;
+    border-left: 2px solid #6B9E75;
 }
   
 .posts-member .post-member .reportpost-wrapper .bg-report {
@@ -3358,7 +3450,7 @@ label#label-forsubs {
 }
 
 .posts-member .post-member .comment .user-input-comment .btn-comment button{
-    color: #00FE1A;    
+    color: #14bf90;    
     box-shadow: none;
     border: none;
     background: none;
@@ -3420,9 +3512,9 @@ label#label-forsubs {
         height: 25px;
     }
 
-    .apps-container.auth .apps-body .apps-auth .logo img {
+    /* .apps-container.auth .apps-body .apps-auth .logo img {
         height: 150px;
-    }
+    } */
 
     .apps-container.auth .apps-body .apps-auth .apps-list-btn a,
     .apps-container.auth .apps-body .apps-auth .apps-list-btn button {
@@ -3652,7 +3744,7 @@ body.dark .switch:before{
 }
 
 body.dark {
-    --text-primary-color: #4FF301;
+    --text-primary-color: #016247;
     --text-white-color: #000000;
     --bg-primary-color: #ffffff;
     --shadow-navbar: #ffffff;
@@ -3667,17 +3759,17 @@ body.dark {
     --bg-auth-input: rgba(209, 209, 209, 0.56);
     --input-search-homepage: #C7C7C7;
     --nonactive-botbar: rgba(22, 22, 22, 0.5);
-    --editsub-editprof: #03B115;
+    --editsub-editprof: #016247;
     --nonactive-navlink-profile: #797979;
     --disable-border-input-profile-setting: rgba(0, 0, 0, 0.45);
     --border-input-profile-setting: rgba(0, 0, 0, 0.45);
 
     --hover-btn-profile: #ffffff;
     --bg-wallet-homepage: #D7D7D7;
-    --hover-editsub-editprof: #03B115;
+    --hover-editsub-editprof: #016247;
 
-    --publish-btn: #03B115;
-    --a-readmore: #00cf15;
+    --publish-btn: #016247;
+    --a-readmore: #016247;
 }
 
 body.explicit .switch-content {
