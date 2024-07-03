@@ -212,7 +212,10 @@
                                                                         if ($imgpost->media_type=='non attach'){
                                                             ?>
                                                             <div class="item">
-                                                                <div class="img">
+                                                                <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                    <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
+                                                                        <div class="qr-code"></div>
+                                                                    <?php }?>
                                                                     <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                         <div class="vid-post">
                                                                             <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -365,7 +368,10 @@
                                                                             if ($imgpost->media_type=='non attach'){
                                                                 ?>
                                                                 <div class="item">
-                                                                    <div class="img">
+                                                                    <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                        <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
+                                                                            <div class="qr-code"></div>
+                                                                        <?php }?>
                                                                         <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                             <div class="vid-post">
                                                                                 <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -403,7 +409,10 @@
                                                                                     if ($imgpost->media_type=='non attach'){
                                                                     ?>
                                                                         <div class="item">
-                                                                            <div class="img">
+                                                                            <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                                <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
+                                                                                    <div class="qr-code"></div>
+                                                                                <?php }?>
                                                                                 <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                                     <div class="vid-post">
                                                                                         <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -501,7 +510,10 @@
                                                                             if ($imgpost->media_type=='non attach'){
                                                                 ?>
                                                                 <div class="item">
-                                                                    <div class="img">
+                                                                    <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                        <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
+                                                                            <div class="qr-code"></div>
+                                                                        <?php }?>
                                                                         <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                             <div class="vid-post">
                                                                                 <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -679,7 +691,8 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
+                            <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
                             <script>
                                 $('.owl-posts').owlCarousel({
                                     loop: false,
@@ -715,6 +728,24 @@
                                         });
                                     })
                                 });
+
+                                // CREATE QRCODE START
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var articles = document.querySelectorAll('.card');
+                                    articles.forEach(function(article, index) {
+                                        console.log('Article index:', index);  // Debug: print the index
+                                        var qrText = article.getAttribute('data-qr-text');
+                                        console.log('QR Text:', qrText);  // Debug: print the QR text
+                                        var qrCodeContainer = article.querySelector('.qr-code');
+                                        console.log('QR Code Container:', qrCodeContainer);  // Debug: print the QR code container
+                                        new QRCode(qrCodeContainer, {
+                                            text: qrText,
+                                            width: 100,
+                                            height: 100,
+                                        });
+                                    });
+                                });
+                                // CREATE QRCODE END
                             </script>
 
                     <?php   

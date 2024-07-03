@@ -480,7 +480,8 @@
                                                                         if($imgpost->media_type=='non attach'){
                                                             ?>
                                                             <div class="item">
-                                                                <div class="img">
+                                                                <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                    <div class="qr-code"></div>
                                                                     <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                         <div class="vid-post">
                                                                             <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -872,7 +873,8 @@
                                                                             if($imgpost->media_type=='non attach'){
                                                                 ?>
                                                                 <div class="item">
-                                                                    <div class="img">
+                                                                    <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                        <div class="qr-code"></div>
                                                                         <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                             <div class="vid-post">
                                                                                 <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -1195,7 +1197,8 @@
                                                                                 if($imgpost->media_type=='non attach'){
                                                                 ?>
                                                                 <div class="item">
-                                                                    <div class="img">
+                                                                    <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                       <div class="qr-code"></div>
                                                                         <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                             <div class="vid-post">
                                                                                 <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -1531,7 +1534,8 @@
                                                                             if($imgpost->media_type=='non attach'){
                                                                 ?>
                                                                 <div class="item">
-                                                                    <div class="img">
+                                                                    <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                        <div class="qr-code"></div>
                                                                         <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                             <div class="vid-post">
                                                                                 <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 

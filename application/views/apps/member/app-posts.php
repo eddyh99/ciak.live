@@ -173,8 +173,8 @@
                                                 <?= @$dt->title_article?>
                                             </h1>
 
-                                            <article data-qr-text="<?=$_SESSION['ipaddress']?>" class="card <?php echo ($dt->content_type == 'explicit') ? 'explicit' : '' ?>">
-                                                <div class="qr-code" id="qr-code-1"></div>
+                                            <article class="<?php echo ($dt->content_type == 'explicit') ? 'explicit' : '' ?>">
+                                                <!-- <div class="qr-code" id="qr-code-1"></div> -->
 
                                                <?php 
                                                     if (!empty($dt->post_media)){
@@ -223,13 +223,17 @@
                                                 ?>
                                             </article>
                                             <div class="owl-carousel owl-posts owl-theme" >
+                                           
                                                 <?php 
                                                     if (!empty($dt->post_media)){
                                                         foreach ($dt->post_media as $imgpost){
                                                             if ($imgpost->media_type=='non attach'){
                                                 ?>
                                                 <div class="item">
-                                                    <div class="img">
+                                                    <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                        <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
+                                                            <div class="qr-code"></div>
+                                                        <?php }?>
                                                         <?php if (substr($imgpost->imgorg,-3) == "mp4"){?>
                                                             <div class="vid-post">
                                                                 <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -311,7 +315,7 @@
                                                 <div class="owl-carousel owl-posts owl-theme" >
                                                     <?php 
                                                         if (!empty($dt->post_media)){
-                                                            foreach ($dt->post_media as $imgpost){
+                                                            foreach ($dt->post_media as $imgpost){ 
                                                                 if ($imgpost->media_type=='non attach'){
 
                                                     ?>
@@ -388,7 +392,10 @@
                                                                 if ($imgpost->media_type=='non attach'){
                                                     ?>
                                                     <div class="item">
-                                                        <div class="img">
+                                                        <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                            <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
+                                                                <div class="qr-code"></div>
+                                                            <?php }?>
                                                             <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                 <div class="vid-post">
                                                                     <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -472,7 +479,10 @@
                                                                         if ($imgpost->media_type=='non attach'){
                                                         ?>
                                                             <div class="item">
-                                                                <div class="img">
+                                                                <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                    <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
+                                                                        <div class="qr-code"></div>
+                                                                    <?php }?>
                                                                     <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                         <div class="vid-post">
                                                                             <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -569,7 +579,10 @@
                                                                 if ($imgpost->media_type=='non attach'){
                                                     ?>
                                                     <div class="item">
-                                                        <div class="img">
+                                                        <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                            <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
+                                                                <div class="qr-code"></div>
+                                                            <?php }?>
                                                             <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                 <div class="vid-post">
                                                                     <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 

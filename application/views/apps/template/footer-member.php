@@ -299,11 +299,12 @@ if (isset($extra)) {
             new QRCode(qrCodeContainer, {
                 text: qrText,
                 width: 100,
-                height: 100
+                height: 100,
             });
         });
     });
     // CREATE QRCODE END
+
     
 </script>
 </body>
