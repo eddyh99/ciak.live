@@ -18,5 +18,6 @@
             input.attr("type", "password");
         }
     });
+    
 
 </script>

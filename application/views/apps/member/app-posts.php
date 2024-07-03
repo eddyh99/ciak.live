@@ -172,8 +172,11 @@
                                              <h1 class="<?php echo (empty($dt->title_article) ? 'd-none' : 'd-block')?>">
                                                 <?= @$dt->title_article?>
                                             </h1>
-                                            <article class="article <?php echo ($dt->content_type == 'explicit') ? 'explicit' : '' ?>">
-                                                <?php 
+
+                                            <article data-qr-text="<?=$_SESSION['ipaddress']?>" class="card <?php echo ($dt->content_type == 'explicit') ? 'explicit' : '' ?>">
+                                                <div class="qr-code" id="qr-code-1"></div>
+
+                                               <?php 
                                                     if (!empty($dt->post_media)){
                                                         foreach ($dt->post_media as $imgpost){
                                                             if ($imgpost->media_type=='attach'){

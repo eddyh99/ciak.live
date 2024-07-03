@@ -72,7 +72,8 @@ class Auth extends CI_Controller
 
 			$mdata = array(
 				'email' => $uname,
-				'password' => sha1($pass)
+				'password' => sha1($pass),
+				'ipaddress'=> $this->input->ip_address()
 			);
 
 			$url = URLAPI . "/auth/signin";
@@ -114,6 +115,7 @@ class Auth extends CI_Controller
 				'referral'  => $result->message->refcode,
 				'token_chat'=> $result->message->token_chat,
 				'time_location' => $result->message->time_location,
+				'ipaddress' => $result->message->ipaddress
 			);
 			
 			if(empty($_COOKIE['content'])){
