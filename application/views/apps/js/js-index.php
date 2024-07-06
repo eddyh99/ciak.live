@@ -29,6 +29,7 @@
  * 8. Readmore For Guest Profile        
  * 9. GSAP Scroll Trigger  
  * 10. Toggle for Content Explicit      
+ * 11. Post Comment      
  */
 
 /*----------------------------------------------------------
@@ -640,21 +641,33 @@ $('body').on('hidden.bs.modal', '.modal', function () {
 /*----------------------------------------------------------
 10. Toggle for Content Explicit Start
 ------------------------------------------------------------*/
-let bodyContentHome = document.querySelector("body"),
-modeToggleContentHome = body.querySelector(".mode-toggle-content");
+let bodyContentHome = document.querySelector("body");
+let modeToggleContentHome = body.querySelector(".mode-toggle-content");
+let rectIconHot = document.querySelector(".hot-explicit rect");
+let pathIconHot = document.querySelector(".hot-explicit path");
     
 
 modeToggleContentHome.addEventListener("click", () =>{
     if(localStorage.getItem("explicit") === 'yes'){
         // console.log('explicit')
+
         window.location = '<?= base_url()?>homepage/get_content_type?type=explicit'
         
     }else if(localStorage.getItem("explicit") === 'no'){
         // console.log('NON')
         window.location = '<?= base_url()?>homepage/get_content_type?type=non'
-        
     }
 });
+
+if(localStorage.getItem("explicit") === 'yes'){
+    // console.log('explicit')
+    rectIconHot.setAttribute("stroke", "#F83B00");
+    pathIconHot.setAttribute("fill", "#F83B00");
+}else if(localStorage.getItem("explicit") === 'no'){
+    rectIconHot.setAttribute("stroke", "#727477");
+    pathIconHot.setAttribute("fill", "#727477");
+}
+
 /*----------------------------------------------------------
 10. Toggle for Content Explicit End
 ------------------------------------------------------------*/
