@@ -525,13 +525,6 @@ $(function() {
         speed: 75,
         collapsedHeight: 95, 
     });
-    // $('.article').readmore({
-    //     speed: 75, 
-    //     collapsedHeight: 95, 
-    //     // moreLink: `<a class="ac" href="#">Read more</a>`, 
-    //     // lessLink: `<a class="ac" href="#">Close</a>`, 
-    // }); 
-
 
     $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
         new Readmore('.article', {

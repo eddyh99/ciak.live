@@ -231,9 +231,7 @@
                                                 ?>
                                                 <div class="item">
                                                     <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
-                                                        <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
-                                                            <div class="qr-code"></div>
-                                                        <?php }?>
+                                                        <div class="qr-code"></div>
                                                         <?php if (substr($imgpost->imgorg,-3) == "mp4"){?>
                                                             <div class="vid-post">
                                                                 <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -393,9 +391,7 @@
                                                     ?>
                                                     <div class="item">
                                                         <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
-                                                            <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
-                                                                <div class="qr-code"></div>
-                                                            <?php }?>
+                                                            <div class="qr-code"></div>
                                                             <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                 <div class="vid-post">
                                                                     <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -480,9 +476,7 @@
                                                         ?>
                                                             <div class="item">
                                                                 <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
-                                                                    <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
-                                                                        <div class="qr-code"></div>
-                                                                    <?php }?>
+                                                                    <div class="qr-code"></div>
                                                                     <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                         <div class="vid-post">
                                                                             <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -580,9 +574,7 @@
                                                     ?>
                                                     <div class="item">
                                                         <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
-                                                            <?php if ($dt->id_member!=$_SESSION["user_id"]){?>
-                                                                <div class="qr-code"></div>
-                                                            <?php }?>
+                                                            <div class="qr-code"></div>
                                                             <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                 <div class="vid-post">
                                                                     <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 

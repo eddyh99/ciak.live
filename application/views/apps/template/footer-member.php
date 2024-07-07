@@ -266,16 +266,6 @@ if (isset($extra)) {
         }, 1000);
     }
 
-    // function setVisible(selector, visible) {
-    //     document.querySelector(selector).style.display = visible ? 'block' : 'none';
-    // }
-
-    // onReady(function() {
-    //     setVisible('.apps-container', true);
-    //     setVisible('#loading', false);
-    // });
-
-
 
     // DISABLED BUTTON BUY SPECIAL START  
     $('.frmspecial').submit(function(){
@@ -293,7 +283,6 @@ if (isset($extra)) {
         articles.forEach(function(article, index) {
             var qrText = article.getAttribute('data-qr-text');
             var qrCodeContainer = article.querySelector('.qr-code');
-            console.log('QR Code Container:', qrCodeContainer);  // Debug: print the QR code container
             new QRCode(qrCodeContainer, {
                 text: qrText,
                 width: 50,
@@ -307,9 +296,6 @@ if (isset($extra)) {
 
                 var randomX = Math.floor(Math.random() * (cardWidth - qrCodeSize + 1));
                 var randomY = Math.floor(Math.random() * (cardHeight - qrCodeSize + 1));
-
-                console.log(randomX);
-                console.log(randomY);
                 
                 qrCodeContainer.style.left = Math.abs(randomX) + 'px';
                 qrCodeContainer.style.top = Math.abs(randomY) + 'px';

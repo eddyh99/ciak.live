@@ -226,7 +226,8 @@
                                                             if ($imgpost->media_type=='non attach'){
                                                 ?>
                                                 <div class="item">
-                                                    <div class="img">
+                                                    <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                        <div class="qr-code"></div>
                                                         <?php if (substr($imgpost->imgorg,-3) == "mp4"){?>
                                                             <div class="vid-post">
                                                                 <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -381,7 +382,8 @@
                                                                 if ($imgpost->media_type=='non attach'){
                                                     ?>
                                                     <div class="item">
-                                                        <div class="img">
+                                                        <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                            <div class="qr-code"></div>
                                                             <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                 <div class="vid-post">
                                                                     <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -418,7 +420,8 @@
                                                                         if ($imgpost->media_type=='non attach'){
                                                         ?>
                                                             <div class="item">
-                                                                <div class="img">
+                                                                <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                                    <div class="qr-code"></div>
                                                                     <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                         <div class="vid-post">
                                                                             <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -503,7 +506,8 @@
                                                                 if ($imgpost->media_type=='non attach'){
                                                     ?>
                                                     <div class="item">
-                                                        <div class="img">
+                                                        <div data-qr-text="<?=$_SESSION['ipaddress']?>" class="img card">
+                                                            <div class="qr-code"></div>
                                                             <?php if (substr($imgpost->imgorg,-3)=="mp4"){?>
                                                                 <div class="vid-post">
                                                                     <video width="100%" height="375" loop poster="" controls controlsList="nodownload" class="d-block mx-auto videoplayer-post"> 
@@ -744,24 +748,74 @@
                 }
             }
         ?>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
         <script>
             $(function() {  
-                    $('.article').readmore({
-                        speed: 75, 
-                        collapsedHeight: 95, 
-                        moreLink: `<a class="ac" href="#">Read more</a>`, 
-                        lessLink: `<a class="ac" href="#">Close</a>`, 
-                    }); 
+                new Readmore('.article', {
+                    speed: 75,
+                    collapsedHeight: 95, 
+                });
+
                 $(document).on( 'shown.bs.tab', 'a[data-bs-toggle=\'tab\']', function (e) {
-                    $('.article').readmore({
-                        speed: 75, 
-                        collapsedHeight: 75, 
-                        moreLink: `<a class="ac" href="#">Read more</a>`, 
-                        lessLink: `<a class="ac" href="#">Close</a>`, 
+                    new Readmore('.article', {
+                        speed: 75,
+                        collapsedHeight: 95, 
                     });
+
                 })
             });
+
+
+            $('.owl-posts').owlCarousel({
+                loop: false,
+                margin: 10,
+                dots: true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:1
+                    },
+                    1000:{
+                        items:1
+                    },
+                    1200:{
+                        items:1
+                    }
+                }
+            });
+
+            var articles = document.querySelectorAll('.card');
+            articles.forEach(function(article, index) {
+                var qrText = article.getAttribute('data-qr-text');
+                var qrCodeContainer = article.querySelector('.qr-code');
+                new QRCode(qrCodeContainer, {
+                    text: qrText,
+                    width: 50,
+                    height: 50,
+                });
+
+                function updateQRCodePosition() {
+                    var cardWidth = article.clientWidth;
+                    var cardHeight = article.clientHeight;
+                    var qrCodeSize = 50; // Width and height of the QR code
+
+                    var randomX = Math.floor(Math.random() * (cardWidth - qrCodeSize + 1));
+                    var randomY = Math.floor(Math.random() * (cardHeight - qrCodeSize + 1));
+                    
+                    qrCodeContainer.style.left = Math.abs(randomX) + 'px';
+                    qrCodeContainer.style.top = Math.abs(randomY) + 'px';
+                }
+
+                updateQRCodePosition();
+
+                setInterval(updateQRCodePosition, 10000);
+
+            });
+
+
         </script>
 
         
